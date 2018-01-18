@@ -3,7 +3,6 @@ const utils = require('./utils')
 
 const vueMarkdown = {
   preprocess: (markdownIt, source) => {
-    console.log(markdownIt.renderer)
     markdownIt.renderer.rules.table_open = function () {
       return '<table class="table">'
     }

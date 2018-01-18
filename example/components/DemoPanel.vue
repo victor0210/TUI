@@ -26,101 +26,14 @@ export default {
 }
 </script>
 
-<style scoped>
-  .hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 0.5em;
-    background: white;
-    color: black;
+<style>
+  section {
+    width: 1000px;
+    margin: auto;
   }
-
-  .hljs-comment,
-  .hljs-quote {
-    color: #800;
+  .demo-block {
+    margin-bottom: 20px;
   }
-
-  .hljs-keyword,
-  .hljs-selector-tag,
-  .hljs-section,
-  .hljs-title,
-  .hljs-name {
-    color: #008;
-  }
-
-  .hljs-variable,
-  .hljs-template-variable {
-    color: #660;
-  }
-
-  .hljs-string,
-  .hljs-selector-attr,
-  .hljs-selector-pseudo,
-  .hljs-regexp {
-    color: #080;
-  }
-
-  .hljs-literal,
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-meta,
-  .hljs-number,
-  .hljs-link {
-    color: #066;
-  }
-
-  .hljs-title,
-  .hljs-doctag,
-  .hljs-type,
-  .hljs-attr,
-  .hljs-built_in,
-  .hljs-builtin-name,
-  .hljs-params {
-    color: #606;
-  }
-
-  .hljs-attribute,
-  .hljs-subst {
-    color: #000;
-  }
-
-  .hljs-formula {
-    background-color: #eee;
-    font-style: italic;
-  }
-
-  .hljs-selector-id,
-  .hljs-selector-class {
-    color: #9B703F
-  }
-
-  .hljs-addition {
-    background-color: #baeeba;
-  }
-
-  .hljs-deletion {
-    background-color: #ffc8bd;
-  }
-
-  .hljs-doctag,
-  .hljs-strong {
-    font-weight: bold;
-  }
-
-  .hljs-emphasis {
-    font-style: italic;
-  }
-
-  .hljs a {
-    color: inherit;
-  }
-
-  .hljs a:focus,
-  .hljs a:hover {
-    color: inherit;
-    text-decoration: underline;
-  }
-
   .demo-container {
     transition: max-height .3s ease;
     overflow: hidden;
@@ -144,6 +57,7 @@ export default {
     font-family: Consolas, Menlo, Courier, monospace;
     line-height: 22px;
     border: none;
+    color: #fafafa;
   }
 
   .docs-trans {
@@ -178,11 +92,12 @@ export default {
 
   .highlight-wrapper {
     display: none;
+    background: #3c3c3c;
   }
 
   .highlight-wrapper p,
   pre {
-    margin: 0;
+    margin: 20px 0;
   }
 
   .highlight-wrapper .hljs {
@@ -227,4 +142,83 @@ export default {
     border: 0;
     height: 548px;
   }
+
+   /*
+    *-------------------------- Highlight Style -----------------------------*/
+
+  /* Tomorrow Night Eighties Theme */
+  /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+  /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+
+  /* Tomorrow Comment */
+  .hljs-comment,
+  .hljs-quote {
+    color: #999999;
+  }
+
+  /* Tomorrow Red */
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class,
+  .hljs-regexp,
+  .hljs-deletion {
+    color: #f2777a;
+  }
+
+  /* Tomorrow Orange */
+  .hljs-number,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params,
+  .hljs-meta,
+  .hljs-link {
+    color: #f99157;
+  }
+
+  /* Tomorrow Yellow */
+  .hljs-attribute {
+    color: #ffcc66;
+  }
+
+  /* Tomorrow Green */
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-addition {
+    color: #99cc99;
+  }
+
+  /* Tomorrow Blue */
+  .hljs-title,
+  .hljs-section {
+    color: #6699cc;
+  }
+
+  /* Tomorrow Purple */
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #cc99cc;
+  }
+
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    background: #2d2d2d;
+    color: #cccccc;
+    padding: 0.5em;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: bold;
+  }
+
 </style>

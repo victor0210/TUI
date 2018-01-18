@@ -1,24 +1,28 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import demoPanel from './components/DemoPanel'
 import router from './router'
+import highlight from 'highlightjs'
 
-import hljs from 'highlightjs'
+// import part of tui
+// import Button from '../src/components/button'
+// Vue.use(Button)
 
+// import the whole tui toolkit
+import Tui from '../src'
+Vue.use(Tui)
+
+// code highlight transform to vue directive
 Vue.directive('hlt', function () {
   let blocks = this.el.querySelectorAll('pre code')
-  Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+  Array.prototype.forEach.call(blocks, highlight.highlightBlock)
 })
 
 Vue.component('demo-panel', demoPanel)
-Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+/* eslint-disable  */
 new Vue({
   el: '#app',
   router,
-  components: {App},
-  template: '<App/>'
+  render: h => h(App)
 })
