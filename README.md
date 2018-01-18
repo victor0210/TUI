@@ -42,4 +42,11 @@ npm run dev
 Button
 
 
-## To Be Expected
+## Todo
+1. Continue to add new component
+2. Github-CI and Issue-Solution
+3. Unit test
+4. Special component design
+
+## Join us
+...
