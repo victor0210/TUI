@@ -32,7 +32,10 @@ export default {
     margin: auto;
   }
   .demo-block {
+    margin-top: 20px;
     margin-bottom: 20px;
+    float: left;
+    width: 100%
   }
   .demo-container {
     transition: max-height .3s ease;
@@ -58,6 +61,12 @@ export default {
     line-height: 22px;
     border: none;
     color: #fafafa;
+  }
+
+  .docs-demo-wrapper {
+    float: left;
+    width: 100%;
+    margin-bottom: 100px;
   }
 
   .docs-trans {
@@ -221,4 +230,30 @@ export default {
     font-weight: bold;
   }
 
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-inverse {
+    background: #6c6c6c;
+  }
+  .bg-cyan {
+    background: #ccc;
+  }
+  .bg-cyan-light {
+    background: #eaeaea;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
 </style>
