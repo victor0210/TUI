@@ -26,3 +26,86 @@
 <t-button type="text" size="sm">text</t-button>
 ```
 :::
+
+## 栅格布局
+<div class="demo-block">
+<t-row>
+  <t-col :span="24"><div class="grid-content bg-inverse"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="12"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="12"><div class="grid-content bg-cyan-light"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="8"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="8"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="8"><div class="grid-content bg-cyan"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan-light"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="4"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan-light"></div></t-col>
+</t-row>
+</div>
+
+::: demo
+```html
+<div class="demo-block">
+<t-row>
+  <t-col :span="24"><div class="grid-content bg-inverse"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="12"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="12"><div class="grid-content bg-cyan-light"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="8"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="8"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="8"><div class="grid-content bg-cyan"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan-light"></div></t-col>
+</t-row>
+<t-row>
+  <t-col :span="4"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan-light"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="4"><div class="grid-content bg-cyan-light"></div></t-col>
+</t-row>
+</div>
+```
+:::
+
+## 栅格布局-gutter
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+  <t-col :span="6"><div class="grid-content bg-cyan"></div></t-col>
+</t-row>
+```

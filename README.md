@@ -39,6 +39,8 @@ npm run dev
 4. Come on ! I'm waiting for you
 
 ## Component Support In v1.0.0
+Row <br>
+Col <br>
 Button
 
 
