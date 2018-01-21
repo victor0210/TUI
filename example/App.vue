@@ -11,7 +11,20 @@
           </form>
         </li>
         <li class="nav-dropDown-container">
-          <a class="nav-link current">学习</a><span class="arrow"></span>
+          <a class="nav-link current">指南</a><span class="arrow"></span>
+          <ul class="nav-dropDown">
+            <li>
+              <ul>
+                <li><a href="/" class="nav-link current">教程</a></li>
+                <li><a href="/" class="nav-link">API</a></li>
+                <li><a href="/" class="nav-link">风格指南 (beta)</a></li>
+                <li><a href="/" class="nav-link">示例</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-dropDown-container">
+          <a class="nav-link current">组件</a><span class="arrow"></span>
           <ul class="nav-dropDown">
             <li>
               <ul>
@@ -33,49 +46,23 @@
             <ul class="menu-root">
               <li><h3>基础</h3></li>
               <li>
-                <a href="/v2/guide/installation.html" class="sidebar-link">安装</a>
+                <a href="/" class="sidebar-link">安装</a>
               </li>
               <li>
-                <a href="/v2/guide/index.html" class="sidebar-link current">介绍</a>
+                <a href="/" class="sidebar-link current">介绍</a>
                 <ul class="menu-sub">
-                  <li><a class="section-link active" data-scroll="" href="#Vue-js-是什么">Vue.js 是什么</a></li>
-                  <li><a class="section-link" data-scroll="" href="#起步">起步</a></li>
-                  <li><a class="section-link" data-scroll="" href="#声明式渲染">声明式渲染</a></li>
-                  <li><a class="section-link" data-scroll="" href="#条件与循环">条件与循环</a></li>
-                  <li><a class="section-link" data-scroll="" href="#处理用户输入">处理用户输入</a></li>
-                  <li><a class="section-link" data-scroll="" href="#组件化应用构建">组件化应用构建</a></li>
+                  <li><a class="section-link active" href="/layout" target="_self">栅格布局</a>
+                  </li>
+                  <li><a href="/button">按钮</a></li>
+                  <li><a href="#声明式渲染">声明式渲染</a></li>
+                  <li><a href="#条件与循环">条件与循环</a></li>
+                  <li><a href="#处理用户输入">处理用户输入</a></li>
+                  <li><a href="#组件化应用构建">组件化应用构建</a></li>
                   <ul>
-                    <li><a class="section-link" data-scroll="" href="#与自定义元素的关系">与自定义元素的关系</a></li>
+                    <li><a href="#与自定义元素的关系">与自定义元素的关系</a></li>
                   </ul>
-                  <li><a class="section-link" data-scroll="" href="#准备好了吗？">准备好了吗？</a></li>
+                  <li><a href="#准备好了吗？">准备好了吗？</a></li>
                 </ul>
-              </li>
-              <li>
-                <a href="/v2/guide/instance.html" class="sidebar-link">Vue 实例</a>
-              </li>
-              <li>
-                <a href="/v2/guide/syntax.html" class="sidebar-link">模板语法</a>
-              </li>
-              <li>
-                <a href="/v2/guide/computed.html" class="sidebar-link">计算属性和观察者</a>
-              </li>
-              <li>
-                <a href="/v2/guide/class-and-style.html" class="sidebar-link">Class 与 Style 绑定</a>
-              </li>
-              <li>
-                <a href="/v2/guide/conditional.html" class="sidebar-link">条件渲染</a>
-              </li>
-              <li>
-                <a href="/v2/guide/list.html" class="sidebar-link">列表渲染</a>
-              </li>
-              <li>
-                <a href="/v2/guide/events.html" class="sidebar-link">事件处理</a>
-              </li>
-              <li>
-                <a href="/v2/guide/forms.html" class="sidebar-link">表单输入绑定</a>
-              </li>
-              <li>
-                <a href="/v2/guide/components.html" class="sidebar-link">组件</a>
               </li>
               <li><h3>过渡 &amp; 动画</h3></li>
               <li>
@@ -91,15 +78,6 @@
               <li>
                 <a href="/v2/guide/custom-directive.html" class="sidebar-link">自定义指令</a>
               </li>
-              <li>
-                <a href="/v2/guide/render-function.html" class="sidebar-link">渲染函数 &amp; JSX</a>
-              </li>
-              <li>
-                <a href="/v2/guide/plugins.html" class="sidebar-link">插件</a>
-              </li>
-              <li>
-                <a href="/v2/guide/filters.html" class="sidebar-link">过滤器</a>
-              </li>
               <li><h3>工具</h3></li>
               <li>
                 <a href="/v2/guide/deployment.html" class="sidebar-link">生产环境部署</a>
@@ -107,20 +85,14 @@
               <li>
                 <a href="/v2/guide/single-file-components.html" class="sidebar-link">单文件组件</a>
               </li>
-              <li>
-                <a href="/v2/guide/unit-testing.html" class="sidebar-link">单元测试</a>
-              </li>
-              <li>
-                <a href="/v2/guide/typescript.html" class="sidebar-link">TypeScript 支持</a>
-              </li>
-              <li><h3>规模化</h3></li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="content"></div>
+      <div class="content">
+        <router-view></router-view>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
@@ -158,14 +130,14 @@ export default {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        right: 30px;
+        right: 60px;
         top: 10px;
         height: 40px;
         line-height: 40px;
         li {
           display: inline-block;
           position: relative;
-          margin: 0 5px;
+          margin: 0 15px;
           #search-form {
             .auto-complete {
               position: relative;
@@ -179,7 +151,6 @@ export default {
                 color: #2c3e50;
                 outline: none;
                 border-radius: 15px;
-                margin-right: 10px;
                 transition: border-color 0.2s ease;
                 background: #fff url(./assets/img/search.png) 8px 5px no-repeat;
                 background-size: 20px;
@@ -271,30 +242,38 @@ export default {
       }
     }
     #main {
-      position: relative;
-      z-index: 1;
-      padding: 0 60px 30px;
-      overflow-x: hidden;
+      padding: 0 190px 0 60px;
       .sidebar {
-        position: absolute;
-        z-index: 10;
-        top: 61px;
-        left: 0;
-        bottom: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
+        width: 190px;
+        height: 1000px;
+        float: left;
         .sidebar-inner {
-          width: 260px;
-          padding: 40px 20px 60px 60px;
+          .list {
+            .menu-root {
+              li {
+                margin-top: 10px;
+                .menu-sub {
+                  font-size: 14px;
+                  li {
+                    margin-top: 5px;
+                  }
+                }
+              }
+            }
+          }
+          ul {
+            padding-left: 15px;
+          }
         }
       }
       .content {
-        position: relative;
-        padding: 2.2em 0 2.2em 50px;
-        max-width: 600px;
+        height: 1000px;
+        min-width: 800px;
+        max-width: 1400px;
+        padding-left: 120px;
+        padding-top: 42px;
         margin: 0 auto;
+        text-align: center;
       }
     }
   }
