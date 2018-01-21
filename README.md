@@ -41,7 +41,8 @@ npm run dev
 ## Component Support In v1.0.0
 Row <br>
 Col <br>
-Button
+Button <br>
+Dialog
 
 
 ## Todo

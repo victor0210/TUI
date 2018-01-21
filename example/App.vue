@@ -103,8 +103,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import "../src/vendor/css/fontawesome.css";
   @import "assets/css/common";
-  @import "assets/css/fontawesome.css";
   @import "../src/styles/index.scss";
 
   .docs {
