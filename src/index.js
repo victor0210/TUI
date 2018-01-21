@@ -1,13 +1,13 @@
-import Toast from './components/toast'
 import Button from './components/button/index'
 import Row from './components/row/index'
 import Col from './components/col/index'
+import Dialog from './components/dialog/index'
 
 const Tui = {
-  Toast,
   Button,
   Row,
-  Col
+  Col,
+  Dialog
 }
 
 const install = function (Vue, opts = {}) {
@@ -17,7 +17,7 @@ const install = function (Vue, opts = {}) {
     Vue.component(name, Tui[key])
   })
 
-  Vue.prototype.$Toast = Toast
+  Vue.prototype.$Dialog = Dialog
 }
 
 // auto install

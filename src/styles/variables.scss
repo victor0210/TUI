@@ -60,6 +60,11 @@ $--border-color-base: #dcdfe6 !default;
 $--border-color-lighter: mix($--color-white, $--border-color-base, 90%) !default;
 
 /**
+ * -------------------------- Index --------------------------
+ */
+$--dialog-mask-index: 1000;
+
+/**
  * -------------------------- Button --------------------------
  */
 $--button-font-size: 14px !default;
@@ -71,7 +76,7 @@ $--button-padding-horizontal: 20px !default;
 $--button-large-font-size: 16px !default;
 $--button-large-border-radius: #{$--border-radius-base + 1} !default;
 $--button-large-padding-vertical: 13px !default;
-$--button-large-padding-horizontal: 30px !default;
+$--button-large-padding-horizontal: 23px !default;
 
 $--button-small-font-size: 12px !default;
 $--button-small-border-radius: #{$--border-radius-base - 1} !default;
@@ -116,6 +121,7 @@ $--button-info-fill: $--color-info !default;
 
 $--button-hover-tint-percent: 20% !default;
 $--button-active-shade-percent: 10% !default;
+$--button-margin-horizontal: 10px !default;
 
 /**
  * -------------------- Grid Contains Row & Col --------------------
@@ -152,6 +158,21 @@ $--breakpoints-spec: (
   'lg-and-down': (max-width: $--xl - 1),
   'xl-only' : (min-width: $--xl),
 );
+
+/**
+ * ---------------------------- Dialog ----------------------------
+ */
+$--dialog-background-color: $--color-white;
+$--dialog-mask-background-color: rgba(55,55,55,.6);
+$--dialog-border-radius: 6px;
+
+$--dialog-content-padding-vertical: 14px;
+$--dialog-content-padding-horizontal: 16px;
+$--dialog-font-size-base: 15px;
+$--dialog-border-base: $--border-base;
+
+$--dialog-header-height: 22px;
+$--dialog-footer-height: 32px;
 
 /**
  *  TODO: add component style flow such as flow except common style like border:

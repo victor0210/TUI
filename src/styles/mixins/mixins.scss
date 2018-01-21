@@ -40,7 +40,8 @@
 
 @mixin when($state) {
   @at-root {
-    &.#{$prefix + $state} {
+    @debug &;
+    &.#{$state-prefix + $state} {
       @content;
     }
   }
