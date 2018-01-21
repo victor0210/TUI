@@ -45,8 +45,6 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
-    "highlight": "^0.2.4",
-    "highlight.js": "^9.12.0",
     "highlightjs": "^9.10.0",
     "html-webpack-plugin": "^2.30.1",
     "jest": "^22.0.4",

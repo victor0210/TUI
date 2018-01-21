@@ -2,6 +2,7 @@
   <button
     class="t-btn"
     @click="handleClick"
+    :icon="icon"
     :disabled="disabled"
     :autofocus="autofocus"
     :type="nativeType"
@@ -10,6 +11,8 @@
       size ? `${classPrefix+size}` : '',
     ]"
   >
+    <i class="t-icon fa fa-spinner" v-if="loading"></i>
+    <i :class="['t-icon',icon]" v-if="icon && !loading"></i>
     <span v-if="$slots.default"><slot></slot></span>
   </button>
 </template>
