@@ -54,42 +54,42 @@
                   <li><a class="section-link active" href="/layout" target="_self">栅格布局</a>
                   </li>
                   <li><a href="/button">按钮</a></li>
-                  <li><a href="#声明式渲染">声明式渲染</a></li>
-                  <li><a href="#条件与循环">条件与循环</a></li>
-                  <li><a href="#处理用户输入">处理用户输入</a></li>
-                  <li><a href="#组件化应用构建">组件化应用构建</a></li>
+                  <li><a href="/">声明式渲染</a></li>
+                  <li><a href="/">条件与循环</a></li>
+                  <li><a href="/">处理用户输入</a></li>
+                  <li><a href="/">组件化应用构建</a></li>
                   <ul>
-                    <li><a href="#与自定义元素的关系">与自定义元素的关系</a></li>
+                    <li><a href="/">与自定义元素的关系</a></li>
                   </ul>
-                  <li><a href="#准备好了吗？">准备好了吗？</a></li>
+                  <li><a href="/">准备好了吗？</a></li>
                 </ul>
               </li>
               <li><h3>过渡 &amp; 动画</h3></li>
               <li>
-                <a href="/v2/guide/transitions.html" class="sidebar-link">进入/离开 &amp; 列表过渡</a>
+                <a href="/" class="sidebar-link">进入/离开 &amp; 列表过渡</a>
               </li>
               <li>
-                <a href="/v2/guide/transitioning-state.html" class="sidebar-link">状态过渡</a>
+                <a href="/" class="sidebar-link">状态过渡</a>
               </li>
               <li><h3>可复用性 &amp; 组合</h3></li>
               <li>
-                <a href="/v2/guide/mixins.html" class="sidebar-link">混合</a>
+                <a href="/" class="sidebar-link">混合</a>
               </li>
               <li>
-                <a href="/v2/guide/custom-directive.html" class="sidebar-link">自定义指令</a>
+                <a href="/" class="sidebar-link">自定义指令</a>
               </li>
               <li><h3>工具</h3></li>
               <li>
-                <a href="/v2/guide/deployment.html" class="sidebar-link">生产环境部署</a>
+                <a href="/" class="sidebar-link">生产环境部署</a>
               </li>
               <li>
-                <a href="/v2/guide/single-file-components.html" class="sidebar-link">单文件组件</a>
+                <a href="/" class="sidebar-link">单文件组件</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="content">
+      <div class="content clearFix">
         <router-view></router-view>
       </div>
     </div>
@@ -242,13 +242,25 @@ export default {
       }
     }
     #main {
+      width: 1200px;
       padding: 0 190px 0 60px;
       .sidebar {
-        width: 190px;
-        height: 1000px;
-        float: left;
+        width: 240px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        margin-top: 80px;
+        transition: padding-top .3s;
+        overflow: hidden;
         .sidebar-inner {
+          margin-bottom: -17px;
+          margin-right: -17px;
+          height: 100%;
+          overflow: scroll;
           .list {
+            overflow: scroll;
+            height: 100%;
+            overflow: scroll;
             .menu-root {
               li {
                 margin-top: 10px;
@@ -270,7 +282,7 @@ export default {
         height: 1000px;
         min-width: 800px;
         max-width: 1400px;
-        padding-left: 120px;
+        padding-left: 270px;
         padding-top: 42px;
         margin: 0 auto;
         text-align: center;
