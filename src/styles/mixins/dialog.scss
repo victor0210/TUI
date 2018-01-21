@@ -1,0 +1,15 @@
+@import "../variables";
+
+@mixin dialog-size($padding-vertical, $padding-horizontal, $font-size) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+}
+
+@mixin dialog-mask(){
+  z-index: $--dialog-mask-index;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

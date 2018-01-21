@@ -20,7 +20,7 @@
   font-weight: $--button-font-weight;
   @include utils-user-select(none);
   & + .t-btn {
-    margin-left: 10px;
+    margin-left: $--button-margin-horizontal;
   }
 
   & .t-icon {
@@ -50,24 +50,45 @@
 
   @include m(primary) {
     @include button-variant($--button-primary-color, $--button-primary-fill, $--button-primary-border);
+    @include when(outline){
+      @include button-variant($--button-primary-fill, $--color-white, $--button-primary-border);
+    }
   }
   @include m(success) {
     @include button-variant($--button-success-color, $--button-success-fill, $--button-success-border);
+    @include when(outline){
+      @include button-variant($--button-success-fill, $--color-white, $--button-success-border);
+    }
   }
   @include m(warning) {
     @include button-variant($--button-warning-color, $--button-warning-fill, $--button-warning-border);
+    @include when(outline){
+      @include button-variant($--button-warning-fill, $--color-white, $--button-warning-border);
+    }
   }
   @include m(danger) {
     @include button-variant($--button-danger-color, $--button-danger-fill, $--button-danger-border);
+    @include when(outline){
+      @include button-variant($--button-danger-fill, $--color-white, $--button-danger-border);
+    }
   }
   @include m(cyan) {
     @include button-variant($--button-cyan-color, $--button-cyan-fill, $--button-cyan-border);
+    @include when(outline){
+      @include button-variant($--button-cyan-fill, $--color-white, $--button-cyan-border);
+    }
   }
   @include m(inverse) {
     @include button-variant($--button-inverse-color, $--button-inverse-fill, $--button-inverse-border);
+    @include when(outline){
+      @include button-variant($--button-inverse-fill, $--color-white, $--button-inverse-border);
+    }
   }
   @include m(info) {
     @include button-variant($--button-info-color, $--button-info-fill, $--button-info-border);
+    @include when(outline){
+      @include button-variant($--button-info-fill, $--color-white, $--button-info-border);
+    }
   }
 
   @include m(lg) {
