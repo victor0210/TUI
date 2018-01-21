@@ -1,0 +1,100 @@
+@import "variables";
+@import "mixins/mixins";
+@import "utils/utils";
+@import "mixins/dialog";
+
+@include b(dialog) {
+  transition: all .2s;
+  opacity: 0;
+  @include e(mask) {
+    @include dialog-mask();
+    background-color: $--dialog-mask-background-color;
+  }
+
+  @include e(wrapper) {
+    @include dialog-mask();
+  }
+
+  @include e(container) {
+    transition: all .2s ease-out;
+    overflow: hidden;
+    margin-top: -10px;
+    width: auto;
+    position: relative;
+    background-color: $--dialog-background-color;
+    border-radius: $--dialog-border-radius;
+  }
+  @include e(header) {
+    color: #fff;
+    @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
+    height: $--dialog-header-height;
+    font-weight: 700;
+
+    @include m(success){
+      background-color: $--color-success;
+    }
+    @include m(warning){
+      background-color: $--color-warning;
+    }
+    @include m(info){
+      background-color: $--color-info;
+    }
+    @include m(danger){
+      background-color: $--color-danger;
+    }
+
+    & span {
+      float: right;
+      cursor: pointer;
+    }
+  }
+
+  @include e(footer) {
+    @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
+    height: $--dialog-footer-height;
+
+    & .t-btn {
+      height: 100%;
+      line-height: 100%;
+      padding-top: 0;
+      padding-bottom: 0;
+      float: right;
+    }
+
+    & .t-btn + .t-btn{
+      margin-left: 0;
+      margin-right: $--button-margin-horizontal;
+    }
+  }
+
+  @include e(content) {
+    @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
+
+    @include m(center) {
+      text-align: center;
+    }
+
+    @include m(right) {
+      text-align: right;
+    }
+
+    @include m(footer) {
+      @include dialog-size($--dialog-content-padding-vertical * 2, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
+    }
+
+    & p {
+      line-height: 32px;
+      word-break: break-all;
+      margin: 0;
+      position: relative;
+      padding-left: 50px;
+      color: $--color-text-primary;
+      i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 32px;
+      }
+    }
+  }
+}

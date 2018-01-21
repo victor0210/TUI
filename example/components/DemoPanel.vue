@@ -239,14 +239,14 @@ export default {
   .el-col {
     border-radius: 4px;
   }
-  .bg-inverse {
+  .bg-black {
     background: #6c6c6c;
   }
-  .bg-cyan {
-    background: #ccc;
+  .bg-gray {
+    background: #7c7c7c;
   }
-  .bg-cyan-light {
-    background: #eaeaea;
+  .bg-gray-light {
+    background: #9c9c9c;
   }
   .grid-content {
     border-radius: 4px;

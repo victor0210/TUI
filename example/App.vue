@@ -104,6 +104,7 @@ export default {
 
 <style lang="scss">
   @import "assets/css/common";
+  @import "assets/css/fontawesome.css";
   @import "../src/styles/index.scss";
 
   .docs {
