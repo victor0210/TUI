@@ -14,6 +14,6 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "assets/css/fontawesome.css";
+  @import "../src/vendor/css/fontawesome.css";
   @import "../src/styles/index.scss";
 </style>
