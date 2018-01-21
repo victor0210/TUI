@@ -242,8 +242,7 @@ export default {
       }
     }
     #main {
-      width: 1200px;
-      padding: 0 190px 0 60px;
+      padding: 0 60px;
       .sidebar {
         width: 240px;
         position: fixed;
