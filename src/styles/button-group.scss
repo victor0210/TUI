@@ -1,0 +1,26 @@
+@import "variables";
+@import "./utils/utils";
+@import "./mixins/index";
+
+@include b(btn-group) {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: $--button-font-weight;
+  border-radius: 20px;
+  overflow: hidden;
+  @include utils-user-select(none);
+
+  & > .t-btn {
+    margin: 0;
+    float: left;
+    border-radius: 0;
+  }
+}
+

@@ -9,8 +9,6 @@
 <t-button type="inverse" size="sm">inverse</t-button>
 <t-button size="sm">default</t-button>
 <t-button type="text" size="sm">text</t-button>
-<br/>
-<br/>
 </div>
 
 ::: demo
@@ -27,14 +25,39 @@
 ```
 :::
 
+## 按钮组
+<div class="demo-block">
+<t-button-group>
+<t-button type="primary">btn1</t-button>
+<t-button type="cyan">btn2</t-button>
+<t-button type="danger">btn3</t-button>
+</t-button-group>
+<t-button-group>
+<t-button type="warning">btn1</t-button>
+<t-button type="inverse">btn2</t-button>
+</t-button-group>
+</div>
+
+::: demo
+```html
+<t-button-group>
+<t-button type="primary">btn1</t-button>
+<t-button type="cyan">btn2</t-button>
+<t-button type="danger">btn3</t-button>
+</t-button-group>
+<t-button-group>
+<t-button type="warning">btn1</t-button>
+<t-button type="inverse">btn2</t-button>
+</t-button-group>
+```
+:::
+
 ## 图标按钮
 <div class="demo-block">
 <t-button type="primary" icon="fa fa-spinner fa-pulse">spinner</t-button>
 <t-button type="cyan" icon="fa fa-asterisk fa-spin">asterisk</t-button>
 <t-button type="warning" icon="fa fa-circle-notch fa-spin">circle-notch</t-button>
 <t-button type="danger" icon="fa fa-sync fa-spin">sync</t-button>
-<br/>
-<br/>
 </div>
 
 :::demo
