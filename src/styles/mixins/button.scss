@@ -1,0 +1,65 @@
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  border-radius: $border-radius;
+}
+
+@mixin button-variant($color, $background-color, $border-color) {
+  color: $color;
+  background-color: $background-color;
+  border-color: $border-color;
+
+  &:hover,
+  &:focus {
+    background: mix($--color-white, $background-color, $--button-hover-tint-percent);
+    border-color: mix($--color-white, $border-color, $--button-hover-tint-percent);
+    color: $color;
+  }
+
+  &:active {
+    background: mix($--color-black, $background-color, $--button-active-shade-percent);
+    border-color: mix($--color-black, $border-color, $--button-active-shade-percent);
+    color: $color;
+    outline: none;
+  }
+}
+
+@mixin button-plain($color) {
+  color: $color;
+  background: mix($--color-white, $color, 90%);
+  border-color: mix($--color-white, $color, 60%);
+
+  &:hover,
+  &:focus {
+    background: $color;
+    border-color: $color;
+    color: $--color-white;
+  }
+
+  &:active {
+    background: mix($--color-black, $color, $--button-active-shade-percent);
+    border-color: mix($--color-black, $color, $--button-active-shade-percent);
+    color: $--color-white;
+    outline: none;
+  }
+}
+
+@mixin button-icon-variant($color, $background-color, $border-color) {
+  color: $color;
+  background-color: $background-color;
+  border-color: $border-color;
+
+  &:hover,
+  &:focus {
+    background: mix($--color-white, $background-color, $--button-hover-tint-percent);
+    border-color: mix($--color-white, $border-color, $--button-hover-tint-percent);
+    color: $color;
+  }
+
+  &:active {
+    background: mix($--color-black, $background-color, $--button-active-shade-percent);
+    border-color: mix($--color-black, $border-color, $--button-active-shade-percent);
+    color: $color;
+    outline: none;
+  }
+}

@@ -1,0 +1,184 @@
+// BEM
+
+/**
+ * -------------------------- Color --------------------------
+ */
+$--color-white: #fff !default;
+$--color-black: #000 !default;
+
+$--color-primary: #409EFF !default;
+$--color-success: #2ecc66 !default;
+$--color-warning: #f4d03d !default;
+$--color-danger: #f56c6c !default;
+$--color-cyan: #17a2b8 !default;
+$--color-info: #3498db !default;
+$--color-inverse: #34495e !default;
+
+$--color-primary-light: mix($--color-white, $--color-primary, 80%) !default;
+$--color-success-light: mix($--color-white, $--color-success, 80%) !default;
+$--color-warning-light: mix($--color-white, $--color-warning, 80%) !default;
+$--color-danger-light: mix($--color-white, $--color-danger, 80%) !default;
+$--color-info-light: mix($--color-white, $--color-info, 80%) !default;
+$--color-cyan-light: mix($--color-white, $--color-cyan, 80%) !default;
+$--color-inverse-light: mix($--color-white, $--color-cyan, 80%) !default;
+
+$--color-primary-lighter: mix($--color-white, $--color-primary, 90%) !default;
+$--color-success-lighter: mix($--color-white, $--color-success, 90%) !default;
+$--color-warning-lighter: mix($--color-white, $--color-warning, 90%) !default;
+$--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
+$--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;
+$--color-cyan-lighter: mix($--color-white, $--color-cyan, 90%) !default;
+$--color-inverse-lighter: mix($--color-white, $--color-cyan, 90%) !default;
+
+$--color-text-primary: #303133 !default;
+$--color-text-regular: #606266 !default;
+$--color-text-secondary: #909399 !default;
+$--color-text-placeholder: #c0c4cc !default;
+
+/**
+ * --------------------------- Font ---------------------------
+ */
+$--font-weight-primary: normal !default;
+
+/**
+ * -------------------------- Border --------------------------
+ */
+$--border-width-base: 1px !default;
+$--border-style-base: solid !default;
+$--border-color-base: #dcdfe6 !default;
+$--border-color-light: #e4e7ed !default;
+$--border-color-lighter: #ebeef5 !default;
+$--border-color-extra-light: #f2f6fc !default;
+$--border-color-hover: $--color-text-placeholder !default;
+$--border-base: $--border-width-base $--border-style-base $--border-color-base !default;
+$--border-radius-base: 4px !default;
+$--border-radius-small: 2px !default;
+$--border-radius-circle: 100% !default;
+
+$--border-radius-base: 5px !default;
+$--border-color-base: #dcdfe6 !default;
+$--border-color-lighter: mix($--color-white, $--border-color-base, 90%) !default;
+
+/**
+ * -------------------------- Index --------------------------
+ */
+$--dialog-mask-index: 1000;
+
+/**
+ * -------------------------- Button --------------------------
+ */
+$--button-font-size: 14px !default;
+$--button-font-weight: $--font-weight-primary !default;
+$--button-border-radius: $--border-radius-base !default;
+$--button-padding-vertical: 12px !default;
+$--button-padding-horizontal: 20px !default;
+
+$--button-large-font-size: 16px !default;
+$--button-large-border-radius: #{$--border-radius-base + 1} !default;
+$--button-large-padding-vertical: 13px !default;
+$--button-large-padding-horizontal: 23px !default;
+
+$--button-small-font-size: 12px !default;
+$--button-small-border-radius: #{$--border-radius-base - 1} !default;
+$--button-small-padding-vertical: 9px !default;
+$--button-small-padding-horizontal: 15px !default;
+
+$--button-default-color: $--color-text-regular !default;
+$--button-default-fill: $--color-white !default;
+$--button-default-border: $--border-color-base !default;
+
+$--button-disabled-color: $--color-text-placeholder !default;
+$--button-disabled-fill: $--color-white !default;
+$--button-disabled-border: $--border-color-lighter !default;
+
+$--button-primary-border: $--color-primary !default;
+$--button-primary-color: $--color-white !default;
+$--button-primary-fill: $--color-primary !default;
+
+$--button-success-border: $--color-success !default;
+$--button-success-color: $--color-white !default;
+$--button-success-fill: $--color-success !default;
+
+$--button-warning-border: $--color-warning !default;
+$--button-warning-color: $--color-white !default;
+$--button-warning-fill: $--color-warning !default;
+
+$--button-danger-border: $--color-danger !default;
+$--button-danger-color: $--color-white !default;
+$--button-danger-fill: $--color-danger !default;
+
+$--button-cyan-border: $--color-cyan !default;
+$--button-cyan-color: $--color-white !default;
+$--button-cyan-fill: $--color-cyan !default;
+
+$--button-inverse-border: $--color-inverse !default;
+$--button-inverse-color: $--color-white !default;
+$--button-inverse-fill: $--color-inverse !default;
+
+$--button-info-border: $--color-info !default;
+$--button-info-color: $--color-white !default;
+$--button-info-fill: $--color-info !default;
+
+$--button-hover-tint-percent: 20% !default;
+$--button-active-shade-percent: 10% !default;
+$--button-margin-horizontal: 10px !default;
+
+/**
+ * -------------------- Grid Contains Row & Col --------------------
+ */
+$--row-min-height: 50px;
+$--row-margin-bottom: 10px;
+
+/**
+ * -------------------------- Beak-Points --------------------------
+ */
+$--sm: 768px !default;
+$--md: 992px !default;
+$--lg: 1200px !default;
+$--xl: 1920px !default;
+
+$--breakpoints: (
+  'xs' : (max-width: $--sm),
+  'sm' : (min-width: $--sm),
+  'md' : (min-width: $--md),
+  'lg' : (min-width: $--lg),
+  'xl' : (min-width: $--xl)
+);
+
+$--breakpoints-spec: (
+  'xs-only' : (max-width: $--sm - 1),
+  'sm-and-up' : (min-width: $--sm),
+  'sm-only': "(min-width: #{$--sm}) and (max-width: #{$--md} - 1)",
+  'sm-and-down': (max-width: $--md - 1),
+  'md-and-up' : (min-width: $--md),
+  'md-only': "(min-width: #{$--md}) and (max-width: #{$--lg } - 1)",
+  'md-and-down': (max-width: $--lg - 1),
+  'lg-and-up' : (min-width: $--lg),
+  'lg-only': "(min-width: #{$--lg}) and (max-width: #{$--xl } - 1)",
+  'lg-and-down': (max-width: $--xl - 1),
+  'xl-only' : (min-width: $--xl),
+);
+
+/**
+ * ---------------------------- Dialog ----------------------------
+ */
+$--dialog-background-color: $--color-white;
+$--dialog-mask-background-color: rgba(55,55,55,.6);
+$--dialog-border-radius: 6px;
+
+$--dialog-content-padding-vertical: 14px;
+$--dialog-content-padding-horizontal: 16px;
+$--dialog-font-size-base: 15px;
+$--dialog-border-base: $--border-base;
+
+$--dialog-header-height: 22px;
+$--dialog-footer-height: 32px;
+
+/**
+ *  TODO: add component style flow such as flow except common style like border:
+ *  //button
+ *  btn-bg-color        :#abcdef
+ *  btn-padding         :10px
+ *  btn-line-height     :some-mix-function(x,y,z)
+ *  btn-border          :border-base
+ */

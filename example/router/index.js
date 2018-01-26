@@ -1,19 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+const Readme = () => import('../README.md')
+const Button = () => import('../pages/button.vue')
+const Layout = () => import('../pages/layout.vue')
+
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: r => require.ensure([], () => r(require('../components/HelloWorld')))
+      name: 'document',
+      component: Readme
     },
     {
-      path: '/test',
-      name: 'test',
-      component: r => require.ensure([], () => r(require('../docs/Hello.md')))
+      path: '/layout',
+      name: 'layout',
+      component: Layout
+    },
+    {
+      path: '/button',
+      name: 'button',
+      component: Button
     }
   ]
 })
