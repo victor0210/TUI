@@ -215,3 +215,162 @@
 <t-button type="danger" @click="this.$Dialog.danger">danger</t-button>
 ```
 :::
+
+## 普通输入框
+<div class="demo-block">
+  <t-row :gutter="20">
+    <t-col :span="5"><t-input placeholder="请输入"/></t-col>
+  </t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="5"><t-input placeholder="请输入"/></t-col>
+</t-row>
+```
+:::
+
+## 设置宽度
+<div class="demo-block">
+  <t-row :gutter="20">
+    <t-col :span="8"><t-input placeholder="请输入" :width="100"/></t-col>
+    <t-col :span="8"><t-input placeholder="请输入" :width="200"/></t-col>
+    <t-col :span="8"><t-input placeholder="请输入" :width="300"/></t-col>
+  </t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="8"><t-input placeholder="请输入" :width="100"/></t-col>
+  <t-col :span="8"><t-input placeholder="请输入" :width="200"/></t-col>
+  <t-col :span="8"><t-input placeholder="请输入" :width="300"/></t-col>
+</t-row>
+```
+:::
+
+## 组合按钮
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="5">
+    <t-input placeholder="default">
+      <t-button slot="suffix" icon="fa fa-search">
+    </t-input>
+  </t-col>
+  <t-col :span="5">
+    <t-input placeholder="primary">
+      <t-button slot="suffix" type="primary" icon="fa fa-search">
+    </t-input>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="5">
+    <t-input placeholder="default">
+      <t-button slot="suffix" icon="fa fa-search">
+    </t-input>
+  </t-col>
+  <t-col :span="5">
+    <t-input placeholder="primary">
+      <t-button slot="suffix" type="primary" icon="fa fa-search">
+    </t-input>
+  </t-col>
+</t-row>
+```
+:::
+
+
+## 组合文字图标
+<div class="demo-block">
+  <t-row :gutter="20">
+   <t-col :span="8">
+     <t-input placeholder="请输入">
+       <p slot="prefix">www.</p>
+     </t-input>
+   </t-col>
+   <t-col :span="8">
+     <t-input placeholder="请输入">
+       <i slot="suffix" class="fa fa-circle-notch fa-spin">
+     </t-input>
+   </t-col>
+   <t-col :span="8">
+     <t-input placeholder="请输入">
+       <p slot="prefix">http://</p>
+       <p slot="suffix">.com</p>
+     </t-input>
+   </t-col>
+  </t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+ <t-col :span="8">
+   <t-input placeholder="请输入">
+     <p slot="prefix">www.</p>
+   </t-input>
+ </t-col>
+ <t-col :span="8">
+   <t-input placeholder="请输入">
+     <i slot="suffix" class="fa fa-circle-notch fa-spin">
+   </t-input>
+ </t-col>
+ <t-col :span="8">
+   <t-input placeholder="请输入">
+     <p slot="prefix">http://</p>
+     <p slot="suffix">.com</p>
+   </t-input>
+ </t-col>
+</t-row>
+```
+:::
+
+
+## 任意组合 
+<div class="demo-block">
+  <t-row :gutter="20">
+    <t-col :span="8">
+      <t-input placeholder="请输入" prependIcon="fa fa-calendar">
+        <p slot="prefix">calendar</p>
+      </t-input>
+    </t-col>
+    <t-col :span="8">
+      <t-input placeholder="请输入" prefixIcon="fa fa-search">
+        <t-button slot="suffix">搜索</t-button>
+      </t-input>
+    </t-col>
+    <t-col :span="8">
+      <t-input placeholder="请输入">
+        <t-button slot="suffix" type="primary" icon="fa fa-search"></t-button>
+        <t-button slot="suffix" type="danger" icon="fa fa-eraser"></t-button>
+      </t-input>
+    </t-col>
+  </t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="8">
+    <t-input placeholder="请输入" prependIcon="fa fa-calendar">
+      <p slot="prefix">calendar</p>
+    </t-input>
+  </t-col>
+  <t-col :span="8">
+    <t-input placeholder="请输入" prefixIcon="fa fa-search">
+      <t-button slot="suffix">搜索</t-button>
+    </t-input>
+  </t-col>
+  <t-col :span="8">
+    <t-input placeholder="请输入">
+      <t-button slot="suffix" type="primary" icon="fa fa-search"></t-button>
+      <t-button slot="suffix" type="danger" icon="fa fa-eraser"></t-button>
+    </t-input>
+  </t-col>
+</t-row>
+```
+:::
