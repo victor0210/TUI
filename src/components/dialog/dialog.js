@@ -48,27 +48,37 @@ Dialog.initial = properties => {
     Instance[key] = _props[key]
   })
 
-  const dialogDomStyle = component.$el.style
   const dialogContainerStyle = document.querySelector('.t-dialog__container').style
+  const dialogMaskStyle = document.querySelector('.t-dialog__mask').style
   const bodyDomStyle = document.body.style
 
-  const domOutTransition = function () {
-    dialogDomStyle.opacity = '0'
-
-    dialogContainerStyle.marginTop = '-10px'
-
-    bodyDomStyle.overflow = ''
-  }
-
-  const domInTransition = function () {
-    dialogDomStyle.opacity = '1'
-
+  const domInit = function () {
     dialogContainerStyle.top = `${Instance.top}px`
     dialogContainerStyle.width = `${Instance.width}px`
     dialogContainerStyle.margin = 'auto'
-    dialogContainerStyle.marginTop = '0'
+    dialogContainerStyle.marginTop = '-10px'
+
+    dialogMaskStyle.opacity = 0
+  }
+
+  domInit()
+
+  const domOutTransition = function () {
+    dialogContainerStyle.marginTop = '-10px'
+    dialogContainerStyle.opacity = 0
+
+    bodyDomStyle.overflow = ''
+
+    dialogMaskStyle.opacity = 0
+  }
+
+  const domInTransition = function () {
+    dialogContainerStyle.marginTop = 0
+    dialogContainerStyle.opacity = 1
 
     bodyDomStyle.overflow = 'hidden'
+
+    dialogMaskStyle.opacity = 1
   }
 
   return {
