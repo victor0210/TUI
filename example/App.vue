@@ -1,98 +1,99 @@
 <template>
   <div id="app" class="docs">
-    <div id="header" class="clearFix">
-      <router-link to="/" id="logo">TUI</router-link>
-      <ul id="nav">
-        <li>
-          <form id="search-form">
-            <span class="auto-complete">
-              <input type="text" class="search-query">
-            </span>
-          </form>
-        </li>
-        <li class="nav-dropDown-container">
-          <a class="nav-link current">指南</a><span class="arrow"></span>
-          <ul class="nav-dropDown">
-            <li>
-              <ul>
-                <li><a href="/" class="nav-link current">教程</a></li>
-                <li><a href="/" class="nav-link">API</a></li>
-                <li><a href="/" class="nav-link">风格指南 (beta)</a></li>
-                <li><a href="/" class="nav-link">示例</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-dropDown-container">
-          <a class="nav-link current">组件</a><span class="arrow"></span>
-          <ul class="nav-dropDown">
-            <li>
-              <ul>
-                <li><a href="/" class="nav-link current">教程</a></li>
-                <li><a href="/" class="nav-link">API</a></li>
-                <li><a href="/" class="nav-link">风格指南 (beta)</a></li>
-                <li><a href="/" class="nav-link">示例</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div id="main">
-      <div class="sidebar">
-        <div class="sidebar-inner">
-          <div class="list">
-            <h2>教程</h2>
-            <ul class="menu-root">
-              <li><h3>基础</h3></li>
-              <li>
-                <a href="/" class="sidebar-link">安装</a>
-              </li>
-              <li>
-                <a href="/" class="sidebar-link current">介绍</a>
-                <ul class="menu-sub">
-                  <li><a class="section-link active" href="/layout" target="_self">栅格布局</a>
-                  </li>
-                  <li><a href="/button">按钮</a></li>
-                  <li><a href="#声明式渲染">声明式渲染</a></li>
-                  <li><a href="#条件与循环">条件与循环</a></li>
-                  <li><a href="#处理用户输入">处理用户输入</a></li>
-                  <li><a href="#组件化应用构建">组件化应用构建</a></li>
-                  <ul>
-                    <li><a href="#与自定义元素的关系">与自定义元素的关系</a></li>
-                  </ul>
-                  <li><a href="#准备好了吗？">准备好了吗？</a></li>
-                </ul>
-              </li>
-              <li><h3>过渡 &amp; 动画</h3></li>
-              <li>
-                <a href="/v2/guide/transitions.html" class="sidebar-link">进入/离开 &amp; 列表过渡</a>
-              </li>
-              <li>
-                <a href="/v2/guide/transitioning-state.html" class="sidebar-link">状态过渡</a>
-              </li>
-              <li><h3>可复用性 &amp; 组合</h3></li>
-              <li>
-                <a href="/v2/guide/mixins.html" class="sidebar-link">混合</a>
-              </li>
-              <li>
-                <a href="/v2/guide/custom-directive.html" class="sidebar-link">自定义指令</a>
-              </li>
-              <li><h3>工具</h3></li>
-              <li>
-                <a href="/v2/guide/deployment.html" class="sidebar-link">生产环境部署</a>
-              </li>
-              <li>
-                <a href="/v2/guide/single-file-components.html" class="sidebar-link">单文件组件</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <router-view></router-view>
-      </div>
-    </div>
+    <router-view></router-view>
+    <!--<div id="header" class="clearFix">-->
+      <!--<router-link to="/" id="logo">TUI</router-link>-->
+      <!--<ul id="nav">-->
+        <!--<li>-->
+          <!--<form id="search-form">-->
+            <!--<span class="auto-complete">-->
+              <!--<input type="text" class="search-query">-->
+            <!--</span>-->
+          <!--</form>-->
+        <!--</li>-->
+        <!--<li class="nav-dropDown-container">-->
+          <!--<a class="nav-link current">指南</a><span class="arrow"></span>-->
+          <!--<ul class="nav-dropDown">-->
+            <!--<li>-->
+              <!--<ul>-->
+                <!--<li><a href="/" class="nav-link current">教程</a></li>-->
+                <!--<li><a href="/" class="nav-link">API</a></li>-->
+                <!--<li><a href="/" class="nav-link">风格指南 (beta)</a></li>-->
+                <!--<li><a href="/" class="nav-link">示例</a></li>-->
+              <!--</ul>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="nav-dropDown-container">-->
+          <!--<a class="nav-link current">组件</a><span class="arrow"></span>-->
+          <!--<ul class="nav-dropDown">-->
+            <!--<li>-->
+              <!--<ul>-->
+                <!--<li><a href="/" class="nav-link current">教程</a></li>-->
+                <!--<li><a href="/" class="nav-link">API</a></li>-->
+                <!--<li><a href="/" class="nav-link">风格指南 (beta)</a></li>-->
+                <!--<li><a href="/" class="nav-link">示例</a></li>-->
+              <!--</ul>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <!--<div id="main">-->
+      <!--<div class="sidebar">-->
+        <!--<div class="sidebar-inner">-->
+          <!--<div class="list">-->
+            <!--<h2>教程</h2>-->
+            <!--<ul class="menu-root">-->
+              <!--<li><h3>基础</h3></li>-->
+              <!--<li>-->
+                <!--<a href="/" class="sidebar-link">安装</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="/" class="sidebar-link current">介绍</a>-->
+                <!--<ul class="menu-sub">-->
+                  <!--<li><a class="section-link active" href="/layout" target="_self">栅格布局</a>-->
+                  <!--</li>-->
+                  <!--<li><a href="/button">按钮</a></li>-->
+                  <!--<li><a href="#声明式渲染">声明式渲染</a></li>-->
+                  <!--<li><a href="#条件与循环">条件与循环</a></li>-->
+                  <!--<li><a href="#处理用户输入">处理用户输入</a></li>-->
+                  <!--<li><a href="#组件化应用构建">组件化应用构建</a></li>-->
+                  <!--<ul>-->
+                    <!--<li><a href="#与自定义元素的关系">与自定义元素的关系</a></li>-->
+                  <!--</ul>-->
+                  <!--<li><a href="#准备好了吗？">准备好了吗？</a></li>-->
+                <!--</ul>-->
+              <!--</li>-->
+              <!--<li><h3>过渡 &amp; 动画</h3></li>-->
+              <!--<li>-->
+                <!--<a href="/v2/guide/transitions.html" class="sidebar-link">进入/离开 &amp; 列表过渡</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="/v2/guide/transitioning-state.html" class="sidebar-link">状态过渡</a>-->
+              <!--</li>-->
+              <!--<li><h3>可复用性 &amp; 组合</h3></li>-->
+              <!--<li>-->
+                <!--<a href="/v2/guide/mixins.html" class="sidebar-link">混合</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="/v2/guide/custom-directive.html" class="sidebar-link">自定义指令</a>-->
+              <!--</li>-->
+              <!--<li><h3>工具</h3></li>-->
+              <!--<li>-->
+                <!--<a href="/v2/guide/deployment.html" class="sidebar-link">生产环境部署</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="/v2/guide/single-file-components.html" class="sidebar-link">单文件组件</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="content">-->
+        <!--<router-view></router-view>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </template>
 
@@ -104,10 +105,10 @@ export default {
 
 <style lang="scss">
   @import "../src/vendor/css/fontawesome.css";
-  @import "assets/css/common";
+  /*@import "assets/css/common";*/
   @import "../src/styles/index.scss";
 
-  .docs {
+  /*.docs {
     padding-top: 61px;
     #header {
       position: fixed;
@@ -277,6 +278,6 @@ export default {
         text-align: center;
       }
     }
-  }
+  }*/
 
 </style>
