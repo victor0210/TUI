@@ -5,6 +5,7 @@
  */
 $--color-white: #fff !default;
 $--color-black: #000 !default;
+$--color-gray: #555 !default;
 
 $--color-primary: #409EFF !default;
 $--color-success: #2ecc66 !default;
@@ -39,6 +40,7 @@ $--color-text-placeholder: #c0c4cc !default;
  * --------------------------- Font ---------------------------
  */
 $--font-weight-primary: normal !default;
+$--font-size-base: 14px !default;
 
 /**
  * -------------------------- Border --------------------------
@@ -55,7 +57,6 @@ $--border-radius-base: 4px !default;
 $--border-radius-small: 2px !default;
 $--border-radius-circle: 100% !default;
 
-$--border-radius-base: 5px !default;
 $--border-color-base: #dcdfe6 !default;
 $--border-color-lighter: mix($--color-white, $--border-color-base, 90%) !default;
 
@@ -128,10 +129,23 @@ $--button-margin-horizontal: 10px !default;
 
 $--button-outline-hover-tint-percent: 90% !default;
 $--button-outline-hover-shade-percent: 95% !default;
+
 /**
  * ------------------------- Button Group --------------------------
  */
 $--button-group-border-radius: 23px !default;
+
+/**
+ * ------------------------- Button Group --------------------------
+ */
+$--input-height-base: 40px !default;
+$--input-min-width: 150px !default;
+$--input-border: $--border-base;
+$--input-border-radius: $--border-radius-base !default;
+$--input-padding: 4px 11px;
+$--input-addon-color: rgba(0, 0, 0, 0.65);
+$--input-addon-padding: 0 10px;
+$--input-icon-width: 30px;
 
 /**
  * -------------------- Grid Contains Row & Col --------------------

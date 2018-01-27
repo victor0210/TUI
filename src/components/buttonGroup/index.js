@@ -1,7 +1,7 @@
 import ButtonGroup from './buttonGroup'
 
 ButtonGroup.install = function (Vue) {
-  if (this.installed) return
+  if (this.install.installed) return
   Vue.component(ButtonGroup.name, ButtonGroup)
 }
 
