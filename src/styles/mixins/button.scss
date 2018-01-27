@@ -1,7 +1,12 @@
-@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $border-radius, $border-round-radius) {
   padding: $padding-vertical $padding-horizontal;
   font-size: $font-size;
   border-radius: $border-radius;
+
+  &.is-round {
+    border-radius: $border-round-radius;
+    padding: $padding-vertical $padding-horizontal;
+  }
 }
 
 @mixin button-variant($color, $background-color, $border-color) {
@@ -22,8 +27,37 @@
     color: $color;
     outline: none;
   }
+
+  &.is-outline {
+    background-color: $--color-white;
+    border-color: $background-color;
+    color: $background-color;
+    &:hover,
+    &:focus {
+      background-color: mix($--color-white, $background-color, 90%);
+    }
+
+    &:active{
+      color: $--color-white;
+      background-color: mix($--color-white, $background-color, 10%);
+    }
+  }
+
+  &.is-disabled {
+    @include button-disabled($background-color)
+  }
 }
 
+@mixin button-disabled($fill-color){
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    color: mix($--color-white, $fill-color, 40%);
+    background-color: mix($--color-white, $fill-color, 90%);
+    border-color: mix($--color-white, $fill-color, 80%);
+  }
+}
 @mixin button-plain($color) {
   color: $color;
   background: mix($--color-white, $color, 90%);

@@ -14,7 +14,8 @@ const Tui = {
   Col,
   Input,
   CheckBox,
-  CheckBoxGroup
+  CheckBoxGroup,
+  Input
 }
 
 const install = function (Vue, opts = {}) {

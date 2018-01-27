@@ -9,6 +9,9 @@
     :class="[
       type ? `${classPrefix+type}` : '',
       size ? `${classPrefix+size}` : '',
+      disabled ? 'is-disabled' : '',
+      round ? 'is-round' : '',
+      outline ? 'is-outline' : ''
     ]"
   >
     <i class="t-icon fa fa-spinner" v-if="loading"></i>
@@ -41,7 +44,7 @@ export default {
     },
     loading: Boolean,
     disabled: Boolean,
-    plain: Boolean,
+    outline: Boolean,
     autofocus: Boolean,
     round: Boolean
   },

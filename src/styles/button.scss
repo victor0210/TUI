@@ -29,7 +29,7 @@
     }
   }
 
-  @include button-size($--button-padding-vertical, $--button-padding-horizontal, $--button-font-size, $--button-border-radius);
+  @include button-size($--button-padding-vertical, $--button-padding-horizontal, $--button-font-size, $--button-border-radius, $--button-round-border-radius);
 
   &:hover,
   &:focus {
@@ -48,54 +48,54 @@
     border: 0;
   }
 
-  @include m(primary) {
-    @include button-variant($--button-primary-color, $--button-primary-fill, $--button-primary-border);
-    @include when(outline){
-      @include button-variant($--button-primary-fill, $--color-white, $--button-primary-border);
-    }
+  @include when(round) {
+    border-radius: 20px;
+    padding: 12px 23px;
   }
-  @include m(success) {
-    @include button-variant($--button-success-color, $--button-success-fill, $--button-success-border);
-    @include when(outline){
-      @include button-variant($--button-success-fill, $--color-white, $--button-success-border);
+
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus {
+      color: $--button-disabled-color;
+      cursor: not-allowed;
+      background-image: none;
+      background-color: $--button-disabled-fill;
+      border-color: $--button-disabled-border;
     }
-  }
-  @include m(warning) {
-    @include button-variant($--button-warning-color, $--button-warning-fill, $--button-warning-border);
-    @include when(outline){
-      @include button-variant($--button-warning-fill, $--color-white, $--button-warning-border);
-    }
-  }
-  @include m(danger) {
-    @include button-variant($--button-danger-color, $--button-danger-fill, $--button-danger-border);
-    @include when(outline){
-      @include button-variant($--button-danger-fill, $--color-white, $--button-danger-border);
-    }
-  }
-  @include m(cyan) {
-    @include button-variant($--button-cyan-color, $--button-cyan-fill, $--button-cyan-border);
-    @include when(outline){
-      @include button-variant($--button-cyan-fill, $--color-white, $--button-cyan-border);
-    }
-  }
-  @include m(inverse) {
-    @include button-variant($--button-inverse-color, $--button-inverse-fill, $--button-inverse-border);
-    @include when(outline){
-      @include button-variant($--button-inverse-fill, $--color-white, $--button-inverse-border);
-    }
-  }
-  @include m(info) {
-    @include button-variant($--button-info-color, $--button-info-fill, $--button-info-border);
-    @include when(outline){
-      @include button-variant($--button-info-fill, $--color-white, $--button-info-border);
+
+    &.el-button--text {
+      background-color: transparent;
     }
   }
 
+  @include m(primary) {
+    @include button-variant($--button-primary-color, $--button-primary-fill, $--button-primary-border);
+  }
+  @include m(success) {
+    @include button-variant($--button-success-color, $--button-success-fill, $--button-success-border);
+  }
+  @include m(warning) {
+    @include button-variant($--button-warning-color, $--button-warning-fill, $--button-warning-border);
+  }
+  @include m(danger) {
+    @include button-variant($--button-danger-color, $--button-danger-fill, $--button-danger-border);
+  }
+  @include m(cyan) {
+    @include button-variant($--button-cyan-color, $--button-cyan-fill, $--button-cyan-border);
+  }
+  @include m(inverse) {
+    @include button-variant($--button-inverse-color, $--button-inverse-fill, $--button-inverse-border);
+  }
+  @include m(info) {
+    @include button-variant($--button-info-color, $--button-info-fill, $--button-info-border);
+  }
+
   @include m(lg) {
-    @include button-size($--button-large-padding-vertical, $--button-large-padding-horizontal, $--button-large-font-size, $--button-large-border-radius);
+    @include button-size($--button-large-padding-vertical, $--button-large-padding-horizontal, $--button-large-font-size, $--button-large-border-radius, $--button-large-round-border-radius);
   }
   @include m(sm) {
-    @include button-size($--button-small-padding-vertical, $--button-small-padding-horizontal, $--button-small-font-size, $--button-small-border-radius);
+    @include button-size($--button-small-padding-vertical, $--button-small-padding-horizontal, $--button-small-font-size, $--button-small-border-radius, $--button-small-round-border-radius);
   }
   @include m(text) {
     border-color: transparent;

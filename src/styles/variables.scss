@@ -5,6 +5,7 @@
  */
 $--color-white: #fff !default;
 $--color-black: #000 !default;
+$--color-gray: #555 !default;
 
 $--color-primary: #409EFF !default;
 $--color-success: #2ecc66 !default;
@@ -39,6 +40,7 @@ $--color-text-placeholder: #c0c4cc !default;
  * --------------------------- Font ---------------------------
  */
 $--font-weight-primary: normal !default;
+$--font-size-base: 14px !default;
 
 /**
  * -------------------------- Border --------------------------
@@ -55,7 +57,6 @@ $--border-radius-base: 4px !default;
 $--border-radius-small: 2px !default;
 $--border-radius-circle: 100% !default;
 
-$--border-radius-base: 5px !default;
 $--border-color-base: #dcdfe6 !default;
 $--border-color-lighter: mix($--color-white, $--border-color-base, 90%) !default;
 
@@ -70,16 +71,19 @@ $--dialog-mask-index: 1000;
 $--button-font-size: 14px !default;
 $--button-font-weight: $--font-weight-primary !default;
 $--button-border-radius: $--border-radius-base !default;
+$--button-round-border-radius: #{$--border-radius-base + 15} !default;
 $--button-padding-vertical: 12px !default;
 $--button-padding-horizontal: 20px !default;
 
-$--button-large-font-size: 16px !default;
+$--button-large-font-size: 17px !default;
 $--button-large-border-radius: #{$--border-radius-base + 1} !default;
-$--button-large-padding-vertical: 13px !default;
-$--button-large-padding-horizontal: 23px !default;
+$--button-large-round-border-radius: #{$--border-radius-base + 25} !default;
+$--button-large-padding-vertical: 14px !default;
+$--button-large-padding-horizontal: 28px !default;
 
 $--button-small-font-size: 12px !default;
 $--button-small-border-radius: #{$--border-radius-base - 1} !default;
+$--button-small-round-border-radius: #{$--border-radius-base + 13} !default;
 $--button-small-padding-vertical: 9px !default;
 $--button-small-padding-horizontal: 15px !default;
 
@@ -123,6 +127,26 @@ $--button-hover-tint-percent: 20% !default;
 $--button-active-shade-percent: 10% !default;
 $--button-margin-horizontal: 10px !default;
 
+$--button-outline-hover-tint-percent: 90% !default;
+$--button-outline-hover-shade-percent: 95% !default;
+
+/**
+ * ------------------------- Button Group --------------------------
+ */
+$--button-group-border-radius: 23px !default;
+
+/**
+ * ------------------------- Button Group --------------------------
+ */
+$--input-height-base: 40px !default;
+$--input-min-width: 150px !default;
+$--input-border: $--border-base;
+$--input-border-radius: $--border-radius-base !default;
+$--input-padding: 4px 11px;
+$--input-addon-color: rgba(0, 0, 0, 0.65);
+$--input-addon-padding: 0 10px;
+$--input-icon-width: 30px;
+
 /**
  * -------------------- Grid Contains Row & Col --------------------
  */
@@ -163,7 +187,7 @@ $--breakpoints-spec: (
  * ---------------------------- Dialog ----------------------------
  */
 $--dialog-background-color: $--color-white;
-$--dialog-mask-background-color: rgba(55,55,55,.6);
+$--dialog-mask-background-color: rgba(55, 55, 55, .6);
 $--dialog-border-radius: 6px;
 
 $--dialog-content-padding-vertical: 14px;

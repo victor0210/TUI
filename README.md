@@ -1,6 +1,6 @@
 # T-UI
 
-> A High Quantity UI Toolkit By VUE.
+> A High Quanlity UI Toolkit By VUE.
 
 ## usage 
 ```$bash
@@ -42,6 +42,7 @@ npm run dev
 Row <br>
 Col <br>
 Button <br>
+ButtonGroup <br>
 Dialog
 
 
