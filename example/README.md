@@ -374,3 +374,51 @@
 </t-row>
 ```
 :::
+
+
+## Checkbox
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="8">
+    <t-checkbox label="label在右边"></t-checkbox>
+    <t-checkbox label="label在左边" :labelLeft=true></t-checkbox>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="8">
+    <t-checkbox label="label在右边" v-model="value"></t-checkbox> //value is a boolean
+    <t-checkbox label="label在左边" :labelLeft=true></t-checkbox>
+  </t-col>
+</t-row>
+```
+:::
+
+## Checkbox-Group
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="8">
+    <t-checkbox-group>
+    <t-checkbox label="北京"></t-checkbox>
+    <t-checkbox label="上海"></t-checkbox>
+    <t-checkbox label="成都"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="8">
+    <t-checkbox-group v-model="value">  //value is an array like ['Beijing','Shanghai']
+      <t-checkbox label="北京" val="Beijing"></t-checkbox>
+      <t-checkbox label="上海" val="Shanghai"></t-checkbox>
+      <t-checkbox label="成都" val="Chengdu"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+```

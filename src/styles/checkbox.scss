@@ -1,0 +1,65 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(checkbox) {
+  color: #606266;
+  font-weight: 500;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  user-select: none;
+  line-height: 100%;
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  @include e(inner) {
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid $--border-color-base;
+    border-radius: 2px;
+    transition: all .2s;
+
+    &:hover {
+      border-color: #409EFF;
+    }
+
+    i {
+      line-height: 14px;
+      color: #fff;
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  @include e(label) {
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 19px;
+    font-size: 14px;
+    transition: all .2s;
+  }
+
+  @include when(checked) {
+    > .t-checkbox__inner {
+      background: #409EFF;
+      border-color: #409EFF;
+
+      i {
+        opacity: 1;
+      }
+    }
+
+    > .t-checkbox__label {
+      color: #409EFF;
+    }
+  }
+}
