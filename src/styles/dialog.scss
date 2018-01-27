@@ -4,11 +4,10 @@
 @import "mixins/dialog";
 
 @include b(dialog) {
-  transition: all .2s;
-  opacity: 0;
   @include e(mask) {
     @include dialog-mask();
     background-color: $--dialog-mask-background-color;
+    opacity: 0;
   }
 
   @include e(wrapper) {
@@ -16,19 +15,19 @@
   }
 
   @include e(container) {
-    transition: all .2s ease-out;
+    transition: all .2s ease-in;
     overflow: hidden;
-    margin-top: -10px;
     width: auto;
     position: relative;
+    opacity: 0;
     background-color: $--dialog-background-color;
     border-radius: $--dialog-border-radius;
   }
   @include e(header) {
     color: #fff;
-    @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
     height: $--dialog-header-height;
     font-weight: 700;
+    @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
 
     @include m(success){
       background-color: $--color-success;

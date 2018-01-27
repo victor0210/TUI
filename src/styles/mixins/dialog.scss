@@ -3,9 +3,11 @@
 @mixin dialog-size($padding-vertical, $padding-horizontal, $font-size) {
   padding: $padding-vertical $padding-horizontal;
   font-size: $font-size;
+  box-sizing: content-box;
 }
 
 @mixin dialog-mask(){
+  transition: all .2s ease-in;
   z-index: $--dialog-mask-index;
   position: fixed;
   top: 0;
