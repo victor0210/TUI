@@ -390,21 +390,21 @@
 ```html
 <t-row :gutter="20">
   <t-col :span="8">
-    <t-checkbox label="label在右边" v-model="value"></t-checkbox> //value is a boolean
+    <t-checkbox label="label在右边"></t-checkbox> //value is a boolean
     <t-checkbox label="label在左边" :labelLeft=true></t-checkbox>
   </t-col>
 </t-row>
 ```
 :::
 
-## Checkbox-Group
+## Checkbox-Group attention:please giving val to t-checkbox which contains in t-checkbox-group
 <div class="demo-block">
 <t-row :gutter="20">
   <t-col :span="8">
     <t-checkbox-group>
-    <t-checkbox label="北京"></t-checkbox>
-    <t-checkbox label="上海"></t-checkbox>
-    <t-checkbox label="成都"></t-checkbox>
+      <t-checkbox label="北京" val="Beijing"></t-checkbox>
+      <t-checkbox label="上海" val="Shanghai"></t-checkbox>
+      <t-checkbox label="成都" val="Chengdu"></t-checkbox>
     </t-checkbox-group>
   </t-col>
 </t-row>
@@ -414,7 +414,7 @@
 ```html
 <t-row :gutter="20">
   <t-col :span="8">
-    <t-checkbox-group v-model="value">  //value is an array like ['Beijing','Shanghai']
+    <t-checkbox-group>  //value is an array like ['Beijing','Shanghai']
       <t-checkbox label="北京" val="Beijing"></t-checkbox>
       <t-checkbox label="上海" val="Shanghai"></t-checkbox>
       <t-checkbox label="成都" val="Chengdu"></t-checkbox>
@@ -422,3 +422,120 @@
   </t-col>
 </t-row>
 ```
+:::
+
+## Checkbox-Styles
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group>
+    <t-checkbox label="默认" val="1"></t-checkbox>
+    <t-checkbox label="默认选中" :checked="true" val="2"></t-checkbox>
+    <t-checkbox label="禁用" :disabled="true" val="3"></t-checkbox>
+    <t-checkbox label="禁用并选用" :checked="true" :disabled="true" val="4"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group>
+    <t-checkbox label="默认" val="1"></t-checkbox>
+    <t-checkbox label="默认选中" :checked="true" val="2"></t-checkbox>
+    <t-checkbox label="禁用" :disabled="true" val="3"></t-checkbox>
+    <t-checkbox label="禁用并选用" :checked="true" :disabled="true" val="4"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+```
+:::
+
+## Checkbox-indeterminate
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group :indeterminate="true">
+    <t-checkbox label="默认" val="1"></t-checkbox>
+    <t-checkbox label="默认选中" :checked="true" val="2"></t-checkbox>
+    <t-checkbox label="禁用" :disabled="true" val="3"></t-checkbox>
+    <t-checkbox label="禁用并选用" :checked="true" :disabled="true" val="4"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group>
+    <t-checkbox label="默认" val="1"></t-checkbox>
+    <t-checkbox label="默认选中" :checked="true" val="2"></t-checkbox>
+    <t-checkbox label="禁用" :disabled="true" val="3"></t-checkbox>
+    <t-checkbox label="禁用并选用" :checked="true" :disabled="true" val="4"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+```
+:::
+
+## Checkbox-min=1 max=3
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group :min="1" :max="3">
+    <t-checkbox label="默认" val='1'></t-checkbox>
+    <t-checkbox label="默认选中" val='2'></t-checkbox>
+    <t-checkbox label="禁用" val='3'></t-checkbox>
+    <t-checkbox label="禁用并选用" val='4'></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group :min="1" :max="3">
+    <t-checkbox label="默认" val='1'></t-checkbox>
+    <t-checkbox label="默认选中" val='2'></t-checkbox>
+    <t-checkbox label="禁用" val='3'></t-checkbox>
+    <t-checkbox label="禁用并选用" val='4'></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+```
+:::
+
+## Checkbox-border
+<div class="demo-block">
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group :min="1" :max="3">
+    <t-checkbox label="默认" val='1' :outbox="true"></t-checkbox>
+    <t-checkbox label="默认选中" val='2' :outbox="true"></t-checkbox>
+    <t-checkbox label="禁用" val='3' :outbox="true"></t-checkbox>
+    <t-checkbox label="禁用并选用" val='4' :outbox="true"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-checkbox-group :min="1" :max="3">
+    <t-checkbox label="默认" val='1' :outbox="true"></t-checkbox>
+    <t-checkbox label="默认选中" val='2' :outbox="true"></t-checkbox>
+    <t-checkbox label="禁用" val='3' :outbox="true"></t-checkbox>
+    <t-checkbox label="禁用并选用" val='4' :outbox="true"></t-checkbox>
+    </t-checkbox-group>
+  </t-col>
+</t-row>
+```
+:::
