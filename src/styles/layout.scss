@@ -1,0 +1,9 @@
+@import "mixins/mixins";
+
+@include b(layout){
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 1px;
+}
