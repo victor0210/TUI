@@ -11,7 +11,7 @@
           <slot name="prefix"/>
       </div>
       <div class="t-input__wrapper">
-        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off"/>
+        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val"/>
         <span v-if="prefixIcon" class="t-input__prefix-inner">
           <i :class="prefixIcon"></i>
         </span>
@@ -23,39 +23,22 @@
         <slot name="suffix"/>
       </div>
     </template>
-    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize"></textarea>
+    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize" v-model="val" :placeholder="placeholder"></textarea>
   </div>
 </template>
 
 <script>
 export default {
   name: 't-input',
-  mounted () {
-    if (this.checkInputType() === 'textarea') {
-      this.textareaResize()
-    } else {
-      this.inputResize()
+
+  data () {
+    return {
+      val: ''
     }
   },
-  methods: {
-    checkInputType () {
-      const type = this.type
-      if (type !== 'text' && type !== 'password' && type !== 'textarea') {
-        throw new Error('t-input type must be one of ["text","password","textarea"]')
-      } else {
-        return type
-      }
-    },
-    textareaResize () {
-      let textareaDom = this.$el.children[0]
-      textareaDom.style.resize = this.resize
-    },
-    inputResize () {
-      let textareaDom = this.$el
-      textareaDom.style.width = this.width + 'px'
-    }
-  },
+
   props: {
+    value: [String, Object, Number],
     type: {
       type: String,
       default: 'text'
@@ -74,6 +57,40 @@ export default {
     width: Number,
     prefixIcon: String,
     prependIcon: String
+  },
+
+  mounted () {
+    this.val = this.value
+    if (this.checkInputType() === 'textarea') {
+      this.textareaResize()
+    } else {
+      this.inputResize()
+    }
+  },
+
+  methods: {
+    checkInputType () {
+      const type = this.type
+      if (type !== 'text' && type !== 'password' && type !== 'textarea') {
+        throw new Error('t-input type must be one of ["text","password","textarea"]')
+      } else {
+        return type
+      }
+    },
+    textareaResize () {
+      let textareaDom = this.$el.children[0]
+      textareaDom.style.resize = this.resize
+    },
+    inputResize () {
+      let textareaDom = this.$el
+      textareaDom.style.width = this.width + 'px'
+    }
+  },
+
+  watch: {
+    val (val) {
+      this.$emit('input', val)
+    }
   }
 }
 </script>
