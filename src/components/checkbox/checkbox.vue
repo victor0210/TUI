@@ -1,51 +1,63 @@
 <template>
     <label class="t-checkbox"  :class="{
-        'is-checked': isChecked
+        'is-checked': isChecked,
+        'is-disabled': disabled,
+        'is-outbox': outbox,
       }">
       <span class="t-checkbox__label" v-if="labelLeft && !!label">{{ label }}</span>
       <span class="t-checkbox__inner">
         <i class="fa fa-check"></i>
       </span>
       <span class="t-checkbox__label" v-if="!labelLeft && !!label">{{ label }}</span>
-      <input type="checkbox" v-model="isChecked">
+      <input type="checkbox" v-model="isChecked" :disabled="disabled">
     </label>
 </template>
 
 <script>
-import arrayHelper from '../../mixins/arrayHelper'
 export default {
   name: 't-checkbox',
-  mixins: [arrayHelper],
   data () {
     return {
-      isChecked: null,
-      isGroup: false,
-      store: null
+      isChecked: false,
+      isGroup: false
     }
   },
   props: {
     label: String,
     labelLeft: Boolean,
-    val: String
+    disabled: Boolean,
+    outbox: Boolean,
+    val: String,
+    checked: Boolean
   },
   mounted () {
     this._isGroup()
+    this.isChecked = this.checked
   },
   methods: {
     _isGroup () {
       if (this.$parent.$options.name === 't-checkbox-group') {
         this.isGroup = true
-        this.store = this.$parent.values
+        if (this.val === undefined) {
+          throw new Error('Please giving checkbox [' + this.label + ']  a value like :val="value"')
+        }
       }
+    },
+    doCheck (b) {
+      this.isChecked = !!b
     }
   },
   watch: {
-    isChecked (val) {
+    isChecked (val, pre) {
       if (this.isGroup) {
-        if (val) {
-          this.store.push(this.val)
+        if (val && !pre) {
+          if (!this.$parent.addToStore(this.val)) {
+            this.isChecked = false
+          }
         } else {
-          arrayHelper.remove(this.store, this.val)
+          if (!this.$parent.removeFromStore(this.val)) {
+            this.isChecked = true
+          }
         }
       } else {
         this.$emit('input', val)

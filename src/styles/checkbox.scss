@@ -20,10 +20,12 @@
     cursor: pointer;
     text-align: center;
     display: inline-block;
+    position: relative;
     width: 14px;
     height: 14px;
     border: 1px solid $--border-color-base;
     border-radius: 2px;
+    box-sizing: border-box;
     transition: all .2s;
 
     &:hover {
@@ -31,6 +33,7 @@
     }
 
     i {
+
       line-height: 14px;
       color: #fff;
       opacity: 0;
@@ -43,11 +46,12 @@
     cursor: pointer;
     display: inline-block;
     padding: 0 10px;
-    line-height: 19px;
-    font-size: 14px;
+    position: relative;
+    line-height: 18px;
+    font-size: 15px;
+    box-sizing: border-box;
     transition: all .2s;
   }
-
   @include when(checked) {
     > .t-checkbox__inner {
       background: #409EFF;
@@ -61,5 +65,41 @@
     > .t-checkbox__label {
       color: #409EFF;
     }
+
+    @include when(outbox) {
+      border-color: #409EFF;
+    }
+  }
+
+  @include when(disabled) {
+    cursor: not-allowed;
+
+    .t-checkbox__inner {
+      cursor: not-allowed;
+      background-color: lighten($--color-text-placeholder, 17%);
+      &:hover {
+        border-color: $--border-color-base;
+      }
+    }
+
+    @include when(checked) {
+      .t-checkbox__inner {
+        border-color: $--border-color-base;
+        i {
+          color: $--color-text-placeholder;
+        }
+      }
+    }
+
+    .t-checkbox__label {
+      color: $--color-text-placeholder;
+      cursor: not-allowed;
+    }
+  }
+
+  @include when(outbox) {
+    border: $--border-base;
+    padding: 9px 20px 9px 10px;
+    border-radius: 4px;
   }
 }
