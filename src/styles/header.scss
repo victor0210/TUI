@@ -1,0 +1,7 @@
+@import "mixins/mixins";
+
+@include b(header){
+  background-color: #409EFF;
+  padding: $--header-padding;
+  box-sizing: border-box;
+}

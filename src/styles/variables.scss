@@ -61,12 +61,32 @@ $--border-color-base: #dcdfe6 !default;
 $--border-color-lighter: mix($--color-white, $--border-color-base, 90%) !default;
 
 /**
- * -------------------------- Index --------------------------
+ * -------------------------- Header -------------------------
  */
-$--dialog-mask-index: 1000;
+$--header-padding: 0 20px !default;
 
 /**
- * -------------------------- Button --------------------------
+ * -------------------------- Footer -------------------------
+ */
+$--footer-padding: 0 20px !default;
+
+/**
+ * ------------------------- Content -------------------------
+ */
+$--content-padding: 20px !default;
+
+/**
+ * -------------------------- Aside --------------------------
+ */
+$--aside-padding: 20px !default;
+
+/**
+ * -------------------------- Index --------------------------
+ */
+$--dialog-mask-index: 1000 !default;
+
+/**
+ * -------------------------- Button -------------------------
  */
 $--button-font-size: 14px !default;
 $--button-font-weight: $--font-weight-primary !default;

@@ -1,0 +1,9 @@
+@import "mixins/mixins";
+
+@include b(footer) {
+  overflow: auto;
+  box-sizing: border-box;
+  background-color: red;
+  padding: $--footer-padding;
+}
+

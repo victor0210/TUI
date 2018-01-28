@@ -6,6 +6,11 @@ import Dialog from './components/dialog/index'
 import Input from './components/input/index'
 import CheckBox from './components/checkbox/index'
 import CheckBoxGroup from './components/checkboxGroup/index'
+import Layout from './components/layout/index'
+import Header from './components/header/index'
+import Footer from './components/footer/index'
+import Content from './components/content/index'
+import Aside from './components/aside/index'
 
 const Tui = {
   Button,
@@ -14,7 +19,12 @@ const Tui = {
   Col,
   Input,
   CheckBox,
-  CheckBoxGroup
+  CheckBoxGroup,
+  Layout,
+  Header,
+  Content,
+  Footer,
+  Aside
 }
 
 const install = function (Vue, opts = {}) {

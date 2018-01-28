@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="docs">
-    <router-view></router-view>
+  <!--<div id="app" class="docs">-->
+    <!--<router-view></router-view>-->
     <!--<div id="header" class="clearFix">-->
       <!--<router-link to="/" id="logo">TUI</router-link>-->
       <!--<ul id="nav">-->
@@ -94,6 +94,24 @@
         <!--<router-view></router-view>-->
       <!--</div>-->
     <!--</div>-->
+  <!--</div>-->
+  <div id='app'>
+   <t-layout>
+     <t-header> header </t-header>
+       <t-layout flexDirection="row">
+         <t-aside>
+           leftAside
+         </t-aside>
+         <t-layout>
+           <t-content>
+             <router-view></router-view>
+           </t-content>
+           <t-footer>
+             footer
+           </t-footer>
+         </t-layout>
+       </t-layout>
+   </t-layout>
   </div>
 </template>
 
