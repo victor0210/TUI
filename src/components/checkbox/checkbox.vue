@@ -1,6 +1,6 @@
 <template>
     <label class="t-checkbox"  :class="{
-        'is-checked': isChecked,
+        'is-checked': model,
         'is-disabled': disabled,
         'is-outbox': outbox,
       }">
@@ -9,17 +9,23 @@
         <i class="fa fa-check"></i>
       </span>
       <span class="t-checkbox__label" v-if="!labelLeft && !!label">{{ label }}</span>
-      <input type="checkbox" v-model="isChecked" :disabled="disabled">
+      <input type="checkbox" v-model="model" :disabled="disabled" @change="onChange">
     </label>
 </template>
 
 <script>
+import Emitter from '../../mixins/emitter'
+//  TODO add indeterminate for checkout all
 export default {
   name: 't-checkbox',
+
+  mixins: [Emitter],
+
   data () {
     return {
       isChecked: false,
-      isGroup: false
+      isGroup: false,
+      CheckBoxGroup: null
     }
   },
   props: {
@@ -28,39 +34,51 @@ export default {
     disabled: Boolean,
     outbox: Boolean,
     val: String,
-    checked: Boolean
+    checked: Boolean,
+    value: {}
+  },
+  beforeMount () {
+    this.$on('indeterminate', this.indeterminate)
   },
   mounted () {
     this._isGroup()
-    this.isChecked = this.checked
+    this.checked && this._checkSize('add')
   },
   methods: {
     _isGroup () {
       if (this.$parent.$options.name === 't-checkbox-group') {
         this.isGroup = true
-        if (this.val === undefined) {
-          throw new Error('Please giving checkbox [' + this.label + ']  a value like :val="value"')
+        this.CheckBoxGroup = this.$parent
+      }
+    },
+    _checkSize (tag) {
+      const CheckboxGroup = this.CheckBoxGroup
+      if (tag) {
+        if (CheckboxGroup.store.length < CheckboxGroup.max || !CheckboxGroup.max) {
+          this.dispatch('t-checkbox-group', 'add', this.val)
+          this.isChecked = true
+        }
+      } else {
+        if (CheckboxGroup.store.length > CheckboxGroup.min || !CheckboxGroup.min) {
+          this.dispatch('t-checkbox-group', 'remove', this.val)
+          this.isChecked = false
         }
       }
     },
-    doCheck (b) {
-      this.isChecked = !!b
+    // indeterminate (val) {
+    //   !this.disabled && (this._checkSize(val))
+    // },
+    onChange () {
+      this.isGroup ? this.dispatch('t-checkbox-group', 'change', this.$parent.store) : this.$emit('change', this.value)
     }
   },
-  watch: {
-    isChecked (val, pre) {
-      if (this.isGroup) {
-        if (val && !pre) {
-          if (!this.$parent.addToStore(this.val)) {
-            this.isChecked = false
-          }
-        } else {
-          if (!this.$parent.removeFromStore(this.val)) {
-            this.isChecked = true
-          }
-        }
-      } else {
-        this.$emit('input', val)
+  computed: {
+    model: {
+      get () {
+        return this.isGroup ? this.isChecked : this.value
+      },
+      set (val) {
+        this.isGroup ? this._checkSize(val) : this.$emit('input', val)
       }
     }
   }
