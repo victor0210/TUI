@@ -11,6 +11,8 @@ import Header from './components/header/index'
 import Footer from './components/footer/index'
 import Content from './components/content/index'
 import Aside from './components/aside/index'
+import Radio from './components/radio/index'
+import RadioGroup from './components/radioGroup/index'
 
 const Tui = {
   Button,
@@ -24,7 +26,9 @@ const Tui = {
   Header,
   Content,
   Footer,
-  Aside
+  Aside,
+  Radio,
+  RadioGroup
 }
 
 const install = function (Vue, opts = {}) {
