@@ -3,7 +3,7 @@ const _broadcast = (componentName, eventName, args) => {
     let name = _getComponentName(child)
 
     if (name === componentName) {
-      child.$emit.apply(child, [eventName, args])
+      child.$emit(eventName, args)
     } else {
       _broadcast.apply(child, [componentName, eventName, args])
     }
@@ -23,7 +23,7 @@ export default {
         parent && (name = _getComponentName(parent))
       }
 
-      parent.$emit.apply(parent, [eventName, args])
+      parent.$emit(eventName, args)
     },
 
     broadcast (componentName, eventName, args) {

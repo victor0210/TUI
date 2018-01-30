@@ -1,7 +1,7 @@
 @import "variables";
 @import "mixins/mixins";
 
-@include b(checkbox) {
+@include b(radio) {
   color: #606266;
   font-weight: 500;
   font-size: 14px;
@@ -12,8 +12,8 @@
   user-select: none;
   line-height: 100%;
 
-  input[type=checkbox] {
-    display: none;
+  input[type=radio] {
+    //display: none;
   }
 
   @include e(inner) {
@@ -23,23 +23,31 @@
     position: relative;
     float: left;
     margin-top: 2px;
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     border: 1px solid $--border-color-base;
-    border-radius: 2px;
+    border-radius: 50%;
     box-sizing: border-box;
-    transition: all .2s;
+    transition: all .4s;
 
     &:hover {
       border-color: #409EFF;
     }
 
-    i {
-
-      line-height: 14px;
-      color: #fff;
-      opacity: 0;
-      background-color: rgba(0, 0, 0, 0);
+    .t-radio__circle {
+      transition: all .2s;
+      transition-delay: .1s;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
     }
   }
 
@@ -56,16 +64,17 @@
     transition: all .2s;
   }
   @include when(checked) {
-    > .t-checkbox__inner {
+    > .t-radio__inner {
       background: #409EFF;
       border-color: #409EFF;
 
-      i {
-        opacity: 1;
+      .t-radio__circle {
+        width: 5px;
+        height: 5px;
       }
     }
 
-    > .t-checkbox__label {
+    > .t-radio__label {
       color: #409EFF;
     }
 
@@ -77,7 +86,7 @@
   @include when(disabled) {
     cursor: not-allowed;
 
-    .t-checkbox__inner {
+    .t-radio__inner {
       cursor: not-allowed;
       background-color: lighten($--color-text-placeholder, 17%);
       &:hover {
@@ -86,7 +95,7 @@
     }
 
     @include when(checked) {
-      .t-checkbox__inner {
+      .t-radio__inner {
         border-color: $--border-color-base;
         i {
           color: $--color-text-placeholder;
@@ -94,7 +103,7 @@
       }
     }
 
-    .t-checkbox__label {
+    .t-radio__label {
       color: $--color-text-placeholder;
       cursor: not-allowed;
     }
