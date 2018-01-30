@@ -5,11 +5,13 @@
 </template>
 
 <script>
-import arrayHelper from '../../mixins/arrayHelper'
+import ArrayHelper from '../../mixins/arrayHelper'
+import Emitter from '../../mixins/emitter'
 
+//  TODO  add indeterminate for checkout all
 export default {
   name: 't-checkbox-group',
-  mixins: [arrayHelper],
+  mixins: [ArrayHelper, Emitter],
   data () {
     return {
       store: [],
@@ -19,75 +21,52 @@ export default {
   props: {
     max: Number,
     min: Number,
-    indeterminate: Boolean, // won't change child which disabled
-    indeterminateForce: Boolean // will change child which disabled
+    // indeterminate: Boolean, // won't change child which disabled
+    value: {}
+  },
+  beforeMount () {
+    this.$on('add', this.addToStore)
+    this.$on('remove', this.removeFromStore)
   },
   mounted () {
-    !!this.min && this.checkSize() //  limit children's if min or max is not null
+    (!!this.value || !!this.min) && this.autoComplete()
   },
   methods: {
-    checkSize () {
+    autoComplete () {
       let children = this.$children
-      let checkedArr = []
       let uncheckedArr = []
-      let childrenLen = children.length
       let len = 0
-
+      let _value = this.value
+      let _min = this.min
       children.forEach(function (el) {
-        if (el.checked) {
-          checkedArr.push(el)
+        if (!!_value && !el.checked && _value.indexOf(el.val) !== -1) {
+          el._checkSize(true)
+          len++
+        } else if (!!_min && el.checked) {
           len++
         } else {
           uncheckedArr.push(el)
         }
       })
 
-      for (let k = 0; k < childrenLen; k++) {
-        for (let j = k + 1; j < childrenLen; j++) {
-          if (children[k].val === children[j].val) {
-            throw new Error("checkbox's val mustn't be same:[" + children[k].label + '] && [' + children[j].label + ']')
-          }
-        }
-      }
-
-      if (len < this.min) {
-        for (let i = 0; i < this.min - len; i++) {
-          uncheckedArr[i].doCheck(true)
+      if (!!_min && len < _min) {
+        for (let i = 0; i < _min - len; i++) {
+          uncheckedArr[i]._checkSize(true)
         }
       }
     },
     addToStore (val) {
-      if (this.store.length < this.max || !this.max) {
-        arrayHelper.addToStore(this.store, val)
-        return true
-      } else {
-        return false
-      }
+      this.$emit('input', ArrayHelper.addToStore(this.store, val))
     },
     removeFromStore (val) {
-      if (this.store.length > this.min || !this.min) {
-        arrayHelper.removeFromStore(this.store, val)
-        return true
-      } else {
-        return false
-      }
-    }
-  },
-  watch: {
-    store (val) {
-      this.$emit('input', val)
-    },
-    indeterminate (val) {
-      this.$children.forEach(function (el) {
-        !el.disabled && el.doCheck(val)
-      })
-    },
-    indeterminateForce (val) {
-      this.$children.reverse().forEach(function (el) {
-        el.doCheck(val)
-      })
+      this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
     }
   }
+  // watch: {
+  // indeterminate (val) {
+  //   this.broadcast('t-checkbox', 'indeterminate', val)
+  // }
+  // }
 }
 </script>
 
