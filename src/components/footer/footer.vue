@@ -10,8 +10,7 @@ export default {
 
   props: {
     height: {
-      type: String,
-      default: '60px'
+      type: String
     }
   }
 }

@@ -7,7 +7,7 @@ const getDialogInstance = props => {
   return dialogInstance
 }
 
-const dialog = function (type, props) {
+const dialog = function (type, props = {}) {
   const _icons = {
     'success': 'fa fa-check-circle',
     'warning': 'fa fa-exclamation-circle',
