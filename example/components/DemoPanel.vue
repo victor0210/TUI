@@ -152,6 +152,15 @@ export default {
     height: 548px;
   }
 
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+
    /*
     *-------------------------- Highlight Style -----------------------------*/
 
@@ -248,12 +257,5 @@ export default {
   .bg-gray-light {
     background: #9c9c9c;
   }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
+
 </style>

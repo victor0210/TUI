@@ -36,54 +36,9 @@
     </t-row>
 </template>
 <script>
-    export default {
-    }
+export default {
+}
 </script>
-<style lang="scss">
-        .logoCol{
-            .logo{
-                color: #333333;
-                line-height: 60px;
-                height: 60px;
-                padding-left: 15px;
-                .logo-img{
-                    width: 25px;
-                    vertical-align: middle;
-                    margin-right: 5px;
-                }
-                .logo-span{
-                    font-size: 20px;
-                    font-style: italic;
-                }
-            }
-        }
-        .search{
-            height: 40px;
-            margin-top: 10px;
-        }
-        .navCol{
-            float: right;
-            ul{
-                height: 60px;
-                line-height: 60px;
-                text-align: center;
-                li{
-                    float: left;
-                    height:100%;
-                    min-width: 72px;
-                    a{
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        color: #333;
-                        &:hover{
-                            border-top: 2px solid red;
-                            span{
-                                color: red;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+<style lang="scss" scoped>
+    @import "../styles/header";
 </style>

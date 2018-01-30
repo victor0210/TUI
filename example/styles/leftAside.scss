@@ -1,0 +1,49 @@
+.aside-item{
+  border-right: 1px solid #eee;
+  .t-menu-item{
+    height: 45px;
+    line-height: 45px;
+    padding-left: 15px;
+    a{
+      width: 100%;
+      height: 100%;
+      display: block;
+      color: #333 !important;
+      &:hover{
+        span{
+          color: red;
+        }
+      }
+    }
+  }
+  .navigate-group{
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+  }
+  .t-menu-item-group{
+    line-height: 45px;
+    padding-left: 15px;
+    .t-menu-item-title{
+      color: #999;
+    }
+    .t-menu-item-list{
+      padding-left: 10px;
+      a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #333 !important;
+        .chinese{
+          font-size: 13px;
+          color: #999;
+        }
+        &:hover{
+          span{
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
