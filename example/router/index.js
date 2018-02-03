@@ -7,6 +7,7 @@ const Layout = () => import('../pages/layout.vue')
 const Dialog = () => import('../pages/dialog.vue')
 const Input = () => import('../pages/input.vue')
 const Checkbox = () => import('../pages/checkbox.vue')
+const Select = () => import('../pages/select.vue')
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/checkbox',
       name: 'checkbox',
       component: Checkbox
+    },
+    {
+      path: '/select',
+      name: 'select',
+      component: Select
     }
   ]
 })
