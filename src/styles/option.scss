@@ -1,0 +1,17 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(select) {
+  @include e(wrapper) {
+    input {
+      cursor: pointer;
+    }
+  }
+
+  @include e(list) {
+    background-color: #fff;
+    border: $--border-base;
+    line-height: 40px;
+    padding-left: 10px;
+  }
+}
