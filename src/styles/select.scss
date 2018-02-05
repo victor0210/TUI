@@ -13,6 +13,7 @@
     }
 
     @include e(icon) {
+      z-index: $--background-level-index;
       position: absolute;
       top: 13px;
       right: 10px;
@@ -26,10 +27,9 @@
 
     @include e(input) {
       position: relative;
-      background-color: #fff;
       padding-right: 30px;
       border-radius: $--border-radius-base;
-      min-height: $--input-height-base;
+      min-height: $--input-height-base - 2;
       overflow: hidden;
       border: $--border-base;
       transition: border .3s linear;
@@ -41,6 +41,13 @@
       &:focus {
         border-color: $--color-primary;
       }
+
+      @include e(placeholder) {
+        color: #777777;
+        font-size: 12px;
+        line-height: $--input-height-base - 2;
+        padding-left: 11px;
+      }
     }
 
     @include e(tag) {
@@ -49,10 +56,10 @@
       margin-left: 4px;
       margin-top: 4px;
       margin-bottom: 4px;
-      background-color: #f0f2f5;
-      height: 32px;
+      background-color: #f0f1f2;
+      height: 30px;
       padding: 0 8px;
-      line-height: 32px;
+      line-height: 30px;
       font-size: 14px;
       color: $--color-text-regular;
       border-radius: 4px;
@@ -71,6 +78,7 @@
   }
 
   @include e(list) {
+    z-index: $--select-list-index;
     transition: all .2s;
     width: 100%;
     min-width: 80px;
@@ -88,6 +96,7 @@
   }
 
   input {
+    background-color: inherit;
     &:focus {
       border-color: $--border-color-base;
     }
@@ -99,6 +108,53 @@
   @include when(focus) {
     input, .t-select__input {
       border-color: $--color-primary;
+    }
+  }
+
+  @include when(disabled) {
+    & * {
+      user-select: none;
+      cursor: not-allowed;
+    }
+
+    ::placeholder {
+      color: #c0c4cc;
+    }
+
+    .t-select__icon {
+      z-index: 0;
+    }
+
+    .t-select__input, input {
+      background-color: #f5f7fa;
+      color: #c0c4cc;
+      &:hover {
+        border-color: $--border-color-base;
+      }
+    }
+
+    .t-select__tag {
+      color: $--color-text-placeholder;
+      i {
+        &:hover {
+          color: $--color-text-placeholder;
+        }
+      }
+    }
+  }
+
+  @include when(clearable) {
+    .t-select__icon--clear {
+      z-index: 1;
+      display: none;
+    }
+    &:hover {
+      .t-select__icon {
+        display: none;
+      }
+      .t-select__icon--clear {
+        display: block;
+      }
     }
   }
 }

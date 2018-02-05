@@ -1,17 +1,21 @@
 <template>
   <label class="t-select" :class="{
     'is-focus': isFocus,
-    'is-multiple': multiple
+    'is-multiple': multiple,
+    'is-disabled': disabled,
+    'is-clearable': clearable
   }">
     <div class="t-select__wrapper" @click="checkout" v-if="!multiple">
       <t-input :readonly="true" :placeholder="label" v-model="value" ref="box"/>
     </div>
     <div class="t-select__input" @click="checkout" v-else ref="box">
+      <span v-if="label && value.length===0" class="t-select__placeholder">{{ label }}</span>
       <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
     </div>
-    <i class="t-select__icon fa fa-chevron-down" @click="checkout" :class="{
+    <i class="t-select__icon fa fa-chevron-down" :class="{
         't-select__icon--open': isFocus
       }"></i>
+    <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable" @click.prevent="clearInput"></i>
     <transition name="fade">
       <ul class="t-select__list" v-if="isFocus" ref="list">
         <slot></slot>
@@ -40,6 +44,8 @@ export default {
   props: {
     label: String,
     multiple: Boolean,
+    disabled: Boolean,
+    clearable: Boolean,
     value: {}
   },
 
@@ -53,6 +59,7 @@ export default {
   },
   methods: {
     checkout () {
+      if (this.disabled) return
       !this.isFocus ? this.addListener() : this.removeListener()
       this.isFocus = !this.isFocus
       if (!this.isFocus) {
@@ -66,8 +73,6 @@ export default {
     optionBumper () {
       this.optionChildren.pop()
     },
-    //  TODO  add click listener outbox to close option-list
-    //  option list handler
     addListener () {
       document.addEventListener('keydown', this.keyDownHandler)
       document.addEventListener('click', this.clickBlurSelect, true)
@@ -157,6 +162,7 @@ export default {
       this.$emit('input', ArrayHelper.addToStore(this.store, val))
     },
     removeFromStore (val, isTag) {
+      if (this.disabled) return
       if (isTag) {
         const e = window.event
         e.cancelBubble = true
@@ -171,6 +177,10 @@ export default {
       }
       this.$refs.list.scrollTop = (this.focusIndex - 4) * 40
       this.childrenLength += 1
+    },
+    clearInput (e) {
+      this.$emit('input', this.multiple ? [] : '')
+      this.multiple && (this.store = [])
     }
   },
 

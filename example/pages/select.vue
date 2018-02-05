@@ -17,6 +17,11 @@
           </t-select>
         </t-col>
       </t-row>
+      <t-row>
+        <t-col>
+          value: {{ val_1 }}
+        </t-col>
+      </t-row>
     </div>
     <select-md/>
 
@@ -36,8 +41,47 @@
             <t-option :key="9" label="v9" val="v9"/>
           </t-select>
         </t-col>
+      </t-row>
+      <t-row>
+        <t-col>
+          value: {{ val_2 }}
+        </t-col>
+      </t-row>
+    </div>
+    <select-md/>
+
+    <h2>禁用状态</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
         <t-col :span="6">
-          {{ val_2 }}
+          <t-select label="请选择" :disabled="true">
+            <t-option :key="9" label="v9" val="v9"/>
+          </t-select>
+        </t-col>
+        <t-col :span="6">
+          <t-select label="请选择" :disabled="true" :multiple="true" v-model="val_3">
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="9" label="v9" val="v9"/>
+          </t-select>
+        </t-col>
+      </t-row>
+    </div>
+    <select-md/>
+
+    <h2>可清除</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
+        <t-col :span="6">
+          <t-select label="请选择" :clearable="true" v-model="val_4">
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="2" label="v2" val="v2"/>
+          </t-select>
+        </t-col>
+        <t-col :span="6">
+          <t-select label="请选择" :clearable="true" v-model="val_5" :multiple="true">
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="2" label="v2" val="v2"/>
+          </t-select>
         </t-col>
       </t-row>
     </div>
@@ -54,7 +98,10 @@ export default {
   data () {
     return {
       val_1: 'v1',
-      val_2: ['v1']
+      val_2: ['v1'],
+      val_3: ['v1'],
+      val_4: 'v1',
+      val_5: ['v1']
     }
   }
 }
