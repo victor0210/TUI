@@ -10,7 +10,13 @@
     </div>
     <div class="t-select__input" @click="checkout" v-else ref="box">
       <span v-if="label && value.length===0" class="t-select__placeholder">{{ label }}</span>
-      <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
+      <template v-if="collapseTags">
+        <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
+      </template>
+      <template v-else>
+        <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ value[0] }} <i class="fa fa-times-circle" @click="removeFromStore(value[0], true)" ref="closeX"></i></span>
+        <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ value.length - 1 }}</span>
+      </template>
     </div>
     <i class="t-select__icon fa fa-chevron-down" :class="{
         't-select__icon--open': isFocus
@@ -25,6 +31,7 @@
 </template>
 
 <script>
+//  TODO collapse tags/ addable/ local searchable/ remote searchable/ list divide area
 import ArrayHelper from '../../mixins/arrayHelper'
 
 export default {
@@ -46,6 +53,7 @@ export default {
     multiple: Boolean,
     disabled: Boolean,
     clearable: Boolean,
+    collapseTags: Boolean,
     value: {}
   },
 
