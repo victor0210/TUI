@@ -1,13 +1,13 @@
 <template>
   <label class="t-select" :class="{
-    'is-focus': isFocus
+    'is-focus': isFocus,
+    'is-multiple': multiple
   }">
     <div class="t-select__wrapper" @click="checkout" v-if="!multiple">
-      <!--<t-input :readonly="true" :placeholder="label" v-model="value" @focus="focusHandler" @blur="blurHandler"/>-->
-      <t-input :readonly="true" :placeholder="label" v-model="value"/>
+      <t-input :readonly="true" :placeholder="label" v-model="value" ref="box"/>
     </div>
-    <div class="t-select__input" @click="checkout" v-else>
-      <span class="t-select__tag" v-for="(v, idx) in value" :key="idx">{{ v }}</span>
+    <div class="t-select__input" @click="checkout" v-else ref="box">
+      <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
     </div>
     <i class="t-select__icon fa fa-chevron-down" @click="checkout" :class="{
         't-select__icon--open': isFocus
@@ -33,7 +33,8 @@ export default {
       isFocus: false,
       store: [],
       focusIndex: null,
-      childrenLength: 0
+      childrenLength: 0,
+      optionChildren: []
     }
   },
   props: {
@@ -43,49 +44,46 @@ export default {
   },
 
   mounted () {
-    console.log(this)
     this.store = this.value
     this.$on('select', this.selectHandler)
     this.$on('hide', this.hideHandler)
     this.$on('init-focus-index', this.initFocusByChild)
+    this.$on('option-register', this.optionRegister)
+    this.$on('option-bumper', this.optionBumper)
   },
   methods: {
     checkout () {
+      !this.isFocus ? this.addListener() : this.removeListener()
       this.isFocus = !this.isFocus
-      this.isFocus ? this.addListener() : this.removeListener()
       if (!this.isFocus) {
         this.focusIndex = null
         this.childrenLength = 0
       }
     },
+    optionRegister (child) {
+      this.optionChildren.push(child)
+    },
+    optionBumper () {
+      this.optionChildren.pop()
+    },
     //  TODO  add click listener outbox to close option-list
     //  option list handler
     addListener () {
       document.addEventListener('keydown', this.keyDownHandler)
+      document.addEventListener('click', this.clickBlurSelect, true)
     },
     removeListener () {
       document.removeEventListener('keydown', this.keyDownHandler)
+      document.removeEventListener('click', this.clickBlurSelect, true)
     },
-    //  select input handler
-    // focusHandler () {
-    //   document.addEventListener('keydown', this.inputKeyDownHandler)
-    // },
-    // blurHandler () {
-    //   document.removeEventListener('keydown', this.inputKeyDownHandler)
-    // },
-    // inputKeyDownHandler (e) {
-    //   const _this = this
-    //   if (!this.isFocus) {
-    //     switch (e.keyCode) {
-    //       case 13:
-    //         e.preventDefault()
-    //         _this.checkout()
-    //         break
-    //       default:
-    //         return false
-    //     }
-    //   }
-    // },
+    clickBlurSelect (e) {
+      this.clickCancelEl = this.multiple ? [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX) : this.$refs.box.$refs.input
+      if (!e.target.className ||
+        (e.target.className.trim().indexOf('t-option') === -1 &&
+          (this.multiple ? this.clickCancelEl.indexOf(e.target) === -1 : this.clickCancelEl !== e.target))) {
+        this.$emit('hide', e)
+      }
+    },
     keyDownHandler (e) {
       const _this = this
       switch (e.keyCode) {
@@ -99,7 +97,7 @@ export default {
           break
         case 13:
           e.preventDefault()
-          _this.$emit('select', {e: e, val: _this.$children[_this.focusIndex + 1].val})
+          _this.$emit('select', {e: e, val: _this.optionChildren[_this.focusIndex].val})
           !_this.multiple && _this.$emit('hide', e)
           break
       }
@@ -110,7 +108,7 @@ export default {
     },
     focusNext () {
       if (this.focusIndex !== null) {
-        this.focusIndex = (this.focusIndex === this.$children.length - 2) ? 0 : this.focusIndex + 1
+        this.focusIndex = (this.focusIndex === this.optionChildren.length - 1) ? 0 : this.focusIndex + 1
       } else {
         this.focusIndex = 0
       }
@@ -118,15 +116,14 @@ export default {
     },
     focusPrevious () {
       if (this.focusIndex !== null) {
-        this.focusIndex = (this.focusIndex === 0 ? this.$children.length - 2 : this.focusIndex - 1)
+        this.focusIndex = (this.focusIndex === 0 ? this.optionChildren.length - 1 : this.focusIndex - 1)
       } else {
-        this.focusIndex = this.$children.length - 2
+        this.focusIndex = this.optionChildren.length - 1
       }
       this.setFocusIndex(this.focusIndex, 'previous')
     },
     setFocusIndex (idx, direction) {
-      this.focusIndex = idx
-
+      console.log((idx - 4) * 40)
       switch (direction) {
         case 'next':
           if (idx === 0) {
@@ -136,7 +133,7 @@ export default {
           }
           break
         case 'previous':
-          if (idx === this.childrenLength - 1) {
+          if (idx === this.optionChildren.length - 1) {
             this.$refs.list.scrollTop = (idx - 4) * 40
           } else if (this.$refs.list.scrollTop > idx * 40) {
             this.$refs.list.scrollTop = idx * 40
@@ -144,14 +141,14 @@ export default {
           break
       }
 
-      if (this.$children[idx + 1].disabled) {
+      if (this.optionChildren[idx].disabled) {
         direction === 'next' ? this.focusNext() : this.focusPrevious()
       }
     },
     selectHandler ({e, val}) {
       if (this.multiple) {
         e.preventDefault()
-        this.addToStore(val)
+        this.value.indexOf(val) === -1 ? this.addToStore(val) : this.removeFromStore(val)
       } else {
         this.$emit('input', val)
       }
@@ -159,7 +156,11 @@ export default {
     addToStore (val) {
       this.$emit('input', ArrayHelper.addToStore(this.store, val))
     },
-    removeFromStore (val) {
+    removeFromStore (val, isTag) {
+      if (isTag) {
+        const e = window.event
+        e.cancelBubble = true
+      }
       this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
     },
     initFocusByChild (val) {
@@ -170,14 +171,13 @@ export default {
       }
       this.$refs.list.scrollTop = (this.focusIndex - 4) * 40
       this.childrenLength += 1
-      console.log(this.focusIndex)
     }
   },
 
   watch: {
     focusIndex (val, pre) {
-      val !== null && this.$children[val + 1].focusSelect()
-      pre !== null && this.$children[pre + 1].blurSelect()
+      val !== null && this.optionChildren[val].focusSelect()
+      pre !== null && this.optionChildren[pre].blurSelect()
     }
   }
 }

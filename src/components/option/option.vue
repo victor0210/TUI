@@ -3,7 +3,7 @@
     'is-selected': isSelected,
     'is-focus' : isFocus || (isSelected && this.$parent.focusIndex === null),
     'is-disabled' : disabled
-  }">{{ label }}</li>
+  }">{{ label }} <i class="t-option__check fa fa-check" v-if="isSelected && isMultiple"></i></li>
 </template>
 
 <script>
@@ -28,6 +28,7 @@ export default {
   mounted () {
     this.isMultiple = this.$parent.multiple
     this.dispatch('t-select', 'init-focus-index', this.val)
+    this.dispatch('t-select', 'option-register', this)
   },
 
   methods: {
@@ -46,6 +47,10 @@ export default {
     isSelected () {
       return this.isMultiple ? (this.$parent.value.indexOf(this.val) !== -1) : (this.val === this.$parent.value)
     }
+  },
+
+  beforeDestroy () {
+    this.dispatch('t-select', 'option-bumper')
   }
 }
 

@@ -4,8 +4,12 @@
 @include b(option) {
   cursor: pointer;
   user-select: none;
-  padding-left: 10px;
-  padding-right: 60px;
+  padding: 0 10px;
+
+  @include e(check) {
+    float: right;
+    line-height: 40px;
+  }
 
   @include when(selected) {
     color: $--color-primary;
