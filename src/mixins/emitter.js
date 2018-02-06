@@ -1,4 +1,4 @@
-const _broadcast = (componentName, eventName, args) => {
+const _broadcast = function (componentName, eventName, args) {
   this.$children.forEach(function (child) {
     let name = _getComponentName(child)
 

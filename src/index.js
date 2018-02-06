@@ -16,6 +16,8 @@ import RadioGroup from './components/radioGroup/index'
 import Select from './components/select/index'
 import Option from './components/option/index'
 
+import TFocus from './directives/focus'
+
 const Tui = {
   Button,
   ButtonGroup,
@@ -50,9 +52,14 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
+const TD = {
+  TFocus
+}
+
 const Component = {
   version: process.env.version,
   install,
+  ...TD,
   ...Tui
 }
 

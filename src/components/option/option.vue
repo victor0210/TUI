@@ -3,7 +3,7 @@
     'is-selected': isSelected,
     'is-focus' : isFocus || (isSelected && this.$parent.focusIndex === null),
     'is-disabled' : disabled
-  }">{{ label }} <i class="t-option__check fa fa-check" v-if="isSelected && isMultiple"></i></li>
+  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected && isMultiple"></i></li>
 </template>
 
 <script>
@@ -22,13 +22,16 @@ export default {
   props: {
     label: String,
     disabled: Boolean,
-    val: String
+    val: String,
+    editablePanel: Boolean
   },
 
   mounted () {
     this.isMultiple = this.$parent.multiple
     this.dispatch('t-select', 'init-focus-index', this.val)
-    this.dispatch('t-select', 'option-register', this)
+    this.$on('blur', this.blurSelect)
+    this.$on('register', this.dispatchRegister)
+    this.dispatchRegister()
   },
 
   methods: {
@@ -40,12 +43,39 @@ export default {
     },
     blurSelect () {
       this.isFocus = false
+    },
+    dispatchRegister () {
+      if (this.$parent.editable) {
+        if (!this.editablePanel) {
+          if ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.$parent.editContent)) {
+            this.dispatch('t-select', 'option-register', this)
+          }
+        } else {
+          this.dispatch('t-select', 'option-register', this)
+        }
+      } else {
+        this.dispatch('t-select', 'option-register', this)
+      }
+    },
+    checkShow () {
+      if (this.$parent.editable) {
+        if (!this.editablePanel) {
+          return ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.$parent.editContent))
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
     }
   },
 
   computed: {
     isSelected () {
       return this.isMultiple ? (this.$parent.value.indexOf(this.val) !== -1) : (this.val === this.$parent.value)
+    },
+    isShow () {
+      return this.checkShow()
     }
   },
 
