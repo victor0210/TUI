@@ -56,10 +56,10 @@ export default {
       }
     },
     addToStore (val) {
-      this.$emit('input', this.addToStore(this.store, val))
+      this.$emit('input', ArrayHelper.addToStore(this.store, val))
     },
     removeFromStore (val) {
-      this.$emit('input', this.removeFromStore(this.store, val))
+      this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
     }
   }
   // watch: {
