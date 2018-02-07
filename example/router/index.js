@@ -37,6 +37,11 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/checkbox.vue')))
     },
     {
+      path: '/radio',
+      name: 'radio',
+      component: r => require.ensure([], () => r(require('../pages/radio.vue')))
+    },
+    {
       path: '/select',
       name: 'select',
       component: r => require.ensure([], () => r(require('../pages/select.vue')))
