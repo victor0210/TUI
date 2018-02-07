@@ -33,7 +33,7 @@
 </template>
 
 <script>
-//  TODO addable/ local searchable/ remote searchable/ list divide area
+//  TODO local searchable/ remote searchable
 import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
 
@@ -45,7 +45,7 @@ export default {
   data () {
     return {
       optionLineHeight: 40,
-      optionMaxDisplay: 4,
+      optionEmitScrollIndex: 4,
       isFocus: false,
       store: [],
       focusIndex: null,
@@ -148,26 +148,29 @@ export default {
       this.setFocusIndex(this.focusIndex, 'previous')
     },
     setFocusIndex (idx, direction) {
-      const n = this.optionMaxDisplay
+      //  fix scroll with editpanel potion error
+      console.log(this.editContent, this.editContent === '')
+      const n = (this.editable && this.editContent === '') ? 1 : 0
+      const i = this.optionEmitScrollIndex
       const h = this.optionLineHeight
       switch (direction) {
         case 'next':
           if (idx === 0) {
             this.$refs.list.scrollTop = 0
-          } else if (this.$refs.list.scrollTop < (idx - n) * h) {
-            this.$refs.list.scrollTop = (idx - n) * h
+          } else if (this.$refs.list.scrollTop < (idx - n - i) * h) {
+            this.$refs.list.scrollTop = (idx - n - i) * h
           }
           break
         case 'previous':
           if (idx === this.optionChildren.length - 1) {
+            this.$refs.list.scrollTop = (idx - n - i) * h
+          } else if (this.$refs.list.scrollTop > (idx - n) * h) {
             this.$refs.list.scrollTop = (idx - n) * h
-          } else if (this.$refs.list.scrollTop > idx * h) {
-            this.$refs.list.scrollTop = idx * h
           }
           break
       }
 
-      if (this.optionChildren[idx].disabled) {
+      if (this.optionChildren[idx].disabled || (this.editable && !this.optionChildren[idx].val)) {
         direction === 'next' ? this.focusNext() : this.focusPrevious()
       }
     },
@@ -191,12 +194,17 @@ export default {
       this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
     },
     initFocusByChild (val) {
+      let idx = null
       if (this.multiple && this.value[this.value.length - 1] === val) {
-        this.focusIndex = this.childrenLength
+        idx = this.childrenLength
       } else if (!this.multiple && this.value === val) {
-        this.focusIndex = this.childrenLength
+        idx = this.childrenLength
       }
-      this.$refs.list.scrollTop = (this.focusIndex - this.optionMaxDisplay) * this.optionMaxDisplay
+
+      if (idx !== null && idx !== this.focusIndex) {
+        this.focusIndex = idx
+        this.setFocusIndex(idx, 'next')
+      }
       this.childrenLength += 1
     },
     clearInput (e) {
@@ -211,12 +219,11 @@ export default {
   watch: {
     focusIndex (val, pre) {
       val !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[val].focusSelect()
-      pre !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[pre].blurSelect()
+      pre !== null && ArrayHelper.between(pre, 0, this.optionChildren.length) && this.optionChildren[pre].blurSelect()
     },
-    editContent () {
+    editContent (val) {
       this.focusIndex = 0
       this.optionChildren = []
-      this.broadcast('t-option', 'blur')
       this.broadcast('t-option', 'register')
       this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
     }

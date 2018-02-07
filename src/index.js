@@ -15,6 +15,7 @@ import Radio from './components/radio/index'
 import RadioGroup from './components/radioGroup/index'
 import Select from './components/select/index'
 import Option from './components/option/index'
+import OptionGroup from './components/optionGroup/index'
 
 import TFocus from './directives/focus'
 
@@ -34,7 +35,8 @@ const Tui = {
   Radio,
   RadioGroup,
   Select,
-  Option
+  Option,
+  OptionGroup
 }
 
 const install = function (Vue, opts = {}) {

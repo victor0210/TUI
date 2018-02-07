@@ -1,7 +1,6 @@
 const _broadcast = function (componentName, eventName, args) {
   this.$children.forEach(function (child) {
     let name = _getComponentName(child)
-
     if (name === componentName) {
       child.$emit(eventName, args)
     } else {
@@ -10,7 +9,9 @@ const _broadcast = function (componentName, eventName, args) {
   })
 }
 
-const _getComponentName = el => el.$options.name
+const _getComponentName = function (el) {
+  return el.$options.name
+}
 
 export default {
   methods: {

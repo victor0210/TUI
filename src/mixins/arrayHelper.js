@@ -14,6 +14,6 @@ export default {
     return arr
   },
   between (val, left, right) {
-    return val > left && val < right
+    return val >= left && val < right
   }
 }

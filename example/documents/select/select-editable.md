@@ -2,7 +2,7 @@
 ```html
 <t-row :gutter="20">
   <t-col :span="6">
-    <t-select label="请选择" v-model="val_6" :editable="true" :multiple="true">
+    <t-select label="请选择" v-model="v" :editable="true" :multiple="true">
       <t-option :key="1" label="v1" val="v1"/>
       <t-option :key="2" label="v2" val="v2"/>
       <t-option :key="3" label="v3" val="v3"/>
@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      val_6: ['v1']
+      v: ['v1']
     }
   }
 }

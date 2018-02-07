@@ -1,9 +1,9 @@
 <template>
   <li class="t-option" @click="handleClick" :class="{
     'is-selected': isSelected,
-    'is-focus' : isFocus || (isSelected && this.$parent.focusIndex === null),
+    'is-focus' : isFocus || (isSelected && focusIndex === null),
     'is-disabled' : disabled
-  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected && isMultiple"></i></li>
+  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected"></i></li>
 </template>
 
 <script>
@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       isMultiple: false,
-      isFocus: false
+      isFocus: false,
+      optionGroupIndex: null
     }
   },
   props: {
@@ -28,10 +29,10 @@ export default {
 
   mounted () {
     this.isMultiple = this.$parent.multiple
+    this.dispatchRegister()
     this.dispatch('t-select', 'init-focus-index', this.val)
     this.$on('blur', this.blurSelect)
     this.$on('register', this.dispatchRegister)
-    this.dispatchRegister()
   },
 
   methods: {
@@ -45,9 +46,9 @@ export default {
       this.isFocus = false
     },
     dispatchRegister () {
-      if (this.$parent.editable) {
+      if (this.selectParent().editable) {
         if (!this.editablePanel) {
-          if ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.$parent.editContent)) {
+          if ((this.val.indexOf(this.selectParent().editContent) !== -1) && (this.val !== this.selectParent().editContent)) {
             this.dispatch('t-select', 'option-register', this)
           }
         } else {
@@ -58,24 +59,30 @@ export default {
       }
     },
     checkShow () {
-      if (this.$parent.editable) {
+      if (this.selectParent().editable) {
         if (!this.editablePanel) {
-          return ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.$parent.editContent))
+          return ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.selectParent().editContent))
         } else {
           return true
         }
       } else {
         return true
       }
+    },
+    selectParent () {
+      return (this.$parent.$options.name === 't-option-group') ? this.$parent.$parent : this.$parent
     }
   },
 
   computed: {
     isSelected () {
-      return this.isMultiple ? (this.$parent.value.indexOf(this.val) !== -1) : (this.val === this.$parent.value)
+      return this.isMultiple ? (this.selectParent().value.indexOf(this.val) !== -1) : (this.val === this.selectParent().value)
     },
     isShow () {
       return this.checkShow()
+    },
+    focusIndex () {
+      return this.selectParent().focusIndex
     }
   },
 
