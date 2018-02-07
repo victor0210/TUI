@@ -23,7 +23,7 @@
         </t-col>
       </t-row>
     </div>
-    <select-md/>
+    <select-normal/>
 
     <h2>可多选下拉框</h2>
     <div class="demo-block">
@@ -61,7 +61,7 @@
         </t-col>
       </t-row>
     </div>
-    <select-md/>
+    <select-multiple/>
 
     <h2>禁用状态</h2>
     <div class="demo-block">
@@ -79,7 +79,7 @@
         </t-col>
       </t-row>
     </div>
-    <select-md/>
+    <select-disabled/>
 
     <h2>可清除</h2>
     <div class="demo-block">
@@ -105,7 +105,7 @@
         </t-col>
       </t-row>
     </div>
-    <select-md/>
+    <select-clearable/>
 
     <h2>可编辑</h2>
     <div class="demo-block">
@@ -125,15 +125,24 @@
         </t-col>
       </t-row>
     </div>
-    <select-md/>
+    <select-editable/>
   </div>
 </template>
 
 <script>
-import selectMd from '../documents/select/select.md'
+import selectNormal from '../documents/select/select-normal.md'
+import selectMultiple from '../documents/select/select-multiple.md'
+import selectDisabled from '../documents/select/select-disabled.md'
+import selectClearable from '../documents/select/select-clearable.md'
+import selectEditable from '../documents/select/select-editable.md'
+
 export default {
   components: {
-    selectMd
+    selectNormal,
+    selectMultiple,
+    selectDisabled,
+    selectClearable,
+    selectEditable
   },
   data () {
     return {

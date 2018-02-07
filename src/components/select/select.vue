@@ -211,8 +211,7 @@ export default {
   watch: {
     focusIndex (val, pre) {
       val !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[val].focusSelect()
-      this.optionChildren.length > 0 && (val !== null && val < this.optionChildren.length) && this.optionChildren[val].focusSelect()
-      this.optionChildren.length > 0 && (pre !== null && pre < this.optionChildren.length) && this.optionChildren[pre].blurSelect()
+      pre !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[pre].blurSelect()
     },
     editContent () {
       this.focusIndex = 0

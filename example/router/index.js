@@ -1,14 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Readme = () => import('../README.md')
-const Button = () => import('../pages/button.vue')
-const Layout = () => import('../pages/layout.vue')
-const Dialog = () => import('../pages/dialog.vue')
-const Input = () => import('../pages/input.vue')
-const Checkbox = () => import('../pages/checkbox.vue')
-const Select = () => import('../pages/select.vue')
-
 Vue.use(Router)
 
 export default new Router({
@@ -17,37 +9,37 @@ export default new Router({
     {
       path: '/',
       name: 'document',
-      component: Readme
+      component: r => require.ensure([], () => r(require('../README.md')))
     },
     {
       path: '/layout',
       name: 'layout',
-      component: Layout
+      component: r => require.ensure([], () => r(require('../pages/layout.vue')))
     },
     {
       path: '/button',
       name: 'button',
-      component: Button
+      component: r => require.ensure([], () => r(require('../pages/button.vue')))
     },
     {
       path: '/dialog',
       name: 'dialog',
-      component: Dialog
+      component: r => require.ensure([], () => r(require('../pages/dialog.vue')))
     },
     {
       path: '/input',
       name: 'input',
-      component: Input
+      component: r => require.ensure([], () => r(require('../pages/input.vue')))
     },
     {
       path: '/checkbox',
       name: 'checkbox',
-      component: Checkbox
+      component: r => require.ensure([], () => r(require('../pages/checkbox.vue')))
     },
     {
       path: '/select',
       name: 'select',
-      component: Select
+      component: r => require.ensure([], () => r(require('../pages/select.vue')))
     }
   ]
 })
