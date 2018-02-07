@@ -12,5 +12,8 @@ export default {
       arr.push(val)
     }
     return arr
+  },
+  between (val, left, right) {
+    return val > left && val < right
   }
 }

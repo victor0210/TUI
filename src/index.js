@@ -13,6 +13,10 @@ import Content from './components/content/index'
 import Aside from './components/aside/index'
 import Radio from './components/radio/index'
 import RadioGroup from './components/radioGroup/index'
+import Select from './components/select/index'
+import Option from './components/option/index'
+
+import TFocus from './directives/focus'
 
 const Tui = {
   Button,
@@ -28,7 +32,9 @@ const Tui = {
   Footer,
   Aside,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Select,
+  Option
 }
 
 const install = function (Vue, opts = {}) {
@@ -46,9 +52,14 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
+const TD = {
+  TFocus
+}
+
 const Component = {
   version: process.env.version,
   install,
+  ...TD,
   ...Tui
 }
 

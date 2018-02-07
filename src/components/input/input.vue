@@ -11,13 +11,14 @@
           <slot name="prefix"/>
       </div>
       <div class="t-input__wrapper">
-        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val"/>
+        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" ref="input"/>
         <span v-if="prefixIcon" class="t-input__prefix-inner">
           <i :class="prefixIcon"></i>
         </span>
         <span v-if="prependIcon" class="t-input__prepend-inner">
           <i :class="prependIcon"></i>
         </span>
+        <slot name="extra" v-if="$slots.extra"/>
       </div>
       <div class="t-input__suffix" v-if="$slots.suffix">
         <slot name="suffix"/>
@@ -38,7 +39,7 @@ export default {
   },
 
   props: {
-    value: [String, Object, Number],
+    value: {},
     type: {
       type: String,
       default: 'text'
@@ -56,7 +57,8 @@ export default {
     },
     width: Number,
     prefixIcon: String,
-    prependIcon: String
+    prependIcon: String,
+    readonly: Boolean
   },
 
   mounted () {
@@ -84,12 +86,21 @@ export default {
     inputResize () {
       let textareaDom = this.$el
       textareaDom.style.width = this.width + 'px'
+    },
+    blurHandler (e) {
+      this.$emit('blur', e)
+    },
+    focusHandler (e) {
+      this.$emit('focus', e)
     }
   },
 
   watch: {
     val (val) {
       this.$emit('input', val)
+    },
+    value (val) {
+      this.val = val
     }
   }
 }
