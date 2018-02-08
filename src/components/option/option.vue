@@ -3,7 +3,9 @@
     'is-selected': isSelected,
     'is-focus' : isFocus || (isSelected && focusIndex === null),
     'is-disabled' : disabled
-  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected"></i></li>
+  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected"></i>
+    <i class="t-option__check fa fa-circle-notch fa-spin" v-if="loading"></i>
+  </li>
 </template>
 
 <script>
@@ -25,7 +27,8 @@ export default {
     label: {},
     disabled: Boolean,
     val: {},
-    editablePanel: Boolean
+    editablePanel: Boolean,
+    loading: Boolean
   },
 
   beforeMount () {

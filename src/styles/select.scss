@@ -7,48 +7,50 @@
   position: relative;
   cursor: pointer;
 
-  @include e(wrapper) {
-    input {
-      cursor: pointer;
+  input {
+    cursor: pointer;
+  }
+
+  @include e(icon) {
+    z-index: $--background-level-index;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    margin: auto;
+    color: $--color-text-placeholder;
+    transition: all .2s;
+
+    @include m(open) {
+      transform: rotate(-180deg);
+    }
+  }
+
+  @include e(input) {
+    position: relative;
+    padding-right: 30px;
+    border-radius: $--border-radius-base;
+    min-height: $--input-height-base - 2;
+    overflow: hidden;
+    border: $--border-base;
+    transition: all .3s linear;
+
+    &:hover {
+      border-color: mix($--color-white, $--color-gray, 20%);
     }
 
-    @include e(icon) {
-      z-index: $--background-level-index;
+    &:focus {
+      border-color: $--color-primary;
+    }
+
+    @include e(placeholder) {
       position: absolute;
-      top: 13px;
-      right: 10px;
-      color: $--color-text-placeholder;
-      transition: all .2s;
-
-      @include m(open) {
-        transform: rotate(-180deg);
-      }
-    }
-
-    @include e(input) {
-      position: relative;
-      padding-right: 30px;
-      border-radius: $--border-radius-base;
-      min-height: $--input-height-base - 2;
-      overflow: hidden;
-      border: $--border-base;
-      transition: all .3s linear;
-
-      &:hover {
-        border-color: mix($--color-white, $--color-gray, 20%);
-      }
-
-      &:focus {
-        border-color: $--color-primary;
-      }
-
-      @include e(placeholder) {
-        position: absolute;
-        color: #777777;
-        font-size: 12px;
-        line-height: $--input-height-base - 2;
-        padding:1px 11px;
-      }
+      color: #777777;
+      font-size: 12px;
+      line-height: $--input-height-base - 2;
+      padding: 1px 11px;
     }
 
     @include e(val) {

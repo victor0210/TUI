@@ -4,7 +4,7 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_1" :clearable="true">
+          <t-select label="请选择" v-model="val_1">
             <t-option :key="1" label="v1" val="v1" disabled/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
@@ -24,7 +24,7 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_2" :multiple="true">
+          <t-select label="请选择" v-model="val_2" multiple>
             <t-option :key="1" label="v1" val="v1" disabled/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
@@ -37,7 +37,7 @@
           </t-select>
         </t-col>
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_2" :multiple="true" :collapse-tags="true">
+          <t-select label="请选择" v-model="val_2" multiple collapse-tags>
             <t-option :key="1" label="v1" val="v1"/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
@@ -57,12 +57,12 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" :disabled="true">
+          <t-select label="请选择" disabled>
             <t-option :key="9" label="v9" val="v9"/>
           </t-select>
         </t-col>
         <t-col :span="6">
-          <t-select label="请选择" :disabled="true" :multiple="true" v-model="val_3">
+          <t-select label="请选择" disabled multiple v-model="val_3">
             <t-option :key="1" label="v1" val="v1"/>
             <t-option :key="9" label="v9" val="v9"/>
           </t-select>
@@ -75,13 +75,13 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" :clearable="true" v-model="val_4">
+          <t-select label="请选择" v-model="val_4" clearable>
             <t-option :key="1" label="v1" val="v1"/>
             <t-option :key="2" label="v2" val="v2"/>
           </t-select>
         </t-col>
         <t-col :span="6">
-          <t-select label="请选择" :clearable="true" v-model="val_5" :multiple="true">
+          <t-select label="请选择" v-model="val_5" multiple clearable>
             <t-option :key="1" label="v1" val="v1"/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
@@ -141,7 +141,7 @@
     </div>
     <select-editable/>
 
-    <h2>可本地</h2>
+    <h2>本地搜索</h2>
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
@@ -172,7 +172,19 @@
         </t-col>
       </t-row>
     </div>
-    <select-editable/>
+    <select-searchable/>
+
+    <h2>远程搜索</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
+        <t-col :span="6">
+          <t-select label="请选择" v-model="val_10" remote :remote-method="remote" searchable>
+            <t-option v-for="item in val_10_data" :key="item" :label="item" :val="item"/>
+          </t-select>
+        </t-col>
+      </t-row>
+    </div>
+    <select-remote/>
   </div>
 </template>
 
@@ -183,6 +195,8 @@ import selectDisabled from '../documents/select/select-disabled.md'
 import selectClearable from '../documents/select/select-clearable.md'
 import selectEditable from '../documents/select/select-editable.md'
 import selectDivide from '../documents/select/select-divide.md'
+import selectSearchable from '../documents/select/select-searchable.md'
+import selectRemote from '../documents/select/select-remote.md'
 
 export default {
   components: {
@@ -191,7 +205,9 @@ export default {
     selectDisabled,
     selectClearable,
     selectEditable,
-    selectDivide
+    selectDivide,
+    selectSearchable,
+    selectRemote
   },
   data () {
     return {
@@ -203,7 +219,16 @@ export default {
       val_6: 'v1',
       val_7: ['v1'],
       val_8: '',
-      val_9: ['v1']
+      val_9: [],
+      val_10: '',
+      val_10_data: [],
+      remoteData: ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7']
+    }
+  },
+  methods: {
+    remote () {
+      // filter remote data
+      (this.remoteData !== null && this.remoteData !== this.val_10_data) && (this.val_10_data = this.remoteData)
     }
   }
 }

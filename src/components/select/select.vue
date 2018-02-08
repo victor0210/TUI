@@ -26,14 +26,15 @@
         <span class="t-select__val" v-if="value">{{ value }}</span>
       </template>
       <input type="text" class="t-select__editpanel" @keyup="editKeyupHandler" ref="editpanel" v-if="isFocus && (editable || searchable)" v-tfocus v-model="editContent">
-    </div>
-    <i class="t-select__icon fa fa-chevron-down" :class="{
+
+      <i class="t-select__icon fa fa-chevron-down" :class="{
         't-select__icon--open': isFocus
       }"></i>
-    <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable" @click.prevent="clearInput"></i>
+      <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable" @click.prevent="clearInput"></i>
+    </div>
     <transition name="fade">
       <ul class="t-select__list" v-if="isFocus" ref="list">
-          <t-option :label="getEditContent" :val="editContent" :editablePanel="true" v-if="editable || searchable" :disabled="searchable" v-show="editable || (searchable && optionChildren.length === 1)"/>
+          <t-option :label="getEditContent" :val="editContent" :editablePanel="true" v-if="editable || searchable" :disabled="searchable" v-show="editable || (searchable && optionChildren.length === 1)" :loading="loading"/>
           <slot></slot>
       </ul>
     </transition>
@@ -41,7 +42,6 @@
 </template>
 
 <script>
-//  TODO local searchable/ remote searchable
 import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
 
@@ -59,13 +59,13 @@ export default {
       focusIndex: null,
       childrenLength: 0,
       optionChildren: [],
+      loading: false,
       editContent: ''
     }
   },
   props: {
     label: {
-      type: String,
-      default: 'input'
+      default: 'select'
     },
     multiple: Boolean,
     disabled: Boolean,
@@ -73,6 +73,14 @@ export default {
     collapseTags: Boolean,
     editable: Boolean,
     searchable: Boolean,
+    remote: Boolean,
+    remoteMethod: Function,
+    loadingText: {
+      default: 'Loading...'
+    },
+    noDataText: {
+      default: 'No Data'
+    },
     value: {}
   },
 
@@ -118,17 +126,18 @@ export default {
     },
     keyDownHandler (e) {
       const _this = this
+      e.preventDefault()
       switch (e.keyCode) {
         case 40:
-          e.preventDefault()
           _this.focusNext()
           break
         case 38:
-          e.preventDefault()
           _this.focusPrevious()
           break
+        case 27:
+          _this.checkout(e)
+          break
         case 13:
-          e.preventDefault()
           if (_this.searchable && _this.optionChildren.length === 1) {
             return false
           }
@@ -226,6 +235,11 @@ export default {
     },
     editKeyupHandler (e) {
       this.editContent = e.target.value
+    },
+    doRemote () {
+      this.loading = true
+      this.remoteMethod()
+      this.loading = false
     }
   },
 
@@ -236,17 +250,26 @@ export default {
     },
     editContent (val, pre) {
       this.focusIndex = 0
+
+      if (this.remote) {
+        this.doRemote()
+      }
+
       if (val.length > pre.length) {
         const foo = this.optionChildren
         this.optionChildren = []
         foo.forEach(function (el) {
+          el.$emit('blur')
           el.$emit('register')
         })
       } else {
         this.optionChildren = []
+        this.broadcast('t-option', 'blur')
         this.broadcast('t-option', 'register')
       }
-      this.searchable ? this.optionChildren.length > 1 && this.optionChildren[1].focusSelect() : this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
+      this.searchable
+        ? this.optionChildren.length > 1 && this.optionChildren[1].focusSelect()
+        : this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
     }
   },
 
@@ -255,7 +278,10 @@ export default {
       return this.multiple ? this.value.length === 0 : !this.value
     },
     getEditContent () {
-      return this.searchable ? (this.optionChildren.length === 1 ? '暂无数据' : this.editContent) : this.editContent
+      if (this.loading) {
+        return this.loadingText
+      }
+      return this.searchable ? (this.optionChildren.length === 1 ? this.noDataText : this.editContent) : this.editContent
     }
   }
 }
