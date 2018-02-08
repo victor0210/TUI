@@ -1,9 +1,9 @@
 <template>
   <li class="t-option" @click="handleClick" :class="{
     'is-selected': isSelected,
-    'is-focus' : isFocus || (isSelected && this.$parent.focusIndex === null),
+    'is-focus' : isFocus || (isSelected && focusIndex === null),
     'is-disabled' : disabled
-  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected && isMultiple"></i></li>
+  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected"></i></li>
 </template>
 
 <script>
@@ -16,22 +16,28 @@ export default {
   data () {
     return {
       isMultiple: false,
-      isFocus: false
+      isFocus: false,
+      optionGroupIndex: null,
+      parent: null
     }
   },
   props: {
-    label: String,
+    label: {},
     disabled: Boolean,
-    val: String,
+    val: {},
     editablePanel: Boolean
+  },
+
+  beforeMount () {
+    this.getParent()
   },
 
   mounted () {
     this.isMultiple = this.$parent.multiple
+    this.dispatchRegister()
     this.dispatch('t-select', 'init-focus-index', this.val)
     this.$on('blur', this.blurSelect)
     this.$on('register', this.dispatchRegister)
-    this.dispatchRegister()
   },
 
   methods: {
@@ -45,10 +51,16 @@ export default {
       this.isFocus = false
     },
     dispatchRegister () {
-      if (this.$parent.editable) {
+      if (this.parent.editable || this.parent.searchable) {
         if (!this.editablePanel) {
-          if ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.$parent.editContent)) {
-            this.dispatch('t-select', 'option-register', this)
+          if (this.parent.searchable) {
+            if (this.val.indexOf(this.parent.editContent) !== -1) {
+              this.dispatch('t-select', 'option-register', this)
+            }
+          } else {
+            if ((this.val.indexOf(this.parent.editContent) !== -1) && (this.val !== this.parent.editContent)) {
+              this.dispatch('t-select', 'option-register', this)
+            }
           }
         } else {
           this.dispatch('t-select', 'option-register', this)
@@ -58,24 +70,35 @@ export default {
       }
     },
     checkShow () {
-      if (this.$parent.editable) {
+      const p = this.parent
+      if (p.editable || p.searchable) {
         if (!this.editablePanel) {
-          return ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.$parent.editContent))
+          if (p.searchable) {
+            return (this.val.indexOf(p.editContent) !== -1)
+          } else {
+            return ((this.val.indexOf(p.editContent) !== -1) && (this.val !== p.editContent))
+          }
         } else {
           return true
         }
       } else {
         return true
       }
+    },
+    getParent () {
+      this.$parent.$options.name === 't-option-group' ? (this.parent = this.$parent.$parent) : (this.parent = this.$parent)
     }
   },
 
   computed: {
     isSelected () {
-      return this.isMultiple ? (this.$parent.value.indexOf(this.val) !== -1) : (this.val === this.$parent.value)
+      return this.isMultiple ? (this.parent.value.indexOf(this.val) !== -1) : (!!this.val && this.val === this.parent.value)
     },
     isShow () {
       return this.checkShow()
+    },
+    focusIndex () {
+      return this.parent.focusIndex
     }
   },
 

@@ -4,7 +4,7 @@
 @include b(option) {
   cursor: pointer;
   user-select: none;
-  padding: 0 10px;
+  padding: 0 20px;
 
   @include e(check) {
     float: right;
@@ -14,7 +14,6 @@
   @include when(selected) {
     color: $--color-primary;
     background-color: #fafafa;
-    font-weight: 600;
   }
 
   @include when(focus) {

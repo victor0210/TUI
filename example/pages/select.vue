@@ -4,8 +4,8 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_1">
-            <t-option :key="1" label="v1" val="v1" :disabled="true"/>
+          <t-select label="请选择" v-model="val_1" :clearable="true">
+            <t-option :key="1" label="v1" val="v1" disabled/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
             <t-option :key="4" label="v4" val="v4"/>
@@ -17,11 +17,6 @@
           </t-select>
         </t-col>
       </t-row>
-      <t-row>
-        <t-col>
-          value: {{ val_1 }}
-        </t-col>
-      </t-row>
     </div>
     <select-normal/>
 
@@ -30,7 +25,7 @@
       <t-row :gutter="20">
         <t-col :span="6">
           <t-select label="请选择" v-model="val_2" :multiple="true">
-            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="1" label="v1" val="v1" disabled/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
             <t-option :key="4" label="v4" val="v4"/>
@@ -53,11 +48,6 @@
             <t-option :key="8" label="v8" val="v8"/>
             <t-option :key="9" label="v9" val="v9"/>
           </t-select>
-        </t-col>
-      </t-row>
-      <t-row>
-        <t-col>
-          value: {{ val_2 }}
         </t-col>
       </t-row>
     </div>
@@ -107,11 +97,68 @@
     </div>
     <select-clearable/>
 
+    <h2>选项分组</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
+        <t-col :span="6">
+          <t-select label="请选择" v-model="val_6">
+            <t-option-group label="城市">
+              <t-option :key="1" label="v1" val="v1"/>
+              <t-option :key="2" label="v2" val="v2"/>
+              <t-option :key="3" label="v3" val="v3"/>
+              <t-option :key="4" label="v4" val="v4"/>
+              <t-option :key="5" label="v5" val="v5"/>
+            </t-option-group>
+            <t-option-group label="地区">
+              <t-option :key="6" label="v6" val="v6"/>
+              <t-option :key="7" label="v7" val="v7"/>
+              <t-option :key="8" label="v8" val="v8"/>
+              <t-option :key="9" label="v9" val="v9"/>
+            </t-option-group>
+          </t-select>
+        </t-col>
+      </t-row>
+    </div>
+    <select-divide/>
+
     <h2>可编辑</h2>
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_6" :editable="true" :multiple="true">
+          <t-select label="请选择" v-model="val_7" editable multiple>
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="2" label="v2" val="v2"/>
+            <t-option :key="3" label="v3" val="v3"/>
+            <t-option :key="4" label="v4" val="v4"/>
+            <t-option :key="5" label="v5" val="v5"/>
+            <t-option :key="6" label="v6" val="v6"/>
+            <t-option :key="7" label="v7" val="v7"/>
+            <t-option :key="8" label="v8" val="v8"/>
+            <t-option :key="9" label="v9" val="v9"/>
+          </t-select>
+        </t-col>
+      </t-row>
+    </div>
+    <select-editable/>
+
+    <h2>可本地</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
+        <t-col :span="6">
+          <t-select label="请选择" v-model="val_8" searchable>
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="2" label="v2" val="v2"/>
+            <t-option :key="3" label="v3" val="v3"/>
+            <t-option :key="4" label="v4" val="v4"/>
+            <t-option :key="5" label="v5" val="v5"/>
+            <t-option :key="6" label="v6" val="v6"/>
+            <t-option :key="7" label="v7" val="v7"/>
+            <t-option :key="8" label="v8" val="v8"/>
+            <t-option :key="9" label="v9" val="v9"/>
+          </t-select>
+        </t-col>
+        <t-col :span="6">
+          <t-select label="请选择" v-model="val_9" searchable multiple>
             <t-option :key="1" label="v1" val="v1"/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
@@ -135,6 +182,7 @@ import selectMultiple from '../documents/select/select-multiple.md'
 import selectDisabled from '../documents/select/select-disabled.md'
 import selectClearable from '../documents/select/select-clearable.md'
 import selectEditable from '../documents/select/select-editable.md'
+import selectDivide from '../documents/select/select-divide.md'
 
 export default {
   components: {
@@ -142,7 +190,8 @@ export default {
     selectMultiple,
     selectDisabled,
     selectClearable,
-    selectEditable
+    selectEditable,
+    selectDivide
   },
   data () {
     return {
@@ -151,7 +200,10 @@ export default {
       val_3: ['v1'],
       val_4: 'v1',
       val_5: ['v1'],
-      val_6: ['v1']
+      val_6: 'v1',
+      val_7: ['v1'],
+      val_8: '',
+      val_9: ['v1']
     }
   }
 }
