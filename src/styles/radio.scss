@@ -13,7 +13,7 @@
   line-height: 100%;
 
   input[type=radio] {
-    //display: none;
+    display: none;
   }
 
   @include e(inner) {

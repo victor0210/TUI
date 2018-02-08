@@ -160,6 +160,25 @@ export default {
     background-color: #f9fafc;
   }
 
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-black {
+    background: #99a9bf;
+  }
+  .bg-gray {
+    background: #d3dce6;
+  }
+  .bg-gray-light {
+    background: #e5e9f2;
+  }
+
    /*
     *-------------------------- Highlight Style -----------------------------*/
 

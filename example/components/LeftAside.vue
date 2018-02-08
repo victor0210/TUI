@@ -71,6 +71,12 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/radio">
+            <span>Radio</span>
+            <span class="chinese">单选框</span>
+          </router-link>
+        </li>
+        <li>
           <router-link to="/select">
             <span>Select</span>
             <span class="chinese">下拉框</span>
