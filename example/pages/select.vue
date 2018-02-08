@@ -4,8 +4,8 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_1">
-            <t-option :key="1" label="v1" val="v1" :disabled="true"/>
+          <t-select label="请选择" v-model="val_1" :clearable="true">
+            <t-option :key="1" label="v1" val="v1" disabled/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
             <t-option :key="4" label="v4" val="v4"/>
@@ -25,7 +25,7 @@
       <t-row :gutter="20">
         <t-col :span="6">
           <t-select label="请选择" v-model="val_2" :multiple="true">
-            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="1" label="v1" val="v1" disabled/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
             <t-option :key="4" label="v4" val="v4"/>
@@ -125,7 +125,40 @@
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
-          <t-select label="请选择" v-model="val_7" :editable="true" :multiple="true">
+          <t-select label="请选择" v-model="val_7" editable multiple>
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="2" label="v2" val="v2"/>
+            <t-option :key="3" label="v3" val="v3"/>
+            <t-option :key="4" label="v4" val="v4"/>
+            <t-option :key="5" label="v5" val="v5"/>
+            <t-option :key="6" label="v6" val="v6"/>
+            <t-option :key="7" label="v7" val="v7"/>
+            <t-option :key="8" label="v8" val="v8"/>
+            <t-option :key="9" label="v9" val="v9"/>
+          </t-select>
+        </t-col>
+      </t-row>
+    </div>
+    <select-editable/>
+
+    <h2>可本地</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
+        <t-col :span="6">
+          <t-select label="请选择" v-model="val_8" searchable>
+            <t-option :key="1" label="v1" val="v1"/>
+            <t-option :key="2" label="v2" val="v2"/>
+            <t-option :key="3" label="v3" val="v3"/>
+            <t-option :key="4" label="v4" val="v4"/>
+            <t-option :key="5" label="v5" val="v5"/>
+            <t-option :key="6" label="v6" val="v6"/>
+            <t-option :key="7" label="v7" val="v7"/>
+            <t-option :key="8" label="v8" val="v8"/>
+            <t-option :key="9" label="v9" val="v9"/>
+          </t-select>
+        </t-col>
+        <t-col :span="6">
+          <t-select label="请选择" v-model="val_9" searchable multiple>
             <t-option :key="1" label="v1" val="v1"/>
             <t-option :key="2" label="v2" val="v2"/>
             <t-option :key="3" label="v3" val="v3"/>
@@ -168,7 +201,9 @@ export default {
       val_4: 'v1',
       val_5: ['v1'],
       val_6: 'v1',
-      val_7: ['v1']
+      val_7: ['v1'],
+      val_8: '',
+      val_9: ['v1']
     }
   }
 }

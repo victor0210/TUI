@@ -5,19 +5,27 @@
     'is-disabled': disabled,
     'is-clearable': clearable
   }">
-    <div class="t-select__wrapper" @click="checkout" v-if="!multiple">
-      <t-input :readonly="true" :placeholder="label" v-model="value" ref="box"/>
-    </div>
-    <div class="t-select__input" @click="checkout" v-else ref="box">
-      <span v-if="label && value.length===0" class="t-select__placeholder">{{ label }}</span>
-      <template v-if="!collapseTags">
-        <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
-        <input type="text" class="t-select__editpanel" @keyup="editKeyupHandler" ref="editpanel" v-if="isFocus && editable" v-tfocus v-model="editContent">
+    <div class="t-select__input" @click="checkout" ref="box">
+      <template v-if="editable || searchable">
+        <span v-if="label && isNull && !editContent" class="t-select__placeholder">{{ label }}</span>
       </template>
       <template v-else>
-        <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ value[0] }} <i class="fa fa-times-circle" @click="removeFromStore(value[0], true)" ref="closeX"></i></span>
-        <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ value.length - 1 }}</span>
+        <span v-if="label && isNull" class="t-select__placeholder">{{ label }}</span>
       </template>
+
+      <template v-if="multiple">
+        <template v-if="!collapseTags">
+          <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
+        </template>
+        <template v-else>
+          <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ value[0] }} <i class="fa fa-times-circle" @click="removeFromStore(value[0], true)" ref="closeX"></i></span>
+          <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ value.length - 1 }}</span>
+        </template>
+      </template>
+      <template v-else>
+        <span class="t-select__val" v-if="value">{{ value }}</span>
+      </template>
+      <input type="text" class="t-select__editpanel" @keyup="editKeyupHandler" ref="editpanel" v-if="isFocus && (editable || searchable)" v-tfocus v-model="editContent">
     </div>
     <i class="t-select__icon fa fa-chevron-down" :class="{
         't-select__icon--open': isFocus
@@ -25,7 +33,7 @@
     <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable" @click.prevent="clearInput"></i>
     <transition name="fade">
       <ul class="t-select__list" v-if="isFocus" ref="list">
-          <t-option :label="editContent" :val="editContent" :editablePanel="true" v-if="editable"/>
+          <t-option :label="getEditContent" :val="editContent" :editablePanel="true" v-if="editable || searchable" :disabled="searchable" v-show="editable || (searchable && optionChildren.length === 1)"/>
           <slot></slot>
       </ul>
     </transition>
@@ -51,17 +59,20 @@ export default {
       focusIndex: null,
       childrenLength: 0,
       optionChildren: [],
-      optionValues: [],
       editContent: ''
     }
   },
   props: {
-    label: String,
+    label: {
+      type: String,
+      default: 'input'
+    },
     multiple: Boolean,
     disabled: Boolean,
     clearable: Boolean,
     collapseTags: Boolean,
     editable: Boolean,
+    searchable: Boolean,
     value: {}
   },
 
@@ -86,11 +97,9 @@ export default {
     },
     optionRegister (child) {
       this.optionChildren.push(child)
-      this.optionValues.push(child.val)
     },
     optionBumper () {
       this.optionChildren.pop()
-      this.optionValues.pop()
     },
     addListener () {
       document.addEventListener('keydown', this.keyDownHandler)
@@ -101,10 +110,9 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
-      this.clickCancelEl = this.multiple ? [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX) : this.$refs.box.$refs.input
-      if (!e.target.className ||
-        (e.target.className.trim().indexOf('t-option') === -1 &&
-          (this.multiple ? this.clickCancelEl.indexOf(e.target) === -1 : this.clickCancelEl !== e.target))) {
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX)
+      console.log(this.clickCancelEl)
+      if (!e.target.className || (e.target.className.trim().indexOf('t-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
         this.$emit('hide', e)
       }
     },
@@ -121,6 +129,9 @@ export default {
           break
         case 13:
           e.preventDefault()
+          if (_this.searchable && _this.optionChildren.length === 1) {
+            return false
+          }
           _this.$emit('select', {e: e, val: _this.optionChildren[_this.focusIndex].val})
           !_this.multiple && _this.$emit('hide', e)
           _this.editContent = ''
@@ -147,10 +158,9 @@ export default {
       }
       this.setFocusIndex(this.focusIndex, 'previous')
     },
-    setFocusIndex (idx, direction) {
+    setFocusIndex (idx, direction, force = false) {
       //  fix scroll with editpanel potion error
-      console.log(this.editContent, this.editContent === '')
-      const n = (this.editable && this.editContent === '') ? 1 : 0
+      const n = ((this.editable || this.searchable) && this.editContent === '') ? 1 : 0
       const i = this.optionEmitScrollIndex
       const h = this.optionLineHeight
       switch (direction) {
@@ -170,8 +180,10 @@ export default {
           break
       }
 
-      if (this.optionChildren[idx].disabled || (this.editable && !this.optionChildren[idx].val)) {
-        direction === 'next' ? this.focusNext() : this.focusPrevious()
+      if (this.optionChildren[idx].disabled || ((this.editable || this.searchable) && !this.optionChildren[idx].val)) {
+        if (!force) {
+          direction === 'next' ? this.focusNext() : this.focusPrevious()
+        }
       }
     },
     selectHandler ({e, val}) {
@@ -180,6 +192,7 @@ export default {
         this.value.indexOf(val) === -1 ? this.addToStore(val) : this.removeFromStore(val)
       } else {
         this.$emit('input', val)
+        this.$emit('hide', e)
       }
     },
     addToStore (val) {
@@ -203,7 +216,7 @@ export default {
 
       if (idx !== null && idx !== this.focusIndex) {
         this.focusIndex = idx
-        this.setFocusIndex(idx, 'next')
+        this.setFocusIndex(idx, 'next', true)
       }
       this.childrenLength += 1
     },
@@ -221,11 +234,28 @@ export default {
       val !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[val].focusSelect()
       pre !== null && ArrayHelper.between(pre, 0, this.optionChildren.length) && this.optionChildren[pre].blurSelect()
     },
-    editContent (val) {
+    editContent (val, pre) {
       this.focusIndex = 0
-      this.optionChildren = []
-      this.broadcast('t-option', 'register')
-      this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
+      if (val.length > pre.length) {
+        const foo = this.optionChildren
+        this.optionChildren = []
+        foo.forEach(function (el) {
+          el.$emit('register')
+        })
+      } else {
+        this.optionChildren = []
+        this.broadcast('t-option', 'register')
+      }
+      this.searchable ? this.optionChildren.length > 1 && this.optionChildren[1].focusSelect() : this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
+    }
+  },
+
+  computed: {
+    isNull () {
+      return this.multiple ? this.value.length === 0 : !this.value
+    },
+    getEditContent () {
+      return this.searchable ? (this.optionChildren.length === 1 ? '暂无数据' : this.editContent) : this.editContent
     }
   }
 }

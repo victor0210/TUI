@@ -17,14 +17,19 @@ export default {
     return {
       isMultiple: false,
       isFocus: false,
-      optionGroupIndex: null
+      optionGroupIndex: null,
+      parent: null
     }
   },
   props: {
-    label: String,
+    label: {},
     disabled: Boolean,
-    val: String,
+    val: {},
     editablePanel: Boolean
+  },
+
+  beforeMount () {
+    this.getParent()
   },
 
   mounted () {
@@ -46,10 +51,16 @@ export default {
       this.isFocus = false
     },
     dispatchRegister () {
-      if (this.selectParent().editable) {
+      if (this.parent.editable || this.parent.searchable) {
         if (!this.editablePanel) {
-          if ((this.val.indexOf(this.selectParent().editContent) !== -1) && (this.val !== this.selectParent().editContent)) {
-            this.dispatch('t-select', 'option-register', this)
+          if (this.parent.searchable) {
+            if (this.val.indexOf(this.parent.editContent) !== -1) {
+              this.dispatch('t-select', 'option-register', this)
+            }
+          } else {
+            if ((this.val.indexOf(this.parent.editContent) !== -1) && (this.val !== this.parent.editContent)) {
+              this.dispatch('t-select', 'option-register', this)
+            }
           }
         } else {
           this.dispatch('t-select', 'option-register', this)
@@ -59,9 +70,14 @@ export default {
       }
     },
     checkShow () {
-      if (this.selectParent().editable) {
+      const p = this.parent
+      if (p.editable || p.searchable) {
         if (!this.editablePanel) {
-          return ((this.val.indexOf(this.$parent.editContent) !== -1) && (this.val !== this.selectParent().editContent))
+          if (p.searchable) {
+            return (this.val.indexOf(p.editContent) !== -1)
+          } else {
+            return ((this.val.indexOf(p.editContent) !== -1) && (this.val !== p.editContent))
+          }
         } else {
           return true
         }
@@ -69,20 +85,20 @@ export default {
         return true
       }
     },
-    selectParent () {
-      return (this.$parent.$options.name === 't-option-group') ? this.$parent.$parent : this.$parent
+    getParent () {
+      this.$parent.$options.name === 't-option-group' ? (this.parent = this.$parent.$parent) : (this.parent = this.$parent)
     }
   },
 
   computed: {
     isSelected () {
-      return this.isMultiple ? (this.selectParent().value.indexOf(this.val) !== -1) : (this.val === this.selectParent().value)
+      return this.isMultiple ? (this.parent.value.indexOf(this.val) !== -1) : (!!this.val && this.val === this.parent.value)
     },
     isShow () {
       return this.checkShow()
     },
     focusIndex () {
-      return this.selectParent().focusIndex
+      return this.parent.focusIndex
     }
   },
 
