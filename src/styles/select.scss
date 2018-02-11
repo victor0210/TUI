@@ -13,8 +13,8 @@
 
   @include e(icon) {
     z-index: $--background-level-index;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -24,7 +24,9 @@
     transition: all .2s;
 
     @include m(open) {
-      transform: rotate(-180deg);
+      .fa-chevron-down {
+        transform: rotate(-180deg);
+      }
     }
   }
 
@@ -49,12 +51,12 @@
       position: absolute;
       color: #777777;
       font-size: 12px;
-      line-height: $--input-height-base - 2;
+      line-height: $--select-inner-height;
       padding: 1px 11px;
     }
 
     @include e(val) {
-      line-height: 40px;
+      line-height: $--select-inner-height;
       padding: 2px 11px;
     }
 
@@ -162,16 +164,18 @@
   }
 
   @include when(clearable) {
-    .t-select__icon--clear {
-      z-index: 1;
-      display: none;
-    }
-    &:hover {
-      .t-select__icon {
+    .t-select__input {
+      .t-select__icon--clear {
+        z-index: 1;
         display: none;
       }
-      .t-select__icon--clear {
-        display: block;
+      &:hover {
+        .fa-chevron-down {
+          display: none;
+        }
+        .t-select__icon--clear {
+          display: block;
+        }
       }
     }
   }
