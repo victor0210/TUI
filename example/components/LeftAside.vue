@@ -65,6 +65,12 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/input-number">
+            <span>InputNumber</span>
+            <span class="chinese">计数器</span>
+          </router-link>
+        </li>
+        <li>
           <router-link to="/checkbox">
             <span>CheckBox</span>
             <span class="chinese">多选框</span>
