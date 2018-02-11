@@ -13,6 +13,10 @@
       round ? 'is-round' : '',
       outline ? 'is-outline' : ''
     ]"
+    @mouseenter="mouseEnterHandler"
+    @mouseleave="mouseLeaveHandler"
+    @mouseover="mouseOverHandler"
+    @mouseout="mouseOutHandler"
   >
     <i class="t-icon fa fa-spinner" v-if="loading"></i>
     <i :class="['t-icon',icon]" v-if="icon && !loading"></i>
@@ -51,6 +55,18 @@ export default {
   methods: {
     handleClick (evt) {
       this.$emit('click', evt)
+    },
+    mouseEnterHandler (e) {
+      this.$emit('mouseenter', e)
+    },
+    mouseLeaveHandler (e) {
+      this.$emit('mouseleave', e)
+    },
+    mouseOverHandler (e) {
+      this.$emit('mouseover', e)
+    },
+    mouseOutHandler (e) {
+      this.$emit('mouseout', e)
     }
   }
 }

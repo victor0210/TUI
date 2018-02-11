@@ -1,6 +1,6 @@
 <template>
   <label class="t-radio"  :class="{
-        'is-checked': val === (isGroup ? this.$parent.value : this.value),
+        'is-checked': val == (isGroup ? this.$parent.value : this.value),
         'is-disabled': disabled,
         'is-outbox': outbox,
       }">

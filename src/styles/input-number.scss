@@ -1,0 +1,221 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/input";
+
+$p: 't-input-number';
+@include b(input-number) {
+  display: table;
+  border: $--input-border;
+  width: 100%;
+  border-radius: $--border-radius-base;
+  height: $--input-height-base;
+  overflow: hidden;
+  transition: .2s;
+
+  &:hover {
+    border-color: #777777;
+  }
+
+  @include e(side-control) {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0;
+    height: 100%;
+
+    /* reset default button style in side control */
+    .t-btn--default {
+      &:active {
+        border-color: $--button-default-border;
+        color: darken($--color-primary, 20%);
+      }
+
+      &:active.is-disabled {
+        color: $--button-disabled-color;
+      }
+    }
+
+    .t-btn {
+      margin: 0;
+      position: absolute;
+      padding: 0;
+      border-radius: 0;
+
+      span {
+        display: block;
+        position: relative;
+        height: 40px;
+        width: 40px;
+        i {
+          position: absolute;
+          left: 0;
+          right: 0;
+        }
+      }
+
+      &:first-child {
+        top: -20px;
+        i {
+          bottom: 5px;
+        }
+      }
+
+      &:last-child {
+        top: 20px;
+        i {
+          top: 5px;
+        }
+      }
+    }
+
+    @include e(side-wrapper) {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+    }
+  }
+
+  @include m(primary) {
+    border-color: $--color-primary;
+    &:hover {
+      border-color: $--color-primary;
+    }
+  }
+
+  @include m(cyan) {
+    border-color: $--color-cyan;
+    &:hover {
+      border-color: $--color-cyan;
+    }
+  }
+  @include m(success) {
+    border-color: $--color-success;
+    &:hover {
+      border-color: $--color-success;
+    }
+  }
+  @include m(warning) {
+    border-color: $--color-warning;
+    &:hover {
+      border-color: $--color-warning;
+    }
+  }
+  @include m(danger) {
+    border-color: $--color-danger;
+    &:hover {
+      border-color: $--color-danger;
+    }
+  }
+  @include m(inverse) {
+    border-color: $--color-inverse;
+    &:hover {
+      border-color: $--color-inverse;
+    }
+  }
+  @include m(info) {
+    border-color: $--color-info;
+    &:hover {
+      border-color: $--color-info;
+    }
+  }
+
+  @include e(wrapper) {
+    height: 100%;
+    position: relative;
+
+    @include e(inner) {
+      border: none;
+      text-align: center;
+      border-radius: $--border-radius-base;
+      box-sizing: border-box;
+      background-color: $--color-white;
+      height: 100%;
+      width: 100%;
+      padding: $--input-padding;
+      outline: none;
+      transition: border .3s linear;
+      color: $--color-text-primary;
+      display: table-cell;
+
+      &:hover {
+        border-color: mix($--color-white, $--color-gray, 20%);
+      }
+
+      &:focus {
+        border-color: $--color-primary;
+      }
+    }
+
+    @include e(prefix-inner) {
+      @include inputIcon();
+
+      left: 0;
+    }
+
+    @include e(prepend-inner) {
+      @include inputIcon();
+
+      right: 0;
+    }
+  }
+
+  @include e(prefix) {
+    @include addon();
+  }
+
+  @include e(suffix) {
+    @include addon();
+  }
+
+  @include when(prefix) {
+    .t-input-number__wrapper, .t-input-number__inner, .t-input-number__prefix &:first-child {
+      @include fixInputBorder('prefix')
+    }
+  }
+
+  @include when(suffix) {
+    .t-input-number__wrapper, .t-input-number__inner, .t-input-number__suffix &:last-child {
+      @include fixInputBorder('suffix')
+    }
+  }
+
+  @include when(input-prefix) {
+    .t-input-number__inner {
+      padding-left: $--input-icon-width;
+    }
+  }
+
+  @include when(input-suffix) {
+    .t-input-number__inner {
+      padding-right: $--input-icon-width;
+    }
+  }
+
+  @include when(disabled) {
+    & {
+      &:hover {
+        border-color: $--border-color-base;
+      }
+      .t-btn {
+        cursor: not-allowed;
+        color: $--button-disabled-color;
+        border: $--button-default-border;
+        background-color: lighten($--button-disabled-color, 10%);
+      }
+      input {
+        cursor: not-allowed;
+        color: $--color-text-placeholder;
+        border: $--button-default-border;
+        background-color: $--input-disable-color;
+      }
+    }
+  }
+
+  @include when(focused) {
+    border-color: $--color-primary;
+  }
+
+  @include when(side-focused) {
+    border-color: $--color-primary;
+  }
+}
