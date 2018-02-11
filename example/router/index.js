@@ -32,6 +32,11 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/input.vue')))
     },
     {
+      path: '/input-number',
+      name: 'input-number',
+      component: r => require.ensure([], () => r(require('../pages/input-number.vue')))
+    },
+    {
       path: '/checkbox',
       name: 'checkbox',
       component: r => require.ensure([], () => r(require('../pages/checkbox.vue')))

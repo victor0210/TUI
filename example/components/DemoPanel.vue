@@ -28,7 +28,7 @@ export default {
 
 <style>
   section {
-    width: 1000px;
+    width: 100%;
     margin: auto;
   }
   .demo-block {

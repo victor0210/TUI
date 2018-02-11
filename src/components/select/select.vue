@@ -126,18 +126,20 @@ export default {
     },
     keyDownHandler (e) {
       const _this = this
-      e.preventDefault()
       switch (e.keyCode) {
         case 40:
+          e.preventDefault()
           _this.focusNext()
           break
         case 38:
+          e.preventDefault()
           _this.focusPrevious()
           break
         case 27:
           _this.checkout(e)
           break
         case 13:
+          e.preventDefault()
           if (_this.searchable && _this.optionChildren.length === 1) {
             return false
           }
