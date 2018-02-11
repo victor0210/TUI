@@ -1,0 +1,76 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(switch) {
+  width: 44px;
+  height: 22px;
+  color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 100px;
+  position: relative;
+  line-height: 22px;
+  @include m(lg){
+    width: 60px;
+    height: 26px;
+    .t-switch__inner{
+      width: 22px;
+      height: 22px;
+    }
+  }
+  @include m(sm){
+    width: 24px;
+    height: 12px;
+    .t-switch__inner{
+      width: 8px;
+      height: 8px;
+    }
+  }
+  @include e(inner) {
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #fafafa;
+    border-radius: 50%;
+    margin-left: 2px;
+    margin-top: 2px;
+    transition: all .3s;
+    //@include m(primary) {
+    //  background-color: $--color-primary;
+    //}
+    @include m(cyan) {
+      background-color: $--color-cyan;
+    }
+    @include m(warning) {
+      background-color: $--color-warning;
+    }
+    @include m(danger) {
+      background-color: $--color-danger;
+    }
+    @include m(success) {
+      background-color: $--color-success;
+    }
+    @include m(info) {
+      background-color: $--color-info;
+    }
+    @include m(inverse) {
+      background-color: $--color-inverse;
+    }
+  }
+  @include e(text) {
+    color: $--color-white;
+    margin-left: 24px;
+    margin-right: 6px;
+  }
+
+  @include when(open) {
+    background-color: $--color-primary;
+    .t-switch__inner {
+      margin-left: 55%;
+    }
+    .t-switch__text{
+      margin-left: 6px;
+      margin-right: 24px;
+    }
+  }
+}

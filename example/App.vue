@@ -35,7 +35,12 @@ export default {
     RightAside,
     TFoot
   },
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      cc: true
+    }
+  }
 }
 </script>
 

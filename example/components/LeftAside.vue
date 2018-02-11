@@ -70,6 +70,12 @@
                         <span class="chinese">多选框</span>
                     </router-link>
                 </li>
+                <li>
+                    <router-link to="/switch">
+                        <span>Switch</span>
+                        <span class="chinese">开关</span>
+                    </router-link>
+                </li>
             </ul>
         </li>
     </ul>

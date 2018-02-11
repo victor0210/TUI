@@ -11,6 +11,7 @@ import Header from './components/header/index'
 import Footer from './components/footer/index'
 import Content from './components/content/index'
 import Aside from './components/aside/index'
+import Switch from './components/switch/index'
 
 const Tui = {
   Button,
@@ -24,7 +25,8 @@ const Tui = {
   Header,
   Content,
   Footer,
-  Aside
+  Aside,
+  Switch
 }
 
 const install = function (Vue, opts = {}) {

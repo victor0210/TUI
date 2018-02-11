@@ -539,3 +539,57 @@
 </t-row>
 ```
 :::
+
+
+## Switch
+<div class="demo-block">
+  <t-row :gutter="20">
+    <t-col :span="24">
+      <t-switch type="primary" size="lg"></t-switch>
+      <t-switch type="cyan" size="lg"></t-switch>
+      <t-switch type="warning" size="lg"></t-switch>
+      <t-switch type="danger" size=""></t-switch>
+      <t-switch type="success" size=""></t-switch>
+      <t-switch type="info" size=""></t-switch>
+      <t-switch type="inverse" size="sm"></t-switch>
+      <t-switch size="sm"></t-switch>
+    </t-col>
+  </t-row>
+</div>
+
+:::demo
+```html
+<t-row :gutter="20">
+  <t-col :span="24">
+    <t-switch></t-switch>
+    <t-switch type="primary"></t-switch>
+    <t-switch type="cyan"></t-switch>
+    <t-switch type="warning"></t-switch>
+    <t-switch type="danger"></t-switch>
+    <t-switch type="success"></t-switch>
+    <t-switch type="info"></t-switch>
+    <t-switch type="inverse"></t-switch>
+  </t-col>
+</t-row>
+```
+:::
+
+## Switch text／icon
+<div class="demo-block">
+  <t-row :gutter="20">
+    <t-col :span="24">
+      <t-switch checkedChildren="开" unCheckedChildren="关"></t-switch>
+      <t-switch checkedChildren="1" unCheckedChildren="0"></t-switch>
+  </t-row>
+</div>
+
+:::demo
+```html
+<div class="demo-block">
+  <t-row :gutter="20">
+    <t-col :span="24">
+      <t-switch checkedChildren="开" unCheckedChildren="关"></t-switch>
+      <t-switch checkedChildren="1" unCheckedChildren="0"></t-switch>
+  </t-row>
+</div>
+```
