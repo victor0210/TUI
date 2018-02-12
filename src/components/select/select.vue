@@ -3,7 +3,7 @@
     'is-focus': isFocus,
     'is-multiple': multiple,
     'is-disabled': disabled,
-    'is-clearable': clearable
+    'is-clearable': clearable && (multiple ? value.length > 0 : value !== '')
   }">
     <div class="t-select__input" @click="checkout" ref="box">
       <template v-if="editable || searchable">
@@ -30,7 +30,7 @@
       <i class="t-select__icon fa fa-chevron-down" :class="{
         't-select__icon--open': isFocus
       }"></i>
-      <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable" @click.prevent="clearInput"></i>
+      <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable && (multiple ? value.length > 0 : value !== '')" @click="clearInput" ref="clear"></i>
     </div>
     <transition name="fade">
       <ul class="t-select__list" v-if="isFocus" ref="list">
@@ -118,7 +118,7 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX)
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear)
       console.log(this.clickCancelEl)
       if (!e.target.className || (e.target.className.trim().indexOf('t-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
         this.$emit('hide', e)
@@ -136,6 +136,7 @@ export default {
           _this.focusPrevious()
           break
         case 27:
+          e.preventDefault()
           _this.checkout(e)
           break
         case 13:
@@ -232,6 +233,8 @@ export default {
       this.childrenLength += 1
     },
     clearInput (e) {
+      e.preventDefault()
+      e.cancelBubble = true
       this.$emit('input', this.multiple ? [] : '')
       this.multiple && (this.store = [])
     },
