@@ -1,7 +1,8 @@
 @import "variables";
 @import "mixins/mixins";
+@import "mixins/drop";
 
-@include b(select) {
+@include b(cascader) {
   display: block;
   box-sizing: border-box;
   position: relative;
@@ -98,20 +99,14 @@
   }
 
   @include e(list) {
-    z-index: $--select-list-index;
-    transition: all .2s;
-    width: auto;
-    min-width: 150px;
-    margin-top: 5px;
+    @include drop-variant();
+    & + .t-cascader__list {
+      border-left: none;
+    }
+  }
+
+  @include e(list-container) {
     position: absolute;
-    box-shadow: 1px 1px 1px 1px #eee;
-    background-color: #fff;
-    line-height: 40px;
-    list-style: none;
-    height: auto;
-    max-height: 200px;
-    overflow-y: scroll;
-    border: $--border-base
   }
 
   input {
@@ -125,7 +120,7 @@
   }
 
   @include when(focus) {
-    input, .t-select__input {
+    input, .t-cascader__input {
       border-color: $--color-primary;
     }
   }
@@ -140,11 +135,11 @@
       color: #c0c4cc;
     }
 
-    .t-select__icon {
+    .t-cascader__icon {
       z-index: 0;
     }
 
-    .t-select__input, input {
+    .t-cascader__input, input {
       background-color: #f5f7fa;
       color: #c0c4cc;
       &:hover {
@@ -152,7 +147,7 @@
       }
     }
 
-    .t-select__tag {
+    .t-cascader__tag {
       color: $--color-text-placeholder;
       i {
         &:hover {
@@ -163,8 +158,8 @@
   }
 
   @include when(clearable) {
-    .t-select__input {
-      .t-select__icon--clear {
+    .t-cascader__input {
+      .t-cascader__icon--clear {
         z-index: 1;
         display: none;
       }
@@ -172,7 +167,7 @@
         .fa-chevron-down {
           display: none;
         }
-        .t-select__icon--clear {
+        .t-cascader__icon--clear {
           display: block;
         }
       }
