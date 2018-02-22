@@ -10,12 +10,11 @@
 export default {
   data () {
     return {
-      opt: '',
+      opt: ['hp', '1000000', '1000000'],
       option: [
         {
           label: '高价',
           val: 'hp',
-          disabled: true,
           children: [
             {
               label: '1000000',

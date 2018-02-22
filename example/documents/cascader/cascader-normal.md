@@ -27,7 +27,6 @@ export default {
                 {
                   label: '2000000',
                   val: '2000000',
-                  disabled: true
                 },
                 {
                   label: '3000000',
