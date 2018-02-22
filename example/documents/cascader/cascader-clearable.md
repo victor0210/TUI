@@ -2,7 +2,7 @@
 ```html
 <t-row :gutter="20">
   <t-col :span="6">
-    <t-cascader :option="option" v-model="opt"/>
+    <t-cascader :option="option" v-model="opt" clearable/>
   </t-col>
 </t-row>
 
@@ -15,6 +15,7 @@ export default {
         {
           label: '高价',
           val: 'hp',
+          disabled: true,
           children: [
             {
               label: '1000000',
@@ -26,8 +27,7 @@ export default {
                 },
                 {
                   label: '2000000',
-                  val: '2000000',
-                  disabled: true
+                  val: '2000000'
                 },
                 {
                   label: '3000000',

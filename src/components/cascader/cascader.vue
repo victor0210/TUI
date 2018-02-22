@@ -3,14 +3,16 @@
     <label class="t-cascader" :class="{
       'is-focus': isFocus,
       'is-disabled': disabled,
+      'is-clearable': clearable && value !== '',
     }">
       <div class="t-cascader__input" @click="checkout" ref="box">
         <span v-if="label && !value" class="t-cascader__placeholder">{{ label }}</span>
-        <span class="t-cascader__val" v-if="value" ref="val">{{ value.join('/') }}</span>
+        <span class="t-cascader__val" v-if="value !== ''" ref="val">{{ value.join('/') }}</span>
 
         <i class="t-cascader__icon fa fa-chevron-down" :class="{
           't-cascader__icon--open': isFocus
         }"></i>
+        <i class="t-cascader__icon t-cascader__icon--clear fa fa-times-circle" v-if="clearable && value !== ''" @click="clearInput" ref="clear"></i>
       </div>
     </label>
 
@@ -29,7 +31,7 @@ import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
 import TCascaderOption from './cascader-option'
 
-//  TODO search / edit/ clearable
+//  TODO search / edit/ clearable/ fix focusParent Index to old Index
 export default {
   name: 't-cascader',
 
@@ -61,7 +63,7 @@ export default {
       default: '请选择'
     },
     disabled: Boolean,
-    // clearable: Boolean,
+    clearable: Boolean,
     // editable: Boolean,
     // searchable: Boolean,
     value: {},
@@ -129,7 +131,7 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.val)
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.val).concat(this.$refs.clear)
       if (!e.target.className || (e.target.className.trim().indexOf('t-cascader-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
         this.$emit('hide', e)
       }
@@ -274,12 +276,16 @@ export default {
         }
       }
       preIdx !== null && ArrayHelper.between(preIdx, 0, this.optionChildren[prePos].length) && this.optionChildren[prePos][preIdx].blurSelect()
+    },
+    clearInput (e) {
+      e.stopPropagation()
+      this.store = []
+      this.$emit('input', '')
     }
   },
   watch: {
     value (val) {
       this.store = ArrayHelper.mapValue(val)
-      this.valueIndex = val.join('-')
     },
     store (val) {
       this.selectIndex = val.join('-')

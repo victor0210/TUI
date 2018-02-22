@@ -19,27 +19,39 @@
       </t-row>
     </div>
     <cascader-disabled/>
+
+    <h2>可清除</h2>
+    <div class="demo-block">
+      <t-row :gutter="20">
+        <t-col :span="6">
+          <t-cascader :option="option" v-model="op3" clearable/>
+        </t-col>
+      </t-row>
+    </div>
+    <cascader-clearable/>
   </div>
 </template>
 
 <script>
 import cascaderNormal from '../documents/cascader/cascader-normal.md'
 import cascaderDisabled from '../documents/cascader/cascader-disabled.md'
+import cascaderClearable from '../documents/cascader/cascader-clearable.md'
 
 export default {
   components: {
     cascaderNormal,
-    cascaderDisabled
+    cascaderDisabled,
+    cascaderClearable
   },
   data () {
     return {
       op1: '',
       op2: ['hp', '1000000', '1000000'],
+      op3: ['hp', '1000000', '1000000'],
       option: [
         {
           label: '高价',
           val: 'hp',
-          disabled: true,
           children: [
             {
               label: '1000000',
