@@ -15,5 +15,19 @@ export default {
   },
   between (val, left, right) {
     return val >= left && val < right
+  },
+  addToStoreWithIndex (arr, val, idx) {
+    for (let i = arr.length - 1; i >= idx; i--) {
+      arr.pop()
+    }
+    arr.push(val)
+    return arr
+  },
+  mapValue (arr) {
+    let dist = []
+    for (let i = arr.length - 1; i >= 0; i--) {
+      dist[i] = arr[i]
+    }
+    return dist
   }
 }
