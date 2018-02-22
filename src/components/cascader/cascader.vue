@@ -7,7 +7,7 @@
     }">
       <div class="t-cascader__input" @click="checkout" ref="box">
         <span v-if="label && !value" class="t-cascader__placeholder">{{ label }}</span>
-        <span class="t-cascader__val" v-if="value !== ''" ref="val">{{ value.join('/') }}</span>
+        <span class="t-cascader__val" v-if="value !== ''" ref="val">{{ onlyLast ? value[value.length-1] : value.join('/') }}</span>
 
         <i class="t-cascader__icon fa fa-chevron-down" :class="{
           't-cascader__icon--open': isFocus
@@ -64,6 +64,7 @@ export default {
     },
     disabled: Boolean,
     clearable: Boolean,
+    onlyLast: Boolean,
     // editable: Boolean,
     // searchable: Boolean,
     value: {},
