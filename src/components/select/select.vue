@@ -15,15 +15,15 @@
 
       <template v-if="multiple">
         <template v-if="!collapseTags">
-          <span class="t-select__tag" v-for="(v, idx) in value" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(v, true)" ref="closeX"></i></span>
+          <span class="t-select__tag" v-for="(v, idx) in labelStore" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(value[idx], true)" ref="closeX"></i></span>
         </template>
         <template v-else>
-          <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ value[0] }} <i class="fa fa-times-circle" @click="removeFromStore(value[0], true)" ref="closeX"></i></span>
-          <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ value.length - 1 }}</span>
+          <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ labelStore[0] }} <i class="fa fa-times-circle" @click="removeFromStore(value[0], true)" ref="closeX"></i></span>
+          <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ labelStore.length - 1 }}</span>
         </template>
       </template>
       <template v-else>
-        <span class="t-select__val" v-if="value">{{ value }}</span>
+        <span class="t-select__val" v-if="value">{{ labelStore[0] }}</span>
       </template>
       <input type="text" class="t-select__editpanel" @keyup="editKeyupHandler" ref="editpanel" v-if="isFocus && (editable || searchable)" v-tfocus v-model="editContent">
 
@@ -58,6 +58,7 @@ export default {
       store: [],
       focusIndex: null,
       childrenLength: 0,
+      labelStore: [],
       optionChildren: [],
       loading: false,
       editContent: ''
@@ -65,7 +66,7 @@ export default {
   },
   props: {
     label: {
-      default: 'select'
+      default: '请选择'
     },
     multiple: Boolean,
     disabled: Boolean,
@@ -84,6 +85,9 @@ export default {
     value: {}
   },
 
+  beforeMount () {
+    this.setLabelStore()
+  },
   mounted () {
     this.store = this.value
     this.$on('select', this.selectHandler)
@@ -144,7 +148,8 @@ export default {
           if (_this.searchable && _this.optionChildren.length === 1) {
             return false
           }
-          _this.$emit('select', {e: e, val: _this.optionChildren[_this.focusIndex].val})
+          let t = _this.optionChildren[_this.focusIndex]
+          _this.$emit('select', {e: e, val: t.val, label: t.label})
           !_this.multiple && _this.$emit('hide', e)
           _this.editContent = ''
           break
@@ -198,13 +203,14 @@ export default {
         }
       }
     },
-    selectHandler ({e, val}) {
+    selectHandler ({e, val, label}) {
       if (this.multiple) {
         e.preventDefault()
         this.value.indexOf(val) === -1 ? this.addToStore(val) : this.removeFromStore(val)
       } else {
         this.$emit('input', val)
         this.$emit('hide', e)
+        this.labelStore[0] = label
       }
     },
     addToStore (val) {
@@ -245,6 +251,38 @@ export default {
       this.loading = true
       this.remoteMethod()
       this.loading = false
+    },
+    setLabelStore () {
+      const _this = this
+      if (!this.$slots.default) return
+      this.labelStore = []
+      this.$slots.default.forEach(function (el) {
+        let target = el.componentOptions
+        if (el.tag) {
+          if (target.tag !== 't-option-group') {
+            let t = target.propsData
+            _this.csLabelStore(t.val, t.label)
+          } else {
+            target.children.forEach(function (elm) {
+              if (elm.tag) {
+                let t = elm.componentOptions.propsData
+                _this.csLabelStore(t.val, t.label)
+              }
+            })
+          }
+        }
+      })
+    },
+    //  check && set
+    csLabelStore (val, label) {
+      const v = this.value
+      if (this.multiple) {
+        let idx = v.indexOf(val)
+        idx !== -1 && (this.labelStore[idx] = label)
+      } else if (v === val) {
+        this.labelStore[0] = label
+        return 0
+      }
     }
   },
 
@@ -275,6 +313,9 @@ export default {
       this.searchable
         ? this.optionChildren.length > 1 && this.optionChildren[1].focusSelect()
         : this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
+    },
+    store () {
+      this.setLabelStore()
     }
   },
 

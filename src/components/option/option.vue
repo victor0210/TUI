@@ -3,7 +3,7 @@
     'is-selected': isSelected,
     'is-focus' : isFocus || (isSelected && focusIndex === null),
     'is-disabled' : disabled
-  }" v-if="isShow">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected"></i>
+  }" v-if="isShow" ref="option">{{ label }}<i class="t-option__check fa fa-check" v-if="isSelected"></i>
     <i class="t-option__check fa fa-circle-notch fa-spin" v-if="loading"></i>
   </li>
 </template>
@@ -45,7 +45,7 @@ export default {
 
   methods: {
     handleClick (e) {
-      this.disabled ? e.preventDefault() : this.dispatch('t-select', 'select', {e: e, val: this.val})
+      this.disabled ? e.preventDefault() : this.dispatch('t-select', 'select', {e: e, val: this.val, label: this.label})
     },
     focusSelect () {
       this.isFocus = true
