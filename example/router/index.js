@@ -50,6 +50,11 @@ export default new Router({
       path: '/select',
       name: 'select',
       component: r => require.ensure([], () => r(require('../pages/select.vue')))
+    },
+    {
+      path: '/cascader',
+      name: 'cascader',
+      component: r => require.ensure([], () => r(require('../pages/cascader.vue')))
     }
   ]
 })

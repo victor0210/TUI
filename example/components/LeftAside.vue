@@ -88,6 +88,12 @@
             <span class="chinese">下拉框</span>
           </router-link>
         </li>
+        <li>
+          <router-link to="/cascader">
+            <span>Cascader</span>
+            <span class="chinese">级联</span>
+          </router-link>
+        </li>
       </ul>
     </li>
   </ul>

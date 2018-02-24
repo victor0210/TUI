@@ -198,15 +198,13 @@ $p: 't-input-number';
       }
       .t-btn {
         cursor: not-allowed;
-        color: $--button-disabled-color;
-        border: $--button-default-border;
-        background-color: lighten($--button-disabled-color, 10%);
+        background-color: #f5f7fa;
+        color: #c0c4cc;
       }
       input {
         cursor: not-allowed;
-        color: $--color-text-placeholder;
-        border: $--button-default-border;
-        background-color: $--input-disable-color;
+        background-color: #f5f7fa;
+        color: #c0c4cc;
       }
     }
   }

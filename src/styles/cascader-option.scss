@@ -1,22 +1,33 @@
 @import "variables";
 @import "mixins/mixins";
 
-@include b(option) {
+@include b(cascader-option) {
   cursor: pointer;
   user-select: none;
   padding: 0 20px;
 
   @include e(check) {
+    color: $--color-text-placeholder;
     float: right;
     line-height: 40px;
   }
 
   @include when(selected) {
+    background-color: #fff;
     color: $--color-primary;
-    //background-color: #fafafa;
+  }
+
+  @include when(choosing) {
+    background-color: #fff;
+    color: $--color-primary;
   }
 
   @include when(focus) {
+    background-color: #f5f7fa;
+    color: $--color-primary;
+  }
+
+  &.is-focus.is-choosing {
     background-color: #f5f7fa;
     color: $--color-primary;
   }

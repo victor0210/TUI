@@ -123,7 +123,6 @@ export default {
     },
     clickBlurSelect (e) {
       this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear)
-      console.log(this.clickCancelEl)
       if (!e.target.className || (e.target.className.trim().indexOf('t-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
         this.$emit('hide', e)
       }
