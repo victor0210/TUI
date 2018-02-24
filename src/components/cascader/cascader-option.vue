@@ -3,8 +3,9 @@
     <div class="t-cascader-option" @hover="handleHover" @click="handleClick" :class="{
       'is-selected': isSelect,
       'is-focus' : isFocus,
+      'is-choosing': isChoosing,
       'is-disabled' : disabled
-    }">{{ label }}<i class="t-cascader-option__check fa fa-chevron-right" v-if="!!children"></i>
+    }"><span v-html="label" class="t-cascader-option__keyword"></span><i class="t-cascader-option__check fa fa-chevron-right" v-if="!!children"></i>
     </div>
   </li>
 </template>
@@ -32,7 +33,8 @@ export default {
       type: String,
       default: ''
     },
-    idx: String
+    idx: String,
+    search: Boolean
   },
 
   beforeMount () {
@@ -45,29 +47,15 @@ export default {
 
   methods: {
     dispatchRegister () {
-      if (this.parent.editable || this.parent.searchable) {
-        if (!this.editablePanel) {
-          if (this.parent.searchable) {
-            if (this.val.indexOf(this.parent.editContent) !== -1) {
-              this.dispatch('t-cascader', 'option-register', this)
-            }
-          } else {
-            if ((this.val.indexOf(this.parent.editContent) !== -1) && (this.val !== this.parent.editContent)) {
-              this.dispatch('t-cascader', 'option-register', this)
-            }
-          }
-        } else {
-          this.dispatch('t-cascader', 'option-register', this)
-        }
-      } else {
-        this.dispatch('t-cascader', 'option-register', this)
-      }
+      this.search ? this.dispatch('t-cascader', 'search-option-register', this) : this.dispatch('t-cascader', 'option-register', this)
     },
     handleClick (e) {
-      !this.disabled && this.dispatch('t-cascader', 'select', {val: this.val, pos: this.pos, hasChildren: !!this.children})
+      if (!this.disabled) {
+        this.search ? this.dispatch('t-cascader', 'select-search', {e, val: this.idx.split('-')}) : this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children})
+      }
     },
     handleHover (e) {
-      !this.disabled && this.dispatch('t-cascader', 'select', {val: this.val, pos: this.pos, hasChildren: !!this.children, hover: true})
+      !this.disabled && this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children, hover: true})
     },
     focusSelect () {
       this.isFocus = true
@@ -82,12 +70,15 @@ export default {
 
   computed: {
     isSelect () {
-      return this.parent.selectIndex.indexOf(this.idx) === 0
+      return this.parent.valueIndex.indexOf(this.idx) === 0 && !this.search
+    },
+    isChoosing () {
+      return this.parent.selectIndex.indexOf(this.idx) === 0 && !this.search
     }
   },
 
   beforeDestroy () {
-    this.dispatch('t-cascader', 'option-bumper', this)
+    this.search ? this.dispatch('t-cascader', 'search-option-bumper') : this.dispatch('t-cascader', 'option-bumper', this)
   }
 }
 
