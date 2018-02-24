@@ -3,23 +3,32 @@
     <label class="t-cascader" :class="{
       'is-focus': isFocus,
       'is-disabled': disabled,
+      'is-clearable': clearable && value !== '',
     }">
-      <div class="t-cascader__input" @click="checkout" ref="box">
-        <span v-if="label && !value" class="t-cascader__placeholder">{{ label }}</span>
-        <span class="t-cascader__val" v-if="value" ref="val">{{ value.join('/') }}</span>
-
+      <div class="t-cascader__input" ref="box" @click.prevent="checkout">
+        <!--keyup解决输入法兼容问题-->
+        <input type="text" :readonly="!searchable" class="t-cascader__search" v-model="editContent" ref="search_panel" :placeholder="(onlyLast ? shownLabel.split('/').pop() : shownLabel) || placeholder">
         <i class="t-cascader__icon fa fa-chevron-down" :class="{
           't-cascader__icon--open': isFocus
         }"></i>
+        <i class="t-cascader__icon t-cascader__icon--clear fa fa-times-circle" v-if="clearable && value !== ''" @click="clearInput" ref="clear"></i>
       </div>
     </label>
 
     <div class="t-cascader__list-container">
       <transition-group name="fade">
-        <ul class="t-cascader__list" v-if="isFocus && (childIndex >= idx || idx === 0 || store === value)" ref="list" :key="idx" v-for="(list, idx) in formatOptions">
+        <ul class="t-cascader__list" v-if="editContent === '' && isFocus && (childIndex >= idx || idx === 0)" ref="list" :key="idx" v-for="(list, idx) in formatOptions">
           <t-cascader-option v-for="opt in list" v-if="idx===0 || (selectIndex.indexOf(opt.pidx) !== -1)" :label="opt.label" :val="opt.val" :children="!!opt.children" :key="opt.idx" :pos="idx" :store="store" :disabled="opt.disabled" :pidx="opt.pidx" :idx="opt.idx"/>
         </ul>
       </transition-group>
+      <transition name="fade">
+        <ul class="t-cascader__search-list" v-if="isFocus && searchResults.length > 0 && editContent !== ''" ref="search_list">
+          <t-cascader-option v-for="(opt, key) in searchResults" :key="key" :idx="opt.idx" :label="opt.label" :val="opt.val" search/>
+        </ul>
+        <ul class="t-cascader__search-none" v-if="isFocus && searchResults.length === 0 && editContent !== ''">
+          <t-cascader-option :label="noneText" :val="noneText" disabled/>
+        </ul>
+      </transition>
     </div>
   </div>
 </template>
@@ -29,7 +38,7 @@ import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
 import TCascaderOption from './cascader-option'
 
-//  TODO search / edit/ clearable
+//  TODO code rebuild --tag t1
 export default {
   name: 't-cascader',
 
@@ -46,54 +55,72 @@ export default {
       isFocus: false,
       store: [],
       focusIndex: null,
+      searchFocusIndex: null,
       focusPosition: 0,
       childrenLength: 0,
       optionChildren: [],
+      searchOptionChildren: [],
       editContent: '',
       formatOptions: [],
       selectIndex: '',
+      valueIndex: '',
       childIndex: 0,
-      scrollPosition: []
+      scrollPosition: [],
+      searchResults: [],
+      shownLabel: '',
+      posStore: []
     }
   },
   props: {
-    label: {
+    placeholder: {
       default: '请选择'
     },
     disabled: Boolean,
-    // clearable: Boolean,
-    // editable: Boolean,
-    // searchable: Boolean,
+    clearable: Boolean,
+    onlyLast: Boolean,
+    searchable: Boolean,
     value: {},
-    option: {}
+    option: {},
+    noneText: {
+      type: String,
+      default: 'None'
+    }
   },
 
   beforeMount () {
     this.formatOption()
+    this.setLabel()
+    this.setValueIndex()
   },
 
   mounted () {
     this.$on('select', this.selectHandler)
+    this.$on('select-search', this.selectSearchHandler)
 
     this.$on('hide', this.hideHandler)
     this.$on('init-focus-index', this.initFocusByChild)
     this.$on('option-register', this.optionRegister)
     this.$on('option-bumper', this.optionBumper)
+    this.$on('search-option-register', this.searchOptionRegister)
+    this.$on('search-option-bumper', this.searchOptionBumper)
   },
   methods: {
-    formatOption (opts = this.option, idx = 0, pIndex = '') {
+    formatOption (opts = this.option, idx = 0, pIndex = '', pLabelIndex = '') {
       const _this = this
       opts.map(function (el) {
+        el.hasChild = !!el.children
         if (idx === 0) {
           el.idx = pIndex.concat(el.val)
+          el.labelIdx = pLabelIndex.concat(el.label)
         } else {
           el.idx = pIndex.concat('-' + el.val)
+          el.labelIdx = pLabelIndex.concat('-' + el.label)
           el.pidx = pIndex
         }
         if (_this.formatOptions[idx] === undefined) _this.formatOptions[idx] = []
         _this.formatOptions[idx].push(el)
         if (el.children !== undefined) {
-          _this.formatOption(el.children, idx + 1, el.idx)
+          _this.formatOption(el.children, idx + 1, el.idx, el.labelIdx)
         }
       })
     },
@@ -106,9 +133,11 @@ export default {
         this.focusPosition = 0
         this.childrenLength = 0
         this.editContent = ''
+        this.searchable && this.$refs.search_panel.blur()
       } else {
         this.store = ArrayHelper.mapValue(this.value)
         this.childIndex = this.store.length - 1
+        this.searchable && this.$refs.search_panel.focus()
       }
     },
     optionRegister (child) {
@@ -120,6 +149,12 @@ export default {
     optionBumper (child) {
       this.optionChildren[child.pos].shift()
     },
+    searchOptionRegister (child) {
+      this.searchOptionChildren.push(child)
+    },
+    searchOptionBumper () {
+      this.searchOptionChildren.shift()
+    },
     addListener () {
       document.addEventListener('keydown', this.keyDownHandler)
       document.addEventListener('click', this.clickBlurSelect, true)
@@ -129,8 +164,11 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.val)
-      if (!e.target.className || (e.target.className.trim().indexOf('t-cascader-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
+      //  add blur listener to some element which couldn't auto fire checkout
+      const className = e.target.className
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.clear).concat(this.$refs.search_panel)
+
+      if (className !== 't-cascader-option__keyword' && className !== 't-cascader-option' && this.clickCancelEl.indexOf(e.target) === -1) {
         this.$emit('hide', e)
       }
     },
@@ -146,12 +184,16 @@ export default {
           _this.focusPrevious()
           break
         case 37:
-          e.preventDefault()
-          _this.focusParent()
+          if (_this.editContent === '') {
+            e.preventDefault()
+            _this.focusParent()
+          }
           break
         case 39:
-          e.preventDefault()
-          _this.focusChild()
+          if (_this.editContent === '') {
+            e.preventDefault()
+            _this.focusChild()
+          }
           break
         case 27:
           e.preventDefault()
@@ -159,8 +201,9 @@ export default {
           break
         case 13:
           e.preventDefault()
-          if (_this.searchable && _this.optionChildren.length === 1) {
-            return false
+          if (_this.editContent !== '') {
+            _this.searchFocusIndex !== null && _this.searchOptionChildren[_this.searchFocusIndex].handleClick(e)
+            return
           }
           if (!_this.optionChildren[_this.focusPosition][_this.focusIndex].children) {
             this.$emit('input', this.store)
@@ -175,55 +218,87 @@ export default {
       this.isFocus && this.checkout(e)
     },
     focusParent () {
-      const idx = this.focusIndex
-      const prePos = this.focusPosition
-      if (this.focusPosition > 0 && this.focusIndex !== null) {
-        this.focusPosition--
-        this.switchFocusEl(0, this.focusPosition, idx, prePos)
-        this.focusIndex = 0
-        this.$refs.list[this.focusPosition].scrollTop = 0
+      if (this.editContent === '') {
+        const idx = this.focusIndex
+        const prePos = this.focusPosition
+        if (this.focusPosition > 0 && this.focusIndex !== null) {
+          this.focusPosition--
+          this.focusIndex = this.posStore[this.posStore.length - 1]
+          this.switchFocusEl(this.focusIndex, this.focusPosition, idx, prePos)
+          this.posStore.pop()
+          this.store.pop()
+          this.$refs.list[this.focusPosition].scrollTop = (this.focusIndex - 4) * 40
+        }
       }
     },
     focusChild () {
-      const idx = this.focusIndex
-      const prePos = this.focusPosition
-      if (this.focusIndex !== null && this.optionChildren[prePos][idx].children) {
-        this.focusPosition++
-        this.switchFocusEl(0, this.focusPosition, idx, prePos)
-        this.focusIndex = 0
-        this.$refs.list[this.focusPosition].scrollTop = 0
+      if (this.editContent === '') {
+        const idx = this.focusIndex
+        const prePos = this.focusPosition
+        if (this.focusIndex !== null && this.optionChildren[prePos][idx].children) {
+          this.focusPosition++
+          this.posStore.push(idx)
+          console.log(this.posStore)
+          this.switchFocusEl(0, this.focusPosition, idx, prePos)
+          this.focusIndex = 0
+          this.$refs.list[this.focusPosition].scrollTop = 0
+        }
       }
     },
     focusNext () {
-      const pre = this.focusIndex
-      const pos = this.focusPosition
-      if (this.focusIndex !== null) {
-        this.focusIndex = (this.focusIndex === this.optionChildren[this.focusPosition].length - 1) ? 0 : this.focusIndex + 1
+      if (this.editContent === '') {
+        const pre = this.focusIndex
+        const pos = this.focusPosition
+        if (this.focusIndex !== null) {
+          this.focusIndex = (this.focusIndex === this.optionChildren[this.focusPosition].length - 1) ? 0 : this.focusIndex + 1
+        } else {
+          this.valueIndex = ''
+          this.store = []
+          this.focusIndex = 0
+        }
+        this.switchFocusEl(this.focusIndex, pos, pre, pos)
+        this.setListScroll('next')
       } else {
-        this.focusIndex = 0
+        if (this.searchFocusIndex !== null) {
+          this.searchFocusIndex = (this.searchFocusIndex === this.searchOptionChildren.length - 1 ? 0 : this.searchFocusIndex + 1)
+        } else {
+          this.valueIndex = ''
+          this.store = []
+          this.searchFocusIndex = 0
+        }
+        this.setListScroll('next')
       }
-      this.switchFocusEl(this.focusIndex, pos, pre, pos)
-      this.setFocusIndex('next')
     },
     focusPrevious () {
-      const pre = this.focusIndex
-      const pos = this.focusPosition
-      if (this.focusIndex !== null) {
-        this.focusIndex = (this.focusIndex === 0 ? this.optionChildren[this.focusPosition].length - 1 : this.focusIndex - 1)
+      if (this.editContent === '') {
+        const pre = this.focusIndex
+        const pos = this.focusPosition
+        if (this.focusIndex !== null) {
+          this.focusIndex = (this.focusIndex === 0 ? this.optionChildren[this.focusPosition].length - 1 : this.focusIndex - 1)
+        } else {
+          this.focusIndex = this.optionChildren[this.focusPosition].length - 1
+        }
+        this.switchFocusEl(this.focusIndex, pos, pre, pos)
+        this.setListScroll('previous')
       } else {
-        this.focusIndex = this.optionChildren[this.focusPosition].length - 1
+        if (this.searchFocusIndex !== null) {
+          this.searchFocusIndex = (this.searchFocusIndex === 0 ? this.searchOptionChildren.length - 1 : this.searchFocusIndex - 1)
+        } else {
+          this.searchFocusIndex = this.searchOptionChildren.length - 1
+        }
+        this.setListScroll('previous')
       }
-      this.switchFocusEl(this.focusIndex, pos, pre, pos)
-      this.setFocusIndex('previous')
     },
-    setFocusIndex (direction, force = false) {
-      const index = this.focusIndex
+    setListScroll (direction, force = false) {
+      const index = this.editContent === '' ? this.focusIndex : this.searchFocusIndex
       const pos = this.focusPosition
+      const len = this.editContent === '' ? this.optionChildren[pos].length : this.searchOptionChildren.length
       //  fix scroll with editpanel potion error
-      const n = ((this.editable || this.searchable) && this.editContent === '') ? 1 : 0
+      //  if there is a editpanel over list ,n = 1
+      const n = 0
       const i = this.optionEmitScrollIndex
       const h = this.optionLineHeight
-      const list = this.$refs.list[pos]
+      const list = this.editContent === '' ? this.$refs.list[pos] : this.$refs.search_list
       switch (direction) {
         case 'next':
           if (list.scrollTop < (index - n - i) * h) {
@@ -233,7 +308,7 @@ export default {
           }
           break
         case 'previous':
-          if (index === this.optionChildren[pos].length - 1) {
+          if (index === len - 1) {
             list.scrollTop = (index - n - i) * h
           } else if (list.scrollTop > (index - n) * h) {
             list.scrollTop = (index - n) * h
@@ -241,29 +316,35 @@ export default {
           break
       }
 
-      if (this.optionChildren[pos][index].disabled || ((this.editable || this.searchable) && !this.optionChildren[pos][index].val)) {
-        if (!force) {
-          direction === 'next' ? this.focusNext() : this.focusPrevious()
+      if (this.editContent === '') {
+        if (this.optionChildren[pos][index].disabled || (this.searchable && !this.optionChildren[pos][index].val)) {
+          if (!force) {
+            direction === 'next' ? this.focusNext() : this.focusPrevious()
+          }
         }
       }
     },
-    selectHandler ({val, pos, hasChildren, hover}) {
+    selectHandler ({e, val, pos, hasChildren, hover}) {
       if (this.store[pos] !== val) {
         this.store = ArrayHelper.addToStoreWithIndex(this.store, val, pos)
       }
       if (!hasChildren) {
         if (!hover) {
           this.$emit('input', this.store)
-          this.checkout()
+          this.$emit('hide', e)
         }
         this.childIndex = pos
       } else {
         this.childIndex = pos + 1
       }
     },
+    selectSearchHandler ({e, val}) {
+      this.store = val
+      this.$emit('input', this.store)
+      this.$emit('hide', e)
+    },
     switchFocusEl (newIdx, newPos, preIdx, prePos) {
       if (newIdx === preIdx && newPos === prePos) return
-      console.log('newIdx:' + newIdx, 'newPos:' + newPos, 'preIdx:' + preIdx, 'prePos' + prePos)
       const newEl = this.optionChildren[newPos][newIdx]
       if (newIdx !== null && ArrayHelper.between(newIdx, 0, this.optionChildren[newPos].length)) {
         newEl.focusSelect()
@@ -274,15 +355,65 @@ export default {
         }
       }
       preIdx !== null && ArrayHelper.between(preIdx, 0, this.optionChildren[prePos].length) && this.optionChildren[prePos][preIdx].blurSelect()
+    },
+    clearInput (e) {
+      e.preventDefault()
+      e.cancelBubble = true
+      this.childIndex = 0
+      this.$emit('input', '')
+    },
+    search (el, target) {
+      if (el.labelIdx.indexOf(target) !== -1 && el.hasChild === false) {
+        this.searchResults.push(this.transIndex(el.idx, el.labelIdx, target))
+      }
+    },
+    transIndex (idx, labelIdx, keyword) {
+      const arr = labelIdx.split('-')
+      return {
+        label: arr.join('/').replace(keyword, `<keyword class="t-cascader__keyword">${keyword}</keyword>`),
+        val: arr[arr.length - 1],
+        idx: idx
+      }
+    },
+    inputChangeHandler (e) {
+      this.editContent = e.target.value
+    },
+    setLabel () {
+      const _this = this
+      let val = this.value || []
+      this.shownLabel = ''
+      this.formatOptions.forEach(function (posArr, pos) {
+        posArr.forEach(function (element) {
+          element.idx === val.join('-') && (_this.shownLabel = element.labelIdx.replace(/-/g, '/'))
+        })
+      })
+    },
+    setValueIndex () {
+      this.value && (this.valueIndex = this.value.join('-'))
     }
   },
   watch: {
     value (val) {
       this.store = ArrayHelper.mapValue(val)
-      this.valueIndex = val.join('-')
+      this.setValueIndex()
+      this.setLabel()
     },
     store (val) {
       this.selectIndex = val.join('-')
+    },
+    editContent (val) {
+      const _this = this
+      this.searchResults = []
+      this.formatOptions.forEach(function (posArr, pos) {
+        posArr.forEach(function (element) {
+          _this.search(element, val)
+        })
+      })
+      this.searchFocusIndex = null
+    },
+    searchFocusIndex (val, pre) {
+      val !== null && this.searchOptionChildren[val].focusSelect()
+      pre !== null && this.searchOptionChildren[pre].blurSelect()
     }
   }
 }

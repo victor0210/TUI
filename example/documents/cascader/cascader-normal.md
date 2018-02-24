@@ -15,7 +15,6 @@ export default {
         {
           label: '高价',
           val: 'hp',
-          disabled: true,
           children: [
             {
               label: '1000000',
@@ -27,7 +26,7 @@ export default {
                 },
                 {
                   label: '2000000',
-                  val: '2000000'
+                  val: '2000000',
                 },
                 {
                   label: '3000000',

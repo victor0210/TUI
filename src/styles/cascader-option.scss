@@ -13,10 +13,21 @@
   }
 
   @include when(selected) {
+    background-color: #fff;
+    color: $--color-primary;
+  }
+
+  @include when(choosing) {
+    background-color: #fff;
     color: $--color-primary;
   }
 
   @include when(focus) {
+    background-color: #f5f7fa;
+    color: $--color-primary;
+  }
+
+  &.is-focus.is-choosing {
     background-color: #f5f7fa;
     color: $--color-primary;
   }
