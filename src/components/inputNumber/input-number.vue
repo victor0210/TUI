@@ -5,6 +5,7 @@
     `${focused ? 'is-focused' : ''}`,
     `${sideFocused ? 'is-side-focused' : ''}`,
   ]">
+    <div class="t-input-number__cover"></div>
     <div class="t-input-number__prefix" v-if="!sideControl">
      <t-button :type="type" @click="decrement" :disabled="disabled || min >= val" @mouseover="moFocus" @mouseout="moBlur">
        <i class="fa fa-minus"></i>
