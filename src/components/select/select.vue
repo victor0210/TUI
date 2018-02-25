@@ -15,10 +15,10 @@
 
       <template v-if="multiple">
         <template v-if="!collapseTags">
-          <span class="t-select__tag" v-for="(v, idx) in labelStore" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(value[idx], true)" ref="closeX"></i></span>
+          <span class="t-select__tag" v-for="(v, idx) in labelStore" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(labelStore[idx], true)" ref="closeX"></i></span>
         </template>
         <template v-else>
-          <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ labelStore[0] }} <i class="fa fa-times-circle" @click="removeFromStore(value[0], true)" ref="closeX"></i></span>
+          <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ labelStore[0] }} <i class="fa fa-times-circle" @click="removeFromStore(labelStore[0], true)" ref="closeX"></i></span>
           <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ labelStore.length - 1 }}</span>
         </template>
       </template>
@@ -44,7 +44,15 @@
 <script>
 import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
+import Vue from 'vue'
 
+//  TODO rebuild select component data-structure from array to index (build store-index)
+//  done: 1. storeIndex save values index & emit input (index transfer to value) => ({label_1: 'value_1', label_2: 'value_2'} => ['value_1', 'value_2'])
+//  2. optionIndex save all optionIndex => ({'label_1': 'value_1', ...})
+//  done: 3. display / add / remove data just from storeIndex
+//  4. search
+//    4-1. search storeIndex key by Object.keys().forEach, el.indexOf(keyword)
+//    4-2. search optimize with index split
 export default {
   name: 't-select',
 
@@ -55,13 +63,13 @@ export default {
       optionLineHeight: 40,
       optionEmitScrollIndex: 4,
       isFocus: false,
-      store: [],
       focusIndex: null,
       childrenLength: 0,
       labelStore: [],
       optionChildren: [],
       loading: false,
-      editContent: ''
+      editContent: '',
+      storeIndexes: {}
     }
   },
   props: {
@@ -74,8 +82,6 @@ export default {
     collapseTags: Boolean,
     editable: Boolean,
     searchable: Boolean,
-    remote: Boolean,
-    remoteMethod: Function,
     loadingText: {
       default: 'Loading...'
     },
@@ -85,11 +91,8 @@ export default {
     value: {}
   },
 
-  beforeMount () {
-    this.setLabelStore()
-  },
   mounted () {
-    this.store = this.value
+    this.initStoreIndex()
     this.$on('select', this.selectHandler)
     this.$on('hide', this.hideHandler)
     this.$on('init-focus-index', this.initFocusByChild)
@@ -144,10 +147,16 @@ export default {
           break
         case 13:
           e.preventDefault()
+          let t
           if (_this.searchable && _this.optionChildren.length === 1) {
             return false
           }
-          let t = _this.optionChildren[_this.focusIndex]
+          if (_this.searchable && (_this.optionChildren.length > 1 && _this.editContent !== '')) {
+            t = _this.optionChildren[_this.focusIndex + 1]
+          } else {
+            t = _this.optionChildren[_this.focusIndex]
+          }
+
           _this.$emit('select', {e: e, val: t.val, label: t.label})
           !_this.multiple && _this.$emit('hide', e)
           _this.editContent = ''
@@ -204,24 +213,40 @@ export default {
     },
     selectHandler ({e, val, label}) {
       if (this.multiple) {
+        console.log(val, label)
         e.preventDefault()
-        this.value.indexOf(val) === -1 ? this.addToStore(val) : this.removeFromStore(val)
+        !this.storeIndexes[label] ? this.addToStore(val, label) : this.removeFromStore(label)
       } else {
-        this.$emit('input', val)
+        console.log(val, label)
+        this.addToStore(val, label)
         this.$emit('hide', e)
-        this.labelStore[0] = label
+      }
+      this.setValue()
+    },
+    setValue () {
+      let val
+      if (this.multiple) {
+        val = Object.values(this.storeIndexes)
+      } else {
+        val = Object.values(this.storeIndexes)[0]
+      }
+      this.$emit('input', val)
+    },
+    addToStore (val, label) {
+      if (val !== '') {
+        if (!this.multiple) this.storeIndexes = {}
+        this.$set(this.storeIndexes, label, val)
+        this.setValue()
       }
     },
-    addToStore (val) {
-      (val !== '') && this.$emit('input', ArrayHelper.addToStore(this.store, val))
-    },
-    removeFromStore (val, isTag) {
+    removeFromStore (key, isTag) {
       if (this.disabled) return
       if (isTag) {
         const e = window.event
         e.cancelBubble = true
       }
-      this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
+      Vue.delete(this.storeIndexes, key)
+      this.setValue()
     },
     initFocusByChild (val) {
       let idx = null
@@ -240,62 +265,60 @@ export default {
     clearInput (e) {
       e.preventDefault()
       e.cancelBubble = true
-      this.$emit('input', this.multiple ? [] : '')
-      this.multiple && (this.store = [])
+      this.storeIndexes = {}
+      this.setValue()
     },
     editKeyupHandler (e) {
       this.editContent = e.target.value
     },
-    doRemote () {
-      this.loading = true
-      this.remoteMethod()
-      this.loading = false
-    },
-    setLabelStore () {
+    initStoreIndex () {
       const _this = this
-      if (!this.$slots.default) return
-      this.labelStore = []
-      this.$slots.default.forEach(function (el) {
+      this.storeIndexes = {}
+      if (this.multiple) {
+        this.value.forEach(function (val) {
+          _this.findLabel(val)
+        })
+      } else {
+        this.findLabel(this.value)
+      }
+      this.labelStore = Object.keys(this.storeIndexes)
+    },
+    findLabel (val) {
+      const _this = this
+      !!this.$slots.default && this.$slots.default.forEach(function (el) {
         let target = el.componentOptions
         if (el.tag) {
           if (target.tag !== 't-option-group') {
             let t = target.propsData
-            _this.csLabelStore(t.val, t.label)
+            _this.csStoreIndex(val, t.val, t.label)
           } else {
             target.children.forEach(function (elm) {
               if (elm.tag) {
                 let t = elm.componentOptions.propsData
-                _this.csLabelStore(t.val, t.label)
+                _this.csStoreIndex(val, t.val, t.label)
               }
             })
           }
         }
       })
+      if (_this.editable && Object.values(_this.storeIndexes).indexOf(val) === -1) _this.$set(_this.storeIndexes, val, val)
     },
-    //  check && set
-    csLabelStore (val, label) {
-      const v = this.value
-      if (this.multiple) {
-        let idx = v.indexOf(val)
-        idx !== -1 && (this.labelStore[idx] = label)
-      } else if (v === val) {
-        this.labelStore[0] = label
-        return 0
-      }
+    // check && set
+    csStoreIndex (val, elVal, elLabel) {
+      val === elVal && this.$set(this.storeIndexes, elLabel, val)
     }
   },
 
   watch: {
+    value () {
+      this.initStoreIndex()
+    },
     focusIndex (val, pre) {
       val !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[val].focusSelect()
       pre !== null && ArrayHelper.between(pre, 0, this.optionChildren.length) && this.optionChildren[pre].blurSelect()
     },
     editContent (val, pre) {
       this.focusIndex = 0
-
-      if (this.remote) {
-        this.doRemote()
-      }
 
       if (val.length > pre.length) {
         const foo = this.optionChildren
@@ -313,8 +336,8 @@ export default {
         ? this.optionChildren.length > 1 && this.optionChildren[1].focusSelect()
         : this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
     },
-    store () {
-      this.setLabelStore()
+    storeIndexes (val) {
+      this.labelStore = Object.keys(val)
     }
   },
 

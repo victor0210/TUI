@@ -57,11 +57,11 @@ export default {
       if (this.parent.editable || this.parent.searchable) {
         if (!this.editablePanel) {
           if (this.parent.searchable) {
-            if (this.val.indexOf(this.parent.editContent) !== -1) {
+            if (this.label.indexOf(this.parent.editContent) !== -1) {
               this.dispatch('t-select', 'option-register', this)
             }
           } else {
-            if ((this.val.indexOf(this.parent.editContent) !== -1) && (this.val !== this.parent.editContent)) {
+            if ((this.label.indexOf(this.parent.editContent) !== -1) && (this.label !== this.parent.editContent)) {
               this.dispatch('t-select', 'option-register', this)
             }
           }
@@ -77,9 +77,9 @@ export default {
       if (p.editable || p.searchable) {
         if (!this.editablePanel) {
           if (p.searchable) {
-            return (this.val.indexOf(p.editContent) !== -1)
+            return (this.label.indexOf(p.editContent) !== -1)
           } else {
-            return ((this.val.indexOf(p.editContent) !== -1) && (this.val !== p.editContent))
+            return ((this.label.indexOf(p.editContent) !== -1) && (this.label !== p.editContent))
           }
         } else {
           return true

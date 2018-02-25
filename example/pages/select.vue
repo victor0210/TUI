@@ -6,8 +6,8 @@
         <t-col :span="6">
           <t-select label="请选择" v-model="val_1">
             <t-option :key="1" label="选项1" val="v1" disabled/>
-            <t-option :key="2" label="选项1" val="v2"/>
-            <t-option :key="3" label="选项1" val="v3"/>
+            <t-option :key="2" label="选项2" val="v2"/>
+            <t-option :key="3" label="选项3" val="v3"/>
             <t-option :key="4" label="选项4" val="v4"/>
             <t-option :key="5" label="选项5" val="v5"/>
             <t-option :key="6" label="选项6" val="v6"/>
@@ -141,7 +141,7 @@
     </div>
     <select-editable/>
 
-    <h2>本地搜索</h2>
+    <h2>可搜索</h2>
     <div class="demo-block">
       <t-row :gutter="20">
         <t-col :span="6">
@@ -174,17 +174,17 @@
     </div>
     <select-searchable/>
 
-    <h2>远程搜索</h2>
-    <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-select label="请选择" v-model="val_10" remote :remote-method="remote" searchable>
-            <t-option v-for="item in val_10_data" :key="item" :label="item" :val="item"/>
-          </t-select>
-        </t-col>
-      </t-row>
-    </div>
-    <select-remote/>
+    <!--<h2>远程搜索</h2>-->
+    <!--<div class="demo-block">-->
+      <!--<t-row :gutter="20">-->
+        <!--<t-col :span="6">-->
+          <!--<t-select label="请选择" v-model="val_10" remote :remote-method="remote" searchable>-->
+            <!--<t-option v-for="item in val_10_data" :key="item" :label="item" :val="item"/>-->
+          <!--</t-select>-->
+        <!--</t-col>-->
+      <!--</t-row>-->
+    <!--</div>-->
+    <!--<select-remote/>-->
   </div>
 </template>
 
@@ -196,7 +196,6 @@ import selectClearable from '../documents/select/select-clearable.md'
 import selectEditable from '../documents/select/select-editable.md'
 import selectDivide from '../documents/select/select-divide.md'
 import selectSearchable from '../documents/select/select-searchable.md'
-import selectRemote from '../documents/select/select-remote.md'
 
 export default {
   components: {
@@ -206,8 +205,7 @@ export default {
     selectClearable,
     selectEditable,
     selectDivide,
-    selectSearchable,
-    selectRemote
+    selectSearchable
   },
   data () {
     return {
@@ -217,18 +215,9 @@ export default {
       val_4: 'v1',
       val_5: ['v1'],
       val_6: 'v1',
-      val_7: ['v1'],
+      val_7: ['v1', 'o1'],
       val_8: '',
-      val_9: [],
-      val_10: '',
-      val_10_data: [],
-      remoteData: ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7']
-    }
-  },
-  methods: {
-    remote () {
-      // filter remote data
-      (this.remoteData !== null && this.remoteData !== this.val_10_data) && (this.val_10_data = this.remoteData)
+      val_9: []
     }
   }
 }
