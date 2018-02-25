@@ -24,6 +24,19 @@
     }
   }
 
+  .t-btn--default.is-disabled {
+    background-color: lighten($--border-color-base, 2%);
+    color: lighten($--button-disabled-color, 5%);
+
+    &:hover {
+      background-color: lighten($--border-color-base, 2%);
+    }
+
+    &:active {
+      background-color: lighten($--border-color-base, 2%);
+    }
+  }
+
   .t-btn {
     border: none;
     margin: 0;
