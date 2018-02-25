@@ -34,7 +34,7 @@
 
       <h2>side control</h2>
       <div class="demo-block">
-        <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n41" :max="10" :min="1" side-control/></t-col></t-row>
+        <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n51" :max="10" :min="1" side-control/></t-col></t-row>
       </div>
       <side-control-md/>
     </div>
@@ -58,7 +58,8 @@ export default {
       n: 1,
       n31: 1,
       n32: 1,
-      n41: -1
+      n41: -1,
+      n51: 1
     }
   }
 }
