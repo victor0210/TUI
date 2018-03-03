@@ -55,6 +55,11 @@ export default new Router({
       path: '/cascader',
       name: 'cascader',
       component: r => require.ensure([], () => r(require('../pages/cascader.vue')))
+    },
+    {
+      path: '/datepicker',
+      name: 'datepicker',
+      component: r => require.ensure([], () => r(require('../pages/datepicker.vue')))
     }
   ]
 })
