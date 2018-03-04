@@ -145,6 +145,14 @@
         }
       }
 
+      .is-focus {
+        span {
+          background-color: $--color-primary-light;
+          color: $--color-primary;
+          box-shadow: $--box-shadow-base;
+        }
+      }
+
       .is-select {
         span {
           background-color: $--color-primary;
@@ -182,6 +190,12 @@
 
         .is-current {
           color: $--color-primary;
+        }
+
+        .is-focus {
+          background-color: #f2f6fc;
+          color: $--color-primary;
+          box-shadow: $--box-shadow-base;
         }
 
         .is-select {
@@ -249,8 +263,18 @@
         border-radius: 50%;
       }
 
+      @include when(focus) {
+        span {
+          background-color: $--color-primary-light;
+          font-weight: 400;
+          color: $--color-primary;
+          box-shadow: $--box-shadow-base;
+        }
+      }
+
       @include when(select) {
         span {
+          font-weight: 400;
           background-color: $--color-primary;
           color: $--color-white;
         }

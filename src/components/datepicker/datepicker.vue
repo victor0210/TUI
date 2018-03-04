@@ -39,7 +39,8 @@
                 't-datepicker__list-item',
                 singleSelect.dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
                 singleSelect.dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
-                singleSelect.dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : ''
+                singleSelect.dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
+                singleSelect.dates[(i - 1) * 7 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : '',
                 ]"><span class="t-datepicker__item-inner">{{ singleSelect.dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
             </tr>
           </table>
@@ -60,6 +61,7 @@
                 't-datepicker__list-item',
                 months[(i - 1) * 4 + (d - 1)].isCurrent ? 'is-current' : '',
                 months[(i - 1) * 4 + (d - 1)].isSelect ? 'is-select' : '',
+                months[(i - 1) * 4 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
                 ]"><span class="t-datepicker__item-inner">{{ months[(i - 1) * 4 + (d - 1)].label }}</span></td>
             </tr>
           </table>
@@ -80,6 +82,7 @@
                 't-datepicker__item-inner',
                 years[(d - 1)].isCurrent ? 'is-current' : '',
                 years[(d - 1)].isSelect ? 'is-select' : '',
+                years[(d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
                 ]">{{ years[(d - 1)].label }}</span>
             </div>
           </section>
@@ -146,7 +149,7 @@
 import DateHelper from '../../mixins/dateHelper.js'
 import Emitter from '../../mixins/emitter'
 
-//  TODO code rebuild --tag t1
+//  TODO add keyboard switch focus
 export default {
   name: 't-date-picker',
 
@@ -191,6 +194,11 @@ export default {
         month: 'yyyy 年 M 月',
         daterange: 'yyyy 年 M 月',
         year: 'yyyy 年'
+      },
+      keyboardFocusIndex: {
+        year: null,
+        month: null,
+        date: null
       }
     }
   },
@@ -237,6 +245,15 @@ export default {
       if (this.isFocus) {
         this.dateIndex = this.dateIndexMirror
         this.typeIndex = this.typeIndexes[this.type]
+      } else {
+        this.clearFocusIndex()
+      }
+    },
+    clearFocusIndex () {
+      this.keyboardFocusIndex = {
+        year: null,
+        month: null,
+        date: null
       }
     },
     addListener () {
@@ -260,25 +277,93 @@ export default {
       }
     },
     keyDownHandler (e) {
+      console.log(e.keyCode)
+      if (this.type === 'daterange') return
+      const _this = this
       switch (e.keyCode) {
         case 40:
           e.preventDefault()
+          _this.changeFocus('down')
           break
         case 38:
           e.preventDefault()
+          _this.changeFocus('up')
           break
         case 37:
           e.preventDefault()
+          _this.changeFocus('left')
           break
         case 39:
           e.preventDefault()
+          _this.changeFocus('right')
           break
         case 27:
           e.preventDefault()
+          _this.$emit('hide', e)
           break
         case 13:
           e.preventDefault()
+          if (this.keyboardFocusIndex.year) {
+            const {year, month, date} = this.keyboardFocusIndex
+            _this.setTrueValue(new Date(year, month, date))
+          }
           break
+      }
+    },
+    changeFocus (key) {
+      const _this = this
+      if (!this.keyboardFocusIndex.year) {
+        if (this.trueValue) {
+          this.keyboardFocusIndex = {
+            year: (new Date(this.trueValue)).getFullYear(),
+            month: (new Date(this.trueValue)).getMonth(),
+            date: (new Date(this.trueValue)).getDate()
+          }
+        } else {
+          this.keyboardFocusIndex = {
+            year: this.dateIndex.year,
+            month: this.dateIndex.month,
+            date: (new Date()).getDate()
+          }
+        }
+      }
+
+      let day
+      let {year, month, date} = _this.keyboardFocusIndex
+
+      switch (key) {
+        case 'up':
+          if (this.typeIndex === this.typeIndexes.date) date -= 7
+          if (this.typeIndex === this.typeIndexes.month) month -= 4
+          if (this.typeIndex === this.typeIndexes.year) year -= 4
+          break
+        case 'down':
+          if (this.typeIndex === this.typeIndexes.date) date += 7
+          if (this.typeIndex === this.typeIndexes.month) month += 4
+          if (this.typeIndex === this.typeIndexes.year) year += 4
+          break
+        case 'left':
+          if (this.typeIndex === this.typeIndexes.date) date -= 1
+          if (this.typeIndex === this.typeIndexes.month) month -= 1
+          if (this.typeIndex === this.typeIndexes.year) year -= 1
+          break
+        case 'right':
+          if (this.typeIndex === this.typeIndexes.date) date += 1
+          if (this.typeIndex === this.typeIndexes.month) month += 1
+          if (this.typeIndex === this.typeIndexes.year) year += 1
+          break
+      }
+      day = new Date(year, month, date)
+
+      this.keyboardFocusIndex = {
+        year: day.getFullYear(),
+        month: day.getMonth(),
+        date: day.getDate()
+      }
+
+      this.dateIndex = {
+        year: day.getFullYear(),
+        month: day.getMonth()
       }
     },
     hideHandler (e) {
@@ -528,6 +613,21 @@ export default {
     rangeRightInput: {
       get () {
         if (this.rangeStore[1]) return DateHelper.format(this.rangeStore[1], this.format || this.formatDefaults['date'])
+      }
+    },
+    focusDate: {
+      get () {
+        const {month, date} = this.typeIndexes
+        const day = this.keyboardFocusIndex
+        if (this.typeIndex === date) {
+          console.log('=== date')
+          return (new Date(day.year, day.month, day.date)).getTime()
+        } else if (this.typeIndex === month) {
+          console.log('=== month')
+          return (new Date(day.year, day.month)).getTime()
+        } else {
+          return (new Date(day.year, 0)).getTime()
+        }
       }
     }
   }
