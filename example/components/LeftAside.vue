@@ -94,6 +94,12 @@
             <span class="chinese">级联</span>
           </router-link>
         </li>
+        <li>
+          <router-link to="/datepicker">
+            <span>Datepicker</span>
+            <span class="chinese">日期选择器</span>
+          </router-link>
+        </li>
       </ul>
     </li>
   </ul>
