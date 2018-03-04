@@ -148,7 +148,7 @@ import Emitter from '../../mixins/emitter'
 
 //  TODO code rebuild --tag t1
 export default {
-  name: 't-datepicker',
+  name: 't-date-picker',
 
   mixins: [DateHelper, Emitter],
 
