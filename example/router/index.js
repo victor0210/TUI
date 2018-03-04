@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Readme = () => import('../README.md')
-const Button = () => import('../pages/button.vue')
-const Layout = () => import('../pages/layout.vue')
-
 Vue.use(Router)
 
 export default new Router({
@@ -13,17 +9,57 @@ export default new Router({
     {
       path: '/',
       name: 'document',
-      component: Readme
+      component: r => require.ensure([], () => r(require('../README.md')))
     },
     {
       path: '/layout',
       name: 'layout',
-      component: Layout
+      component: r => require.ensure([], () => r(require('../pages/layout.vue')))
     },
     {
       path: '/button',
       name: 'button',
-      component: Button
+      component: r => require.ensure([], () => r(require('../pages/button.vue')))
+    },
+    {
+      path: '/dialog',
+      name: 'dialog',
+      component: r => require.ensure([], () => r(require('../pages/dialog.vue')))
+    },
+    {
+      path: '/input',
+      name: 'input',
+      component: r => require.ensure([], () => r(require('../pages/input.vue')))
+    },
+    {
+      path: '/input-number',
+      name: 'input-number',
+      component: r => require.ensure([], () => r(require('../pages/input-number.vue')))
+    },
+    {
+      path: '/checkbox',
+      name: 'checkbox',
+      component: r => require.ensure([], () => r(require('../pages/checkbox.vue')))
+    },
+    {
+      path: '/radio',
+      name: 'radio',
+      component: r => require.ensure([], () => r(require('../pages/radio.vue')))
+    },
+    {
+      path: '/select',
+      name: 'select',
+      component: r => require.ensure([], () => r(require('../pages/select.vue')))
+    },
+    {
+      path: '/cascader',
+      name: 'cascader',
+      component: r => require.ensure([], () => r(require('../pages/cascader.vue')))
+    },
+    {
+      path: '/datepicker',
+      name: 'datepicker',
+      component: r => require.ensure([], () => r(require('../pages/datepicker.vue')))
     }
   ]
 })

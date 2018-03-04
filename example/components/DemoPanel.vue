@@ -28,7 +28,7 @@ export default {
 
 <style>
   section {
-    width: 1000px;
+    width: 100%;
     margin: auto;
   }
   .demo-block {
@@ -60,7 +60,7 @@ export default {
     font-family: Consolas, Menlo, Courier, monospace;
     line-height: 22px;
     border: none;
-    color: #fafafa;
+    color: #3c3c3c;
   }
 
   .docs-demo-wrapper {
@@ -101,7 +101,6 @@ export default {
 
   .highlight-wrapper {
     display: none;
-    background: #3c3c3c;
   }
 
   .highlight-wrapper p,
@@ -152,82 +151,13 @@ export default {
     height: 548px;
   }
 
-   /*
-    *-------------------------- Highlight Style -----------------------------*/
-
-  /* Tomorrow Night Eighties Theme */
-  /* Original theme - https://github.com/chriskempson/tomorrow-theme */
-  /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-
-  /* Tomorrow Comment */
-  .hljs-comment,
-  .hljs-quote {
-    color: #999999;
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
   }
-
-  /* Tomorrow Red */
-  .hljs-variable,
-  .hljs-template-variable,
-  .hljs-tag,
-  .hljs-name,
-  .hljs-selector-id,
-  .hljs-selector-class,
-  .hljs-regexp,
-  .hljs-deletion {
-    color: #f2777a;
-  }
-
-  /* Tomorrow Orange */
-  .hljs-number,
-  .hljs-built_in,
-  .hljs-builtin-name,
-  .hljs-literal,
-  .hljs-type,
-  .hljs-params,
-  .hljs-meta,
-  .hljs-link {
-    color: #f99157;
-  }
-
-  /* Tomorrow Yellow */
-  .hljs-attribute {
-    color: #ffcc66;
-  }
-
-  /* Tomorrow Green */
-  .hljs-string,
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-addition {
-    color: #99cc99;
-  }
-
-  /* Tomorrow Blue */
-  .hljs-title,
-  .hljs-section {
-    color: #6699cc;
-  }
-
-  /* Tomorrow Purple */
-  .hljs-keyword,
-  .hljs-selector-tag {
-    color: #cc99cc;
-  }
-
-  .hljs {
-    display: block;
-    overflow-x: auto;
-    background: #2d2d2d;
-    color: #cccccc;
-    padding: 0.5em;
-  }
-
-  .hljs-emphasis {
-    font-style: italic;
-  }
-
-  .hljs-strong {
-    font-weight: bold;
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
   }
 
   .el-row {
@@ -240,20 +170,115 @@ export default {
     border-radius: 4px;
   }
   .bg-black {
-    background: #6c6c6c;
+    background: #99a9bf;
   }
   .bg-gray {
-    background: #7c7c7c;
+    background: #d3dce6;
   }
   .bg-gray-light {
-    background: #9c9c9c;
+    background: #e5e9f2;
   }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
+
+   /*
+    *-------------------------- Highlight Style -----------------------------*/
+
+  /* Tomorrow Night Eighties Theme */
+  /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+  /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+
+  /* Tomorrow Comment */
+  /*
+
+ XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
+
+ */
+
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #fff;
+    color: black;
   }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #006a00;
   }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-literal {
+    color: #aa0d91;
+  }
+
+  .hljs-name {
+    color: #008;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable {
+    color: #660;
+  }
+
+  .hljs-string {
+    color: #c41a16;
+  }
+
+  .hljs-regexp,
+  .hljs-link {
+    color: #080;
+  }
+
+  .hljs-title,
+  .hljs-tag,
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-number,
+  .hljs-meta {
+    color: #1c00cf;
+  }
+
+  .hljs-section,
+  .hljs-class .hljs-title,
+  .hljs-type,
+  .hljs-attr,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-params {
+    color: #5c2699;
+  }
+
+  .hljs-attribute,
+  .hljs-subst {
+    color: #000;
+  }
+
+  .hljs-formula {
+    background-color: #eee;
+    font-style: italic;
+  }
+
+  .hljs-addition {
+    background-color: #baeeba;
+  }
+
+  .hljs-deletion {
+    background-color: #ffc8bd;
+  }
+
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color: #9b703f;
+  }
+
+  .hljs-doctag,
+  .hljs-strong {
+    font-weight: bold;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
 </style>

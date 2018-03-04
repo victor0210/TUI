@@ -1,0 +1,82 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/input";
+
+@include b(input) {
+  display: table;
+  width: 100%;
+  border-radius: $--border-radius-base;
+  height: $--input-height-base;
+  overflow: hidden;
+
+  @include e(wrapper) {
+    height: 100%;
+    position: relative;
+
+    @include e(inner) {
+      border: $--input-border;
+      border-radius: $--border-radius-base;
+      box-sizing: border-box;
+      background-color: $--color-white;
+      height: 100%;
+      width: 100%;
+      padding: $--input-padding;
+      outline: none;
+      transition: border .3s linear;
+      color: $--color-text-primary;
+      display: table-cell;
+
+      &:hover {
+        border-color: mix($--color-white, $--color-gray, 20%);
+      }
+
+      &:focus {
+        border-color: $--color-primary;
+      }
+    }
+
+    @include e(prefix-inner) {
+      @include inputIcon();
+
+      left: 0;
+    }
+
+    @include e(prepend-inner) {
+      @include inputIcon();
+
+      right: 0;
+    }
+  }
+
+  @include e(prefix) {
+    @include addon();
+  }
+
+  @include e(suffix) {
+    @include addon();
+  }
+
+  @include when(prefix) {
+    .t-input__wrapper, .t-input__inner, .t-input__prefix &:first-child {
+      @include fixInputBorder('prefix')
+    }
+  }
+
+  @include when(suffix) {
+    .t-input__wrapper, .t-input__inner, .t-input__suffix &:last-child {
+      @include fixInputBorder('suffix')
+    }
+  }
+
+  @include when(input-prefix) {
+    .t-input__inner {
+      padding-left: $--input-icon-width;
+    }
+  }
+
+  @include when(input-suffix) {
+    .t-input__inner {
+      padding-right: $--input-icon-width;
+    }
+  }
+}

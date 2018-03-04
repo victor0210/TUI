@@ -1,0 +1,25 @@
+.t-footer-row{
+  .t-col{
+    padding: 20px 0;
+    .footer-col-title{
+      margin-bottom: 10px;
+    }
+    ul{
+      li{
+        height: 20px;
+        font-size: 13px;
+        color: red;
+      }
+    }
+  }
+  .t-col-last{
+    text-align: center;
+    img{
+      width: 40px;
+    }
+    p{
+      font-size: 14px;
+      color: #999;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # T-UI
 
-> A High Quantity UI Toolkit By VUE.
+> A High Quanlity UI Toolkit By VUE.
 
 ## usage 
 ```$bash
@@ -41,8 +41,20 @@ npm run dev
 ## Component Support In v1.0.0
 Row <br>
 Col <br>
-Button
-
+Button <br>
+ButtonGroup <br>
+Dialog <br>
+Input <br>
+Checkbox <br>
+CheckboxGroup <br>
+Radio <br>
+RadioGroup <br>
+Select <br>
+OptionGroup <br>
+Option <br>
+InputNumber <br>
+Cascader <br>
+Datepicker <br>
 
 ## Todo
 1. Continue to add new component

@@ -1,0 +1,6 @@
+@import "mixins/mixins";
+
+@include b(header){
+  padding: $--header-padding;
+  box-sizing: border-box;
+}

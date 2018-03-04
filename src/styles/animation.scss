@@ -1,0 +1,9 @@
+.fade-enter-active, .fade-leave-active {
+  transform-origin: top;
+  opacity: 1;
+}
+.fade-enter, .fade-leave-to {
+  transform: rotateX(90deg);
+  margin-top: 0;
+  opacity: 0;
+}
