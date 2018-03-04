@@ -1,6 +1,6 @@
-# T-UI
+# TUI
 
-> A High Quantity UI Toolkit By VUE.
+> A High Quanlity UI Toolkit By VUE.
 
 ## usage 
 ```$bash
@@ -41,14 +41,40 @@ npm run dev
 ## Component Support In v1.0.0
 Row <br>
 Col <br>
-Button
-
+Button <br>
+ButtonGroup <br>
+Dialog <br>
+Input <br>
+Checkbox <br>
+CheckboxGroup <br>
+Radio <br>
+RadioGroup <br>
+Select <br>
+OptionGroup <br>
+Option <br>
+InputNumber <br>
+Cascader <br>
+Datepicker <br>
 
 ## Todo
 1. Continue to add new component
 2. Github-CI and Issue-Solution
 3. Unit test
 4. Special component design
+5. Github-Bot
+
+## pull-request-rules
+* feat - new feature
+* fix - fix bug
+* docs - documentation
+* style - format (Do not affect main scripts)
+* test - add unit test
+* chore - differents of building way or helper tools
+* revert - revert
+* close - close issue
+* release - publish new release
+
+example:(feat: add XXX component)
 
 ## Join us
 ...
