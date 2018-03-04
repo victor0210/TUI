@@ -151,7 +151,6 @@
 import DateHelper from '../../mixins/dateHelper.js'
 import Emitter from '../../mixins/emitter'
 
-//  TODO add disabled range, add clear button
 export default {
   name: 't-date-picker',
 
