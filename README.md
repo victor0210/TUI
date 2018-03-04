@@ -61,6 +61,7 @@ Datepicker <br>
 2. Github-CI and Issue-Solution
 3. Unit test
 4. Special component design
+5. Github-Bot
 
 ## Join us
 ...
