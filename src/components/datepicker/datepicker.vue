@@ -13,9 +13,9 @@
       <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else>
         <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
         <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
-        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="rangeLeftInput">
+        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderStart" :value="rangeLeftInput">
         <span class="t-datepicker__addon"> 至 </span>
-        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="rangeRightInput">
+        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput">
       </div>
     </label>
     <transition name="fade">
@@ -209,6 +209,12 @@ export default {
       default: 'date'
     },
     placeholder: {
+      default: '请选择'
+    },
+    placeholderStart: {
+      default: '请选择'
+    },
+    placeholderEnd: {
       default: '请选择'
     },
     disabled: Boolean,
