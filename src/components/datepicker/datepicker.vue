@@ -8,9 +8,11 @@
       <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'">
         <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
         <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model">
+        <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
       </div>
       <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else>
         <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
+        <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
         <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="rangeLeftInput">
         <span class="t-datepicker__addon"> 至 </span>
         <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="rangeRightInput">
@@ -149,7 +151,7 @@
 import DateHelper from '../../mixins/dateHelper.js'
 import Emitter from '../../mixins/emitter'
 
-//  TODO add keyboard switch focus
+//  TODO add disabled range, add clear button
 export default {
   name: 't-date-picker',
 
@@ -267,7 +269,10 @@ export default {
     clickBlurSelect (e) {
       //  add blur listener to some element which couldn't auto fire checkout
       const className = e.target.className
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.clear).concat(this.$refs.inner).concat(this.$refs.switch_date)
+      this.clickCancelEl = [this.$refs.box]
+        .concat(this.$refs.clear)
+        .concat(this.$refs.inner)
+        .concat(this.$refs.switch_date)
       if (className.indexOf('t-datepicker__pointer') === -1 &&
         className.indexOf('t-datepicker__date-switcher') === -1 &&
         className.indexOf('t-datepicker__list-item') === -1 &&
@@ -373,7 +378,7 @@ export default {
     clearInput (e) {
       e.preventDefault()
       e.cancelBubble = true
-      this.$emit('input', '')
+      this.type === 'daterange' ? this.setRangeValue('') : this.setTrueValue('')
     },
     getTenYears (year = new Date().getFullYear()) {
       const date = new Date()
@@ -474,7 +479,7 @@ export default {
       this.$emit('input', val)
     },
     setTrueValue (val) {
-      if (this.typeIndex === this.typeIndexes[this.type]) {
+      if (this.typeIndex === this.typeIndexes[this.type] || val === '') {
         this.trueValue = val
         this.$emit('hide', window.event)
       } else {
@@ -483,20 +488,28 @@ export default {
       }
     },
     setRangeValue (val) {
-      if (!this.isRanging) {
-        this.isRanging = true
-        this.rangeTimes = []
-        this.rangeTimes.push(val.getTime())
-      } else {
-        if (this.rangeTimes[0] >= val.getTime()) {
+      if (val !== '') {
+        if (!this.isRanging) {
+          this.isRanging = true
           this.rangeTimes = []
           this.rangeTimes.push(val.getTime())
         } else {
-          this.rangeTrueValue = [new Date(this.rangeTimes[0]), new Date(this.rangeTimes[1])]
-          this.rangeStore = this.rangeTrueValue
-          this.isRanging = false
-          this.$emit('hide', window.event)
+          if (this.rangeTimes[0] >= val.getTime()) {
+            this.rangeTimes = []
+            this.rangeTimes.push(val.getTime())
+          } else {
+            this.rangeTrueValue = [new Date(this.rangeTimes[0]), new Date(this.rangeTimes[1])]
+            this.rangeStore = this.rangeTrueValue
+            this.isRanging = false
+            this.$emit('hide', window.event)
+          }
         }
+      } else {
+        this.rangeTimes = []
+        this.rangeTrueValue = []
+        this.rangeStore = this.rangeTrueValue
+        this.isRanging = false
+        this.$emit('hide', window.event)
       }
     },
     previousMonth () {
@@ -539,27 +552,36 @@ export default {
   },
   watch: {
     trueValue (val) {
-      const v = !this.valueFormat ? val : DateHelper.format(val, this.valueFormat)
-      this.store = new Date(val)
-      this.dateIndex = {
-        year: val.getFullYear(),
-        month: val.getMonth()
+      if (val !== '') {
+        const v = !this.valueFormat ? val : DateHelper.format(val, this.valueFormat)
+        this.store = new Date(val)
+        this.dateIndex = {
+          year: val.getFullYear(),
+          month: val.getMonth()
+        }
+        this.dateIndexMirror = this.dateIndex
+        this.$emit('input', v)
+      } else {
+        this.store = ''
+        this.$emit('input', '')
       }
-      this.dateIndexMirror = this.dateIndex
-      this.$emit('input', v)
     },
     rangeTrueValue (val) {
-      const _this = this
-      let bar = []
-      val.forEach(function (value, idx) {
-        bar[idx] = !_this.valueFormat ? value : DateHelper.format(value, _this.valueFormat)
-      })
-      this.dateIndex = {
-        year: val[0].getFullYear(),
-        month: val[0].getMonth()
+      if (val.length > 0) {
+        const _this = this
+        let bar = []
+        val.forEach(function (value, idx) {
+          bar[idx] = !_this.valueFormat ? value : DateHelper.format(value, _this.valueFormat)
+        })
+        this.dateIndex = {
+          year: val[0].getFullYear(),
+          month: val[0].getMonth()
+        }
+        this.dateIndexMirror = this.dateIndex
+        if (bar.length === 2) this.$emit('input', bar)
+      } else {
+        this.$emit('input', [])
       }
-      this.dateIndexMirror = this.dateIndex
-      if (bar.length === 2) this.$emit('input', bar)
     },
     rangeTimes: {
       handler: function (val) {
@@ -620,10 +642,8 @@ export default {
         const {month, date} = this.typeIndexes
         const day = this.keyboardFocusIndex
         if (this.typeIndex === date) {
-          console.log('=== date')
           return (new Date(day.year, day.month, day.date)).getTime()
         } else if (this.typeIndex === month) {
-          console.log('=== month')
           return (new Date(day.year, day.month)).getTime()
         } else {
           return (new Date(day.year, 0)).getTime()

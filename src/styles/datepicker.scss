@@ -18,14 +18,15 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 10px;
     margin: auto;
     color: $--color-text-placeholder;
     transition: all .2s;
 
-    @include m(open) {
-      transform: rotate(-180deg);
-      color: $--color-primary;
+    @include m(calender) {
+      left: 10px;
+    }
+    @include m(clear) {
+      right: 10px;
     }
   }
 
@@ -63,7 +64,7 @@
           }
         }
       }
-      .is-range-start, .is-range-between, .is-range-end{
+      .is-range-start, .is-range-between, .is-range-end {
         background-color: #f2f6fc;
       }
       .is-range-start {
@@ -391,18 +392,16 @@
     }
   }
 
-  @include when(clearable) {
-    .t-datepicker__input {
-      .t-datepicker__icon--clear {
+  .t-datepicker__input {
+    .t-datepicker__icon--clear {
+      display: none;
+    }
+    &:hover {
+      .fa-chevron-down {
         display: none;
       }
-      &:hover {
-        .fa-chevron-down {
-          display: none;
-        }
-        .t-datepicker__icon--clear {
-          display: block;
-        }
+      .t-datepicker__icon--clear {
+        display: block;
       }
     }
   }
