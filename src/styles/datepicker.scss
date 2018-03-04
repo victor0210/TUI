@@ -13,13 +13,12 @@
   }
 
   @include e(icon) {
-    z-index: $--background-level-index;
     width: 12px;
     height: 12px;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 10px;
+    left: 10px;
     margin: auto;
     color: $--color-text-placeholder;
     transition: all .2s;
@@ -45,6 +44,52 @@
     list-style: none;
     overflow-y: scroll;
     border: $--border-base;
+    display: inline-block;
+
+    @include when(range) {
+      width: 585px;
+      padding: 0;
+      .t-datepicker__date:first-child {
+        border-right: $--border-base;
+      }
+      .t-datepicker__date {
+        float: left;
+        padding: 10px 20px;
+      }
+      .t-datepicker__table-list {
+        td {
+          span {
+            margin: 5px 6px;
+          }
+        }
+      }
+      .is-range-start, .is-range-between, .is-range-end{
+        background-color: #f2f6fc;
+      }
+      .is-range-start {
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        .t-datepicker__item-inner {
+          background-color: $--color-primary;
+          color: $--color-white;
+        }
+      }
+      .is-range-end {
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+        .t-datepicker__item-inner {
+          background-color: $--color-primary;
+          color: $--color-white;
+        }
+      }
+      .is-disabled {
+        background-color: inherit;
+        .t-datepicker__item-inner {
+          background-color: inherit;
+          color: $--button-disabled-color;
+        }
+      }
+    }
   }
 
   @include e(header) {
@@ -56,11 +101,20 @@
       cursor: pointer;
       font-size: 16px;
     }
+
+    .t-datepicker__pointer, .t-datepicker__date-switcher {
+      &:hover {
+        color: $--color-primary;
+      }
+    }
+
     @include m(left) {
-      float: left;
+      position: absolute;
+      left: 10px;
     }
     @include m(right) {
-      float: right;
+      position: absolute;
+      right: 10px;
     }
   }
 
@@ -85,15 +139,18 @@
           border-radius: 10px;
         }
       }
+      .is-current {
+        span {
+          color: $--color-primary;
+        }
+      }
+
       .is-select {
         span {
           background-color: $--color-primary;
           color: $--color-white;
           box-shadow: $--box-shadow-base;
         }
-      }
-      .is-current {
-        color: $--color-primary;
       }
     }
   }
@@ -137,6 +194,7 @@
   }
 
   @include e(date) {
+    display: inline-block;
     .t-datepicker__table-list {
       td {
         height: 34px;
@@ -188,7 +246,7 @@
         font-weight: 300;
         margin: 5px 11px;
         display: block;
-        border-radius: 5px;
+        border-radius: 50%;
       }
 
       @include when(select) {
@@ -215,9 +273,6 @@
     width: 20px;
     height: 20px;
     margin: 0 5px;
-    &:hover {
-      color: $--color-primary;
-    }
   }
   @include e(input) {
     position: relative;
@@ -227,6 +282,7 @@
     overflow: hidden;
     border: $--border-base;
     transition: all .3s linear;
+    display: inline-block;
 
     &:hover {
       border-color: mix($--color-white, $--color-gray, 20%);
@@ -248,7 +304,7 @@
       height: 40px;
       line-height: 1;
       outline: none;
-      padding: 0 0 0 15px;
+      padding: 0 0 0 30px;
       transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
       width: 100%;
       user-select: none;
@@ -257,6 +313,22 @@
       }
       &:hover {
         border-color: mix($--color-white, $--color-gray, 20%);
+      }
+    }
+
+    @include m(range) {
+      width: 350px;
+      input {
+        text-align: center;
+        width: 46%;
+        &:last-child {
+          padding: 0;
+        }
+      }
+      .t-datepicker__addon {
+        display: inline-block;
+        text-align: center;
+        width: 20px;
       }
     }
   }
@@ -275,10 +347,6 @@
 
     ::placeholder {
       color: #c0c4cc;
-    }
-
-    .t-datepicker__icon {
-      z-index: 0;
     }
 
     .t-datepicker__input, input {
@@ -302,7 +370,6 @@
   @include when(clearable) {
     .t-datepicker__input {
       .t-datepicker__icon--clear {
-        z-index: 1;
         display: none;
       }
       &:hover {

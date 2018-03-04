@@ -5,13 +5,19 @@
       'is-disabled': disabled,
       'is-clearable': clearable && value !== '',
     }">
-      <div class="t-datepicker__input" ref="box" @click.prevent="checkout">
+      <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'">
         <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
         <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model">
       </div>
+      <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else>
+        <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
+        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="rangeLeftInput">
+        <span class="t-datepicker__addon"> 至 </span>
+        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="rangeRightInput">
+      </div>
     </label>
     <transition name="fade">
-      <div class="t-datepicker__select-panel" v-if="isFocus">
+      <div class="t-datepicker__select-panel" v-if="isFocus && type !== 'daterange'">
         <section class="t-datepicker__date" v-if="typeIndex === 3">
           <div class="t-datepicker__header">
             <span class="t-datepicker__pointer" @click="changeType(typeIndexes.year)">{{ this.dateIndex.year + '年' }}</span> <span class="t-datepicker__pointer" @click="changeType(typeIndexes.month)">{{ this.dateIndex.month + 1 + '月' }}</span>
@@ -79,6 +85,59 @@
           </section>
         </section>
       </div>
+      <div class="t-datepicker__select-panel is-range" v-if="isFocus && type === 'daterange'">
+        <section class="t-datepicker__date">
+          <div class="t-datepicker__header">
+            {{ rangeLeftLabel }}
+            <span class="t-datepicker__header--left">
+              <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
+              <i class="fa fa-angle-left t-datepicker__date-switcher" @click="previousMonth"></i>
+            </span>
+          </div>
+          <table class="t-datepicker__table-list">
+            <tr class="t-datepicker__title">
+              <th v-for="t in dateTitles" :key="t">{{ t }}</th>
+            </tr>
+            <tr v-for="i in 6" :key="i">
+              <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
+                't-datepicker__list-item',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeEnd ? 'is-range-end' : ''
+                ]"><span class="t-datepicker__item-inner">{{ rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section class="t-datepicker__date">
+          <div class="t-datepicker__header">
+            <!--{{ this.dateIndex.year + '年' + (this.dateIndex.month + 2) + '月' }}-->
+            {{ rangeRightLabel }}
+            <span class="t-datepicker__header--right">
+              <i class="fa fa-angle-right t-datepicker__date-switcher" @click="nextMonth"></i>
+              <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
+            </span>
+          </div>
+          <table class="t-datepicker__table-list">
+            <tr class="t-datepicker__title">
+              <th v-for="t in dateTitles" :key="t">{{ t }}</th>
+            </tr>
+            <tr v-for="i in 6" :key="i">
+              <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
+                't-datepicker__list-item',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeEnd ? 'is-range-end' : ''
+                ]"><span class="t-datepicker__item-inner">{{ rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
+            </tr>
+          </table>
+        </section>
+      </div>
     </transition>
   </div>
 </template>
@@ -111,6 +170,8 @@ export default {
         month: null,
         dates: []
       },
+      rangeSelect: [],
+      rangeStore: [],
       months: [],
       years: [],
       dateIndex: {
@@ -121,7 +182,16 @@ export default {
         year: (new Date()).getFullYear(),
         month: (new Date()).getMonth()
       },
-      trueValue: ''
+      rangeTimes: [],
+      isRanging: false,
+      trueValue: '',
+      rangeTrueValue: [],
+      formatDefaults: {
+        date: 'yyyy 年 M 月 d 日',
+        month: 'yyyy 年 M 月',
+        daterange: 'yyyy 年 M 月',
+        year: 'yyyy 年'
+      }
     }
   },
   props: {
@@ -135,10 +205,7 @@ export default {
     clearable: Boolean,
     value: {},
     valueFormat: String,
-    format: {
-      type: String,
-      default: 'yyyy 年 M 月 d 日'
-    }
+    format: String
   },
 
   mounted () {
@@ -298,12 +365,16 @@ export default {
           valueDate = new Date(this.trueValue.getFullYear(), this.trueValue.getMonth(), this.trueValue.getDate())
         }
 
+        const isRanged = (this.rangeTimes[0] <= this.rangeTimes[1] || (this.rangeTimes[0] && !this.rangeTimes[1])) && this.type === 'daterange'
         list[idx] = {
           val: day,
           label: day.getDate(),
           disabled: el < 1 || el > totalDays,
           isCurrent: day.getTime() === today.getTime(),
-          isSelect: this.trueValue && (day.getTime() === valueDate.getTime())
+          isSelect: this.trueValue && (day.getTime() === valueDate.getTime()),
+          isRangeBetween: isRanged && day.getTime() > this.rangeTimes[0] && day.getTime() < this.rangeTimes[1],
+          isRangeStart: isRanged && day.getTime() === this.rangeTimes[0],
+          isRangeEnd: isRanged && day.getTime() === this.rangeTimes[1]
         }
       })
 
@@ -324,6 +395,23 @@ export default {
       } else {
         this.typeIndex += 1
         this.setDateIndex(val.getFullYear(), val.getMonth())
+      }
+    },
+    setRangeValue (val) {
+      if (!this.isRanging) {
+        this.isRanging = true
+        this.rangeTimes = []
+        this.rangeTimes.push(val.getTime())
+      } else {
+        if (this.rangeTimes[0] >= val.getTime()) {
+          this.rangeTimes = []
+          this.rangeTimes.push(val.getTime())
+        } else {
+          this.rangeTrueValue = [new Date(this.rangeTimes[0]), new Date(this.rangeTimes[1])]
+          this.rangeStore = this.rangeTrueValue
+          this.isRanging = false
+          this.$emit('hide', window.event)
+        }
       }
     },
     previousMonth () {
@@ -352,6 +440,16 @@ export default {
     },
     changeType (type) {
       this.typeIndex = type
+    },
+    rangeHoverHandler (val) {
+      if (this.isRanging) {
+        if (this.rangeTimes.length === 1) {
+          this.rangeTimes.push(val.getTime())
+        } else if (this.rangeTimes.length === 2) {
+          this.rangeTimes.pop()
+          this.rangeTimes.push(val.getTime())
+        }
+      }
     }
   },
   watch: {
@@ -365,11 +463,37 @@ export default {
       this.dateIndexMirror = this.dateIndex
       this.$emit('input', v)
     },
+    rangeTrueValue (val) {
+      const _this = this
+      let bar = []
+      val.forEach(function (value, idx) {
+        bar[idx] = !_this.valueFormat ? value : DateHelper.format(value, _this.valueFormat)
+      })
+      this.dateIndex = {
+        year: val[0].getFullYear(),
+        month: val[0].getMonth()
+      }
+      this.dateIndexMirror = this.dateIndex
+      if (bar.length === 2) this.$emit('input', bar)
+    },
+    rangeTimes: {
+      handler: function (val) {
+        this.rangeSelect = []
+        this.rangeSelect.push(this.getMonthDates(this.dateIndex.year, this.dateIndex.month))
+        this.rangeSelect.push(this.getMonthDates(this.dateIndex.year, this.dateIndex.month + 1))
+      },
+      deep: true
+    },
     dateIndex: {
-      handler: function ({year, month}, {oldYear, oldMonth}) {
-        this.singleSelect = this.getMonthDates(year, month)
-        this.years = this.getTenYears(year)
-        this.months = this.getMonths(year)
+      handler: function ({year, month}) {
+        if (this.type !== 'daterange') {
+          this.singleSelect = this.getMonthDates(year, month)
+          this.years = this.getTenYears(year)
+          this.months = this.getMonths(year)
+        } else {
+          this.rangeSelect[0] = this.getMonthDates(year, month)
+          this.rangeSelect[1] = this.getMonthDates(year, month + 1)
+        }
       },
       deep: true
     }
@@ -380,8 +504,30 @@ export default {
         if (!this.store) {
           return this.store
         } else {
-          return DateHelper.format(this.store, this.format)
+          return DateHelper.format(this.store, this.format || this.formatDefaults[this.type])
         }
+      }
+    },
+    rangeLeftLabel: {
+      get () {
+        const d = new Date(this.dateIndex.year, this.dateIndex.month)
+        return DateHelper.format(d, this.format || this.formatDefaults[this.type])
+      }
+    },
+    rangeRightLabel: {
+      get () {
+        const d = new Date(this.dateIndex.year, this.dateIndex.month + 1)
+        return DateHelper.format(d, this.format || this.formatDefaults[this.type])
+      }
+    },
+    rangeLeftInput: {
+      get () {
+        if (this.rangeStore[0]) return DateHelper.format(this.rangeStore[0], this.format || this.formatDefaults['date'])
+      }
+    },
+    rangeRightInput: {
+      get () {
+        if (this.rangeStore[1]) return DateHelper.format(this.rangeStore[1], this.format || this.formatDefaults['date'])
       }
     }
   }
