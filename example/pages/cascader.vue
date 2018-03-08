@@ -1,54 +1,65 @@
 <template>
   <div>
-    <h2>普通复选框</h2>
+    <guide title="级联下拉框" des="用于输入的表单级联下拉组件"/>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-cascader :option="option" v-model="op1"/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">普通复选框</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-cascader :option="option" v-model="op1"/>
+          </t-col>
+        </t-row>
+      </div>
+      <cascader-normal/>
     </div>
-    <cascader-normal/>
 
-    <h2>禁用复选框</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-cascader :option="option" v-model="op2" disabled/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">禁用复选框</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-cascader :option="option" v-model="op2" disabled/>
+          </t-col>
+        </t-row>
+      </div>
+      <cascader-disabled/>
     </div>
-    <cascader-disabled/>
 
-    <h2>可清除</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-cascader :option="option" v-model="op3" clearable/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">可清除</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-cascader :option="option" v-model="op3" clearable/>
+          </t-col>
+        </t-row>
+      </div>
+      <cascader-clearable/>
     </div>
-    <cascader-clearable/>
 
-    <h2>只显示最后一级</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-cascader :option="option" v-model="op3" only-last/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">只显示最后一级</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-cascader :option="option" v-model="op3" only-last/>
+          </t-col>
+        </t-row>
+      </div>
+      <cascader-last/>
     </div>
-    <cascader-last/>
 
-    <h2>可搜索</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-cascader :option="option" v-model="op3" searchable/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">可搜索</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-cascader :option="option" v-model="op3" searchable/>
+          </t-col>
+        </t-row>
+      </div>
+      <cascader-searchable/>
     </div>
-    <cascader-searchable/>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import App from './App'
 import demoPanel from './components/DemoPanel'
 import router from './router'
 import highlight from 'highlightjs'
+import Guide from './components/Guide'
 
 // import part of tui
 // import Button from '../src/components/button'
@@ -19,6 +20,7 @@ Vue.directive('hlt', function () {
 })
 
 Vue.component('demo-panel', demoPanel)
+Vue.component('guide', Guide)
 
 /* eslint-disable  */
 new Vue({

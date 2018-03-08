@@ -1,52 +1,63 @@
 <template>
   <div>
-    <h2>可选年月日</h2>
+    <guide title="DatePicker" des="用于日期选择的表单组件"/>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-date-picker v-model="dp1" type="date" placeholder="选择日期"/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">可选年月日</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-date-picker v-model="dp1" type="date" placeholder="选择日期"/>
+          </t-col>
+        </t-row>
+      </div>
       <date-md/>
     </div>
 
-    <h2>初始值</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-date-picker v-model="dp2" type="date" placeholder="选择日期"/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">初始值</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-date-picker v-model="dp2" type="date" placeholder="选择日期"/>
+          </t-col>
+        </t-row>
+      </div>
       <date-default-value-md/>
     </div>
 
-    <h2>可选年月</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-date-picker v-model="dp3" type="month" placeholder="选择年月"/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">可选年月</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-date-picker v-model="dp3" type="month" placeholder="选择年月"/>
+          </t-col>
+        </t-row>
+      </div>
       <month-md/>
     </div>
 
-    <h2>可选年</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-date-picker v-model="dp4" type="year" placeholder="选择年份"/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">可选年</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-date-picker v-model="dp4" type="year" placeholder="选择年份"/>
+          </t-col>
+        </t-row>
+      </div>
       <year-md/>
     </div>
 
-    <h2>可选区间</h2>
     <div class="demo-block">
-      <t-row :gutter="20">
-        <t-col :span="6">
-          <t-date-picker v-model="dp5" type="daterange" placeholder-start="起始日期" placeholder-end="截止日期"/>
-        </t-col>
-      </t-row>
+      <div class="subtitle">可选区间</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-date-picker v-model="dp5" type="daterange" placeholder-start="起始日期" placeholder-end="截止日期"/>
+          </t-col>
+        </t-row>
+      </div>
       <date-range-md/>
     </div>
   </div>

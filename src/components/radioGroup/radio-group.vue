@@ -9,8 +9,7 @@ export default {
   name: 't-radio-group',
   props: {
     value: {
-      type: String,
-      required: true
+      type: String
     }
   }
 }

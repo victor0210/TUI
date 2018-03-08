@@ -28,53 +28,53 @@
 
 ## 按钮 - round, disabled(正常样式和outline下的disabled样式一样), outline
 <div class="demo-block">
-<t-button type="primary" size="lg" :round=true>primary</t-button>
-<t-button type="cyan" size="lg" :round=true>cyan</t-button>
-<t-button type="warning" size="lg" :round=true>warning</t-button>
-<t-button type="danger" :round=true>danger</t-button>
-<t-button type="inverse" :round=true>inverse</t-button>
+<t-button type="primary" size="lg" round>primary</t-button>
+<t-button type="cyan" size="lg" round>cyan</t-button>
+<t-button type="warning" size="lg" round>warning</t-button>
+<t-button type="danger" round>danger</t-button>
+<t-button type="inverse" round>inverse</t-button>
 <br>
 <br>
-<t-button type="primary" size="lg" :round=true :disabled=true>primary</t-button>
-<t-button type="cyan" size="lg" :round=true :disabled=true>cyan</t-button>
-<t-button type="warning" size="lg" :round=true :disabled=true>warning</t-button>
-<t-button type="danger" :round=true :disabled=true>danger</t-button>
-<t-button type="inverse" :round=true :disabled=true>inverse</t-button>
+<t-button type="primary" size="lg" round disabled>primary</t-button>
+<t-button type="cyan" size="lg" round disabled>cyan</t-button>
+<t-button type="warning" size="lg" round disabled>warning</t-button>
+<t-button type="danger" round disabled>danger</t-button>
+<t-button type="inverse" round disabled>inverse</t-button>
 <br>
 <br>
-<t-button type="primary" size="lg" :round=true :outline=true>primary</t-button>
-<t-button type="cyan" size="lg" :round=true :outline=true>cyan</t-button>
-<t-button type="warning" size="lg" :round=true :outline=true>warning</t-button>
-<t-button type="danger" :round=true :outline=true>danger</t-button>
-<t-button type="inverse" :round=true :outline=true>inverse</t-button>
+<t-button type="primary" size="lg" round outline>primary</t-button>
+<t-button type="cyan" size="lg" round outline>cyan</t-button>
+<t-button type="warning" size="lg" round outline>warning</t-button>
+<t-button type="danger" round outline>danger</t-button>
+<t-button type="inverse" round outline>inverse</t-button>
 </div>
 
 ::: demo
 ```html
-<t-button type="primary" size="lg" :round=true>primary</t-button>
-<t-button type="cyan" size="lg" :round=true>cyan</t-button>
-<t-button type="warning" size="lg" :round=true>warning</t-button>
-<t-button type="danger" :round=true>danger</t-button>
-<t-button type="inverse" :round=true>inverse</t-button>
+<t-button type="primary" size="lg" round>primary</t-button>
+<t-button type="cyan" size="lg" round>cyan</t-button>
+<t-button type="warning" size="lg" round>warning</t-button>
+<t-button type="danger" round>danger</t-button>
+<t-button type="inverse" round>inverse</t-button>
 
-<t-button type="primary" size="lg" :round=true :disabled=true>primary</t-button>
-<t-button type="cyan" size="lg" :round=true :disabled=true>cyan</t-button>
-<t-button type="warning" size="lg" :round=true :disabled=true>warning</t-button>
-<t-button type="danger" :round=true :disabled=true>danger</t-button>
-<t-button type="inverse" :round=true :disabled=true>inverse</t-button>
+<t-button type="primary" size="lg" round disabled>primary</t-button>
+<t-button type="cyan" size="lg" round disabled>cyan</t-button>
+<t-button type="warning" size="lg" round disabled>warning</t-button>
+<t-button type="danger" round disabled>danger</t-button>
+<t-button type="inverse" round disabled>inverse</t-button>
 
-<t-button type="primary" size="lg" :round=true :outline=true>primary</t-button>
-<t-button type="cyan" size="lg" :round=true :outline=true>cyan</t-button>
-<t-button type="warning" size="lg" :round=true :outline=true>warning</t-button>
-<t-button type="danger" :round=true :outline=true>danger</t-button>
-<t-button type="inverse" :round=true :outline=true>inverse</t-button>
+<t-button type="primary" size="lg" round outline>primary</t-button>
+<t-button type="cyan" size="lg" round outline>cyan</t-button>
+<t-button type="warning" size="lg" round outline>warning</t-button>
+<t-button type="danger" round outline>danger</t-button>
+<t-button type="inverse" round outline>inverse</t-button>
 ```
 :::
 
 ## 按钮组
 <div class="demo-block">
 <t-button-group>
-<t-button type="primary" :outline=true size="lg">btn1</t-button>
+<t-button type="primary" outline size="lg">btn1</t-button>
 <t-button type="cyan" size="lg">btn2</t-button>
 <t-button type="danger" size="lg">btn3</t-button>
 </t-button-group>

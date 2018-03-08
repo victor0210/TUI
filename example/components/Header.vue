@@ -1,15 +1,12 @@
 <template>
     <t-row>
-        <t-col :span="4" class="logoCol">
-            <a href="#" class="logo">
-                <img src="../assets/logo.png" alt="" class="logo-img">
-                <span class="logo-span">T-UI</span>
-            </a>
+        <t-col :span="10" class="logoCol">
+          <a href="/#"><img src="../assets/logo.png" alt="" class="logo-img"></a>
         </t-col>
         <t-col :span="5">
             <div class="search">
                 <t-input placeholder="搜索组件....">
-                    <t-button slot="suffix" icon="fa fa-search"></t-button>
+                    <t-button slot="suffix" type="primary" icon="fa fa-search"></t-button>
                 </t-input>
             </div>
         </t-col>

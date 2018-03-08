@@ -66,7 +66,7 @@ export default {
     value: {}
   },
   mounted () {
-    this.val = parseFloat(this.value)
+    this.val = parseFloat(this.value) || ''
   },
   methods: {
     changePosition (isTop) {

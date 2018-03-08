@@ -1,23 +1,24 @@
 <template>
   <div id='app'>
-    <t-layout class="frame">
-      <t-header class="header">
-        <t-head></t-head>
-      </t-header>
-      <t-layout flexDirection="row" class="container">
-        <t-aside class="left-aside" width="250px">
-          <left-aside></left-aside>
-        </t-aside>
-        <t-content>
-          <router-view></router-view>
-        </t-content>
-        <t-aside class="right-aside" width="200px">
-          <right-aside></right-aside>
-        </t-aside>
-      </t-layout>
-      <t-footer>
-        <t-foot></t-foot>
-      </t-footer>
+    <t-layout flex-direction="vertical" class="frame">
+      <t-row>
+        <t-col :span="22" :offset="1">
+          <t-header height="80px" class="header">
+            <t-head></t-head>
+          </t-header>
+          <t-layout flex-direction="row" class="container">
+            <t-aside class="left-aside" width="250px">
+              <left-aside></left-aside>
+            </t-aside>
+            <t-content class="main-content">
+              <router-view></router-view>
+            </t-content>
+          </t-layout>
+        </t-col>
+      </t-row>
+      <!--<t-footer>-->
+        <!--<t-foot></t-foot>-->
+      <!--</t-footer>-->
     </t-layout>
   </div>
 </template>
@@ -44,6 +45,6 @@ export default {
   @import "../src/styles/index.scss";
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "styles/app";
 </style>
