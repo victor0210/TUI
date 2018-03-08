@@ -32,22 +32,10 @@
         Basic
       </div>
       <ul class="t-menu-item-list">
-        <li>
-          <router-link to="/button">
-            <span>Button</span>
-            <span class="chinese">按钮</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/dialog">
-            <span>Dialog</span>
-            <span class="chinese">提示框</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/layout">
-            <span>Layout</span>
-            <span class="chinese">栅格</span>
+        <li v-for="(i, k) in basicList" :key="k">
+          <router-link :to="i.route">
+            <span>{{ i.name }}</span>
+            <span class="chinese">{{ i.chinese }}</span>
           </router-link>
         </li>
       </ul>
@@ -58,46 +46,10 @@
         Form
       </div>
       <ul class="t-menu-item-list">
-        <li>
-          <router-link to="/input">
-            <span>Input</span>
-            <span class="chinese">输入框</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/input-number">
-            <span>InputNumber</span>
-            <span class="chinese">计数器</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/checkbox">
-            <span>CheckBox</span>
-            <span class="chinese">多选框</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/radio">
-            <span>Radio</span>
-            <span class="chinese">单选框</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/select">
-            <span>Select</span>
-            <span class="chinese">下拉框</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/cascader">
-            <span>Cascader</span>
-            <span class="chinese">级联</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/datepicker">
-            <span>Datepicker</span>
-            <span class="chinese">日期选择器</span>
+        <li v-for="(i, k) in formList" :key="k">
+          <router-link :to="i.route">
+            <span>{{ i.name }}</span>
+            <span class="chinese">{{ i.chinese }}</span>
           </router-link>
         </li>
       </ul>
@@ -105,7 +57,71 @@
   </ul>
 </template>
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      basicList: [
+        {
+          route: '/button',
+          name: 'Button',
+          chinese: '按钮'
+        },
+        {
+          route: '/dialog',
+          name: 'Dialog',
+          chinese: '提示框'
+        },
+        {
+          route: '/layout',
+          name: 'Layout',
+          chinese: '栅格'
+        }
+      ],
+      formList: [
+        {
+          route: '/input',
+          name: 'Input',
+          chinese: '输入框'
+        },
+        {
+          route: '/input-number',
+          name: 'InputNumber',
+          chinese: '计数器'
+        },
+        {
+          route: '/checkbox',
+          name: 'CheckBox',
+          chinese: '多选框'
+        },
+        {
+          route: '/radio',
+          name: 'Radio',
+          chinese: '单选框'
+        },
+        {
+          route: '/select',
+          name: 'Select',
+          chinese: '下拉框'
+        },
+        {
+          route: '/cascader',
+          name: 'Cascader',
+          chinese: '级联'
+        },
+        {
+          route: '/datepicker',
+          name: 'Datepicker',
+          chinese: '日期选择器'
+        },
+        {
+          route: '/timepicker',
+          name: 'Timepicker',
+          chinese: '时间选择器'
+        }
+      ]
+    }
+  }
+}
 </script>
 <style lang="scss" scoped="">
   @import "../styles/leftAside";

@@ -1,0 +1,256 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/drop";
+
+@include b(timepicker) {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
+
+  @include e(icon) {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    color: $--color-text-placeholder;
+    transition: all .2s;
+
+    @include m(calender) {
+      left: 10px;
+    }
+    @include m(clear) {
+      right: 10px;
+    }
+  }
+
+  @include e(bottom) {
+    text-align: right;
+    padding-right: 20px;
+  }
+  @include e(wrapper) {
+    overflow: hidden;
+    position: relative;
+  }
+  @include e(cover) {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    background-color: $--color-primary;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+    width: 100%;
+    top: 60px;
+    z-index: -1;
+  }
+  @include e(cover-top) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 60px;
+    background-color: rgba(200, 200, 200, 0.1);
+    width: 100%;
+    z-index: -1;
+  }
+  @include e(cover-bottom) {
+    position: absolute;
+    left: 0;
+    height: 60px;
+    background-color: rgba(200, 200, 200, 0.1);
+    width: 100%;
+    top: 90px;
+    z-index: -1;
+  }
+  @include e(select-column) {
+    width: 60px;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    ul {
+      height: 150px;
+      overflow: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      li {
+        user-select: none;
+        height: 30px;
+        line-height: 30px;
+        color: $--color-text-regular;
+      }
+      li.is-focus {
+        color: $--color-white;
+        font-weight: 500;
+      }
+      li.t-timepicker__list-item {
+        cursor: pointer;
+        &:hover {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  @include e(select-panel) {
+    z-index: $--select-list-index;
+    width: 182px;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: all .2s;
+    min-width: 150px;
+    margin-top: 5px;
+    position: absolute;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    background-color: #fff;
+    line-height: 40px;
+    list-style: none;
+    overflow-y: scroll;
+    border: $--border-base;
+    display: inline-block;
+
+    @include when(range) {
+      width: 585px;
+      padding: 0;
+      .t-timepicker__date:first-child {
+        border-right: $--border-base;
+      }
+      .t-timepicker__date {
+        width: auto;
+        float: left;
+        padding: 10px 20px;
+      }
+      .t-timepicker__table-list {
+        td {
+          span {
+            margin: 5px 6px;
+          }
+        }
+      }
+      .is-range-start, .is-range-between, .is-range-end {
+        background-color: #f2f6fc;
+      }
+      .is-range-start {
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        .t-timepicker__item-inner {
+          background-color: $--color-primary;
+          color: $--color-white;
+        }
+      }
+      .is-range-end {
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+        .t-timepicker__item-inner {
+          background-color: $--color-primary;
+          color: $--color-white;
+        }
+      }
+      .is-disabled {
+        background-color: inherit;
+        .t-timepicker__item-inner {
+          background-color: inherit;
+          color: $--button-disabled-color;
+        }
+      }
+    }
+  }
+
+  @include e(input) {
+    position: relative;
+    padding-right: 30px;
+    border-radius: $--border-radius-base;
+    min-height: $--input-height-base - 2;
+    overflow: hidden;
+    border: $--border-base;
+    transition: all .3s linear;
+    display: inline-block;
+
+    &:hover {
+      border-color: mix($--color-white, $--color-gray, 20%);
+    }
+
+    &:focus {
+      border-color: $--color-primary;
+    }
+
+    input {
+      -webkit-appearance: none;
+      background-color: #fff;
+      border-radius: 4px;
+      border: none;
+      box-sizing: border-box;
+      color: #606266;
+      display: inline-block;
+      font-size: inherit;
+      height: 40px;
+      line-height: 1;
+      outline: none;
+      padding: 0 0 0 30px;
+      transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+      width: 100%;
+      user-select: none;
+      &:focus {
+        border-color: $--border-color-base;
+      }
+      &:hover {
+        border-color: mix($--color-white, $--color-gray, 20%);
+      }
+    }
+
+    @include m(range) {
+      width: 350px;
+      input {
+        text-align: center;
+        width: 46%;
+        &:last-child {
+          padding: 0;
+        }
+      }
+      .t-timepicker__addon {
+        display: inline-block;
+        text-align: center;
+        width: 20px;
+      }
+    }
+  }
+
+  @include when(focus) {
+    input, .t-timepicker__input {
+      border-color: $--color-primary;
+    }
+  }
+
+  @include when(disabled) {
+    & * {
+      user-select: none;
+      cursor: not-allowed;
+    }
+
+    ::placeholder {
+      color: #c0c4cc;
+    }
+
+    .t-timepicker__input, input {
+      background-color: #f5f7fa;
+      color: #c0c4cc;
+      &:hover {
+        border-color: $--border-color-base;
+      }
+    }
+  }
+
+  .t-timepicker__input {
+    .t-timepicker__icon--clear {
+      display: none;
+    }
+    &:hover {
+      .t-timepicker__icon--clear {
+        display: block;
+      }
+    }
+  }
+}
