@@ -1,23 +1,31 @@
 <template>
     <div>
-        <h2>普通输入框</h2>
+      <guide title="输入框" des="用于用户输入信息"/>
         <div class="demo-block">
+          <div class="subtitle">普通输入框</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="5"><t-input placeholder="请输入"/></t-col>
             </t-row>
+          </div>
+          <input-md></input-md>
         </div>
-        <input-md></input-md>
-        <h2>设置宽度输入框</h2>
+
         <div class="demo-block">
+          <div class="subtitle">设置宽度输入框</div>
+          <div class="source">
             <t-row :gutter="20">
-                <t-col :span="8"><t-input placeholder="请输入" :width="100"/></t-col>
                 <t-col :span="8"><t-input placeholder="请输入" :width="200"/></t-col>
-                <t-col :span="8"><t-input placeholder="请输入" :width="300"/></t-col>
+                <t-col :span="8"><t-input placeholder="请输入" :width="150"/></t-col>
+                <t-col :span="8"><t-input placeholder="请输入" :width="100"/></t-col>
             </t-row>
+          </div>
+          <inputW></inputW>
         </div>
-        <inputW></inputW>
-        <h2>组合按钮输入框</h2>
+
         <div class="demo-block">
+          <div class="subtitle">组合按钮输入框</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="5">
                     <t-input placeholder="default">
@@ -30,10 +38,13 @@
                     </t-input>
                 </t-col>
             </t-row>
+          </div>
+          <input-button></input-button>
         </div>
-        <input-button></input-button>
-        <h2>组合文字图标输入框</h2>
+
         <div class="demo-block">
+          <div class="subtitle">组合文字图标输入框</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="8">
                     <t-input placeholder="请输入">
@@ -52,10 +63,13 @@
                     </t-input>
                 </t-col>
             </t-row>
+          </div>
+          <input-icon></input-icon>
         </div>
-        <input-icon></input-icon>
-        <h2>任意组合</h2>
+
         <div class="demo-block">
+          <div class="subtitle">任意组合</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="8">
                     <t-input placeholder="请输入" prependIcon="fa fa-calendar">
@@ -74,8 +88,9 @@
                     </t-input>
                 </t-col>
             </t-row>
+          </div>
+          <input-any></input-any>
         </div>
-        <input-any></input-any>
     </div>
 </template>
 <script>

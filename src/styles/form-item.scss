@@ -1,0 +1,26 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/input";
+
+@include b(form-item) {
+  margin-bottom: 22px;
+
+  @include e(label) {
+    display: inline-block;
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
+  }
+
+  @include e(content) {
+    margin-left: 80px;
+    line-height: 38px;
+    position: relative;
+    font-size: 14px;
+  }
+}

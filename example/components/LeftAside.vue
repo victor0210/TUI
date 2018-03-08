@@ -1,60 +1,63 @@
 <template>
-  <ul class="aside-item">
-    <li class="t-menu-item">
-      <a href="#">
-        <span>安装</span>
-      </a>
-    </li>
-    <li class="t-menu-item">
-      <a href="#">
-        <span>快速上手</span>
-      </a>
-    </li>
-    <li class="t-menu-item">
-      <a href="#">
-        <span>概览</span>
-      </a>
-    </li>
-    <li class="t-menu-item">
-      <a href="#">
-        <span>定制主题</span>
-      </a>
-    </li>
-    <li class="t-menu-item">
-      <a href="#">
-        <span>更新日志</span>
-      </a>
-    </li>
-    <div class="navigate-group">组件</div>
-    <!--基础组件-->
-    <li class="t-menu-item-group">
-      <div class="t-menu-item-title">
-        Basic
-      </div>
-      <ul class="t-menu-item-list">
-        <li v-for="(i, k) in basicList" :key="k">
-          <router-link :to="i.route">
-            <span>{{ i.name }}</span>
-            <span class="chinese">{{ i.chinese }}</span>
-          </router-link>
-        </li>
-      </ul>
-    </li>
-    <!--表单组件-->
-    <li class="t-menu-item-group">
-      <div class="t-menu-item-title">
-        Form
-      </div>
-      <ul class="t-menu-item-list">
-        <li v-for="(i, k) in formList" :key="k">
-          <router-link :to="i.route">
-            <span>{{ i.name }}</span>
-            <span class="chinese">{{ i.chinese }}</span>
-          </router-link>
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <div>
+    <ul class="aside-item">
+      <div class="navigate-group">开发指南</div>
+      <li class="t-menu-item">
+        <a href="#">
+          <span>安装</span>
+        </a>
+      </li>
+      <li class="t-menu-item">
+        <a href="#">
+          <span>快速上手</span>
+        </a>
+      </li>
+      <li class="t-menu-item">
+        <a href="#">
+          <span>概览</span>
+        </a>
+      </li>
+      <li class="t-menu-item">
+        <a href="#">
+          <span>定制主题</span>
+        </a>
+      </li>
+      <li class="t-menu-item">
+        <a href="#">
+          <span>更新日志</span>
+        </a>
+      </li>
+      <div class="navigate-group">组件</div>
+      <!--基础组件-->
+      <li class="t-menu-item-group">
+        <div class="t-menu-item-title">
+          Basic
+        </div>
+        <ul class="t-menu-item-list">
+          <li v-for="(i, k) in basicList" :key="k">
+            <router-link :to="i.route">
+              <span>{{ i.name }}</span>
+              <span class="chinese">{{ i.chinese }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </li>
+      <!--表单组件-->
+      <li class="t-menu-item-group">
+        <div class="t-menu-item-title">
+          Form
+        </div>
+        <ul class="t-menu-item-list">
+          <li v-for="(i, k) in formList" :key="k">
+            <router-link :to="i.route">
+              <span>{{ i.name }}</span>
+              <span class="chinese">{{ i.chinese }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 export default {
@@ -117,6 +120,11 @@ export default {
           route: '/timepicker',
           name: 'Timepicker',
           chinese: '时间选择器'
+        },
+        {
+          route: '/form',
+          name: 'Form',
+          chinese: '表单'
         }
       ]
     }

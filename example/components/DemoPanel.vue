@@ -1,13 +1,15 @@
 <template>
   <div class="docs-demo-wrapper">
-    <div :style="{height: isExpand ? 'auto' : '0'}" class="demo-container">
+    <div class="demo-container">
       <div class="docs-demo docs-demo--expand">
-        <div class="highlight-wrapper">
+        <div class="highlight-wrapper" :style="{height: isExpand ? (this.$slots.highlight[0].elm.clientHeight + 40) + 'px' : '0'}">
           <slot name="highlight"></slot>
         </div>
       </div>
     </div>
-    <span class="docs-trans docs-demo__triangle" @click="toggle">{{isExpand ? '隐藏代码' : '显示代码'}}</span>
+    <span class="docs-trans docs-demo__triangle" @click="toggle"><i class="fa fa-caret-down" :class="[
+      isExpand ? 'rotate' : ''
+    ]"></i><span>{{isExpand ? '隐藏代码' : '显示代码'}}</span></span>
   </div>
 </template>
 
@@ -35,10 +37,25 @@ export default {
     margin-top: 20px;
     margin-bottom: 20px;
     float: left;
-    width: 100%
+    width: 100%;
+    border-radius: 3px;
+    transition: .2s;
+    box-shadow: 0 0 6px 1px #ebebeb;
+  }
+
+  .demo-block .subtitle {
+    line-height: 45px;
+    font-weight: 500;
+    font-size: 18px;
+    padding-left: 25px;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  .demo-block .source {
+    padding: 25px;
   }
   .demo-container {
-    transition: max-height .3s ease;
+    transition: all .3s ease;
     overflow: hidden;
   }
 
@@ -46,9 +63,8 @@ export default {
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    font-size: 14px;
-    background-color: #F7F7F7;
-    border: 1px solid #e2ecf4;
+    font-size: 13px;
+    background-color: #fafafa;
     border-top: none;
   }
 
@@ -64,20 +80,73 @@ export default {
   }
 
   .docs-demo-wrapper {
+    transition: all .3s;
     float: left;
     width: 100%;
-    margin-bottom: 100px;
   }
 
   .docs-trans {
     width: 100%;
     text-align: center;
-    display: inline-block;
+    display: block;
     color: #C5D9E8;
     font-size: 12px;
     padding: 10px 0;
-    background-color: #FAFBFC;
     cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    transition:all .3s;
+    border-top: 1px solid #eee;
+    position: relative;
+  }
+
+  .docs-trans span {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    line-height: 30px;
+    margin: auto;
+    margin-left: 70px;
+    opacity: 0;
+    transition:all .3s;
+  }
+
+  .docs-trans i.rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  .docs-trans i {
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto auto;
+    margin-left: 0;
+    transition: all .3s;
+  }
+
+  .demo-block:hover .docs-trans {
+    background-color: #FAFBFC;
+    color: #409EFF;
+  }
+
+  .demo-block:hover .docs-trans span {
+    opacity: 1;
+    margin-left: 0;
+  }
+  .demo-block:hover .docs-trans i {
+    margin-left: -70px;
   }
 
   .docs-demo__code,
@@ -100,7 +169,9 @@ export default {
   }
 
   .highlight-wrapper {
-    display: none;
+    display: block;
+    height: 0;
+    transition: all .3s;
   }
 
   .highlight-wrapper p,
@@ -113,7 +184,7 @@ export default {
   }
 
   .docs-demo.docs-demo--expand .highlight-wrapper {
-    display: block;
+    height: 200px;
   }
 
   .docs-demo__code__mobi {
@@ -179,106 +250,74 @@ export default {
     background: #e5e9f2;
   }
 
-   /*
-    *-------------------------- Highlight Style -----------------------------*/
-
-  /* Tomorrow Night Eighties Theme */
-  /* Original theme - https://github.com/chriskempson/tomorrow-theme */
-  /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-
-  /* Tomorrow Comment */
   /*
 
- XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
+  Colorbrewer theme
+  Original: https://github.com/mbostock/colorbrewer-theme (c) Mike Bostock <mike@ocks.org>
+  Ported by Fabrício Tavares de Oliveira
 
- */
+  */
 
   .hljs {
     display: block;
     overflow-x: auto;
     padding: 0.5em;
     background: #fff;
-    color: black;
   }
 
-  .hljs-comment,
-  .hljs-quote {
-    color: #006a00;
-  }
-
-  .hljs-keyword,
-  .hljs-selector-tag,
-  .hljs-literal {
-    color: #aa0d91;
-  }
-
-  .hljs-name {
-    color: #008;
-  }
-
-  .hljs-variable,
-  .hljs-template-variable {
-    color: #660;
-  }
-
-  .hljs-string {
-    color: #c41a16;
-  }
-
-  .hljs-regexp,
-  .hljs-link {
-    color: #080;
-  }
-
-  .hljs-title,
-  .hljs-tag,
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-number,
-  .hljs-meta {
-    color: #1c00cf;
-  }
-
-  .hljs-section,
-  .hljs-class .hljs-title,
-  .hljs-type,
-  .hljs-attr,
-  .hljs-built_in,
-  .hljs-builtin-name,
-  .hljs-params {
-    color: #5c2699;
-  }
-
-  .hljs-attribute,
+  .hljs,
   .hljs-subst {
     color: #000;
   }
 
-  .hljs-formula {
-    background-color: #eee;
-    font-style: italic;
-  }
-
+  .hljs-string,
+  .hljs-meta,
+  .hljs-symbol,
+  .hljs-template-tag,
+  .hljs-template-variable,
   .hljs-addition {
-    background-color: #baeeba;
+    color: #756bb1;
   }
 
-  .hljs-deletion {
-    background-color: #ffc8bd;
+  .hljs-comment,
+  .hljs-quote {
+    color: #636363;
   }
 
-  .hljs-selector-id,
-  .hljs-selector-class {
-    color: #9b703f;
+  .hljs-number,
+  .hljs-regexp,
+  .hljs-literal,
+  .hljs-bullet,
+  .hljs-link {
+    color: #31a354;
   }
 
+  .hljs-deletion,
+  .hljs-variable {
+    color: #88f;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-title,
+  .hljs-section,
+  .hljs-built_in,
   .hljs-doctag,
+  .hljs-type,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class,
   .hljs-strong {
-    font-weight: bold;
+    color: #3182bd;
   }
 
   .hljs-emphasis {
     font-style: italic;
+  }
+
+  .hljs-attribute {
+    color: #e6550d;
   }
 
 </style>

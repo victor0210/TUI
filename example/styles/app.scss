@@ -1,10 +1,44 @@
 .frame {
   .header {
-    box-shadow: 0 2px 8px #f0f1f2;
-    margin-bottom: 5px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    background-color: #fff;
+    padding: 10px 10px;
   }
   .container {
-    box-shadow: 0 2px 8px #f0f1f2;
-    margin-bottom: 5px;
+    margin-top: 80px;
+  }
+  .left-aside {
+    position: fixed;
+    padding-bottom: 100px;
+    height: 100%;
+    overflow: scroll;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+  .main-content {
+    margin-left: 250px;
+    position: relative;
+    height: 100%;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+}
+
+.guide {
+  .title {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 45px;
+    color: #333;
+  }
+  .des {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 45px;
+    color: #666;
   }
 }

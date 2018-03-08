@@ -1,17 +1,21 @@
 <template>
     <div>
-        <h2>checkbox</h2>
+      <guide title="复选框" des="用于输入的表单复选组件"/>
         <div class="demo-block">
+          <div class="subtitle">checkbox</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="8">
                     <t-checkbox label="label在右边"></t-checkbox>
                     <t-checkbox label="label在左边" :labelLeft=true></t-checkbox>
                 </t-col>
             </t-row>
+          </div>
+          <checkbox-md></checkbox-md>
         </div>
-        <checkbox-md></checkbox-md>
-        <h2>checkbox Group</h2>
         <div class="demo-block">
+          <div class="subtitle">checkbox Group</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="8">
                     <t-checkbox-group>
@@ -21,10 +25,12 @@
                     </t-checkbox-group>
                 </t-col>
             </t-row>
+          </div>
+          <checkbox-group></checkbox-group>
         </div>
-        <checkbox-group></checkbox-group>
-        <h2>checkbox style</h2>
         <div class="demo-block">
+          <div class="subtitle">checkbox style</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="24">
                     <t-checkbox-group>
@@ -35,10 +41,13 @@
                     </t-checkbox-group>
                 </t-col>
             </t-row>
+          </div>
+          <checkbox-style></checkbox-style>
         </div>
-        <checkbox-style></checkbox-style>
-        <h2>checkbox indeterminate</h2>
+
         <div class="demo-block">
+          <div class="subtitle">checkbox indeterminate</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="24">
                     <t-checkbox-group :indeterminate="true">
@@ -49,10 +58,12 @@
                     </t-checkbox-group>
                 </t-col>
             </t-row>
+          </div>
+          <checkbox-indeterminate></checkbox-indeterminate>
         </div>
-        <checkbox-indeterminate></checkbox-indeterminate>
-        <h2>checkbox limit</h2>
         <div class="demo-block">
+          <div class="subtitle">checkbox limit</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="24">
                     <t-checkbox-group :min="1" :max="3">
@@ -63,10 +74,12 @@
                     </t-checkbox-group>
                 </t-col>
             </t-row>
+          </div>
+          <checkbox-limit></checkbox-limit>
         </div>
-        <checkbox-limit></checkbox-limit>
-        <h2>checkbox border</h2>
         <div class="demo-block">
+          <div class="subtitle">checkbox border</div>
+          <div class="source">
             <t-row :gutter="20">
                 <t-col :span="24">
                     <t-checkbox-group>
@@ -77,8 +90,9 @@
                     </t-checkbox-group>
                 </t-col>
             </t-row>
+          </div>
+          <checkbox-border></checkbox-border>
         </div>
-        <checkbox-border></checkbox-border>
     </div>
 </template>
 <script>

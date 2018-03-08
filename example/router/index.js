@@ -65,6 +65,11 @@ export default new Router({
       path: '/timepicker',
       name: 'timepicker',
       component: r => require.ensure([], () => r(require('../pages/timepicker.vue')))
+    },
+    {
+      path: '/form',
+      name: 'form',
+      component: r => require.ensure([], () => r(require('../pages/form.vue')))
     }
   ]
 })
