@@ -151,6 +151,7 @@
 import DateHelper from '../../mixins/dateHelper.js'
 import Emitter from '../../mixins/emitter'
 
+//  TODO: add disabled rules
 export default {
   name: 't-date-picker',
 
@@ -246,7 +247,6 @@ export default {
       }
     },
     checkout (e) {
-      if (this.disabled) return
       this.isFocus = !this.isFocus
       this.isFocus ? this.addListener() : this.removeListener()
       if (this.isFocus) {

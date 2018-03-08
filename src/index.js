@@ -19,6 +19,7 @@ import OptionGroup from './components/optionGroup/index'
 import InputNumber from './components/inputNumber/index'
 import Cascader from './components/cascader/index'
 import Datepicker from './components/datepicker/index'
+import Timepicker from './components/timepicker/index'
 
 import TFocus from './directives/focus'
 
@@ -42,7 +43,8 @@ const Tui = {
   OptionGroup,
   InputNumber,
   Cascader,
-  Datepicker
+  Datepicker,
+  Timepicker
 }
 
 const install = function (Vue, opts = {}) {

@@ -60,6 +60,11 @@ export default new Router({
       path: '/datepicker',
       name: 'datepicker',
       component: r => require.ensure([], () => r(require('../pages/datepicker.vue')))
+    },
+    {
+      path: '/timepicker',
+      name: 'timepicker',
+      component: r => require.ensure([], () => r(require('../pages/timepicker.vue')))
     }
   ]
 })
