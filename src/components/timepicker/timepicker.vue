@@ -127,8 +127,17 @@ export default {
     this.initTimes()
     this.$on('select', this.selectHandler)
     this.$on('hide', this.hideHandler)
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
   },
   methods: {
+    reset () {
+      this.clearInput(window.event)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
     initTimes () {
       for (let i = 0; i <= 60; i++) {
         if (i < 10) i = `0${i}`
@@ -162,6 +171,8 @@ export default {
       this.isFocus ? this.addListener() : this.removeListener()
       if (this.isFocus) {
         this.initListScroll()
+      } else {
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
       }
     },
     initListScroll () {
@@ -269,6 +280,10 @@ export default {
     }
   },
   watch: {
+    value (val) {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
+    },
     store ({h, m, s}) {
       let d = new Date()
       d.setHours(h)
@@ -284,6 +299,7 @@ export default {
   },
   computed: {
     label () {
+      if (!this.value) return ''
       let d = new Date()
       d.setHours(this.store.h)
       d.setMinutes(this.store.m)

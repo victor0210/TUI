@@ -5,13 +5,21 @@
 </template>
 
 <script>
-import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
+import ArrayHelper from '../../mixins/arrayHelper'
 
 //  TODO  add indeterminate for checkout all
 export default {
   name: 't-checkbox-group',
+
   mixins: [ArrayHelper, Emitter],
+
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
+
   data () {
     return {
       store: [],
@@ -25,13 +33,17 @@ export default {
     value: {}
   },
   beforeMount () {
-    this.$on('add', this.addToStore)
-    this.$on('remove', this.removeFromStore)
+    this.$on('add', this.add)
+    this.$on('remove', this.remove)
+    this.$on('submit', this.submit)
   },
   mounted () {
     (!!this.value || !!this.min) && this.autoComplete()
   },
   methods: {
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.store)
+    },
     autoComplete () {
       let children = this.$children
       let uncheckedArr = []
@@ -55,11 +67,19 @@ export default {
         }
       }
     },
-    addToStore (val) {
+    add (val) {
       this.$emit('input', ArrayHelper.addToStore(this.store, val))
+      this.emitValidator()
     },
-    removeFromStore (val) {
+    remove (val) {
       this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
+      this.emitValidator()
+    },
+    emitValidator () {
+      if (this.TFormItem) {
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.store)
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.store)
+      }
     }
   }
   // watch: {

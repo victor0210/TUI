@@ -9,6 +9,7 @@
   cursor: pointer;
 
   input {
+    font-size: 12px;
     cursor: pointer;
   }
 
@@ -31,10 +32,11 @@
   }
 
   @include e(input) {
+    min-width: 118px;
     position: relative;
-    padding-right: 30px;
+    padding: 4px 11px;
     border-radius: $--border-radius-base;
-    min-height: $--input-height-base - 2;
+    min-height: $--input-height-base - 10;
     overflow: hidden;
     border: $--border-base;
     transition: all .3s linear;
@@ -86,12 +88,14 @@
     color: #606266;
     display: inline-block;
     font-size: inherit;
-    height: 40px;
+    height: 30px;
+    float: left;
     line-height: 1;
     outline: none;
-    padding: 0 0 0 15px;
+    padding: 0;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-    width: 100%;
+    width: 85%;
+    text-overflow: ellipsis;
     &:focus {
       border-color: $--border-color-base;
     }

@@ -29,6 +29,18 @@ export default {
 
     broadcast (componentName, eventName, args) {
       _broadcast.apply(this, [componentName, eventName, args])
+    },
+
+    getParent (componentName) {
+      let parent = this.$parent || this.$root
+      let name = _getComponentName(parent)
+
+      while (parent && (!name || name !== componentName)) {
+        parent = parent.$parent
+        parent && (name = _getComponentName(parent))
+      }
+
+      return parent
     }
   }
 }

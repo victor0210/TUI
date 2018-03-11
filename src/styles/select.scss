@@ -30,6 +30,7 @@
   }
 
   @include e(input) {
+    min-width: 118px;
     position: relative;
     padding-right: 30px;
     border-radius: $--border-radius-base;
@@ -58,6 +59,7 @@
       line-height: $--select-inner-height;
       padding: 2px 11px;
       color: $--select-inner-color;
+      font-size: 12px;
     }
 
     @include e(tag) {
@@ -87,6 +89,7 @@
     }
 
     @include e(editpanel) {
+      float: left;
       border: none;
       outline: none;
       width: 100%;

@@ -22,6 +22,8 @@ import Datepicker from './components/datepicker/index'
 import Timepicker from './components/timepicker/index'
 import Form from './components/form/index'
 import FormItem from './components/formItem/index'
+import Reset from './components/reset/index'
+import Submit from './components/submit/index'
 
 import TFocus from './directives/focus'
 
@@ -48,7 +50,9 @@ const Tui = {
   Datepicker,
   Timepicker,
   Form,
-  FormItem
+  FormItem,
+  Reset,
+  Submit
 }
 
 const install = function (Vue, opts = {}) {

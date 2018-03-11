@@ -38,6 +38,7 @@ export default {
     value: {}
   },
   beforeMount () {
+    this.$on('reset', this.reset)
     this.$on('indeterminate', this.indeterminate)
   },
   mounted () {
@@ -45,6 +46,9 @@ export default {
     this.checked && this._checkSize('add')
   },
   methods: {
+    reset () {
+      this.model = false
+    },
     _isGroup () {
       if (this.$parent.$options.name === 't-checkbox-group') {
         this.isGroup = true

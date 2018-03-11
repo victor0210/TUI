@@ -7,10 +7,10 @@
   }">
     <div class="t-select__input" @click="checkout" ref="box">
       <template v-if="editable || searchable">
-        <span v-if="label && isNull && !editContent" class="t-select__placeholder">{{ label }}</span>
+        <span v-if="placeholder && isNull && !editContent" class="t-select__placeholder">{{ placeholder }}</span>
       </template>
       <template v-else>
-        <span v-if="label && isNull" class="t-select__placeholder">{{ label }}</span>
+        <span v-if="placeholder && isNull" class="t-select__placeholder">{{ placeholder }}</span>
       </template>
 
       <template v-if="multiple">
@@ -53,6 +53,7 @@ import Vue from 'vue'
 //  4. search
 //    4-1. search storeIndex key by Object.keys().forEach, el.indexOf(keyword)
 //    4-2. search optimize with index split
+//  TODO about position relative cascader change line bug
 export default {
   name: 't-select',
 
@@ -73,7 +74,7 @@ export default {
     }
   },
   props: {
-    label: {
+    placeholder: {
       default: '请选择'
     },
     multiple: Boolean,
@@ -98,8 +99,17 @@ export default {
     this.$on('init-focus-index', this.initFocusByChild)
     this.$on('option-register', this.optionRegister)
     this.$on('option-bumper', this.optionBumper)
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
   },
   methods: {
+    reset () {
+      this.multiple ? this.$emit('input', []) : this.$emit('input', '')
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
     checkout (e) {
       if (this.disabled || e.target === this.$refs.editpanel) return
       this.isFocus = !this.isFocus
@@ -108,6 +118,8 @@ export default {
         this.focusIndex = null
         this.childrenLength = 0
         this.editContent = ''
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
       }
     },
     optionRegister (child) {
@@ -212,16 +224,14 @@ export default {
       }
     },
     selectHandler ({e, val, label}) {
+      this.setValue()
       if (this.multiple) {
-        console.log(val, label)
         e.preventDefault()
         !this.storeIndexes[label] ? this.addToStore(val, label) : this.removeFromStore(label)
       } else {
-        console.log(val, label)
         this.addToStore(val, label)
         this.$emit('hide', e)
       }
-      this.setValue()
     },
     setValue () {
       let val
@@ -310,8 +320,10 @@ export default {
   },
 
   watch: {
-    value () {
+    value (val) {
       this.initStoreIndex()
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     },
     focusIndex (val, pre) {
       val !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[val].focusSelect()

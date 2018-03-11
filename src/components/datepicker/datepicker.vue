@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <label class="t-datepicker" :class="{
+  <div class="t-datepicker" :class="{
       'is-focus': isFocus,
       'is-disabled': disabled,
       'is-clearable': clearable && value !== '',
     }">
-      <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'">
-        <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
-        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model">
-        <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
-      </div>
-      <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else>
-        <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
-        <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
-        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderStart" :value="rangeLeftInput">
-        <span class="t-datepicker__addon"> 至 </span>
-        <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput">
-      </div>
-    </label>
+    <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'">
+      <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
+      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model">
+      <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
+    </div>
+    <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else>
+      <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
+      <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
+      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderStart" :value="rangeLeftInput">
+      <span class="t-datepicker__addon"> 至 </span>
+      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput">
+    </div>
     <transition name="fade">
       <div class="t-datepicker__select-panel" v-if="isFocus && type !== 'daterange'">
         <section class="t-datepicker__date" v-if="typeIndex === 3">
@@ -238,8 +236,17 @@ export default {
 
     this.$on('select', this.selectHandler)
     this.$on('hide', this.hideHandler)
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
   },
   methods: {
+    reset () {
+      this.clearInput(window.event)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
     setDateIndex (year = (new Date()).getFullYear(), month = (new Date()).getMonth()) {
       this.dateIndex = {
         year: year,
@@ -253,6 +260,7 @@ export default {
         this.dateIndex = this.dateIndexMirror
         this.typeIndex = this.typeIndexes[this.type]
       } else {
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
         this.clearFocusIndex()
       }
     },
@@ -556,6 +564,10 @@ export default {
     }
   },
   watch: {
+    value (val) {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
+    },
     trueValue (val) {
       if (val !== '') {
         const v = !this.valueFormat ? val : DateHelper.format(val, this.valueFormat)

@@ -17,7 +17,7 @@
             <t-row :gutter="20">
                 <t-col :span="8"><t-input placeholder="请输入" :width="200"/></t-col>
                 <t-col :span="8"><t-input placeholder="请输入" :width="150"/></t-col>
-                <t-col :span="8"><t-input placeholder="请输入" :width="100"/></t-col>
+                <t-col :span="8"><t-input placeholder="请输入" :width="120"/></t-col>
             </t-row>
           </div>
           <inputW></inputW>
