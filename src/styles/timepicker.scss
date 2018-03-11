@@ -23,9 +23,10 @@
     transition: all .2s;
 
     @include m(calender) {
-      left: 10px;
+      right: 10px;
     }
     @include m(clear) {
+      z-index: 10;
       right: 10px;
     }
   }
@@ -159,15 +160,19 @@
     }
   }
 
+  @include e(inner) {
+    float: left;
+  }
+
   @include e(input) {
     position: relative;
-    padding-right: 30px;
+    padding: 4px 11px;
     border-radius: $--border-radius-base;
-    min-height: $--input-height-base - 2;
+    min-height: $--input-height-base - 10;
     overflow: hidden;
     border: $--border-base;
     transition: all .3s linear;
-    display: inline-block;
+    display: block;
 
     &:hover {
       border-color: mix($--color-white, $--color-gray, 20%);
@@ -185,11 +190,11 @@
       box-sizing: border-box;
       color: #606266;
       display: inline-block;
-      font-size: inherit;
-      height: 40px;
+      font-size: 12px;
+      height: 30px;
       line-height: 1;
       outline: none;
-      padding: 0 0 0 30px;
+      padding: 0;
       transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
       width: 100%;
       user-select: none;
@@ -248,6 +253,9 @@
       display: none;
     }
     &:hover {
+      .t-timepicker__icon--calender {
+        display: none;
+      }
       .t-timepicker__icon--clear {
         display: block;
       }

@@ -8,10 +8,10 @@
   border-radius: $--border-radius-base;
   height: $--input-height-base;
   overflow: hidden;
+  position: relative;
 
   @include e(wrapper) {
     height: 100%;
-    position: relative;
 
     @include e(inner) {
       border: $--input-border;

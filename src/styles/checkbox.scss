@@ -10,7 +10,7 @@
   display: inline-block;
   white-space: nowrap;
   user-select: none;
-  line-height: 100%;
+  line-height: 40px;
   vertical-align: middle;
 
   input[type=checkbox] {
@@ -23,9 +23,8 @@
     display: inline-block;
     position: relative;
     float: left;
-    margin-top: 1px;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     border: 1px solid $--border-color-base;
     border-radius: 2px;
     box-sizing: border-box;
@@ -36,7 +35,9 @@
     }
 
     i {
-
+      position: absolute;
+      left: 0;
+      top: 0;
       line-height: 14px;
       color: #fff;
       opacity: 0;

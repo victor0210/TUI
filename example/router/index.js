@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'document',
-      component: r => require.ensure([], () => r(require('../README.md')))
+      component: r => require.ensure([], () => r(require('../pages/layout.vue')))
     },
     {
       path: '/layout',

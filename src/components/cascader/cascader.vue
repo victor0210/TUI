@@ -103,8 +103,20 @@ export default {
     this.$on('option-bumper', this.optionBumper)
     this.$on('search-option-register', this.searchOptionRegister)
     this.$on('search-option-bumper', this.searchOptionBumper)
+
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
   },
   methods: {
+    reset () {
+      this.clearInput(window.event)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
     formatOption (opts = this.option, idx = 0, pIndex = '', pLabelIndex = '') {
       const _this = this
       opts.map(function (el) {
@@ -134,6 +146,8 @@ export default {
         this.childrenLength = 0
         this.editContent = ''
         this.searchable && this.$refs.search_panel.blur()
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
       } else {
         this.store = ArrayHelper.mapValue(this.value)
         this.childIndex = this.store.length - 1
@@ -168,7 +182,7 @@ export default {
       const className = e.target.className
       this.clickCancelEl = [this.$refs.box].concat(this.$refs.clear).concat(this.$refs.search_panel)
 
-      if (className !== 't-cascader-option__keyword' && className !== 't-cascader-option' && this.clickCancelEl.indexOf(e.target) === -1) {
+      if (className !== 't-cascader-option__keyword' && className.indexOf('t-cascader-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1) {
         this.$emit('hide', e)
       }
     },
@@ -389,17 +403,27 @@ export default {
       })
     },
     setValueIndex () {
-      this.value && (this.valueIndex = this.value.join('-'))
+      // this.value && (this.valueIndex = this.value.join('-'))
+      if (this.value) {
+        this.valueIndex = this.value.join('-')
+      } else {
+        this.valueIndex = ''
+      }
     }
   },
   watch: {
     value (val) {
       this.store = ArrayHelper.mapValue(val)
+      console.log(val)
       this.setValueIndex()
       this.setLabel()
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
     },
     store (val) {
+      console.log(val, 'storechange')
       this.selectIndex = val.join('-')
+      console.log(this.selectIndex)
     },
     editContent (val) {
       const _this = this

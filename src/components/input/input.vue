@@ -29,8 +29,18 @@
 </template>
 
 <script>
+import Emitter from '../../mixins/emitter'
+
 export default {
   name: 't-input',
+
+  mixins: [Emitter],
+
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
 
   data () {
     return {
@@ -62,6 +72,8 @@ export default {
   },
 
   mounted () {
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
     this.val = this.value
     if (this.checkInputType() === 'textarea') {
       this.textareaResize()
@@ -71,10 +83,17 @@ export default {
   },
 
   methods: {
+    reset () {
+      this.$emit('input', '')
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', '')
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
     checkInputType () {
       const type = this.type
-      if (type !== 'text' && type !== 'password' && type !== 'textarea') {
-        throw new Error('t-input type must be one of ["text","password","textarea"]')
+      if (type !== 'text' && type !== 'password' && type !== 'textarea' && type !== 'number') {
+        throw new Error('t-input type must be one of ["text","password","textarea","number"]')
       } else {
         return type
       }
@@ -89,6 +108,7 @@ export default {
     },
     blurHandler (e) {
       this.$emit('blur', e)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
     },
     focusHandler (e) {
       this.$emit('focus', e)
@@ -101,6 +121,7 @@ export default {
     },
     value (val) {
       this.val = val
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     }
   }
 }

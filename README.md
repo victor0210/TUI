@@ -56,6 +56,8 @@ InputNumber <br>
 Cascader <br>
 Datepicker <br>
 Timepicker <br>
+Form <br>
+
 
 ## Todo
 1. Continue to add new component

@@ -10,6 +10,7 @@
     color: $--color-text-placeholder;
     float: right;
     line-height: 40px;
+    pointer-events: none;
   }
 
   @include when(selected) {

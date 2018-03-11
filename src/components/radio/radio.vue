@@ -40,9 +40,13 @@ export default {
     value: {}
   },
   mounted () {
+    this.$on('reset', this.reset)
     this._isGroup()
   },
   methods: {
+    reset () {
+      this.model = ''
+    },
     _isGroup () {
       if (this.$parent.$options.name === 't-radio-group') {
         this.isGroup = true

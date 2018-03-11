@@ -4,6 +4,7 @@
 
 @include b(form-item) {
   margin-bottom: 22px;
+  margin-right: 10px;
 
   @include e(label) {
     display: inline-block;
@@ -20,7 +21,85 @@
   @include e(content) {
     margin-left: 80px;
     line-height: 38px;
-    position: relative;
     font-size: 14px;
+  }
+
+  @include e(error) {
+    transition: all .2s;
+    position: absolute;
+    line-height: 20px;
+    color: $--color-danger;
+    font-size: 12px;
+  }
+
+  @include when(vertical) {
+    .t-form-item__label {
+      text-align: left;
+      float: none;
+    }
+
+    .t-form-item__content {
+      margin-left: 0;
+    }
+  }
+
+  @include when(error) {
+    input,
+    .t-select__input,
+    .t-datepicker__input,
+    .t-timepicker__input,
+    .t-checkbox__inner,
+    .t-radio__inner,
+    .t-cascader__input {
+      border-color: $--color-danger;
+    }
+  }
+
+  @include when(validated) {
+    input,
+    .t-select__input,
+    .t-datepicker__input,
+    .t-timepicker__input,
+    .t-cascader__input {
+      border-color: $--color-success;
+    }
+  }
+
+  @include when(inline) {
+    float: left;
+    width: 100%;
+  }
+
+  @include when(right) {
+    .t-form-item__label {
+      width: 80px;
+      text-align: right;
+    }
+  }
+
+  @include when(required) {
+    &::before {
+      position: absolute;
+      content: "*";
+      color: #f56c6c;
+      margin-right: 4px;
+    }
+  }
+
+  @include when(oneline) {
+    & {
+      display: inline-block;
+      float: left;
+    }
+    .t-form-item__label {
+      display: inline-block;
+      text-align: left;
+      float: left;
+    }
+
+    .t-form-item__content {
+      float: left;
+      margin-left: 0;
+    }
   }
 }

@@ -1,3 +1,4 @@
+//  Dropmenu
 .fade-enter-active, .fade-leave-active {
   transform-origin: top;
   opacity: 1;
@@ -5,5 +6,16 @@
 .fade-enter, .fade-leave-to {
   transform: rotateX(90deg);
   margin-top: 0;
+  opacity: 0;
+}
+
+//  Input Error Message
+.fly-enter-active, .fly-leave-active {
+  margin-left: 0;
+  opacity: 1;
+}
+
+.fly-enter, .fly-leave-to {
+  margin-left: 20px;
   opacity: 0;
 }
