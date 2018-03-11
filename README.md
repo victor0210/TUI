@@ -1,6 +1,6 @@
-# TUI
+# ![TUI](https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/logo.png)
 
-> A High Quanlity UI Toolkit By VUE.
+A High Quanlity UI Toolkit By VUE.
 
 ## usage 
 ```$bash
