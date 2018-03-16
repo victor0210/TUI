@@ -70,6 +70,11 @@ export default new Router({
       path: '/form',
       name: 'form',
       component: r => require.ensure([], () => r(require('../pages/form.vue')))
+    },
+    {
+      path: '/table',
+      name: 'table',
+      component: r => require.ensure([], () => r(require('../pages/table.vue')))
     }
   ]
 })
