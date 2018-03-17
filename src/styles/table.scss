@@ -81,6 +81,16 @@
     word-break: break-all;
     box-sizing: border-box;
     position: relative;
+
+    i {
+      transition: .2s;
+    }
+
+    @include when(expand) {
+      i {
+        transform: rotate(90deg);
+      }
+    }
   }
 
   @include m(border) {
@@ -114,6 +124,10 @@
     @include when(select) {
       background-color: lighten(#e5e9f2, 2%) !important;
     }
+  }
+
+  @include e(expand-trigger) {
+    cursor: pointer;
   }
 
   @include e(sort) {

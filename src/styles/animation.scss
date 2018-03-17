@@ -19,3 +19,12 @@
   margin-left: 20px;
   opacity: 0;
 }
+
+//  Input Error Message
+.expand-enter-active, .expand-leave-active {
+  opacity: 1;
+}
+
+.expand-enter, .expand-leave-to {
+  opacity: 0;
+}

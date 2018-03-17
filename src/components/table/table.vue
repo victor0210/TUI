@@ -39,24 +39,37 @@
       <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
         width: width > rowWidth ? `${width}px` : `${rowWidth}px`
       }">
-        <tr v-for="(d, idx) in data" :key="idx" class="t-table__body-row" :class="[
-          rowClasses[idx],
-          hoverRowIdx === idx ? 'is-hover' : '',
-          currentRow === idx ? 'is-select' : ''
-        ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
-          <td v-for="(c, idx2) in columns" :key="idx2" :style="{
-            width: c.width ? `${c.width}px` : `${averageWidth}px`
-          }">
-            <template v-if="c.type === 'selection'">
-              <div class="t-table__cell">
-                <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
-              </div>
-            </template>
-            <template v-else>
-              <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
-            </template>
-          </td>
-        </tr>
+        <template v-for="(d, idx) in data">
+          <tr :key="idx" class="t-table__body-row" :class="[
+            rowClasses[idx],
+            hoverRowIdx === idx ? 'is-hover' : '',
+            currentRow === idx ? 'is-select' : ''
+          ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
+            <td v-for="(c, idx2) in columns" :key="idx2" :style="{
+              width: c.width ? `${c.width}px` : `${averageWidth}px`
+            }">
+              <template v-if="c.type === 'selection'">
+                <div class="t-table__cell">
+                  <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
+                </div>
+              </template>
+              <template v-else>
+                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"
+                  :class="[expandIdx === idx ? 'is-expand' : '']"
+                />
+              </template>
+            </td>
+          </tr>
+          <transition name="expand" :key="idx">
+            <tr class="t-table__body-row" :key="-idx-1" v-if="expandColumn && expandIdx === idx">
+              <td :style="{
+                display: 'inline-table'
+              }">
+                <t-table-expand :row="d" :col="expandColumn" :width="(width - 20) + 'px'"/>
+              </td>
+            </tr>
+          </transition>
+        </template>
       </table>
     </div>
 
@@ -96,26 +109,39 @@
         <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
           width: `${leftFixedWidth}px`
         }">
-          <tr v-for="(d, idx) in data" :key="idx" class="t-table__body-row" :class="[
-          rowClasses[idx],
-          hoverRowIdx === idx ? 'is-hover' : '',
-          currentRow === idx ? 'is-select' : ''
-        ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
-            <td v-for="(c, idx2) in columns" :key="idx2" :style="{
-              width: c.width ? `${c.width}px` : `${averageWidth}px`,
+          <template v-for="(d, idx) in data">
+            <tr :key="idx" class="t-table__body-row" :class="[
+            rowClasses[idx],
+            hoverRowIdx === idx ? 'is-hover' : '',
+            currentRow === idx ? 'is-select' : ''
+          ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
+              <td v-for="(c, idx2) in columns" :key="idx2" :style="{
+              width: c.width ? `${c.width}px` : `${averageWidth}px`
             }" :class="[
               !c.fixed ? 'is-hidden' : ''
             ]">
-              <template v-if="c.type === 'selection'">
-                <div class="t-table__cell">
-                  <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
-                </div>
-              </template>
-              <template v-else>
-                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
-              </template>
-            </td>
-          </tr>
+                <template v-if="c.type === 'selection'">
+                  <div class="t-table__cell">
+                    <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
+                  </div>
+                </template>
+                <template v-else>
+                  <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"
+                                :class="[expandIdx === idx ? 'is-expand' : '']"
+                  />
+                </template>
+              </td>
+            </tr>
+            <transition name="expand" :key="idx">
+              <tr class="t-table__body-row" :key="-idx-1" v-if="expandColumn && expandIdx === idx">
+                <td :style="{
+                display: 'inline-table'
+              }">
+                  <t-table-expand :row="d" :col="expandColumn" :width="(width - 20) + 'px'"/>
+                </td>
+              </tr>
+            </transition>
+          </template>
         </table>
       </div>
     </div>
@@ -158,26 +184,39 @@
           width: `${rightFixedWidth}px`,
           marginLeft: rightFit
         }">
-          <tr v-for="(d, idx) in data" :key="idx" class="t-table__body-row" :class="[
-          rowClasses[idx],
-          hoverRowIdx === idx ? 'is-hover' : '',
-          currentRow === idx ? 'is-select' : ''
-        ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
-            <td v-for="(c, idx2) in columns" :key="idx2" :style="{
-              width: c.width ? `${c.width}px` : `${averageWidth}px`,
+          <template v-for="(d, idx) in data">
+            <tr :key="idx" class="t-table__body-row" :class="[
+            rowClasses[idx],
+            hoverRowIdx === idx ? 'is-hover' : '',
+            currentRow === idx ? 'is-select' : ''
+          ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
+              <td v-for="(c, idx2) in columns" :key="idx2" :style="{
+              width: c.width ? `${c.width}px` : `${averageWidth}px`
             }" :class="[
               !c.fixedRight ? 'is-hidden' : ''
             ]">
-              <template v-if="c.type === 'selection'">
-                <div class="t-table__cell">
-                  <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
-                </div>
-              </template>
-              <template v-else>
-                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
-              </template>
-            </td>
-          </tr>
+                <template v-if="c.type === 'selection'">
+                  <div class="t-table__cell">
+                    <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
+                  </div>
+                </template>
+                <template v-else>
+                  <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"
+                                :class="[expandIdx === idx ? 'is-expand' : '']"
+                  />
+                </template>
+              </td>
+            </tr>
+            <transition name="expand" :key="idx">
+              <tr class="t-table__body-row" :key="-idx-1" v-if="expandColumn && expandIdx === idx">
+                <td :style="{
+                display: 'inline-table'
+              }">
+                  <t-table-expand :row="d" :col="expandColumn" :width="(width - 20) + 'px'"/>
+                </td>
+              </tr>
+            </transition>
+          </template>
         </table>
       </div>
     </div>
@@ -186,6 +225,7 @@
 
 <script>
 import TTableCell from './table-cell.vue'
+import TTableExpand from './table-expand.vue'
 import TCheckbox from '../checkbox/checkbox'
 import ArrayHelper from '../../mixins/arrayHelper'
 let selectionMap
@@ -193,7 +233,8 @@ let selectionMap
 export default {
   components: {
     TCheckbox,
-    TTableCell
+    TTableCell,
+    TTableExpand
   },
 
   mixins: [ArrayHelper],
@@ -223,7 +264,9 @@ export default {
       selectionAll: false,
       selectionRows: [],
       selectionRowsIdx: [],
-      isIndeterminate: false
+      isIndeterminate: false,
+      expandColumn: null,
+      expandIdx: null
     }
   },
 
@@ -243,6 +286,7 @@ export default {
 
   created () {
     this.$on('table-column-register', this.columnRegister)
+    this.$on('table-toggle-expand', this.toggleExpand)
     this.setSelectionRowsIdx()
   },
 
@@ -252,6 +296,9 @@ export default {
   },
 
   methods: {
+    toggleExpand (idx) {
+      this.expandIdx = this.expandIdx === idx ? null : idx
+    },
     setSelectionRowsIdx () {
       selectionMap = ArrayHelper.mapValue(this.data)
     },
@@ -275,6 +322,10 @@ export default {
     },
 
     addColumn (col) {
+      if (col.type === 'expand') {
+        this.expandColumn = col
+      }
+
       if (col.fixed) {
         this.leftFixedWidth += ~~col.width || this.cellMinWidth
         this.leftColumns.push(col)
@@ -377,13 +428,13 @@ export default {
       this.$refs.table_header.scrollTop = val
       this.$refs.table_body.scrollTop = val
 
-      if (this.fixed) {
+      if (this.$refs.table_fixed_header) {
         this.$refs.table_fixed_header.scrollTop = val
-        this.$refs.table_fixed_right_header.scrollTop = val
+        this.$refs.table_fixed_body.scrollTop = val
       }
 
-      if (this.fixedRight) {
-        this.$refs.table_fixed_body.scrollTop = val
+      if (this.$refs.table_fixed_right_header) {
+        this.$refs.table_fixed_right_header.scrollTop = val
         this.$refs.table_fixed_right_body.scrollTop = val
       }
     },

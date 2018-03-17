@@ -1,17 +1,14 @@
-<!--<template><div>-->
-  <!--{{ row[col.prop] }}-->
-  <!--{{ $scopedSlots.default({row: row}) }}-->
-<!--</div></template>-->
 <script>
 import TCheckbox from '../../components/checkbox/index'
 import ArrayHelper from '../../mixins/arrayHelper'
+import Emitter from '../../mixins/emitter'
 
 export default {
   components: {
     TCheckbox
   },
 
-  mixins: [ArrayHelper],
+  mixins: [Emitter, ArrayHelper],
 
   name: 't-table-cell',
 
@@ -28,7 +25,23 @@ export default {
   },
 
   render (h) {
-    if (this.col.$scopedSlots.default) {
+    if (this.col.type === 'expand') {
+      return h('div', {
+        class: 't-table__cell t-table__expand-trigger',
+        style: {
+          width: '40px'
+        },
+        on: {
+          click: () => {
+            this.dispatch('t-table', 'table-toggle-expand', this.idx)
+          }
+        }
+      }, [h('i', {
+        class: [
+          'fa', 'fa-caret-right'
+        ]
+      })])
+    } else if (this.col.$scopedSlots.default) {
       return h('div', {
         class: 't-table__cell',
         style: {
