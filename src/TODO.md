@@ -12,6 +12,9 @@
 1. add animation of toggle
 2. add jsfiddle
 
+##table
+1. add eomplex table head
+
 ##scroll
 let EventUtil = {
   addHandler: function (element, type, handler) {

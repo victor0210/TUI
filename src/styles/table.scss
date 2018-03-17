@@ -79,10 +79,8 @@
   @include e(cell) {
     text-overflow: ellipsis;
     word-break: break-all;
-  }
-
-  td, th {
-    border-bottom: $--border-base;
+    box-sizing: border-box;
+    position: relative;
   }
 
   @include m(border) {
@@ -107,10 +105,49 @@
   }
 
   @include e(body-row) {
-    transition: all .1s;
+    transition: all .2s;
 
     @include when(hover) {
       background-color: lighten(#e5e9f2, 5%) !important;
+    }
+
+    @include when(select) {
+      background-color: lighten(#e5e9f2, 2%) !important;
+    }
+  }
+
+  @include e(sort) {
+    position: relative;
+    height: 20px;
+    width: 10px;
+    vertical-align: middle;
+    display: inline-block;
+
+    i {
+      &::before {
+        width: 13px;
+        height: 10px;
+        display: block;
+      }
+      cursor: pointer;
+      position: absolute;
+      width: 13px;
+      height: 10px;
+      left: 0;
+      line-height: 10px;
+      text-align: center;
+      transition: all .1s;
+
+      &:hover {
+        color: $--color-primary;
+        font-size: 1.1em;
+      }
+      &:first-child {
+        top: 1px;
+      }
+      &:last-child {
+        bottom: 1px;
+      }
     }
   }
 
@@ -125,6 +162,8 @@
     color: $--color-text-regular;
     box-sizing: border-box;
     display: table-cell;
+    border-bottom: $--border-base;
+    position: relative;
 
     @include when(hidden) {
       visibility: hidden;
@@ -134,6 +173,12 @@
   @include m(stripe) {
     tr:nth-child(2n) {
       background-color: #fafafa;
+    }
+  }
+
+  @include when(highlight) {
+    .t-table__body-row {
+      cursor: pointer;
     }
   }
 

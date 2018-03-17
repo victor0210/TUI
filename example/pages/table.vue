@@ -137,17 +137,121 @@
       <!--<time-md/>-->
     <!--</div>-->
 
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">表格排序</div>-->
+      <!--<div class="source">-->
+        <!--<t-row :gutter="20">-->
+          <!--<t-col :span="24">-->
+            <!--<t-table :data="data">-->
+              <!--<t-table-column label="姓名" prop="name" :sort-method="sortMethod"/>-->
+              <!--<t-table-column label="年龄" prop="age" />-->
+              <!--<t-table-column label="身份" prop="role"/>-->
+              <!--<t-table-column label="电话" prop="phone"/>-->
+            <!--</t-table>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<time-md/>-->
+    <!--</div>-->
+
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">流体高度</div>-->
+      <!--<div class="source">-->
+        <!--<t-row :gutter="20">-->
+          <!--<t-col :span="24">-->
+            <!--<t-table :data="data" :body-max-height="200">-->
+              <!--<t-table-column label="姓名" prop="name"/>-->
+              <!--<t-table-column label="年龄" prop="age"/>-->
+              <!--<t-table-column label="身份" prop="role"/>-->
+              <!--<t-table-column label="电话" prop="phone"/>-->
+              <!--<t-table-column label="操作" prop="option">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<t-button @click="removeItem(scope.idx, data)">移除</t-button>-->
+                <!--</template>-->
+              <!--</t-table-column>-->
+            <!--</t-table>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<time-md/>-->
+    <!--</div>-->
+
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">自动编号</div>-->
+      <!--<div class="source">-->
+        <!--<t-row :gutter="20">-->
+          <!--<t-col :span="24">-->
+            <!--<t-table :data="data" :body-max-height="200">-->
+              <!--<t-table-column type="index" width="60"/>-->
+              <!--<t-table-column label="姓名" prop="name" :width="200"/>-->
+              <!--<t-table-column label="年龄" prop="age"/>-->
+              <!--<t-table-column label="身份" prop="role"/>-->
+              <!--<t-table-column label="电话" prop="phone"/>-->
+              <!--<t-table-column label="操作" prop="option">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<t-button @click="removeItem(scope.idx, data)">移除</t-button>-->
+                <!--</template>-->
+              <!--</t-table-column>-->
+            <!--</t-table>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<time-md/>-->
+    <!--</div>-->
+
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">单选</div>-->
+      <!--<div class="source">-->
+        <!--<t-row>-->
+          <!--<t-col :span="24">-->
+            <!--<t-table :data="data" :body-max-height="300" highlight-current-row :current-change="currentChange" ref="t_table">-->
+              <!--<t-table-column type="index" width="60"/>-->
+              <!--<t-table-column label="姓名" prop="name"/>-->
+              <!--<t-table-column label="年龄" prop="age"/>-->
+              <!--<t-table-column label="身份" prop="role"/>-->
+              <!--<t-table-column label="电话" prop="phone"/>-->
+              <!--<t-table-column label="操作" prop="option">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>-->
+                <!--</template>-->
+              <!--</t-table-column>-->
+            <!--</t-table>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+        <!--<t-row>-->
+          <!--<t-col :span="24">-->
+            <!--<t-button @click="setRow(1)">选中第二行</t-button>-->
+            <!--<t-button @click="setRow()">重置</t-button>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<time-md/>-->
+    <!--</div>-->
+
     <div class="demo-block">
-      <div class="subtitle">普通表格</div>
+      <div class="subtitle">多选</div>
       <div class="source">
-        <t-row :gutter="20">
+        <t-row>
           <t-col :span="24">
-            <t-table :data="data">
+            <t-table :data="data" :body-max-height="300" selection :selection-change="currentChange" ref="t_table">
+              <t-table-column type="selection" width="55"/>
+              <t-table-column type="index" width="60"/>
               <t-table-column label="姓名" prop="name"/>
-              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="年龄" prop="age"/>
               <t-table-column label="身份" prop="role"/>
               <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option">
+                <template slot-scope="scope">
+                  <t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>
+                </template>
+              </t-table-column>
             </t-table>
+          </t-col>
+        </t-row>
+        <t-row>
+          <t-col :span="24">
+            <t-button @click="setRow(1)">选中第二行</t-button>
+            <t-button @click="setRow()">重置</t-button>
           </t-col>
         </t-row>
       </div>
@@ -166,9 +270,9 @@ export default {
   data () {
     return {
       data: [
-        {name: 'name1', age: 'ag1', phone: 'phone1', role: 'role1', a: 'a1', b: 'b1', c: 'c1', d: 'd1'},
         {name: 'name2', age: 'ag2', phone: 'phone2', role: 'role2', a: 'a2a2a2a2a2a2a2a2a2', b: 'b2', c: 'c2', d: 'd2'},
         {name: 'name3', age: 'ag3', phone: 'phone3', role: 'role3', a: 'a3', b: 'b3', c: 'c3', d: 'd3'},
+        {name: 'name1', age: 'ag1', phone: 'phone1', role: 'role1', a: 'a1', b: 'b1', c: 'c1', d: 'd1'},
         {name: 'name4', age: 'ag4', phone: 'phone4', role: 'role4', a: 'a4', b: 'b4', c: 'c4', d: 'd4'}
         // {name: 'name5', age: 'ag5', phone: 'phone5', role: 'role5', a: 'a5', b: 'b5', c: 'c5', d: 'd5'},
         // {name: 'name6', age: 'ag6', phone: 'phone6', role: 'role6', a: 'a6', b: 'b6', c: 'c6', d: 'd6'},
@@ -209,6 +313,18 @@ export default {
         closable: false,
         okText: '确定'
       })
+    },
+    sortMethod (a, b) {
+      return a.name > b.name
+    },
+    removeItem (idx, data) {
+      data.splice(idx, 1)
+    },
+    currentChange (val) {
+      console.log(val)
+    },
+    setRow (row) {
+      this.$refs.t_table.setCurrentRow(row)
     }
   }
 }

@@ -7,16 +7,6 @@ export default {
 
   mixins: [Emitter],
 
-  // render (h) {
-  //   if (this.$scopedSlots.default) {
-  //     return h('div', this.$scopedSlots.default({
-  //       humengtao: 123321
-  //     }))
-  //   } else {
-  //     return h('div', '')
-  //   }
-  // },
-
   props: {
     prop: String,
     label: {
@@ -26,11 +16,12 @@ export default {
     width: {},
     fixed: Boolean,
     fixedRight: Boolean,
-    data: {}
+    data: {},
+    sortMethod: Function,
+    type: String
   },
 
   mounted () {
-    console.log(this)
     this.dispatch('t-table', 'table-column-register', this)
   }
 }

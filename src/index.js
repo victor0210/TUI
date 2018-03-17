@@ -26,7 +26,6 @@ import Reset from './components/reset/index'
 import Submit from './components/submit/index'
 import Table from './components/table/index'
 import TableColumn from './components/tableColumn/index'
-import TableCell from './components/tableCell/index'
 
 import TFocus from './directives/focus'
 
@@ -57,8 +56,7 @@ const Tui = {
   Reset,
   Submit,
   Table,
-  TableColumn,
-  TableCell
+  TableColumn
 }
 
 const install = function (Vue, opts = {}) {

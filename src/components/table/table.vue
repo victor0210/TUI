@@ -1,7 +1,8 @@
 <template>
   <div class="t-table" :class="[
     stripe ? 't-table--stripe' : '',
-    border ? 't-table--border' : ''
+    border ? 't-table--border' : '',
+    highlightCurrentRow ? 'is-highlight' : ''
   ]" ref="container">
     <!--main columns-->
     <div class="t-table__hidden" v-show="false"><slot/></div>
@@ -17,7 +18,8 @@
             <div class="t-table__cell" :style="{
               width: c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`
             }">
-              {{ c.label }}
+              {{ c.type === 'index' ? '#' : c.label }}
+              <span v-if="c.sortMethod" class="t-table__sort"><i class="fa fa-caret-up" @click="sortColumn(c.sortMethod)"></i><i class="fa fa-caret-down" @click="sortColumn(c.sortMethod, 'desc')"></i></span>
             </div>
           </th>
         </tr>
@@ -26,6 +28,7 @@
 
     <div class="t-table__body-wrapper" :style="{
       height: bodyHeight ? `${bodyHeight}px` : 'auto',
+      maxHeight: bodyMaxHeight ? `${bodyMaxHeight}px` : '',
       overflowX: !isBeyondWidth ? 'hidden' : ''
     }" ref="table_body" @scroll="tableScrollHandler('body')" @mouseleave="rowMouseLeave">
       <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
@@ -33,12 +36,13 @@
       }">
         <tr v-for="(d, idx) in data" :key="idx" class="t-table__body-row" :class="[
           rowClasses[idx],
-          hoverRowIdx === idx ? 'is-hover' : ''
-        ]" @mouseenter="rowMouseEnter(idx)">
+          hoverRowIdx === idx ? 'is-hover' : '',
+          currentRow === idx ? 'is-select' : ''
+        ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
           <td v-for="(c, idx2) in columns" :key="idx2" :style="{
             width: c.width ? `${c.width}px` : `${averageWidth}px`
           }">
-            <t-table-cell :row="d" :col="c" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+            <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
           </td>
         </tr>
       </table>
@@ -74,6 +78,7 @@
 
       <div class="t-table__fixed-body" :style="{
         height: bodyHeight ? `${bodyHeight}px` : 'auto',
+        maxHeight: bodyMaxHeight ? `${bodyMaxHeight}px` : '',
         overflowX: 'hidden'
       }" ref="table_fixed_body" @scroll="tableScrollHandler('fixed-body')" @mouseleave="rowMouseLeave">
         <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
@@ -81,14 +86,15 @@
         }">
           <tr v-for="(d, idx) in data" :key="idx" class="t-table__body-row" :class="[
           rowClasses[idx],
-          hoverRowIdx === idx ? 'is-hover' : ''
-        ]" @mouseenter="rowMouseEnter(idx)">
+          hoverRowIdx === idx ? 'is-hover' : '',
+          currentRow === idx ? 'is-select' : ''
+        ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
             <td v-for="(c, idx2) in columns" :key="idx2" :style="{
               width: c.width ? `${c.width}px` : `${averageWidth}px`,
             }" :class="[
               !c.fixed ? 'is-hidden' : ''
             ]">
-              <t-table-cell :row="d" :col="c" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+              <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
             </td>
           </tr>
         </table>
@@ -126,6 +132,7 @@
 
       <div class="t-table__fixed-body" :style="{
         height: bodyHeight ? `${bodyHeight}px` : 'auto',
+        maxHeight: bodyMaxHeight ? `${bodyMaxHeight}px` : '',
         overflowX: 'hidden'
       }" ref="table_fixed_right_body" @scroll="tableScrollHandler('fixed-right-body')" @mouseleave="rowMouseLeave">
         <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
@@ -134,14 +141,15 @@
         }">
           <tr v-for="(d, idx) in data" :key="idx" class="t-table__body-row" :class="[
           rowClasses[idx],
-          hoverRowIdx === idx ? 'is-hover' : ''
-        ]" @mouseenter="rowMouseEnter(idx)">
+          hoverRowIdx === idx ? 'is-hover' : '',
+          currentRow === idx ? 'is-select' : ''
+        ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
             <td v-for="(c, idx2) in columns" :key="idx2" :style="{
               width: c.width ? `${c.width}px` : `${averageWidth}px`,
             }" :class="[
               !c.fixedRight ? 'is-hidden' : ''
             ]">
-              <t-table-cell :row="d" :col="c" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+              <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
             </td>
           </tr>
         </table>
@@ -151,7 +159,12 @@
 </template>
 
 <script>
+import TTableCell from './table-cell.vue'
+
 export default {
+  components: {
+    TTableCell
+  },
   name: 't-table',
 
   data () {
@@ -171,7 +184,9 @@ export default {
       scrollLeft: 0,
       scrollTop: 0,
       rowClasses: {},
-      hoverRowIdx: null
+      hoverRowIdx: null,
+      cellMinWidth: 48,
+      currentRow: null
     }
   },
 
@@ -180,8 +195,13 @@ export default {
     stripe: Boolean,
     border: Boolean,
     fixHeader: Boolean,
-    bodyHeight: {},
-    rowClassName: Function
+    bodyHeight: Number,
+    bodyMaxHeight: Number,
+    rowClassName: Function,
+    highlightCurrentRow: Boolean,
+    currentChange: Function,
+    selection: Boolean,
+    selectionChange: Function
   },
 
   created () {
@@ -215,17 +235,17 @@ export default {
 
     addColumn (col) {
       if (col.fixed) {
-        this.leftFixedWidth += ~~col.width || 120
+        this.leftFixedWidth += ~~col.width || this.cellMinWidth
         this.leftColumns.push(col)
       } else if (col.fixedRight) {
-        this.rightFixedWidth += ~~col.width || 120
+        this.rightFixedWidth += ~~col.width || this.cellMinWidth
         this.rightColumns.push(col)
       } else {
         this.mainColumns.push(col)
       }
 
       if (!col.width) {
-        this.addRowWidth(120)
+        this.addRowWidth(this.cellMinWidth)
         this.addNoWidthColumn()
       } else {
         this.addRowWidth(col.width)
@@ -262,6 +282,19 @@ export default {
     },
     rowMouseLeave () {
       this.hoverRowIdx = null
+    },
+    sortColumn (sortBy, key = 'asc') {
+      this.data.sort(sortBy)
+      if (key === 'desc') this.data.reverse()
+    },
+    setCurrentRow (idx) {
+      if (idx !== '') {
+        this.currentRow = idx
+        this.currentChange(this.data[idx])
+      } else {
+        this.currentRow = null
+        this.currentChange(null)
+      }
     }
   },
   watch: {
@@ -272,10 +305,16 @@ export default {
     scrollTop (val) {
       this.$refs.table_header.scrollTop = val
       this.$refs.table_body.scrollTop = val
-      this.$refs.table_fixed_header.scrollTop = val
-      this.$refs.table_fixed_right_header.scrollTop = val
-      this.$refs.table_fixed_body.scrollTop = val
-      this.$refs.table_fixed_right_body.scrollTop = val
+
+      if (this.fixed) {
+        this.$refs.table_fixed_header.scrollTop = val
+        this.$refs.table_fixed_right_header.scrollTop = val
+      }
+
+      if (this.fixedRight) {
+        this.$refs.table_fixed_body.scrollTop = val
+        this.$refs.table_fixed_right_body.scrollTop = val
+      }
     }
   },
   computed: {
