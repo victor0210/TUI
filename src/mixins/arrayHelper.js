@@ -30,4 +30,16 @@ export default {
     }
     return dist
   }
+  // limit (arr, min, max) {
+  //   let limit = []
+  //   if (min && arr.length < min) {
+  //     limit = arr.splice(0, min)
+  //   } else if (max && arr.length > max) {
+  //     limit = arr.splice(0, min)
+  //   } else {
+  //     limit = arr
+  //   }
+  //
+  //   return limit
+  // }
 }

@@ -24,6 +24,8 @@ import Form from './components/form/index'
 import FormItem from './components/formItem/index'
 import Reset from './components/reset/index'
 import Submit from './components/submit/index'
+import Table from './components/table/index'
+import TableColumn from './components/tableColumn/index'
 
 import TFocus from './directives/focus'
 
@@ -52,7 +54,9 @@ const Tui = {
   Form,
   FormItem,
   Reset,
-  Submit
+  Submit,
+  Table,
+  TableColumn
 }
 
 const install = function (Vue, opts = {}) {

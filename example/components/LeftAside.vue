@@ -56,6 +56,20 @@
           </li>
         </ul>
       </li>
+      <!--数据展示组件-->
+      <li class="t-menu-item-group">
+        <div class="t-menu-item-title">
+          Data
+        </div>
+        <ul class="t-menu-item-list">
+          <li v-for="(i, k) in dataList" :key="k">
+            <router-link :to="i.route">
+              <span>{{ i.name }}</span>
+              <span class="chinese">{{ i.chinese }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </template>
@@ -125,6 +139,13 @@ export default {
           route: '/form',
           name: 'Form',
           chinese: '表单'
+        }
+      ],
+      dataList: [
+        {
+          route: '/table',
+          name: 'Table',
+          chinese: '表格'
         }
       ]
     }

@@ -1,0 +1,220 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/table";
+
+@include b(table) {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  //width: 1000px;
+  //text-align: left;
+  //box-sizing: border-box;
+  //
+  //@include e(table) {
+  //  display: table;
+  //  box-sizing: border-box;
+  //  width: 100%;
+  //}
+  //
+  @include e(header) {
+    box-sizing: border-box;
+    border-collapse: separate;
+    table-layout: fixed;
+  }
+
+  @include e(header-wrapper) {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  @include e(body-wrapper) {
+    overflow-y: scroll;
+  }
+  @include e(body) {
+    box-sizing: border-box;
+    border-collapse: separate;
+    table-layout: fixed;
+  }
+
+  @include e(header-row) {
+    @include table-row-variant()
+  }
+
+  @include e(body-row) {
+    @include table-row-variant()
+  }
+
+  @include e(fixed) {
+    @include table-fixed-variant();
+
+    top: 0;
+    left: 0;
+  }
+
+  @include e(fixed-right) {
+    @include table-fixed-variant();
+
+    right: 0;
+    bottom: 0;
+  }
+
+  @include e(fixed-header) {
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  @include e(fixed-body) {
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include e(cell) {
+    text-overflow: ellipsis;
+    word-break: break-all;
+    box-sizing: border-box;
+    position: relative;
+
+    i {
+      transition: .2s;
+    }
+
+    @include when(expand) {
+      i {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  @include m(border) {
+    & {
+      border: $--border-base;
+    }
+
+    th, td {
+      border-right: $--border-base;
+    }
+    th, td {
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .t-table__body-row:last-child {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  @include e(body-row) {
+    transition: all .2s;
+
+    @include when(hover) {
+      background-color: lighten(#e5e9f2, 5%) !important;
+    }
+
+    @include when(select) {
+      background-color: lighten(#e5e9f2, 2%) !important;
+    }
+  }
+
+  @include e(expand-trigger) {
+    cursor: pointer;
+  }
+
+  @include e(sort) {
+    position: relative;
+    height: 20px;
+    width: 10px;
+    vertical-align: middle;
+    display: inline-block;
+
+    i {
+      &::before {
+        width: 13px;
+        height: 10px;
+        display: block;
+      }
+      cursor: pointer;
+      position: absolute;
+      width: 13px;
+      height: 10px;
+      left: 0;
+      line-height: 10px;
+      text-align: center;
+      transition: all .1s;
+
+      &:hover {
+        color: $--color-primary;
+        font-size: 1.1em;
+      }
+      &:first-child {
+        top: 1px;
+      }
+      &:last-child {
+        bottom: 1px;
+      }
+    }
+  }
+
+  td, th {
+    margin: 0;
+    text-align: left;
+    min-width: 1px;
+    font-size: 15px;
+    line-height: 25px;
+    height: auto;
+    padding: 12px 10px;
+    color: $--color-text-regular;
+    box-sizing: border-box;
+    display: table-cell;
+    border-bottom: $--border-base;
+    position: relative;
+
+    @include when(hidden) {
+      visibility: hidden;
+    }
+  }
+  //
+  @include m(stripe) {
+    tr:nth-child(2n) {
+      background-color: #fafafa;
+    }
+  }
+
+  @include when(highlight) {
+    .t-table__body-row {
+      cursor: pointer;
+    }
+  }
+
+  .row-primary {
+    background-color: $--color-primary-lighter;
+  }
+  .row-warning {
+    background-color: $--color-warning-lighter;
+  }
+  .row-danger {
+    background-color: $--color-danger-lighter;
+  }
+  .row-info {
+    background-color: $--color-info-lighter;
+  }
+  .row-inverse {
+    background-color: $--color-inverse-lighter;
+  }
+  .row-cyan {
+    background-color: $--color-cyan-lighter;
+  }
+  .row-success {
+    background-color: $--color-success-lighter;
+  }
+}

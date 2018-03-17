@@ -1,0 +1,17 @@
+@mixin table-row-variant() {
+  display: table-row;
+  box-sizing: border-box;
+}
+
+@mixin table-fixed-variant() {
+  position: absolute;
+  height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  transition: box-shadow .2s;
+
+  @include when(shadow) {
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.12);
+    box-shadow: 0 0 10px rgba(0,0,0,.12);
+  }
+}

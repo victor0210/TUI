@@ -29,8 +29,7 @@ export default {
   props: {
     max: Number,
     min: Number,
-    // indeterminate: Boolean, // won't change child which disabled
-    value: {}
+    value: Array
   },
   beforeMount () {
     this.$on('add', this.add)
@@ -50,11 +49,11 @@ export default {
       let len = 0
       let _value = this.value
       let _min = this.min
+
       children.forEach(function (el) {
-        if (!!_value && !el.checked && _value.indexOf(el.val) !== -1) {
-          el._checkSize(true)
+        if (!!_value && !el.checked && _value.indexOf(el.val) !== -1 && el._checkSize(true)) {
           len++
-        } else if (!!_min && el.checked) {
+        } else if (!!_min && el.checked && el._checkSize(true)) {
           len++
         } else {
           uncheckedArr.push(el)
@@ -68,11 +67,11 @@ export default {
       }
     },
     add (val) {
-      this.$emit('input', ArrayHelper.addToStore(this.store, val))
+      this.store = ArrayHelper.addToStore(this.store, val)
       this.emitValidator()
     },
     remove (val) {
-      this.$emit('input', ArrayHelper.removeFromStore(this.store, val))
+      this.store = ArrayHelper.removeFromStore(this.store, val)
       this.emitValidator()
     },
     emitValidator () {
@@ -81,12 +80,17 @@ export default {
         this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.store)
       }
     }
+  },
+  watch: {
+    value (val) {
+      this.broadcast('t-checkbox', 'group-change', val)
+      this.store = val
+      this.$emit('change', val)
+    },
+    store (val) {
+      this.value !== undefined && this.$emit('input', val)
+    }
   }
-  // watch: {
-  // indeterminate (val) {
-  //   this.broadcast('t-checkbox', 'indeterminate', val)
-  // }
-  // }
 }
 </script>
 
