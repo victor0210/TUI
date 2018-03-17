@@ -6,10 +6,8 @@
           <div class="source">
             <t-row :gutter="20">
                 <t-col :span="8">
-                  <t-checkbox-group>
-                    <t-checkbox label="label在右边"></t-checkbox>
-                    <t-checkbox label="label在左边" labelLeft></t-checkbox>
-                  </t-checkbox-group>
+                  <t-checkbox label="label在右边" true-value></t-checkbox>
+                  <t-checkbox label="label在左边" labelLeft></t-checkbox>
                 </t-col>
             </t-row>
           </div>
@@ -20,7 +18,7 @@
           <div class="source">
             <t-row :gutter="20">
                 <t-col :span="8">
-                    <t-checkbox-group>
+                    <t-checkbox-group v-model="v1">
                         <t-checkbox label="北京" val="Beijing"></t-checkbox>
                         <t-checkbox label="上海" val="Shanghai"></t-checkbox>
                         <t-checkbox label="成都" val="Chengdu"></t-checkbox>
@@ -112,6 +110,11 @@ export default {
     CheckboxIndeterminate,
     CheckboxLimit,
     CheckboxBorder
+  },
+  data () {
+    return {
+      v1: ''
+    }
   }
 }
 </script>

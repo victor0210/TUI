@@ -1,6 +1,6 @@
 <template>
     <label class="t-checkbox"  :class="{
-        'is-checked': model,
+        'is-checked': isChecked,
         'is-disabled': disabled,
         'is-outbox': outbox,
       }">
@@ -9,7 +9,7 @@
         <i class="fa fa-check"></i>
       </span>
       <span class="t-checkbox__label" v-if="!labelLeft && !!label">{{ label }}</span>
-      <input type="checkbox" v-model="model" :disabled="disabled" @change="onChange">
+      <input type="checkbox" v-model="isChecked" :disabled="disabled" @change="onChange">
     </label>
 </template>
 
@@ -33,9 +33,12 @@ export default {
     labelLeft: Boolean,
     disabled: Boolean,
     outbox: Boolean,
-    val: String,
+    val: {
+      default: '123'
+    },
     checked: Boolean,
-    value: {}
+    value: {},
+    trueValue: Boolean
   },
   beforeMount () {
     this.$on('reset', this.reset)
@@ -43,11 +46,11 @@ export default {
   },
   mounted () {
     this._isGroup()
-    this.checked && this._checkSize('add')
+    this.checked && (this.isChecked = true)
   },
   methods: {
     reset () {
-      this.model = false
+      this.isChecked = false
     },
     _isGroup () {
       if (this.$parent.$options.name === 't-checkbox-group') {
@@ -61,11 +64,15 @@ export default {
         if (CheckboxGroup.store.length < CheckboxGroup.max || !CheckboxGroup.max) {
           this.dispatch('t-checkbox-group', 'add', this.val)
           this.isChecked = true
+        } else {
+          this.isChecked = !tag
         }
       } else {
         if (CheckboxGroup.store.length > CheckboxGroup.min || !CheckboxGroup.min) {
           this.dispatch('t-checkbox-group', 'remove', this.val)
           this.isChecked = false
+        } else {
+          this.isChecked = !tag
         }
       }
     },
@@ -76,13 +83,18 @@ export default {
       this.isGroup ? this.dispatch('t-checkbox-group', 'change', this.$parent.store) : this.$emit('change', this.value)
     }
   },
-  computed: {
-    model: {
-      get () {
-        return this.isGroup ? this.isChecked : this.value
-      },
-      set (val) {
-        this.isGroup ? this._checkSize(val) : this.$emit('input', val)
+  watch: {
+    isChecked (val) {
+      if (this.isGroup) {
+        this._checkSize(val)
+      } else {
+        if (this.value !== undefined) {
+          if (this.trueValue) {
+            this.$emit('input', val ? this.val : '')
+          } else {
+            this.$emit('input', val)
+          }
+        }
       }
     }
   }
