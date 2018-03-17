@@ -4,11 +4,14 @@
 <!--</div></template>-->
 <script>
 import TCheckbox from '../../components/checkbox/index'
+import ArrayHelper from '../../mixins/arrayHelper'
 
 export default {
   components: {
     TCheckbox
   },
+
+  mixins: [ArrayHelper],
 
   name: 't-table-cell',
 
@@ -36,21 +39,12 @@ export default {
         idx: this.idx
       })])
     } else {
-      if (this.col.type === 'selection') {
-        return h('div', {
-          class: 't-table__cell',
-          style: {
-            width: this.width
-          }
-        }, [h(TCheckbox)])
-      } else {
-        return h('div', {
-          class: 't-table__cell',
-          style: {
-            width: this.width
-          }
-        }, [this.col.type === 'index' ? (this.idx + 1) : this.row[this.col.prop]])
-      }
+      return h('div', {
+        class: 't-table__cell',
+        style: {
+          width: this.width
+        }
+      }, [this.col.type === 'index' ? (this.idx + 1) : this.row[this.col.prop]])
     }
   }
 }

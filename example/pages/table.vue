@@ -233,7 +233,7 @@
       <div class="source">
         <t-row>
           <t-col :span="24">
-            <t-table :data="data" :body-max-height="300" selection :selection-change="currentChange" ref="t_table">
+            <t-table :data="data" :body-max-height="300" selection :selection-change="selectionChange" ref="t_table_selection">
               <t-table-column type="selection" width="55"/>
               <t-table-column type="index" width="60"/>
               <t-table-column label="姓名" prop="name"/>
@@ -250,8 +250,8 @@
         </t-row>
         <t-row>
           <t-col :span="24">
-            <t-button @click="setRow(1)">选中第二行</t-button>
-            <t-button @click="setRow()">重置</t-button>
+            <t-button @click="setSelectionRow([data[2], data[3]])">切换第二，三行</t-button>
+            <t-button @click="setSelectionRow()">重置</t-button>
           </t-col>
         </t-row>
       </div>
@@ -323,8 +323,14 @@ export default {
     currentChange (val) {
       console.log(val)
     },
+    selectionChange (val, old) {
+      console.log(val)
+    },
     setRow (row) {
       this.$refs.t_table.setCurrentRow(row)
+    },
+    setSelectionRow (row) {
+      this.$refs.t_table_selection.toggleRowSelection(row)
     }
   }
 }

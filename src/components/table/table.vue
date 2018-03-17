@@ -18,7 +18,12 @@
             <div class="t-table__cell" :style="{
               width: c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`
             }">
-              {{ c.type === 'index' ? '#' : c.label }}
+              <template v-if="c.type === 'selection'">
+                <t-checkbox v-model="selectionAll" :indeterminate="isIndeterminate" @change="selectionAllChange"/>
+              </template>
+              <template v-else>
+                {{ c.type === 'index' ? '#' : c.label }}
+              </template>
               <span v-if="c.sortMethod" class="t-table__sort"><i class="fa fa-caret-up" @click="sortColumn(c.sortMethod)"></i><i class="fa fa-caret-down" @click="sortColumn(c.sortMethod, 'desc')"></i></span>
             </div>
           </th>
@@ -42,7 +47,14 @@
           <td v-for="(c, idx2) in columns" :key="idx2" :style="{
             width: c.width ? `${c.width}px` : `${averageWidth}px`
           }">
-            <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+            <template v-if="c.type === 'selection'">
+              <div class="t-table__cell">
+                <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
+              </div>
+            </template>
+            <template v-else>
+              <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+            </template>
           </td>
         </tr>
       </table>
@@ -94,7 +106,14 @@
             }" :class="[
               !c.fixed ? 'is-hidden' : ''
             ]">
-              <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+              <template v-if="c.type === 'selection'">
+                <div class="t-table__cell">
+                  <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
+                </div>
+              </template>
+              <template v-else>
+                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+              </template>
             </td>
           </tr>
         </table>
@@ -149,7 +168,14 @@
             }" :class="[
               !c.fixedRight ? 'is-hidden' : ''
             ]">
-              <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+              <template v-if="c.type === 'selection'">
+                <div class="t-table__cell">
+                  <t-checkbox v-model="selectionRows" :val="d" @change="selectionRowChange"/>
+                </div>
+              </template>
+              <template v-else>
+                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"/>
+              </template>
             </td>
           </tr>
         </table>
@@ -160,11 +186,18 @@
 
 <script>
 import TTableCell from './table-cell.vue'
+import TCheckbox from '../checkbox/checkbox'
+import ArrayHelper from '../../mixins/arrayHelper'
+let selectionMap
 
 export default {
   components: {
+    TCheckbox,
     TTableCell
   },
+
+  mixins: [ArrayHelper],
+
   name: 't-table',
 
   data () {
@@ -186,7 +219,11 @@ export default {
       rowClasses: {},
       hoverRowIdx: null,
       cellMinWidth: 48,
-      currentRow: null
+      currentRow: null,
+      selectionAll: false,
+      selectionRows: [],
+      selectionRowsIdx: [],
+      isIndeterminate: false
     }
   },
 
@@ -206,6 +243,7 @@ export default {
 
   created () {
     this.$on('table-column-register', this.columnRegister)
+    this.setSelectionRowsIdx()
   },
 
   mounted () {
@@ -214,6 +252,9 @@ export default {
   },
 
   methods: {
+    setSelectionRowsIdx () {
+      selectionMap = ArrayHelper.mapValue(this.data)
+    },
     columnRegister (column) {
       this.addColumn(column)
     },
@@ -288,13 +329,43 @@ export default {
       if (key === 'desc') this.data.reverse()
     },
     setCurrentRow (idx) {
-      if (idx !== '') {
-        this.currentRow = idx
-        this.currentChange(this.data[idx])
-      } else {
-        this.currentRow = null
-        this.currentChange(null)
+      if (this.highlightCurrentRow) {
+        if (idx !== '') {
+          this.currentRow = idx
+        } else {
+          this.currentRow = null
+        }
       }
+    },
+    toggleRowSelection (row) {
+      if (row === undefined) {
+        this.selectionRows = []
+        this.selectionRowChange()
+        return
+      }
+
+      if (!Array.isArray(row)) {
+        row = [row]
+        console.warn('method toggleRowSelection Except "Array" But String Got')
+      }
+      row.forEach(el => {
+        if (this.selectionRows.indexOf(el) === -1) {
+          this.selectionRows = ArrayHelper.addToStore(this.selectionRows, el)
+        } else {
+          this.selectionRows = ArrayHelper.removeFromStore(this.selectionRows, el)
+        }
+      })
+      this.selectionRowChange()
+    },
+    selectionRowChange () {
+      const val = this.selectionRows
+      let checkedCount = val.length
+      this.selectionAll = checkedCount === selectionMap.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.data.length
+    },
+    selectionAllChange (val) {
+      this.selectionRows = val ? ArrayHelper.mapValue(selectionMap) : []
+      this.isIndeterminate = false
     }
   },
   watch: {
@@ -315,6 +386,16 @@ export default {
         this.$refs.table_fixed_body.scrollTop = val
         this.$refs.table_fixed_right_body.scrollTop = val
       }
+    },
+    data (val) {
+      this.setSelectionRowsIdx()
+      this.selection && this.toggleRowSelection()
+    },
+    selectionRows (val, old) {
+      this.selectionChange(val, old)
+    },
+    currentRow (val, old) {
+      this.currentChange(this.data[val] || null)
     }
   },
   computed: {
