@@ -7,10 +7,10 @@
   }">
     <div class="t-select__input" @click="checkout" ref="box">
       <template v-if="editable || searchable">
-        <span v-if="placeholder && isNull && !editContent" class="t-select__placeholder">{{ placeholder }}</span>
+        <span v-if="placeholder && isNull && !editContent" class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
       </template>
       <template v-else>
-        <span v-if="placeholder && isNull" class="t-select__placeholder">{{ placeholder }}</span>
+        <span v-if="placeholder && isNull" class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
       </template>
 
       <template v-if="multiple">
@@ -23,7 +23,7 @@
         </template>
       </template>
       <template v-else>
-        <span class="t-select__val" v-if="value">{{ labelStore[0] }}</span>
+        <span class="t-select__val" v-if="value" ref="val">{{ labelStore[0] }}</span>
       </template>
       <input type="text" class="t-select__editpanel" @keyup="editKeyupHandler" ref="editpanel" v-if="isFocus && (editable || searchable)" v-tfocus v-model="editContent">
 
@@ -143,7 +143,7 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear).concat(this.$refs.dropdown_flag)
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear).concat(this.$refs.dropdown_flag).concat(this.$refs.val).concat(this.$refs.placeholder)
       if (!e.target.className || (e.target.className.trim().indexOf('t-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
         this.$emit('hide', e)
       }
