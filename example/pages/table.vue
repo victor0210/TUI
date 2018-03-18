@@ -258,34 +258,56 @@
       <!--<time-md/>-->
     <!--</div>-->
 
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">展开行</div>-->
+      <!--<div class="source">-->
+        <!--<t-row>-->
+          <!--<t-col :span="24">-->
+            <!--<t-table :data="data" selection :selection-change="selectionChange" ref="t_table_selection">-->
+              <!--<t-table-column width="50" type="expand">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<t-button>button</t-button>-->
+                <!--</template>-->
+              <!--</t-table-column>-->
+              <!--<t-table-column label="姓名" prop="name"/>-->
+              <!--<t-table-column label="年龄" prop="age"/>-->
+              <!--<t-table-column label="身份" prop="role"/>-->
+              <!--<t-table-column label="电话" prop="phone"/>-->
+              <!--<t-table-column label="操作" prop="option">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>-->
+                <!--</template>-->
+              <!--</t-table-column>-->
+            <!--</t-table>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<time-md/>-->
+    <!--</div>-->
+
     <div class="demo-block">
       <div class="subtitle">展开行</div>
       <div class="source">
         <t-row>
           <t-col :span="24">
-            <t-table :data="data" :body-max-height="300" selection :selection-change="selectionChange" ref="t_table_selection" :body-height="200">
-              <t-table-column width="200" type="expand">
+            <t-table :data="data" selection :selection-change="selectionChange" ref="t_table_selection">
+              <t-table-column width="50" type="expand">
                 <template slot-scope="scope">
                   <t-button>button</t-button>
                 </template>
               </t-table-column>
-              <t-table-column type="index" width="60"/>
-              <t-table-column label="姓名" prop="name" width="200" fixed/>
-              <t-table-column label="年龄" prop="age" width="300"/>
-              <t-table-column label="身份" prop="role" width="300"/>
-              <t-table-column label="电话" prop="phone" width="200" fixed-right=""/>
-              <t-table-column label="操作" prop="option" width="300">
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option" :width="180">
                 <template slot-scope="scope">
-                  <t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>
+                  <t-select>
+                    <t-option label="a" val="1"/>
+                  </t-select>
                 </template>
               </t-table-column>
             </t-table>
-          </t-col>
-        </t-row>
-        <t-row>
-          <t-col :span="24">
-            <t-button @click="setSelectionRow([data[2], data[3]])">切换第二，三行</t-button>
-            <t-button @click="setSelectionRow()">重置</t-button>
           </t-col>
         </t-row>
       </div>
