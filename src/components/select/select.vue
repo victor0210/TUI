@@ -29,7 +29,7 @@
 
       <i class="t-select__icon fa fa-chevron-down" :class="{
         't-select__icon--open': isFocus
-      }"></i>
+      }" ref="dropdown_flag"></i>
       <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable && (multiple ? value.length > 0 : value !== '')" @click="clearInput" ref="clear"></i>
     </div>
     <transition name="fade">
@@ -58,6 +58,12 @@ export default {
   name: 't-select',
 
   mixins: [ArrayHelper, Emitter],
+
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
 
   data () {
     return {
@@ -137,7 +143,7 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear)
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear).concat(this.$refs.dropdown_flag)
       if (!e.target.className || (e.target.className.trim().indexOf('t-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
         this.$emit('hide', e)
       }
