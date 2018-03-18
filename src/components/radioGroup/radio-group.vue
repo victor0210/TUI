@@ -11,6 +11,12 @@ export default {
 
   mixins: [Emitter],
 
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
+
   props: {
     value: {
       type: String

@@ -29,12 +29,13 @@ export default {
   props: {
     max: Number,
     min: Number,
-    value: Array
+    value: {}
   },
   beforeMount () {
     this.$on('add', this.add)
     this.$on('remove', this.remove)
     this.$on('submit', this.submit)
+    this.$on('reset', this.reset)
   },
   mounted () {
     (!!this.value || !!this.min) && this.autoComplete()
@@ -42,6 +43,14 @@ export default {
   methods: {
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.store)
+    },
+    reset () {
+      this.store = []
+      this.$emit('input', this.store)
+      if (this.TFormItem) {
+        this.dispatch('t-form-item', 'form-item-change', this.store)
+        this.dispatch('t-form-item', 'form-item-blur', this.store)
+      }
     },
     autoComplete () {
       let children = this.$children

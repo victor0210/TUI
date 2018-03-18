@@ -6,13 +6,14 @@
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
+  background-color: $--select-fill-color;
+  border-radius: 4px;
 
   input {
     cursor: pointer;
   }
 
   @include e(icon) {
-    z-index: $--background-level-index;
     width: 12px;
     height: 12px;
     position: absolute;

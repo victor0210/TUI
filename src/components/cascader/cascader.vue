@@ -6,16 +6,15 @@
       'is-clearable': clearable && value !== '',
     }">
       <div class="t-cascader__input" ref="box" @click.prevent="checkout">
-        <!--keyup解决输入法兼容问题-->
         <input type="text" :readonly="!searchable" class="t-cascader__search" v-model="editContent" ref="search_panel" :placeholder="(onlyLast ? shownLabel.split('/').pop() : shownLabel) || placeholder">
         <i class="t-cascader__icon fa fa-chevron-down" :class="{
           't-cascader__icon--open': isFocus
-        }"></i>
+        }" ref="dropdown_flag"></i>
         <i class="t-cascader__icon t-cascader__icon--clear fa fa-times-circle" v-if="clearable && value !== ''" @click="clearInput" ref="clear"></i>
       </div>
     </label>
 
-    <div class="t-cascader__list-container">
+    <div class="t-cascader__list-container" ref="drop_menu">
       <transition-group name="fade">
         <ul class="t-cascader__list" v-if="editContent === '' && isFocus && (childIndex >= idx || idx === 0)" ref="list" :key="idx" v-for="(list, idx) in formatOptions">
           <t-cascader-option v-for="opt in list" v-if="idx===0 || (selectIndex.indexOf(opt.pidx) !== -1)" :label="opt.label" :val="opt.val" :children="!!opt.children" :key="opt.idx" :pos="idx" :store="store" :disabled="opt.disabled" :pidx="opt.pidx" :idx="opt.idx"/>
@@ -47,6 +46,12 @@ export default {
   },
 
   mixins: [ArrayHelper, Emitter],
+
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
 
   data () {
     return {
@@ -106,6 +111,16 @@ export default {
 
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+  },
+  updated () {
+    if (this.isFocus) {
+      let w = 0
+      this.$refs.list.forEach(function (el) {
+        w += el.offsetWidth
+      })
+      this.$refs.drop_menu.style.width = w + 'px'
+    }
+    console.log(this.$refs.drop_menu.offsetLeft)
   },
   methods: {
     reset () {
@@ -180,7 +195,7 @@ export default {
     clickBlurSelect (e) {
       //  add blur listener to some element which couldn't auto fire checkout
       const className = e.target.className
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.clear).concat(this.$refs.search_panel)
+      this.clickCancelEl = [this.$refs.box].concat(this.$refs.clear).concat(this.$refs.search_panel).concat(this.$refs.dropdown_flag)
 
       if (className !== 't-cascader-option__keyword' && className.indexOf('t-cascader-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1) {
         this.$emit('hide', e)

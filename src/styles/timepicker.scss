@@ -252,12 +252,17 @@
     .t-timepicker__icon--clear {
       display: none;
     }
-    &:hover {
-      .t-timepicker__icon--calender {
-        display: none;
-      }
-      .t-timepicker__icon--clear {
-        display: block;
+  }
+
+  @include when(clearable) {
+    .t-timepicker__input {
+      &:hover {
+        .t-timepicker__icon--calender {
+          display: none;
+        }
+        .t-timepicker__icon--clear {
+          display: block;
+        }
       }
     }
   }
