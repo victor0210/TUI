@@ -74,6 +74,12 @@ export default {
 
   mixins: [DateHelper, Emitter],
 
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
+
   data () {
     return {
       isFocus: false,

@@ -7,6 +7,8 @@
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
+  background-color: $--select-fill-color;
+  border-radius: 4px;
 
   input {
     cursor: pointer;
@@ -402,12 +404,17 @@
     .t-datepicker__icon--clear {
       display: none;
     }
-    &:hover {
-      .t-datepicker__icon--calender {
-        display: none;
-      }
-      .t-datepicker__icon--clear {
-        display: block;
+  }
+
+  @include when(clearable) {
+    .t-datepicker__input {
+      &:hover {
+        .t-datepicker__icon--calender {
+          display: none;
+        }
+        .t-datepicker__icon--clear {
+          display: block;
+        }
       }
     }
   }

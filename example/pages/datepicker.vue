@@ -6,7 +6,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-date-picker v-model="dp1" type="date" placeholder="选择日期"/>
+            <t-date-picker v-model="dp1" type="date" placeholder="选择日期" clearable/>
           </t-col>
         </t-row>
       </div>
