@@ -58,7 +58,7 @@ export default {
     },
     broadcastAllInput (type) {
       this.broadcast('t-input', type)
-      this.broadcast('t-select', type)
+      this.broadcast('t-select-bak', type)
       this.broadcast('t-cascader', type)
       this.broadcast('t-checkbox', type)
       this.broadcast('t-checkbox-group', type)

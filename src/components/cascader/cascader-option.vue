@@ -51,7 +51,7 @@ export default {
     },
     handleClick (e) {
       if (!this.disabled) {
-        this.search ? this.dispatch('t-cascader', 'select-search', {e, val: this.idx.split('-')}) : this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children})
+        this.search ? this.dispatch('t-cascader', 'select-bak-search', {e, val: this.idx.split('-')}) : this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children})
       }
     },
     handleHover (e) {

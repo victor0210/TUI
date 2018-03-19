@@ -116,7 +116,7 @@ export default {
           chinese: '单选框'
         },
         {
-          route: '/select',
+          route: '/select-bak',
           name: 'Select',
           chinese: '下拉框'
         },

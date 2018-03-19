@@ -38,7 +38,7 @@
               <td v-for="d in 7" :key="d" @click.prevent="setTrueValue(singleSelect.dates[(i - 1) * 7 + (d - 1)].val)" :class="[
                 't-datepicker__list-item',
                 singleSelect.dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
-                singleSelect.dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+                singleSelect.dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select-bak' : '',
                 singleSelect.dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
                 singleSelect.dates[(i - 1) * 7 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : '',
                 ]"><span class="t-datepicker__item-inner">{{ singleSelect.dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
@@ -60,7 +60,7 @@
               <td v-for="d in 4" :key="d" @click="setTrueValue(months[(i - 1) * 4 + (d - 1)].val)" :class="[
                 't-datepicker__list-item',
                 months[(i - 1) * 4 + (d - 1)].isCurrent ? 'is-current' : '',
-                months[(i - 1) * 4 + (d - 1)].isSelect ? 'is-select' : '',
+                months[(i - 1) * 4 + (d - 1)].isSelect ? 'is-select-bak' : '',
                 months[(i - 1) * 4 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
                 ]"><span class="t-datepicker__item-inner">{{ months[(i - 1) * 4 + (d - 1)].label }}</span></td>
             </tr>
@@ -81,7 +81,7 @@
               <span :class="[
                 't-datepicker__item-inner',
                 years[(d - 1)].isCurrent ? 'is-current' : '',
-                years[(d - 1)].isSelect ? 'is-select' : '',
+                years[(d - 1)].isSelect ? 'is-select-bak' : '',
                 years[(d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
                 ]">{{ years[(d - 1)].label }}</span>
             </div>
@@ -105,7 +105,7 @@
               <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
                 't-datepicker__list-item',
                 rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select-bak' : '',
                 rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
                 rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
                 rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
@@ -131,7 +131,7 @@
               <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
                 't-datepicker__list-item',
                 rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select-bak' : '',
                 rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
                 rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
                 rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',

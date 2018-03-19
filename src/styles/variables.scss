@@ -182,6 +182,12 @@ $--input-icon-width: 30px;
 $--select-inner-height: 36px !default;
 $--select-inner-color: #5c5c5c !default;
 $--select-fill-color: $--color-white !default;
+$--select-input-radius: 4px !default;
+$--select-input-min-height: 40px !default;
+$--select-input-min-width: 130px !default;
+$--select-input-line-height: 38px !default;
+$--select-input-padding: 3px 10px !default;
+$--select-input-hover-border-color: mix($--color-white, $--color-gray, 20%) !default;
 
 /**
  * -------------------- Grid Contains Row & Col --------------------

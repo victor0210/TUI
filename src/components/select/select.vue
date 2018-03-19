@@ -1,379 +1,251 @@
 <template>
-  <label class="t-select" :class="{
-    'is-focus': isFocus,
-    'is-multiple': multiple,
-    'is-disabled': disabled,
-    'is-clearable': clearable && (multiple ? value.length > 0 : value !== '')
-  }">
-    <div class="t-select__input" @click="checkout" ref="box">
-      <template v-if="editable || searchable">
-        <span v-if="placeholder && isNull && !editContent" class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
-      </template>
-      <template v-else>
-        <span v-if="placeholder && isNull" class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
-      </template>
+  <div class="t-select" @click="checkout" :class="[
+    isFocus ? 'is-focus' : '',
+    disabled ? 'is-disabled' : '',
+    clearable && !isEmpty ? 'is-clearable' : ''
+  ]">
+    <div class="t-select__input" ref="input">
+      <i class="t-select__input-icon t-select__drop-icon fa fa-chevron-down" :class="{
+        't-select__input-icon--open': isFocus
+      }"></i>
+      <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput"></i>
 
-      <template v-if="multiple">
+      <div v-if="multiple" class="t-select__inner">
         <template v-if="!collapseTags">
-          <span class="t-select__tag" v-for="(v, idx) in labelStore" :key="idx" ref="tag">{{ v }} <i class="fa fa-times-circle" @click="removeFromStore(labelStore[idx], true)" ref="closeX"></i></span>
+          <span class="t-select__tag" v-for="(t, idx) in multipleInputLabel" :key="idx">{{ t.label }}<i class="fa fa-times-circle" @click.prevent="removeTag(t.val)"></i></span>
         </template>
         <template v-else>
-          <span class="t-select__tag" ref="tag" v-if="value.length > 0">{{ labelStore[0] }} <i class="fa fa-times-circle" @click="removeFromStore(labelStore[0], true)" ref="closeX"></i></span>
-          <span class="t-select__tag" ref="tag" v-if="value.length > 1">+ {{ labelStore.length - 1 }}</span>
+          <span class="t-select__tag" v-if="multipleInputLabel[0]">{{ multipleInputLabel[0].label }}<i class="fa fa-times-circle" @click.prevent="removeTag(multipleInputLabel[0].val)"></i></span>
+          <span class="t-select__tag" v-if="multipleInputLabel.length > 1">+ {{ multipleInputLabel.length - 1 }}</span>
         </template>
-      </template>
-      <template v-else>
-        <span class="t-select__val" v-if="value" ref="val">{{ labelStore[0] }}</span>
-      </template>
-      <input type="text" class="t-select__editpanel" @keyup="editKeyupHandler" ref="editpanel" v-if="isFocus && (editable || searchable)" v-tfocus v-model="editContent">
+      </div>
 
-      <i class="t-select__icon fa fa-chevron-down" :class="{
-        't-select__icon--open': isFocus
-      }" ref="dropdown_flag"></i>
-      <i class="t-select__icon t-select__icon--clear fa fa-times-circle" v-if="clearable && (multiple ? value.length > 0 : value !== '')" @click="clearInput" ref="clear"></i>
+      <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple"/>
     </div>
+
     <transition name="fade">
-      <ul class="t-select__list" v-if="isFocus" ref="list">
-          <t-option :label="getEditContent" :val="editContent" :editablePanel="true" v-if="editable || searchable" :disabled="searchable" v-show="editable || (searchable && optionChildren.length === 1)" :loading="loading"/>
-          <slot></slot>
-      </ul>
+      <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
+        <slot></slot>
+        <template slot="search">
+          <span class="t-select__drop-menu--none" v-if="searchOptions.length === 0 && isSearching">暂无数据</span>
+          <t-option v-for="(o, idx) in searchOptions" :key="idx" :label="o.label" :val="o.val" :disabled="o.disabled"/>
+        </template>
+      </t-select-drop-menu>
     </transition>
-  </label>
+  </div>
 </template>
-
 <script>
-import ArrayHelper from '../../mixins/arrayHelper'
+import TSelectDropMenu from './select-drop-menu'
 import Emitter from '../../mixins/emitter'
-import Vue from 'vue'
+import ArrayHelper from '../../mixins/arrayHelper'
 
-//  TODO rebuild select component data-structure from array to index (build store-index)
-//  done: 1. storeIndex save values index & emit input (index transfer to value) => ({label_1: 'value_1', label_2: 'value_2'} => ['value_1', 'value_2'])
-//  2. optionIndex save all optionIndex => ({'label_1': 'value_1', ...})
-//  done: 3. display / add / remove data just from storeIndex
-//  4. search
-//    4-1. search storeIndex key by Object.keys().forEach, el.indexOf(keyword)
-//    4-2. search optimize with index split
-//  TODO about position relative cascader change line bug
 export default {
-  name: 't-select',
-
-  mixins: [ArrayHelper, Emitter],
-
-  inject: {
-    TFormItem: {
-      default: ''
-    }
+  components: {
+    TSelectDropMenu
   },
+
+  mixins: [Emitter, ArrayHelper],
+
+  name: 't-select',
 
   data () {
     return {
-      optionLineHeight: 40,
-      optionEmitScrollIndex: 4,
+      initialized: false,
+      select: this,
+      store: [],
+      inputLabel: '',
+      multipleInputLabel: [],
       isFocus: false,
-      focusIndex: null,
-      childrenLength: 0,
-      labelStore: [],
-      optionChildren: [],
-      loading: false,
-      editContent: '',
-      storeIndexes: {}
+      options: [],
+      dropMenu: null,
+      searchOptions: [],
+      isSearching: false,
+      searchText: '',
+      optionChainTable: {},
+      chainTableEndPointer: 0,
+      searchChainTable: {},
+      focusIndex: '',
+      searchFocusIndex: '',
+      //  list positon datas
+      inputHeight: 0
     }
   },
+
   props: {
-    placeholder: {
-      default: '请选择'
-    },
     multiple: Boolean,
+    collapseTags: Boolean,
     disabled: Boolean,
     clearable: Boolean,
-    collapseTags: Boolean,
     editable: Boolean,
     searchable: Boolean,
-    loadingText: {
-      default: 'Loading...'
-    },
-    noDataText: {
-      default: 'No Data'
-    },
     value: {}
   },
 
-  mounted () {
-    this.initStoreIndex()
-    this.$on('select', this.selectHandler)
-    this.$on('hide', this.hideHandler)
-    this.$on('init-focus-index', this.initFocusByChild)
+  created () {
+    this.$on('init-input-label', this.setInputLabel)
+    this.$on('init-multiple-input-label', this.initMultipleValue)
     this.$on('option-register', this.optionRegister)
-    this.$on('option-bumper', this.optionBumper)
-    this.$on('reset', this.reset)
-    this.$on('submit', this.submit)
+    this.$on('select', this.selectHandler)
+    this.$on('select-drop-component-register', this.dropMenuRegister)
+    this.$on('edit-change', this.editChangeHandler)
+    this.$on('add-custom-tag', this.addTag)
   },
+
+  mounted () {
+    this.validatorInput()
+    this.setStore(this.value)
+  },
+
+  updated () {
+    if (this.inputHeight !== this.$refs.input.offsetHeight) this.setInputHeight(this.$refs.input.offsetHeight)
+  },
+
   methods: {
-    reset () {
-      this.multiple ? this.$emit('input', []) : this.$emit('input', '')
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
-    },
-    submit () {
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
-    },
-    checkout (e) {
-      if (this.disabled || e.target === this.$refs.editpanel) return
-      this.isFocus = !this.isFocus
-      this.isFocus ? this.addListener() : this.removeListener()
-      if (!this.isFocus) {
-        this.focusIndex = null
-        this.childrenLength = 0
-        this.editContent = ''
-        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
-        this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
-      }
-    },
-    optionRegister (child) {
-      this.optionChildren.push(child)
-    },
-    optionBumper () {
-      this.optionChildren.pop()
-    },
-    addListener () {
-      document.addEventListener('keydown', this.keyDownHandler)
-      document.addEventListener('click', this.clickBlurSelect, true)
-    },
-    removeListener () {
-      document.removeEventListener('keydown', this.keyDownHandler)
-      document.removeEventListener('click', this.clickBlurSelect, true)
-    },
-    clickBlurSelect (e) {
-      this.clickCancelEl = [this.$refs.box].concat(this.$refs.tag).concat(this.$refs.closeX).concat(this.$refs.clear).concat(this.$refs.dropdown_flag).concat(this.$refs.val).concat(this.$refs.placeholder)
-      if (!e.target.className || (e.target.className.trim().indexOf('t-option') === -1 && this.clickCancelEl.indexOf(e.target) === -1)) {
-        this.$emit('hide', e)
-      }
-    },
-    keyDownHandler (e) {
-      const _this = this
-      switch (e.keyCode) {
-        case 40:
-          e.preventDefault()
-          _this.focusNext()
-          break
-        case 38:
-          e.preventDefault()
-          _this.focusPrevious()
-          break
-        case 27:
-          e.preventDefault()
-          _this.checkout(e)
-          break
-        case 13:
-          e.preventDefault()
-          let t
-          if (_this.searchable && _this.optionChildren.length === 1) {
-            return false
-          }
-          if (_this.searchable && (_this.optionChildren.length > 1 && _this.editContent !== '')) {
-            t = _this.optionChildren[_this.focusIndex + 1]
-          } else {
-            t = _this.optionChildren[_this.focusIndex]
-          }
-
-          _this.$emit('select', {e: e, val: t.val, label: t.label})
-          !_this.multiple && _this.$emit('hide', e)
-          _this.editContent = ''
-          break
-      }
-    },
-    hideHandler (e) {
-      e.preventDefault()
-      this.isFocus && this.checkout(e)
-    },
-    focusNext () {
-      if (this.focusIndex !== null) {
-        this.focusIndex = (this.focusIndex === this.optionChildren.length - 1) ? 0 : this.focusIndex + 1
-      } else {
-        this.focusIndex = 0
-      }
-      this.setFocusIndex(this.focusIndex, 'next')
-    },
-    focusPrevious () {
-      if (this.focusIndex !== null) {
-        this.focusIndex = (this.focusIndex === 0 ? this.optionChildren.length - 1 : this.focusIndex - 1)
-      } else {
-        this.focusIndex = this.optionChildren.length - 1
-      }
-      this.setFocusIndex(this.focusIndex, 'previous')
-    },
-    setFocusIndex (idx, direction, force = false) {
-      //  fix scroll with editpanel potion error
-      const n = ((this.editable || this.searchable) && this.editContent === '') ? 1 : 0
-      const i = this.optionEmitScrollIndex
-      const h = this.optionLineHeight
-      switch (direction) {
-        case 'next':
-          if (idx === 0) {
-            this.$refs.list.scrollTop = 0
-          } else if (this.$refs.list.scrollTop < (idx - n - i) * h) {
-            this.$refs.list.scrollTop = (idx - n - i) * h
-          }
-          break
-        case 'previous':
-          if (idx === this.optionChildren.length - 1) {
-            this.$refs.list.scrollTop = (idx - n - i) * h
-          } else if (this.$refs.list.scrollTop > (idx - n) * h) {
-            this.$refs.list.scrollTop = (idx - n) * h
-          }
-          break
+    validatorInput () {
+      if (this.multiple && !Array.isArray(this.value)) {
+        throw new Error('init value must be type "Array" when use "multiple" attribute')
       }
 
-      if (this.optionChildren[idx].disabled || ((this.editable || this.searchable) && !this.optionChildren[idx].val)) {
-        if (!force) {
-          direction === 'next' ? this.focusNext() : this.focusPrevious()
-        }
-      }
+      // if (this.editable && !this.multiple) {
+      //   throw new Error('multiple must be required when use "editable" attribute')
+      // }
     },
-    selectHandler ({e, val, label}) {
-      this.setValue()
-      if (this.multiple) {
-        e.preventDefault()
-        !this.storeIndexes[label] ? this.addToStore(val, label) : this.removeFromStore(label)
-      } else {
-        this.addToStore(val, label)
-        this.$emit('hide', e)
-      }
+    dropMenuRegister (dropMenu) {
+      this.dropMenu = dropMenu
     },
-    setValue () {
-      let val
-      if (this.multiple) {
-        val = Object.values(this.storeIndexes)
-      } else {
-        val = Object.values(this.storeIndexes)[0]
-      }
-      this.$emit('input', val)
+    setStore (val) {
+      this.store = val
     },
-    addToStore (val, label) {
-      if (val !== '') {
-        if (!this.multiple) this.storeIndexes = {}
-        this.$set(this.storeIndexes, label, val)
-        this.setValue()
-      }
+    setInputLabel (label) {
+      this.inputLabel = label
     },
-    removeFromStore (key, isTag) {
+    checkout () {
       if (this.disabled) return
-      if (isTag) {
-        const e = window.event
-        e.cancelBubble = true
-      }
-      Vue.delete(this.storeIndexes, key)
-      this.setValue()
-    },
-    initFocusByChild (val) {
-      let idx = null
-      if (this.multiple && this.value[this.value.length - 1] === val) {
-        idx = this.childrenLength
-      } else if (!this.multiple && this.value === val) {
-        idx = this.childrenLength
-      }
 
-      if (idx !== null && idx !== this.focusIndex) {
-        this.focusIndex = idx
-        this.setFocusIndex(idx, 'next', true)
+      this.isFocus = !this.isFocus
+
+      if (this.isFocus) {
+        //  open first time
+        !this.initialized && (this.initialized = true)
+      } else {
+        //  close
       }
-      this.childrenLength += 1
+    },
+    hide () {
+      this.isFocus = false
+    },
+    optionRegister (option) {
+      this.options.push(option)
+
+      //  init label
+      if (option.val === this.value) this.setInputLabel(option.label)
+    },
+    selectHandler ({val, label}) {
+      if (this.multiple) {
+        this.setMultipleValue({val, label})
+      } else {
+        this.setStore(val)
+        this.setInputLabel(label)
+
+        this.hide()
+      }
     },
     clearInput (e) {
-      e.preventDefault()
       e.cancelBubble = true
-      this.storeIndexes = {}
-      this.setValue()
-    },
-    editKeyupHandler (e) {
-      this.editContent = e.target.value
-    },
-    initStoreIndex () {
-      const _this = this
-      this.storeIndexes = {}
+
       if (this.multiple) {
-        this.value.forEach(function (val) {
-          _this.findLabel(val)
-        })
+        this.multipleInputLabel = []
+        this.store = []
       } else {
-        this.findLabel(this.value)
+        this.inputLabel = ''
+        this.store = ''
       }
-      this.labelStore = Object.keys(this.storeIndexes)
     },
-    findLabel (val) {
+
+    //  multiple functions
+    removeTag (val) {
+      if (this.disabled) return
+
+      window.event.cancelBubble = true
+      this.removeMultipleStore(val)
+    },
+    addTag () {
+      let val = this.searchText
+      let label = val
+      if (this.multiple) {
+        this.setMultipleValue({val, label})
+      } else {
+        this.setInputLabel(val)
+        this.setStore(val)
+        this.searchText = ''
+      }
+
+      this.$emit('edit-change', '')
+    },
+    initMultipleValue ({val, label}) {
+      this.setStore(ArrayHelper.addToStore(this.store, val))
+      this.setMultipleInputLabel(ArrayHelper.addToStore(this.multipleInputLabel, {val: val, label: label}))
+    },
+    setMultipleValue ({val, label}) {
+      if (this.store.indexOf(val) === -1) {
+        this.addMultipleStore(val, label)
+      } else {
+        this.removeMultipleStore(val)
+      }
+    },
+    addMultipleStore (val, label) {
+      this.setStore(ArrayHelper.addToStore(this.store, val))
+      this.setMultipleInputLabel(ArrayHelper.addToStore(this.multipleInputLabel, {val: val, label: label}))
+    },
+    removeMultipleStore (val) {
+      this.setStore(ArrayHelper.removeFromStore(this.store, val))
+      this.setMultipleInputLabel(ArrayHelper.removeFromStoreByKey(this.multipleInputLabel, 'val', val))
+    },
+    setMultipleInputLabel (labels) {
+      this.multipleInputLabel = labels
+    },
+
+    //  editor
+    editChangeHandler (val) {
+      //  doSearch
+      this.searchOptions = []
+      this.searchText = val
+
+      if (val !== '') {
+        this.isSearching = true
+        this.doSearch(val)
+      } else {
+        this.isSearching = false
+      }
+    },
+
+    doSearch (val) {
       const _this = this
-      !!this.$slots.default && this.$slots.default.forEach(function (el) {
-        let target = el.componentOptions
-        if (el.tag) {
-          if (target.tag !== 't-option-group') {
-            let t = target.propsData
-            _this.csStoreIndex(val, t.val, t.label)
-          } else {
-            target.children.forEach(function (elm) {
-              if (elm.tag) {
-                let t = elm.componentOptions.propsData
-                _this.csStoreIndex(val, t.val, t.label)
-              }
-            })
-          }
-        }
+      this.options.forEach(function (el) {
+        if (el.label.indexOf(val) !== -1) _this.searchOptions.push(el)
       })
-      if (_this.editable && Object.values(_this.storeIndexes).indexOf(val) === -1) _this.$set(_this.storeIndexes, val, val)
     },
-    // check && set
-    csStoreIndex (val, elVal, elLabel) {
-      val === elVal && this.$set(this.storeIndexes, elLabel, val)
+
+    //  list position
+    setInputHeight (h) {
+      //  emit list position change
+      this.inputHeight = h
     }
   },
 
   watch: {
-    value (val) {
-      this.initStoreIndex()
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
-    },
-    focusIndex (val, pre) {
-      val !== null && ArrayHelper.between(val, 0, this.optionChildren.length) && this.optionChildren[val].focusSelect()
-      pre !== null && ArrayHelper.between(pre, 0, this.optionChildren.length) && this.optionChildren[pre].blurSelect()
-    },
-    editContent (val, pre) {
-      this.focusIndex = 0
-
-      if (val.length > pre.length) {
-        const foo = this.optionChildren
-        this.optionChildren = []
-        foo.forEach(function (el) {
-          el.$emit('blur')
-          el.$emit('register')
-        })
-      } else {
-        this.optionChildren = []
-        this.broadcast('t-option', 'blur')
-        this.broadcast('t-option', 'register')
-      }
-      this.searchable
-        ? this.optionChildren.length > 1 && this.optionChildren[1].focusSelect()
-        : this.optionChildren.length > 0 && this.optionChildren[0].focusSelect()
-    },
-    storeIndexes (val) {
-      this.labelStore = Object.keys(val)
+    store (val) {
+      this.$emit('input', val)
     }
   },
 
   computed: {
-    isNull () {
-      return this.multiple ? this.value.length === 0 : !this.value
-    },
-    getEditContent () {
-      if (this.loading) {
-        return this.loadingText
+    isEmpty () {
+      if (this.multiple) {
+        return this.store.length === 0
       }
-      return this.searchable ? (this.optionChildren.length === 1 ? this.noDataText : this.editContent) : this.editContent
+      return this.value === ''
     }
   }
 }
-
 </script>
-
-<style scoped>
-
-</style>

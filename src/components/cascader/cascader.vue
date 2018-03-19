@@ -100,7 +100,7 @@ export default {
 
   mounted () {
     this.$on('select', this.selectHandler)
-    this.$on('select-search', this.selectSearchHandler)
+    this.$on('select-bak-search', this.selectSearchHandler)
 
     this.$on('hide', this.hideHandler)
     this.$on('init-focus-index', this.initFocusByChild)

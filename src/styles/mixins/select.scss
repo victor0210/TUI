@@ -1,0 +1,22 @@
+@mixin select-input-variant{
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: $--select-fill-color;
+  border-radius: $--select-input-radius;
+  border: $--border-base;
+  min-height: $--select-input-min-height;
+  min-width: $--select-input-min-width;
+  transition: .3s;
+
+  &:hover {
+    border-color: $--select-input-hover-border-color;
+  }
+
+  @include when(focus) {
+    border-color: $--color-primary;
+  }
+}
