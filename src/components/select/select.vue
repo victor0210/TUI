@@ -7,12 +7,12 @@
     <div class="t-select__input" ref="input">
       <i class="t-select__input-icon t-select__drop-icon fa fa-chevron-down" :class="{
         't-select__input-icon--open': isFocus
-      }"></i>
-      <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput"></i>
+      }" ref="drop_icon"></i>
+      <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput" ref="clear_icon"></i>
 
-      <div v-if="multiple" class="t-select__inner">
+      <div v-if="multiple" class="t-select__inner" ref="multi_inner">
         <template v-if="!collapseTags">
-          <span class="t-select__tag" v-for="(t, idx) in multipleInputLabel" :key="idx">{{ t.label }}<i class="fa fa-times-circle" @click.prevent="removeTag(t.val)"></i></span>
+          <span class="t-select__tag" v-for="(t, idx) in multipleInputLabel" :key="idx" ref="multi_tag">{{ t.label }}<i class="fa fa-times-circle" @click.prevent="removeTag(t.val)" ref="remove_icon"></i></span>
         </template>
         <template v-else>
           <span class="t-select__tag" v-if="multipleInputLabel[0]">{{ multipleInputLabel[0].label }}<i class="fa fa-times-circle" @click.prevent="removeTag(multipleInputLabel[0].val)"></i></span>
@@ -20,7 +20,7 @@
         </template>
       </div>
 
-      <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple"/>
+      <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner"/>
     </div>
 
     <transition name="fade">
@@ -105,10 +105,6 @@ export default {
       if (this.multiple && !Array.isArray(this.value)) {
         throw new Error('init value must be type "Array" when use "multiple" attribute')
       }
-
-      // if (this.editable && !this.multiple) {
-      //   throw new Error('multiple must be required when use "editable" attribute')
-      // }
     },
     dropMenuRegister (dropMenu) {
       this.dropMenu = dropMenu
@@ -127,8 +123,12 @@ export default {
       if (this.isFocus) {
         //  open first time
         !this.initialized && (this.initialized = true)
+
+        this.addListener()
       } else {
         //  close
+        this.searchText = ''
+        this.removeListener()
       }
     },
     hide () {
@@ -230,12 +230,108 @@ export default {
     setInputHeight (h) {
       //  emit list position change
       this.inputHeight = h
+    },
+
+    //  add close list event listener && list keyboard listener
+    addListener () {
+      document.addEventListener('keydown', this.keyDownHandler)
+      document.addEventListener('click', this.clickBlurSelect, true)
+    },
+    removeListener () {
+      document.removeEventListener('keydown', this.keyDownHandler)
+      document.removeEventListener('click', this.clickBlurSelect, true)
+    },
+
+    clickBlurSelect (e) {
+      if (this.checkBlurClasses(e.target.className) && this.checkBlurEl(e.target)) {
+        this.hide()
+      }
+    },
+
+    checkBlurEl (el) {
+      const ref = this.$refs
+      let clickCancelEl = [
+        ref.input_inner,
+        ref.multi_inner,
+        ref.drop_icon,
+        ref.clear_icon
+      ]
+
+      if (ref.multi_tag) {
+        clickCancelEl = [...clickCancelEl, ...ref.multi_tag]
+      }
+      if (ref.remove_icon) {
+        clickCancelEl = [...clickCancelEl, ...ref.remove_icon]
+      }
+
+      return clickCancelEl.indexOf(el) === -1
+    },
+
+    checkBlurClasses (className) {
+      let isNone = true
+      let cancelBlurClasses = [
+        't-option',
+        't-select__editor',
+        't-select__editor-input',
+        't-select__add-tag',
+        't-select__drop-menu--none'
+      ]
+
+      cancelBlurClasses.some(function (c) {
+        if (className.indexOf(c) !== -1) {
+          isNone = false
+          return true
+        }
+      })
+
+      return isNone
+    },
+
+    keyDownHandler (e) {
+      const _this = this
+      switch (e.keyCode) {
+        case 40:
+          e.preventDefault()
+          _this.focusNext()
+          break
+        case 38:
+          e.preventDefault()
+          _this.focusPrevious()
+          break
+        case 27:
+          e.preventDefault()
+          _this.checkout(e)
+          break
+        case 13:
+          e.preventDefault()
+          let t
+          if (_this.searchable && _this.optionChildren.length === 1) {
+            return false
+          }
+          if (_this.searchable && (_this.optionChildren.length > 1 && _this.editContent !== '')) {
+            t = _this.optionChildren[_this.focusIndex + 1]
+          } else {
+            t = _this.optionChildren[_this.focusIndex]
+          }
+
+          _this.$emit('select', {e: e, val: t.val, label: t.label})
+          !_this.multiple && _this.$emit('hide', e)
+          _this.editContent = ''
+          break
+      }
     }
   },
 
   watch: {
     store (val) {
       this.$emit('input', val)
+    },
+    isFocus (val) {
+      if (!val) {
+        if (this.editable || this.searchable) {
+          this.$emit('edit-change', '')
+        }
+      }
     }
   },
 

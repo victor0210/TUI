@@ -69,8 +69,9 @@ export default {
             class: 't-select__editor',
             style: {
               'display': parent.editable || parent.searchable ? 'block' : 'none'
-            }
+            },
           }, [h('input', {
+            class: 't-select__editor-input',
             domProps: {
               placeholder: '请编辑',
               value: _this.searchText
@@ -141,21 +142,23 @@ export default {
 
     setListPosition () {
       const parent = this.select
-      let offsetLeft = this.getElementLeft(parent.$el)
-      let listWidth = this.list.offsetWidth
+      if (parent.isFocus) {
+        let offsetLeft = this.getElementLeft(parent.$el)
+        let listWidth = this.list.offsetWidth
 
-      if (listWidth + offsetLeft >= document.body.offsetWidth) {
-        offsetLeft -= listWidth - parent.$el.offsetWidth
-        this.arrowRight = true
-      } else {
-        this.arrowRight = false
+        if (listWidth + offsetLeft >= document.body.offsetWidth) {
+          offsetLeft -= listWidth - parent.$el.offsetWidth
+          this.arrowRight = true
+        } else {
+          this.arrowRight = false
+        }
+
+        let offsetTop = this.getElementTop(parent.$el)
+        let offsetHeight = parent.$el.offsetHeight
+
+        this.list.style.left = `${offsetLeft}px`
+        this.list.style.top = `${offsetTop + offsetHeight + 5}px`
       }
-
-      let offsetTop = this.getElementTop(parent.$el)
-      let offsetHeight = parent.$el.offsetHeight
-
-      this.list.style.left = `${offsetLeft}px`
-      this.list.style.top = `${offsetTop + offsetHeight + 5}px`
     },
 
     initSelectLabel () {
