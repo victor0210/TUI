@@ -1,7 +1,7 @@
 <template>
   <li class="t-option" @click="handleClick" :class="{
     'is-selected': isSelected,
-    // 'is-focus' : isFocus || (isSelected && focusIndex === null),
+    'is-focus' : isFocus,
     'is-disabled' : disabled
   }" ref="option">{{ label }}
     <i class="t-option__check fa fa-check" v-if="isSelected"></i>
@@ -29,7 +29,8 @@ export default {
     disabled: Boolean,
     val: {},
     editablePanel: Boolean,
-    loading: Boolean
+    loading: Boolean,
+    search: Boolean
   },
 
   beforeMount () {
@@ -41,7 +42,8 @@ export default {
     this.dispatchRegister()
     // this.dispatch('t-select-bak', 'init-focus-index', this.val)
     // this.action(this.parent, 'init-focus-index', this.val)
-    // this.$on('blur', this.blurSelect)
+    this.$on('blur', this.blurSelect)
+    this.$on('focus', this.focusSelect)
     // this.$on('register', this.dispatchRegister)
   },
 
@@ -49,15 +51,20 @@ export default {
     handleClick (e) {
       this.disabled ? e.preventDefault() : this.action(this.parent, 'select', {val: this.val, label: this.label})
     },
-    // focusSelect () {
-    //   this.isFocus = true
-    // },
-    // blurSelect () {
-    //   this.isFocus = false
-    // },
+    focusSelect () {
+      console.log('fu')
+      this.isFocus = true
+    },
+    blurSelect () {
+      console.log('br')
+      this.isFocus = false
+    },
     dispatchRegister () {
-      if (this.isSearch) return
-      this.action(this.parent, 'option-register', this)
+      if (this.search) {
+        this.action(this.parent, 'search-option-register', this)
+      } else {
+        this.action(this.parent, 'option-register', this)
+      }
     },
     // checkShow () {
     //   const p = this.parent
@@ -83,9 +90,6 @@ export default {
   computed: {
     isSelected () {
       return this.isMultiple ? (this.parent.value.indexOf(this.val) !== -1) : (this.val === this.parent.value)
-    },
-    isSearch () {
-      return this.parent.isSearching
     }
     // isShow () {
     //   return this.checkShow()
@@ -96,8 +100,11 @@ export default {
   },
 
   beforeDestroy () {
-    if (this.isSearch) return
-    this.action(this.parent, 'option-bumper')
+    if (this.search) {
+      this.action(this.parent, 'search-option-bumper')
+    } else {
+      this.action(this.parent, 'option-bumper')
+    }
   }
 }
 

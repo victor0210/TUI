@@ -27,8 +27,8 @@
       <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
         <slot></slot>
         <template slot="search">
-          <span class="t-select__drop-menu--none" v-if="searchOptions.length === 0 && isSearching">暂无数据</span>
-          <t-option v-for="(o, idx) in searchOptions" :key="idx" :label="o.label" :val="o.val" :disabled="o.disabled"/>
+          <span class="t-select__drop-menu--none" v-if="searchOptionsProps.length === 0 && isSearching">暂无数据</span>
+          <t-option v-for="(o, idx) in searchOptionsProps" :key="idx" :label="o.label" :val="o.val" :disabled="o.disabled" search/>
         </template>
       </t-select-drop-menu>
     </transition>
@@ -59,13 +59,11 @@ export default {
       options: [],
       dropMenu: null,
       searchOptions: [],
+      searchOptionsProps: [],
       isSearching: false,
       searchText: '',
-      optionChainTable: {},
-      chainTableEndPointer: 0,
-      searchChainTable: {},
-      focusIndex: '',
-      searchFocusIndex: '',
+      focusIndex: null,
+      searchFocusIndex: null,
       //  list positon datas
       inputHeight: 0
     }
@@ -84,9 +82,14 @@ export default {
   created () {
     this.$on('init-input-label', this.setInputLabel)
     this.$on('init-multiple-input-label', this.initMultipleValue)
+
     this.$on('option-register', this.optionRegister)
-    this.$on('select', this.selectHandler)
+    this.$on('option-bumper', this.optionBumper)
+    this.$on('search-option-register', this.searchOptionRegister)
+    this.$on('search-option-bumper', this.searchOptionBumper)
     this.$on('select-drop-component-register', this.dropMenuRegister)
+
+    this.$on('select', this.selectHandler)
     this.$on('edit-change', this.editChangeHandler)
     this.$on('add-custom-tag', this.addTag)
   },
@@ -119,17 +122,6 @@ export default {
       if (this.disabled) return
 
       this.isFocus = !this.isFocus
-
-      if (this.isFocus) {
-        //  open first time
-        !this.initialized && (this.initialized = true)
-
-        this.addListener()
-      } else {
-        //  close
-        this.searchText = ''
-        this.removeListener()
-      }
     },
     hide () {
       this.isFocus = false
@@ -139,6 +131,15 @@ export default {
 
       //  init label
       if (option.val === this.value) this.setInputLabel(option.label)
+    },
+    searchOptionRegister (option) {
+      this.searchOptions.push(option)
+    },
+    optionBumper () {
+      this.options.pop()
+    },
+    searchOptionBumper () {
+      this.searchOptions.pop()
     },
     selectHandler ({val, label}) {
       if (this.multiple) {
@@ -169,6 +170,8 @@ export default {
       window.event.cancelBubble = true
       this.removeMultipleStore(val)
     },
+
+    //  just editable self function
     addTag () {
       let val = this.searchText
       let label = val
@@ -208,7 +211,7 @@ export default {
     //  editor
     editChangeHandler (val) {
       //  doSearch
-      this.searchOptions = []
+      this.searchOptionsProps = []
       this.searchText = val
 
       if (val !== '') {
@@ -222,7 +225,9 @@ export default {
     doSearch (val) {
       const _this = this
       this.options.forEach(function (el) {
-        if (el.label.indexOf(val) !== -1) _this.searchOptions.push(el)
+        if (el.label.indexOf(val) !== -1) {
+          _this.searchOptionsProps.push(el.$props)
+        }
       })
     },
 
@@ -300,24 +305,79 @@ export default {
           break
         case 27:
           e.preventDefault()
-          _this.checkout(e)
+          _this.hide()
           break
         case 13:
           e.preventDefault()
-          let t
-          if (_this.searchable && _this.optionChildren.length === 1) {
-            return false
-          }
-          if (_this.searchable && (_this.optionChildren.length > 1 && _this.editContent !== '')) {
-            t = _this.optionChildren[_this.focusIndex + 1]
-          } else {
-            t = _this.optionChildren[_this.focusIndex]
-          }
-
-          _this.$emit('select', {e: e, val: t.val, label: t.label})
-          !_this.multiple && _this.$emit('hide', e)
-          _this.editContent = ''
+          _this.commitEnter()
           break
+      }
+    },
+
+    commitEnter () {
+      let Component
+      if (this.isSearching && this.searchOptions.length > 0 && this.searchFocusIndex !== null) {
+        Component = this.searchOptions[this.searchFocusIndex]
+      } else if (!this.isSearching && this.options.length > 0 && this.focusIndex !== null) {
+        Component = this.options[this.focusIndex]
+      }
+
+      this.$emit('select', {val: Component.val, label: Component.label})
+    },
+
+    focusNext () {
+      if (this.isSearching) {
+        if (this.searchOptions.length > 0) {
+          if (this.searchFocusIndex === null) {
+            this.searchFocusIndex = 0
+          } else {
+            if (this.searchFocusIndex === this.searchOptions.length - 1) {
+              this.searchFocusIndex = 0
+            } else {
+              this.searchFocusIndex += 1
+            }
+          }
+        }
+      } else {
+        if (this.options.length > 0) {
+          if (this.focusIndex === null) {
+            this.focusIndex = 0
+          } else {
+            if (this.focusIndex === this.options.length - 1) {
+              this.focusIndex = 0
+            } else {
+              this.focusIndex += 1
+            }
+          }
+        }
+      }
+    },
+
+    focusPrevious () {
+      if (this.isSearching) {
+        if (this.searchOptions.length > 0) {
+          if (this.searchFocusIndex === null) {
+            this.searchFocusIndex = 0
+          } else {
+            if (this.searchFocusIndex === 0) {
+              this.searchFocusIndex = this.searchOptions.length - 1
+            } else {
+              this.searchFocusIndex -= 1
+            }
+          }
+        }
+      } else {
+        if (this.options.length > 0) {
+          if (this.focusIndex === null) {
+            this.focusIndex = 0
+          } else {
+            if (this.focusIndex === 0) {
+              this.focusIndex = this.options.length - 1
+            } else {
+              this.focusIndex -= 1
+            }
+          }
+        }
       }
     }
   },
@@ -326,12 +386,33 @@ export default {
     store (val) {
       this.$emit('input', val)
     },
-    isFocus (val) {
-      if (!val) {
+    isFocus (focus) {
+      if (focus) {
+        //  open first time
+        !this.initialized && (this.initialized = true)
+
+        this.addListener()
+      } else {
+        //  close
         if (this.editable || this.searchable) {
+          this.searchText = ''
           this.$emit('edit-change', '')
         }
+
+        //  clear focus index
+        this.focusIndex = null
+        this.searchFocusIndex = null
+
+        this.removeListener()
       }
+    },
+    focusIndex (val, old) {
+      if (old !== null) this.action(this.options[old], 'blur')
+      if (val !== null) this.action(this.options[val], 'focus')
+    },
+    searchFocusIndex (val, old) {
+      if (old !== null) this.searchOptions[old].focusSelect()
+      if (val !== null) this.action(this.searchOptions[val], 'focus')
     }
   },
 

@@ -69,7 +69,7 @@ export default {
             class: 't-select__editor',
             style: {
               'display': parent.editable || parent.searchable ? 'block' : 'none'
-            },
+            }
           }, [h('input', {
             class: 't-select__editor-input',
             domProps: {
