@@ -3,6 +3,7 @@ import Vue from 'vue'
 import PositionHelper from '../../mixins/positionHelper'
 import Emitter from '../../mixins/emitter'
 let DropMenu
+let OptionMenu
 
 export default {
   name: 't-select-drop-menu',
@@ -14,7 +15,8 @@ export default {
       Instance: null,
       isInit: false,
       list: null,
-      arrowRight: false
+      arrowRight: false,
+      arrowTop: false
     }
   },
 
@@ -31,10 +33,6 @@ export default {
 
   created () {
     this.$on('fresh-position', this.setListPosition)
-  },
-
-  mounted () {
-    this.initSelectLabel()
   },
 
   updated () {
@@ -54,6 +52,9 @@ export default {
       const parent = this.select
 
       DropMenu = new Vue({
+        props: {
+          isFocus: _this.isFocus
+        },
         data: {
           parent: parent
         },
@@ -64,7 +65,11 @@ export default {
               'display': _this.isFocus ? 'block' : 'none'
             }
           }, [h('div', {
-            class: ['t-select__arrow-up', _this.arrowRight ? 't-select__arrow-up--right' : '']
+            class: [
+              't-select__arrow-up',
+              _this.arrowRight ? 't-select__arrow-up--right' : '',
+              _this.arrowTop ? 't-select__arrow-up--top' : ''
+            ]
           }), h('div', {
             class: 't-select__editor',
             style: {
@@ -94,8 +99,7 @@ export default {
                 _this.action(parent, 'add-custom-tag')
               }
             }
-          })
-          ]), h('ul', {
+          })]), h('ul', {
             class: 't-select__drop-menu',
             ref: 'list',
             style: {
@@ -107,8 +111,7 @@ export default {
             style: {
               'display': parent.isSearching ? 'block' : 'none'
             }
-          }, [_this.$slots.search])
-          ])
+          }, [_this.$slots.search]), h(OptionMenu)])
         },
         methods: {
           remove () {
@@ -127,13 +130,13 @@ export default {
 
       this.setListPosition()
 
-      window.onresize = () => {
-        this.setListPosition()
+      window.onresize = function () {
+        _this.setListPosition()
       }
 
-      window.onscroll = () => {
-        this.setListPosition()
-      }
+      document.addEventListener('scroll', function () {
+        _this.setListPosition()
+      }, true)
 
       this.isInit = true
 
@@ -142,48 +145,38 @@ export default {
 
     setListPosition () {
       const parent = this.select
-      if (parent.isFocus) {
-        let offsetLeft = this.getElementLeft(parent.$el)
-        let listWidth = this.list.offsetWidth
 
-        if (listWidth + offsetLeft >= document.body.offsetWidth) {
-          offsetLeft -= listWidth - parent.$el.offsetWidth
+      if (parent.isFocus) {
+        let parentViewLeft = this.getElementViewLeft(parent.$el)
+        let parentViewTop = this.getElementViewTop(parent.$el)
+
+        let parentOffsetHeight = parent.$el.offsetHeight
+        let parentOffsetWidth = parent.$el.offsetWidth
+        let windowViewHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+
+        let listLeft = parentViewLeft
+        let listTop = null
+
+        let listWidth = this.list.offsetWidth
+        let listHeight = this.list.offsetHeight
+
+        if (listWidth + parentViewLeft >= document.body.offsetWidth) {
+          listLeft -= listWidth - parentOffsetWidth
           this.arrowRight = true
         } else {
           this.arrowRight = false
         }
 
-        let offsetTop = this.getElementTop(parent.$el)
-        let offsetHeight = parent.$el.offsetHeight
-
-        this.list.style.left = `${offsetLeft}px`
-        this.list.style.top = `${offsetTop + offsetHeight + 5}px`
-      }
-    },
-
-    initSelectLabel () {
-      if (this.$slots.default) {
-        const _this = this
-        if (_this.select.multiple) {
-          this.$slots.default.forEach(function (el) {
-            if (el.tag) {
-              const elm = el.componentOptions.propsData
-              if (_this.select.value.indexOf(elm.val) !== -1) {
-                _this.action(_this.select, 'init-multiple-input-label', {val: elm.val, label: elm.label})
-              }
-            }
-          })
+        if (parentViewTop + listHeight + parentOffsetHeight + 5 > windowViewHeight) {
+          this.arrowTop = true
+          listTop = parentViewTop - listHeight - 5
         } else {
-          this.$slots.default.some(function (el) {
-            if (el.tag) {
-              const elm = el.componentOptions.propsData
-              if (elm.val === _this.select.value) {
-                _this.action(_this.select, 'init-input-label', elm.label)
-                return true
-              }
-            }
-          })
+          this.arrowTop = false
+          listTop = parentViewTop + parentOffsetHeight + 5
         }
+
+        this.list.style.left = `${listLeft}px`
+        this.list.style.top = `${listTop}px`
       }
     }
   },

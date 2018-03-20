@@ -32,7 +32,7 @@
   }
 
   @include e(list) {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     background-color: #fff;
     z-index: $--select-list-index;
@@ -109,6 +109,12 @@
     @include m(right) {
       right: 25px;
       left: auto;
+    }
+
+    @include m(top) {
+      top: auto;
+      bottom: -3px;
+      transform: rotate(135deg);
     }
   }
 

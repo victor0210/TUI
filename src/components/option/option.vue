@@ -52,11 +52,9 @@ export default {
       this.disabled ? e.preventDefault() : this.action(this.parent, 'select', {val: this.val, label: this.label})
     },
     focusSelect () {
-      console.log('fu')
       this.isFocus = true
     },
     blurSelect () {
-      console.log('br')
       this.isFocus = false
     },
     dispatchRegister () {

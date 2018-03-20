@@ -23,15 +23,13 @@
       <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner"/>
     </div>
 
-    <transition name="fade">
-      <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
-        <slot></slot>
-        <template slot="search">
-          <span class="t-select__drop-menu--none" v-if="searchOptionsProps.length === 0 && isSearching">暂无数据</span>
-          <t-option v-for="(o, idx) in searchOptionsProps" :key="idx" :label="o.label" :val="o.val" :disabled="o.disabled" search/>
-        </template>
-      </t-select-drop-menu>
-    </transition>
+    <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
+      <slot></slot>
+      <template slot="search">
+        <span class="t-select__drop-menu--none" v-if="searchOptionsProps.length === 0 && isSearching">暂无数据</span>
+        <t-option v-for="(o, idx) in searchOptionsProps" :key="idx" :label="o.label" :val="o.val" :disabled="o.disabled" search/>
+      </template>
+    </t-select-drop-menu>
   </div>
 </template>
 <script>
@@ -58,12 +56,18 @@ export default {
       isFocus: false,
       options: [],
       dropMenu: null,
+      searchInput: null,
+      optionMenu: null,
+      searchMenu: null,
       searchOptions: [],
       searchOptionsProps: [],
       isSearching: false,
       searchText: '',
       focusIndex: null,
       searchFocusIndex: null,
+      valueIndex: null,
+      searchFocusDirection: '', //  direction belongs to ['next', 'previous', 'none']
+      focusDirection: '',
       //  list positon datas
       inputHeight: 0
     }
@@ -96,6 +100,7 @@ export default {
 
   mounted () {
     this.validatorInput()
+    this.initSelectLabel()
     this.setStore(this.value)
   },
 
@@ -111,6 +116,9 @@ export default {
     },
     dropMenuRegister (dropMenu) {
       this.dropMenu = dropMenu
+      this.searchInput = dropMenu.children[1].children[0]
+      this.optionMenu = dropMenu.children[2]
+      this.searchMenu = dropMenu.children[3]
     },
     setStore (val) {
       this.store = val
@@ -129,8 +137,15 @@ export default {
     optionRegister (option) {
       this.options.push(option)
 
+      if (this.value === option.val || this.value.indexOf(option.val) !== -1) {
+        this.setValueIndex('', this.options.length - 1)
+        this.focusDirection = 'none'
+      }
+
       //  init label
-      if (option.val === this.value) this.setInputLabel(option.label)
+      if (option.val === this.value) {
+        this.setInputLabel(option.label)
+      }
     },
     searchOptionRegister (option) {
       this.searchOptions.push(option)
@@ -150,6 +165,7 @@ export default {
 
         this.hide()
       }
+      this.setValueIndex(val)
     },
     clearInput (e) {
       e.cancelBubble = true
@@ -206,6 +222,57 @@ export default {
     },
     setMultipleInputLabel (labels) {
       this.multipleInputLabel = labels
+    },
+
+    initMultipleLabel () {
+      const _this = this
+
+      this.setMultipleInputLabel([])
+      this.$slots.default.forEach(function (el) {
+        if (el.tag && (el.componentOptions.tag !== 't-option-group')) {
+          const elm = el.componentOptions.propsData
+          if (_this.value.indexOf(elm.val) !== -1) {
+            _this.$emit('init-multiple-input-label', {val: elm.val, label: elm.label})
+          }
+        } else if (el.tag && (el.componentOptions.tag === 't-option-group')) {
+          console.log(el.$children)
+          el.$children.forEach(function (opt) {
+            const elm = opt.componentOptions.propsData
+            if (_this.value.indexOf(elm.val) !== -1) {
+              _this.$emit('init-multiple-input-label', {val: elm.val, label: elm.label})
+            }
+          })
+        }
+      })
+    },
+
+    initSingleLabel () {
+      const _this = this
+      this.$slots.default.some(function (el) {
+        if (el.tag && (el.componentOptions.tag !== 't-option-group')) {
+          const elm = el.componentOptions.propsData
+          if (elm.val === _this.value) {
+            _this.$emit('init-input-label', elm.label)
+            return true
+          }
+        } else if (el.tag && (el.componentOptions.tag === 't-option-group')) {
+          console.log(el)
+          el.componentOptions.children.some(function (opt) {
+            if (opt.tag) {
+              const elm = opt.componentOptions.propsData
+              if (_this.value === elm.val) {
+                _this.$emit('init-input-label', elm.label)
+                return true
+              }
+            }
+          })
+        }
+      })
+    },
+
+    initSelectLabel () {
+      if (!this.$slots.default) return
+      this.multiple ? this.initMultipleLabel() : this.initSingleLabel()
     },
 
     //  editor
@@ -292,6 +359,25 @@ export default {
       return isNone
     },
 
+    initFocusIndex () {
+      this.focusDirection = 'none'
+      this.focusIndex = this.valueIndex
+    },
+
+    setValueIndex (val, index) {
+      if (index === undefined) {
+        const _this = this
+
+        this.options.forEach(function (el, idx) {
+          if (el.val === val) {
+            _this.valueIndex = idx
+          }
+        })
+      } else {
+        this.valueIndex = index
+      }
+    },
+
     keyDownHandler (e) {
       const _this = this
       switch (e.keyCode) {
@@ -322,7 +408,7 @@ export default {
         Component = this.options[this.focusIndex]
       }
 
-      this.$emit('select', {val: Component.val, label: Component.label})
+      Component && this.$emit('select', {val: Component.val, label: Component.label})
     },
 
     focusNext () {
@@ -337,6 +423,7 @@ export default {
               this.searchFocusIndex += 1
             }
           }
+          this.searchFocusDirection = 'next'
         }
       } else {
         if (this.options.length > 0) {
@@ -349,7 +436,41 @@ export default {
               this.focusIndex += 1
             }
           }
+          this.focusDirection = 'next'
         }
+      }
+    },
+
+    fixScrollTop () {
+      let list
+      let index
+      let direction
+
+      console.log(this.isSearching)
+      if (this.isSearching) {
+        console.log('s')
+        list = this.searchMenu
+        index = this.searchFocusIndex
+        direction = this.searchFocusDirection
+      } else {
+        console.log('o')
+        list = this.optionMenu
+        index = this.focusIndex
+        direction = this.focusDirection
+      }
+
+      let offsetTop = index * 40
+      let scrollStart = list.scrollTop
+      let scrollEnd = list.scrollTop + 200
+      switch (direction) {
+        case 'next':
+          if (offsetTop >= scrollEnd || offsetTop <= scrollStart) list.scrollTop = (index - 4) * 40
+          break
+        case 'previous':
+          if (offsetTop >= scrollEnd || offsetTop <= scrollStart) list.scrollTop = index * 40
+          break
+        default:
+          break
       }
     },
 
@@ -365,6 +486,7 @@ export default {
               this.searchFocusIndex -= 1
             }
           }
+          this.searchFocusDirection = 'previous'
         }
       } else {
         if (this.options.length > 0) {
@@ -377,21 +499,35 @@ export default {
               this.focusIndex -= 1
             }
           }
+          this.focusDirection = 'previous'
         }
       }
     }
   },
 
   watch: {
+    valueIndex (val) {
+      this.focusIndex = val
+    },
     store (val) {
       this.$emit('input', val)
+    },
+    value (val) {
+      this.store = val
+      this.initSelectLabel()
+      this.multiple ? this.setValueIndex(val[val.length - 1]) : this.setValueIndex(val)
     },
     isFocus (focus) {
       if (focus) {
         //  open first time
         !this.initialized && (this.initialized = true)
 
+        this.initFocusIndex()
         this.addListener()
+
+        setTimeout(() => {
+          this.searchInput.focus()
+        }, 100)
       } else {
         //  close
         if (this.editable || this.searchable) {
@@ -408,11 +544,34 @@ export default {
     },
     focusIndex (val, old) {
       if (old !== null) this.action(this.options[old], 'blur')
-      if (val !== null) this.action(this.options[val], 'focus')
+      if (val !== null) {
+        if (!this.options[val].disabled) {
+          this.action(this.options[val], 'focus')
+        } else {
+          if (this.focusDirection === 'next') {
+            this.focusNext()
+          } else if (this.focusDirection === 'previous') {
+            this.focusPrevious()
+          }
+        }
+        this.fixScrollTop()
+      }
     },
     searchFocusIndex (val, old) {
-      if (old !== null) this.searchOptions[old].focusSelect()
-      if (val !== null) this.action(this.searchOptions[val], 'focus')
+      console.log(val, old)
+      if (old !== null) this.action(this.searchOptions[old], 'blur')
+      if (val !== null) {
+        if (!this.options[val].disabled) {
+          this.action(this.searchOptions[val], 'focus')
+        } else {
+          if (this.searchFocusDirection === 'next') {
+            this.focusNext()
+          } else if (this.searchFocusDirection === 'previous') {
+            this.focusPrevious()
+          }
+        }
+        this.fixScrollTop()
+      }
     }
   },
 
@@ -423,6 +582,10 @@ export default {
       }
       return this.value === ''
     }
+  },
+
+  destroyed () {
+    this.dropMenu && this.dropMenu.remove()
   }
 }
 </script>

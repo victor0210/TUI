@@ -1,23 +1,41 @@
 export default {
   methods: {
-    getElementLeft (element) {
+    getElementViewLeft (element) {
       let actualLeft = element.offsetLeft
-      let current = element.offsetParent
-      while (current !== null) {
-        actualLeft += current.offsetLeft
-        current = current.offsetParent
+      let currentOffsetLeft = element.offsetParent
+      let currentScrollLeft = element.parentElement
+      let elementScrollLeft = 0
+
+      while (currentOffsetLeft !== null) {
+        actualLeft += currentOffsetLeft.offsetLeft
+        currentOffsetLeft = currentOffsetLeft.offsetParent
       }
-      return actualLeft
+
+      while (currentScrollLeft !== null) {
+        elementScrollLeft += currentScrollLeft.scrollLeft
+        currentScrollLeft = currentScrollLeft.parentElement
+      }
+
+      return actualLeft - elementScrollLeft
     },
 
-    getElementTop (element) {
+    getElementViewTop (element) {
       let actualTop = element.offsetTop
-      let current = element.offsetParent
-      while (current !== null) {
-        actualTop += current.offsetTop
-        current = current.offsetParent
+      let currentOffsetTop = element.offsetParent
+      let currentScrollTop = element.parentElement
+      let elementScrollTop = 0
+
+      while (currentOffsetTop !== null) {
+        actualTop += currentOffsetTop.offsetTop
+        currentOffsetTop = currentOffsetTop.offsetParent
       }
-      return actualTop
+
+      while (currentScrollTop !== null) {
+        elementScrollTop += currentScrollTop.scrollTop
+        currentScrollTop = currentScrollTop.parentElement
+      }
+
+      return actualTop - elementScrollTop
     }
   }
 }

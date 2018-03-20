@@ -11,6 +11,13 @@
             </t-select>
           </t-col>
         </t-row>
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-select label="请选择" v-model="val_3">
+              <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
+            </t-select>
+          </t-col>
+        </t-row>
       </div>
       <select-normal/>
     </div>
@@ -39,12 +46,12 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-select label="请选择" disabled>
+            <t-select label="请选择" disabled v-model="val_1">
               <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val" :disabled="o.disabled"/>
             </t-select>
           </t-col>
           <t-col :span="6">
-            <t-select label="请选择" disabled multiple v-model="val_3">
+            <t-select label="请选择" disabled multiple v-model="val_2">
               <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val" :disabled="o.disabled"/>
             </t-select>
           </t-col>
@@ -192,14 +199,14 @@ export default {
     return {
       val_1: '1',
       val_2: ['1'],
-      val_3: ['3'],
+      val_3: '3',
       val_4: '1',
       val_5: ['1'],
       val_6: 'v1',
       val_71: ['v1'],
       val_72: ['v1', 'o1'],
-      val_8: '',
-      val_9: [],
+      val_8: 'v1',
+      val_9: ['v1'],
       opt: [],
       options1: [
         {label: 'v1', val: '1'},
