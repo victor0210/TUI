@@ -116,9 +116,9 @@ export default {
     },
     dropMenuRegister (dropMenu) {
       this.dropMenu = dropMenu
-      this.searchInput = dropMenu.children[1].children[0]
-      this.optionMenu = dropMenu.children[2]
-      this.searchMenu = dropMenu.children[3]
+      this.searchInput = dropMenu.$el.children[1].children[0]
+      this.optionMenu = dropMenu.$el.children[2]
+      this.searchMenu = dropMenu.$el.children[3]
     },
     setStore (val) {
       this.store = val
@@ -520,6 +520,8 @@ export default {
     isFocus (focus) {
       if (focus) {
         //  open first time
+        this.dropMenu && this.dropMenu.show()
+
         !this.initialized && (this.initialized = true)
 
         this.initFocusIndex()
@@ -530,6 +532,8 @@ export default {
         }, 100)
       } else {
         //  close
+        this.dropMenu.hide()
+
         if (this.editable || this.searchable) {
           this.searchText = ''
           this.$emit('edit-change', '')
@@ -538,7 +542,6 @@ export default {
         //  clear focus index
         this.focusIndex = null
         this.searchFocusIndex = null
-
         this.removeListener()
       }
     },

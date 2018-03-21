@@ -60,10 +60,7 @@ export default {
         },
         render (h) {
           return h('div', {
-            class: 't-select__list',
-            style: {
-              'display': _this.isFocus ? 'block' : 'none'
-            }
+            class: 't-select__list'
           }, [h('div', {
             class: [
               't-select__arrow-up',
@@ -115,32 +112,58 @@ export default {
         },
         methods: {
           remove () {
-            console.log('remove')
+            console.log('ddd')
             this.$destroy()
             document.body.removeChild(this.$el)
+
+            //  remove position fixer
+            window.removeEventListener('resize', _this.setListPosition)
+            document.removeEventListener('scroll', _this.setListPosition, true)
+          },
+          //  very small a bug with position change: animation
+          show () {
+            this.$el.style.display = 'block'
+            setTimeout(() => {
+              this.$el.style.opacity = 1
+              this.$el.style.marginTop = 0
+            })
+          },
+          hide () {
+            this.$el.style.opacity = 0
+            console.log(_this.arrowTop, 'att')
+            this.$el.style.marginTop = _this.arrowTop ? '-10px' : '10px'
+            setTimeout(() => {
+              this.$el.style.display = 'none'
+            }, 300)
           }
         }
       })
 
       let dropComponent = DropMenu.$mount()
       let list = dropComponent.$el
+
+      //  set created transition
+      list.style.opacity = '0'
+      list.style.marginTop = '10px'
+
       document.body.appendChild(list)
+
+      setTimeout(function () {
+        list.style.opacity = '1'
+        list.style.marginTop = '0'
+      })
 
       this.list = list
 
       this.setListPosition()
 
-      window.onresize = function () {
-        _this.setListPosition()
-      }
-
-      document.addEventListener('scroll', function () {
-        _this.setListPosition()
-      }, true)
+      //  add position fixer
+      window.addEventListener('resize', this.setListPosition)
+      document.addEventListener('scroll', this.setListPosition, true)
 
       this.isInit = true
 
-      this.action(parent, 'select-drop-component-register', list)
+      this.action(parent, 'select-drop-component-register', dropComponent)
     },
 
     setListPosition () {
