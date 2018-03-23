@@ -6,60 +6,62 @@
       'is-clearable': clearable && value !== '',
     }">
       <div class="t-timepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'timerange'">
-        <i class="t-timepicker__icon t-timepicker__icon--calender fa fa-clock"></i>
+        <i class="t-timepicker__icon t-timepicker__icon--calender fa fa-clock" ref="clock_icon"></i>
         <input type="text" readonly class="t-timepicker__inner" ref="inner" :placeholder="placeholder" :value="label">
         <i class="t-timepicker__icon t-timepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
       </div>
     </label>
     <transition name="fade">
-      <div class="t-timepicker__select-panel" v-show="isFocus && type !== 'timerange'">
-        <div class="t-timepicker__wrapper">
-          <div class="t-timepicker__cover-top"></div>
-          <div class="t-timepicker__cover"></div>
-          <div class="t-timepicker__cover-bottom"></div>
-          <div class="t-timepicker__hour t-timepicker__select-column">
-            <ul ref="hour_list" @mouseleave="mouseLeaveHandler('h')">
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li v-for="(h, idx) in hours" :key="h" :class="[
+      <time-picker-drop-menu :is-focus="isFocus" :select="self" v-if="isFocus">
+        <div class="t-timepicker__select-panel" v-show="isFocus && type !== 'timerange'">
+          <div class="t-timepicker__wrapper">
+            <div class="t-timepicker__cover-top"></div>
+            <div class="t-timepicker__cover"></div>
+            <div class="t-timepicker__cover-bottom"></div>
+            <div class="t-timepicker__hour t-timepicker__select-column">
+              <ul ref="hour_list" @mouseleave="mouseLeaveHandler('h')">
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li v-for="(h, idx) in hours" :key="h" :class="[
                 't-timepicker__list-item',
                 scrollTops.h <= (idx + 1) * 30 - 15 && scrollTops.h > idx * 30 - 15 ? 'is-focus' : ''
               ]" @click="setTimeValue('h', h)">{{ h }}</li>
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-            </ul>
-          </div>
-          <div class="t-timepicker__minute t-timepicker__select-column">
-            <ul ref="minute_list" @mouseleave="mouseLeaveHandler('m')">
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li v-for="(m, idx) in minutes" :key="m" :class="[
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+              </ul>
+            </div>
+            <div class="t-timepicker__minute t-timepicker__select-column">
+              <ul ref="minute_list" @mouseleave="mouseLeaveHandler('m')">
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li v-for="(m, idx) in minutes" :key="m" :class="[
                 't-timepicker__list-item',
                 scrollTops.m <= (idx + 1) * 30 - 15 && scrollTops.m > idx * 30 - 15 ? 'is-focus' : ''
               ]" @click="setTimeValue('m', m)">{{ m }}</li>
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-            </ul>
-          </div>
-          <div class="t-timepicker__second t-timepicker__select-column">
-            <ul ref="second_list" @mouseleave="mouseLeaveHandler('s')">
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li v-for="(s, idx) in seconds" :key="s" :class="[
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+              </ul>
+            </div>
+            <div class="t-timepicker__second t-timepicker__select-column">
+              <ul ref="second_list" @mouseleave="mouseLeaveHandler('s')">
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li v-for="(s, idx) in seconds" :key="s" :class="[
                 't-timepicker__list-item',
                 scrollTops.s <= (idx + 1) * 30 - 15 && scrollTops.s > idx * 30 - 15 ? 'is-focus' : ''
               ]" @click="setTimeValue('s', s)">{{ s }}</li>
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-              <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
-            </ul>
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+                <li class="t-timepicker__list-fill"></li>   <!--填充高度-->
+              </ul>
+            </div>
+          </div>
+          <div class="t-timepicker__bottom">
+            <t-button type="text" size="sm" @click="submitValue">确认</t-button>
           </div>
         </div>
-        <div class="t-timepicker__bottom">
-          <t-button type="text" size="sm" @click="submitValue">确认</t-button>
+        <div class="t-timepicker__select-panel is-range" v-if="isFocus && type === 'timerange'">
         </div>
-      </div>
-      <div class="t-timepicker__select-panel is-range" v-if="isFocus && type === 'timerange'">
-      </div>
+      </time-picker-drop-menu>
     </transition>
   </div>
 </template>
@@ -67,9 +69,14 @@
 <script>
 import DateHelper from '../../mixins/dateHelper.js'
 import Emitter from '../../mixins/emitter'
+import TimePickerDropMenu from './timepicker-drop-menu'
 
 //  TODO add range/ disabled rules
 export default {
+  components: {
+    TimePickerDropMenu
+  },
+
   name: 't-time-picker',
 
   mixins: [DateHelper, Emitter],
@@ -82,6 +89,7 @@ export default {
 
   data () {
     return {
+      self: this,
       isFocus: false,
       store: {
         h: null,
@@ -182,9 +190,11 @@ export default {
       }
     },
     initListScroll () {
-      this.$refs.hour_list.scrollTop = this.scrollTops.h + 30
-      this.$refs.minute_list.scrollTop = this.scrollTops.m + 30
-      this.$refs.second_list.scrollTop = this.scrollTops.s + 30
+      setTimeout(() => {
+        this.$refs.hour_list.scrollTop = this.scrollTops.h
+        this.$refs.minute_list.scrollTop = this.scrollTops.m
+        this.$refs.second_list.scrollTop = this.scrollTops.s
+      })
     },
     setScrollTop (column, scrollTop = 0) {
       this.scrollTops[column] = scrollTop
@@ -232,10 +242,13 @@ export default {
       this.setScrollTop(type, st)
     },
     setTimeValue (type, v) {
+      console.log('123')
       const st = v * 30
       this.fixScrollTop(type, st)
     },
+
     submitValue () {
+      console.log('submit click')
       const {h, m, s} = this.scrollTops
       this.store = {
         h: (h / 30),
@@ -252,7 +265,7 @@ export default {
         true // Capture event
       )
       document.addEventListener('keydown', this.keyDownHandler)
-      document.addEventListener('click', this.clickBlurSelect, true)
+      document.addEventListener('click', this.clickBlurSelect)
     },
     removeListener () {
       document.removeEventListener(
@@ -263,12 +276,14 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect, true)
     },
     clickBlurSelect (e) {
+      console.log(this.$refs.submit_btn)
       //  add blur listener to some element which couldn't auto fire checkout
       const className = e.target.className
       this.clickCancelEl = [this.$refs.box]
         .concat(this.$refs.clear)
         .concat(this.$refs.inner)
         .concat(this.$refs.switch_date)
+        .concat(this.$refs.clock_icon)
       if (className.indexOf('t-timepicker__list-item') === -1 &&
         className.indexOf('t-timepicker__list-fill') === -1 &&
         this.clickCancelEl.indexOf(e.target) === -1) {
@@ -291,14 +306,17 @@ export default {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     },
     store ({h, m, s}) {
+      console.log('store change')
       let d = new Date()
       d.setHours(h)
       d.setMinutes(m)
       d.setSeconds(s)
 
       if (this.valueFormat !== 'timestamp') {
+        console.log('timstamp')
         this.$emit('input', DateHelper.format(d, this.valueFormat))
       } else {
+        console.log('nottimestap')
         this.$emit('input', d.getTime())
       }
     }

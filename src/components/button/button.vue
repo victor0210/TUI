@@ -1,7 +1,6 @@
 <template>
   <button
     class="t-btn"
-    @click="handleClick"
     :icon="icon"
     :disabled="disabled"
     :autofocus="autofocus"
@@ -13,6 +12,7 @@
       round ? 'is-round' : '',
       outline ? 'is-outline' : ''
     ]"
+    @click="handleClick"
     @mouseenter="mouseEnterHandler"
     @mouseleave="mouseLeaveHandler"
     @mouseover="mouseOverHandler"
@@ -53,8 +53,8 @@ export default {
     round: Boolean
   },
   methods: {
-    handleClick (evt) {
-      this.$emit('click', evt)
+    handleClick (e) {
+      this.$emit('click', e)
     },
     mouseEnterHandler (e) {
       this.$emit('mouseenter', e)
