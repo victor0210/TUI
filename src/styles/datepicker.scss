@@ -14,6 +14,12 @@
     cursor: pointer;
   }
 
+  @include e(wrapper) {
+    position: fixed;
+    display: inline-block;
+    transition: transform .2s ease-in, opacity .2s ease-in;
+  }
+
   @include e(icon) {
     width: 12px;
     height: 14px;
@@ -39,8 +45,7 @@
     border-radius: 4px;
     transition: all .2s;
     min-width: 150px;
-    margin-top: 5px;
-    position: absolute;
+    position: relative;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     background-color: #fff;
     line-height: 40px;
@@ -418,4 +423,6 @@
       }
     }
   }
+
+  @include drop-arrow();
 }

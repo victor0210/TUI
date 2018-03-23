@@ -16,141 +16,150 @@
       <span class="t-datepicker__addon"> 至 </span>
       <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput">
     </div>
-    <transition name="fade">
-      <div class="t-datepicker__select-panel" v-if="isFocus && type !== 'daterange'">
-        <section class="t-datepicker__date" v-if="typeIndex === 3">
-          <div class="t-datepicker__header">
-            <span class="t-datepicker__pointer" @click="changeType(typeIndexes.year)">{{ this.dateIndex.year + '年' }}</span> <span class="t-datepicker__pointer" @click="changeType(typeIndexes.month)">{{ this.dateIndex.month + 1 + '月' }}</span>
-            <span class="t-datepicker__header--left">
-              <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
-              <i class="fa fa-angle-left t-datepicker__date-switcher" @click="previousMonth"></i>
-            </span>
-            <span class="t-datepicker__header--right">
-              <i class="fa fa-angle-right t-datepicker__date-switcher" @click="nextMonth"></i>
-              <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
-            </span>
-          </div>
-          <table class="t-datepicker__table-list">
-            <tr class="t-datepicker__title">
-              <th v-for="t in dateTitles" :key="t">{{ t }}</th>
-            </tr>
-            <tr v-for="i in 6" :key="i">
-              <td v-for="d in 7" :key="d" @click.prevent="setTrueValue(singleSelect.dates[(i - 1) * 7 + (d - 1)].val)" :class="[
-                't-datepicker__list-item',
-                singleSelect.dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
-                singleSelect.dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select-bak' : '',
-                singleSelect.dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
-                singleSelect.dates[(i - 1) * 7 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : '',
-                ]"><span class="t-datepicker__item-inner">{{ singleSelect.dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
-            </tr>
-          </table>
-        </section>
-        <section class="t-datepicker__month" v-if="typeIndex === 2">
-          <div class="t-datepicker__header">
-            <span class="t-datepicker__pointer" @click="changeType(typeIndexes.year)">{{ this.dateIndex.year + '年' }}</span>
-            <span class="t-datepicker__header--left">
-              <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
-            </span>
-            <span class="t-datepicker__header--right">
-              <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
-            </span>
-          </div>
-          <table class="t-datepicker__table-list">
-            <tr v-for="i in 3" :key="i">
-              <td v-for="d in 4" :key="d" @click="setTrueValue(months[(i - 1) * 4 + (d - 1)].val)" :class="[
-                't-datepicker__list-item',
-                months[(i - 1) * 4 + (d - 1)].isCurrent ? 'is-current' : '',
-                months[(i - 1) * 4 + (d - 1)].isSelect ? 'is-select-bak' : '',
-                months[(i - 1) * 4 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
-                ]"><span class="t-datepicker__item-inner">{{ months[(i - 1) * 4 + (d - 1)].label }}</span></td>
-            </tr>
-          </table>
-        </section>
-        <section class="t-datepicker__year" v-if="typeIndex === 1">
-          <div class="t-datepicker__header">
-            {{ `${this.years[0].label}年 - ${this.years[9].label}年` }}
-            <span class="t-datepicker__header--left">
-              <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousTenYear"></i>
-            </span>
-            <span class="t-datepicker__header--right">
-              <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextTenYear"></i>
-            </span>
-          </div>
-          <section class="t-datepicker__year-list">
-            <div v-for="d in 10" :key="d" @click="setTrueValue(years[(d - 1)].val)" class="t-datepicker__list-item">
-              <span :class="[
-                't-datepicker__item-inner',
-                years[(d - 1)].isCurrent ? 'is-current' : '',
-                years[(d - 1)].isSelect ? 'is-select-bak' : '',
-                years[(d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
-                ]">{{ years[(d - 1)].label }}</span>
+    <datepicker-drop-menu :select="self" :is-focus="isFocus" v-if="isFocus">
+      <transition name="fade">
+      <template>
+        <div class="t-datepicker__select-panel" v-if="type !== 'daterange'">
+          <section class="t-datepicker__date" v-if="typeIndex === 3">
+            <div class="t-datepicker__header">
+              <span class="t-datepicker__pointer" @click="changeType(typeIndexes.year)">{{ this.dateIndex.year + '年' }}</span> <span class="t-datepicker__pointer" @click="changeType(typeIndexes.month)">{{ this.dateIndex.month + 1 + '月' }}</span>
+              <span class="t-datepicker__header--left">
+            <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
+            <i class="fa fa-angle-left t-datepicker__date-switcher" @click="previousMonth"></i>
+          </span>
+              <span class="t-datepicker__header--right">
+            <i class="fa fa-angle-right t-datepicker__date-switcher" @click="nextMonth"></i>
+            <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
+          </span>
             </div>
+            <table class="t-datepicker__table-list">
+              <tr class="t-datepicker__title">
+                <th v-for="t in dateTitles" :key="t">{{ t }}</th>
+              </tr>
+              <tr v-for="i in 6" :key="i">
+                <td v-for="d in 7" :key="d" @click.prevent="setTrueValue(singleSelect.dates[(i - 1) * 7 + (d - 1)].val)" :class="[
+              't-datepicker__list-item',
+              singleSelect.dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
+              singleSelect.dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+              singleSelect.dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
+              singleSelect.dates[(i - 1) * 7 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : '',
+              ]"><span class="t-datepicker__item-inner">{{ singleSelect.dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
+              </tr>
+            </table>
           </section>
-        </section>
-      </div>
-      <div class="t-datepicker__select-panel is-range" v-if="isFocus && type === 'daterange'">
-        <section class="t-datepicker__date">
-          <div class="t-datepicker__header">
-            {{ rangeLeftLabel }}
-            <span class="t-datepicker__header--left">
-              <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
-              <i class="fa fa-angle-left t-datepicker__date-switcher" @click="previousMonth"></i>
-            </span>
-          </div>
-          <table class="t-datepicker__table-list">
-            <tr class="t-datepicker__title">
-              <th v-for="t in dateTitles" :key="t">{{ t }}</th>
-            </tr>
-            <tr v-for="i in 6" :key="i">
-              <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
-                't-datepicker__list-item',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select-bak' : '',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
-                rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeEnd ? 'is-range-end' : ''
-                ]"><span class="t-datepicker__item-inner">{{ rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
-            </tr>
-          </table>
-        </section>
-        <section class="t-datepicker__date">
-          <div class="t-datepicker__header">
-            <!--{{ this.dateIndex.year + '年' + (this.dateIndex.month + 2) + '月' }}-->
-            {{ rangeRightLabel }}
-            <span class="t-datepicker__header--right">
-              <i class="fa fa-angle-right t-datepicker__date-switcher" @click="nextMonth"></i>
-              <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
-            </span>
-          </div>
-          <table class="t-datepicker__table-list">
-            <tr class="t-datepicker__title">
-              <th v-for="t in dateTitles" :key="t">{{ t }}</th>
-            </tr>
-            <tr v-for="i in 6" :key="i">
-              <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
-                't-datepicker__list-item',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select-bak' : '',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
-                rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeEnd ? 'is-range-end' : ''
-                ]"><span class="t-datepicker__item-inner">{{ rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
-            </tr>
-          </table>
-        </section>
-      </div>
-    </transition>
+          <section class="t-datepicker__month" v-if="typeIndex === 2">
+            <div class="t-datepicker__header">
+              <span class="t-datepicker__pointer" @click="changeType(typeIndexes.year)">{{ this.dateIndex.year + '年' }}</span>
+              <span class="t-datepicker__header--left">
+            <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
+          </span>
+              <span class="t-datepicker__header--right">
+            <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
+          </span>
+            </div>
+            <table class="t-datepicker__table-list">
+              <tr v-for="i in 3" :key="i">
+                <td v-for="d in 4" :key="d" @click="setTrueValue(months[(i - 1) * 4 + (d - 1)].val)" :class="[
+              't-datepicker__list-item',
+              months[(i - 1) * 4 + (d - 1)].isCurrent ? 'is-current' : '',
+              months[(i - 1) * 4 + (d - 1)].isSelect ? 'is-select' : '',
+              months[(i - 1) * 4 + (d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
+              ]"><span class="t-datepicker__item-inner">{{ months[(i - 1) * 4 + (d - 1)].label }}</span></td>
+              </tr>
+            </table>
+          </section>
+          <section class="t-datepicker__year" v-if="typeIndex === 1">
+            <div class="t-datepicker__header">
+              {{ `${this.years[0].label}年 - ${this.years[9].label}年` }}
+              <span class="t-datepicker__header--left">
+            <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousTenYear"></i>
+          </span>
+              <span class="t-datepicker__header--right">
+            <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextTenYear"></i>
+          </span>
+            </div>
+            <section class="t-datepicker__year-list">
+              <div v-for="d in 10" :key="d" @click="setTrueValue(years[(d - 1)].val)" class="t-datepicker__list-item">
+            <span :class="[
+              't-datepicker__item-inner',
+              years[(d - 1)].isCurrent ? 'is-current' : '',
+              years[(d - 1)].isSelect ? 'is-select' : '',
+              years[(d - 1)].val.getTime() === focusDate ? 'is-focus' : ''
+              ]">{{ years[(d - 1)].label }}</span>
+              </div>
+            </section>
+          </section>
+        </div>
+        <div class="t-datepicker__select-panel is-range" v-if="type === 'daterange'">
+          <section class="t-datepicker__date">
+            <div class="t-datepicker__header">
+              {{ rangeLeftLabel }}
+              <span class="t-datepicker__header--left">
+            <i class="fa fa-angle-double-left t-datepicker__date-switcher" @click.prevent="previousYear"></i>
+            <i class="fa fa-angle-left t-datepicker__date-switcher" @click="previousMonth"></i>
+          </span>
+            </div>
+            <table class="t-datepicker__table-list">
+              <tr class="t-datepicker__title">
+                <th v-for="t in dateTitles" :key="t">{{ t }}</th>
+              </tr>
+              <tr v-for="i in 6" :key="i">
+                <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
+              't-datepicker__list-item',
+              rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
+              rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+              rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
+              rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
+              rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
+              rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].isRangeEnd ? 'is-range-end' : ''
+              ]"><span class="t-datepicker__item-inner">{{ rangeSelect[0].dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
+              </tr>
+            </table>
+          </section>
+          <section class="t-datepicker__date">
+            <div class="t-datepicker__header">
+              <!--{{ this.dateIndex.year + '年' + (this.dateIndex.month + 2) + '月' }}-->
+              {{ rangeRightLabel }}
+              <span class="t-datepicker__header--right">
+            <i class="fa fa-angle-right t-datepicker__date-switcher" @click="nextMonth"></i>
+            <i class="fa fa-angle-double-right t-datepicker__date-switcher" @click="nextYear"></i>
+          </span>
+            </div>
+            <table class="t-datepicker__table-list">
+              <tr class="t-datepicker__title">
+                <th v-for="t in dateTitles" :key="t">{{ t }}</th>
+              </tr>
+              <tr v-for="i in 6" :key="i">
+                <td v-for="d in 7" :key="d" @mouseenter="rangeHoverHandler(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" @click.prevent="setRangeValue(rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].val)" :class="[
+              't-datepicker__list-item',
+              rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isCurrent ? 'is-current' : '',
+              rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isSelect ? 'is-select' : '',
+              rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].disabled ? 'is-disabled' : '',
+              rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeBetween ? 'is-range-between' : '',
+              rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeStart ? 'is-range-start' : '',
+              rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].isRangeEnd ? 'is-range-end' : ''
+              ]"><span class="t-datepicker__item-inner">{{ rangeSelect[1].dates[(i - 1) * 7 + (d - 1)].label }}</span></td>
+              </tr>
+            </table>
+          </section>
+        </div>
+        </template>
+      </transition>
+    </datepicker-drop-menu>
   </div>
 </template>
 
 <script>
 import DateHelper from '../../mixins/dateHelper.js'
 import Emitter from '../../mixins/emitter'
+import DatepickerDropMenu from './datepicker-drop-menu.vue'
 
 //  TODO: add disabled rules
 export default {
+  components: {
+    DatepickerDropMenu
+  },
+
   name: 't-date-picker',
 
   mixins: [DateHelper, Emitter],
@@ -163,6 +172,8 @@ export default {
 
   data () {
     return {
+      self: this,
+      initialized: false,
       isFocus: false,
       store: null,
       typeIndexes: {
@@ -228,6 +239,12 @@ export default {
     format: String
   },
 
+  created () {
+    this.$on('select', this.selectHandler)
+    this.$on('hide', this.hideHandler)
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
+  },
   mounted () {
     if (new Date(this.value).toString() !== 'Invalid Date') {
       const d = new Date(this.value)
@@ -239,11 +256,6 @@ export default {
     }
 
     this.typeIndex = this.typeIndexes[this.type]
-
-    this.$on('select', this.selectHandler)
-    this.$on('hide', this.hideHandler)
-    this.$on('reset', this.reset)
-    this.$on('submit', this.submit)
   },
   methods: {
     reset () {
@@ -263,6 +275,7 @@ export default {
       this.isFocus = !this.isFocus
       this.isFocus ? this.addListener() : this.removeListener()
       if (this.isFocus) {
+        if (!this.initialized) this.initialized = true
         this.dateIndex = this.dateIndexMirror
         this.typeIndex = this.typeIndexes[this.type]
       } else {
@@ -379,6 +392,7 @@ export default {
       }
       day = new Date(year, month, date)
 
+      console.log(year, month, date)
       this.keyboardFocusIndex = {
         year: day.getFullYear(),
         month: day.getMonth(),
@@ -570,6 +584,9 @@ export default {
     }
   },
   watch: {
+    keyboardFocusIndex () {
+      console.log('kbic')
+    },
     value (val) {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)

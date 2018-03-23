@@ -32,6 +32,7 @@
     top: -4px;
     left: 25px;
     z-index: $--select-list-index + 1;
+    transition: opacity .2s;
 
     @include m(right) {
       right: 25px;

@@ -112,7 +112,6 @@ export default {
         },
         methods: {
           remove () {
-            console.log('ddd')
             this.$destroy()
             document.body.removeChild(this.$el)
 
