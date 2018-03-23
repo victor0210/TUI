@@ -11,13 +11,6 @@
             </t-select>
           </t-col>
         </t-row>
-        <t-row :gutter="20">
-          <t-col :span="6">
-            <t-select label="请选择" v-model="val_3">
-              <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
-            </t-select>
-          </t-col>
-        </t-row>
       </div>
       <select-normal/>
     </div>

@@ -1,11 +1,11 @@
 <template>
   <li>
-    <div class="t-cascader-option" @hover="handleHover" @click="handleClick" :class="{
+    <div class="t-cascader-option" :class="{
       'is-selected': isSelect,
       'is-focus' : isFocus,
-      'is-choosing': isChoosing,
+      // 'is-choosing': isChoosing,
       'is-disabled' : disabled
-    }"><span v-html="label" class="t-cascader-option__keyword"></span><i class="t-cascader-option__check fa fa-chevron-right" v-if="!!children"></i>
+    }" @click="handleClick"><span v-html="label" class="t-cascader-option__keyword"></span><i class="t-cascader-option__check fa fa-chevron-right" v-if="!!children"></i>
     </div>
   </li>
 </template>
@@ -28,17 +28,19 @@ export default {
     disabled: Boolean,
     val: {},
     children: {},
-    pos: Number,
-    pidx: {
-      type: String,
-      default: ''
-    },
-    idx: String,
+    pIndex: String, //  position index
+    vIndex: String, //  value index
+    lIndex: String, //  label index
     search: Boolean
   },
 
   beforeMount () {
     this.getParent()
+  },
+
+  created () {
+    this.$on('blur', this.blurSelect)
+    this.$on('focus', this.focusSelect)
   },
 
   mounted () {
@@ -47,38 +49,40 @@ export default {
 
   methods: {
     dispatchRegister () {
-      this.search ? this.dispatch('t-cascader', 'search-option-register', this) : this.dispatch('t-cascader', 'option-register', this)
+      this.search ? this.action(this.parent, 'search-option-register', this) : this.action(this.parent, 'option-register', this)
     },
     handleClick (e) {
       if (!this.disabled) {
-        this.search ? this.dispatch('t-cascader', 'select-bak-search', {e, val: this.idx.split('-')}) : this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children})
+        // this.search ? this.dispatch('t-cascader', 'select-bak-search', {e, val: this.idx.split('-')}) : this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children})
+        this.action(this.parent, 'select', this)
       }
     },
-    handleHover (e) {
-      !this.disabled && this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children, hover: true})
-    },
+    // handleHover (e) {
+    //   !this.disabled && this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children, hover: true})
+    // },
     focusSelect () {
       this.isFocus = true
     },
     blurSelect () {
       this.isFocus = false
     },
-    getParent (c = this) {
-      c.$parent.$options.name === 't-cascader' ? (this.parent = c.$parent) : this.getParent(c.$parent)
+    getParent () {
+      this.parent = this.$parent.parent
     }
   },
 
   computed: {
     isSelect () {
-      return this.parent.valueIndex.indexOf(this.idx) === 0 && !this.search
-    },
-    isChoosing () {
-      return this.parent.selectIndex.indexOf(this.idx) === 0 && !this.search
+      return this.parent.selectIndex.indexOf(this.pIndex) === 0
     }
+    // isChoosing () {
+    //   return this.parent.selectIndex.indexOf(this.idx) === 0 && !this.search
+    // }
   },
 
   beforeDestroy () {
-    this.search ? this.dispatch('t-cascader', 'search-option-bumper') : this.dispatch('t-cascader', 'option-bumper', this)
+    console.log(this, 'option remove')
+    this.search ? this.action(this.parent, 'search-option-bumper', this) : this.action(this.parent, 'option-bumper', this)
   }
 }
 

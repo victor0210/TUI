@@ -37,6 +37,7 @@ import TSelectDropMenu from './select-drop-menu'
 import Emitter from '../../mixins/emitter'
 import ArrayHelper from '../../mixins/arrayHelper'
 
+//  TODO: fix: options change emit label init
 export default {
   components: {
     TSelectDropMenu
@@ -68,6 +69,7 @@ export default {
       valueIndex: null,
       searchFocusDirection: '', //  direction belongs to ['next', 'previous', 'none']
       focusDirection: '',
+      slotsCache: null,
       //  list positon datas
       inputHeight: 0
     }
@@ -153,8 +155,8 @@ export default {
     optionBumper () {
       this.options.pop()
     },
-    searchOptionBumper () {
-      this.searchOptions.pop()
+    searchOptionBumper (option) {
+      this.searchOptions = ArrayHelper.removeFromStore(this.searchOptions, option)
     },
     selectHandler ({val, label}) {
       if (this.multiple) {
@@ -221,6 +223,7 @@ export default {
       this.setMultipleInputLabel(ArrayHelper.removeFromStoreByKey(this.multipleInputLabel, 'val', val))
     },
     setMultipleInputLabel (labels) {
+      console.log(labels, 'labels')
       this.multipleInputLabel = labels
     },
 
@@ -228,22 +231,36 @@ export default {
       const _this = this
 
       this.setMultipleInputLabel([])
+      let selfIndexes = []
+
       this.$slots.default.forEach(function (el) {
         if (el.tag && (el.componentOptions.tag !== 't-option-group')) {
           const elm = el.componentOptions.propsData
-          if (_this.value.indexOf(elm.val) !== -1) {
+          const selfIndex = _this.value.indexOf(elm.val)
+          if (selfIndex !== -1) {
+            selfIndexes.push(selfIndex)
             _this.$emit('init-multiple-input-label', {val: elm.val, label: elm.label})
           }
         } else if (el.tag && (el.componentOptions.tag === 't-option-group')) {
-          console.log(el.$children)
           el.$children.forEach(function (opt) {
             const elm = opt.componentOptions.propsData
-            if (_this.value.indexOf(elm.val) !== -1) {
+            const selfIndex = _this.value.indexOf(elm.val)
+            if (selfIndex !== -1) {
+              selfIndexes.push(selfIndex)
               _this.$emit('init-multiple-input-label', {val: elm.val, label: elm.label})
             }
           })
         }
       })
+
+      //  init custom tags
+      if (this.editable) {
+        this.store.forEach(function (el, idx) {
+          if (selfIndexes.indexOf(idx) === -1) {
+            _this.$emit('init-multiple-input-label', {val: el, label: el})
+          }
+        })
+      }
     },
 
     initSingleLabel () {
@@ -280,6 +297,7 @@ export default {
       //  doSearch
       this.searchOptionsProps = []
       this.searchText = val
+      this.searchFocusIndex = null
 
       if (val !== '') {
         this.isSearching = true
@@ -470,6 +488,7 @@ export default {
           if (offsetTop >= scrollEnd || offsetTop <= scrollStart) list.scrollTop = index * 40
           break
         default:
+          if (offsetTop >= scrollEnd || offsetTop <= scrollStart) list.scrollTop = (index - 2) * 40
           break
       }
     },
@@ -527,17 +546,17 @@ export default {
         this.initFocusIndex()
         this.addListener()
 
+        if (this.editable || this.searchable) {
+          this.searchText = ''
+          this.$emit('edit-change', '')
+        }
+
         setTimeout(() => {
           this.searchInput.focus()
         }, 100)
       } else {
         //  close
         this.dropMenu.hide()
-
-        if (this.editable || this.searchable) {
-          this.searchText = ''
-          this.$emit('edit-change', '')
-        }
 
         //  clear focus index
         this.focusIndex = null

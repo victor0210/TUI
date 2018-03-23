@@ -13,6 +13,11 @@
     pointer-events: none;
   }
 
+  &:hover {
+    background-color: lighten(#f5f7fa, 1.5%);
+    color: $--color-primary;
+  }
+
   @include when(selected) {
     background-color: #fff;
     color: $--color-primary;
@@ -28,12 +33,7 @@
     color: $--color-primary;
   }
 
-  &.is-focus.is-choosing {
-    background-color: #f5f7fa;
-    color: $--color-primary;
-  }
-
-  &:hover {
+  &.is-focus {
     background-color: #f5f7fa;
     color: $--color-primary;
   }

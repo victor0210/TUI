@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/mixins";
 @import "mixins/select";
+@import "mixins/drop";
 
 @include b(select) {
   @include select-input-variant();
@@ -38,7 +39,7 @@
     z-index: $--select-list-index;
     border-radius: 4px;
     box-shadow: 1px 1px 10px 1px #eee;
-    transition: margin-top .3s ease-out, opacity .3s ease-out;
+    transition: transform .2s ease-in, opacity .2s ease-in;
   }
 
   @include e(drop-menu) {
@@ -69,7 +70,7 @@
     min-width: 150px;
     background-color: #fff;
     line-height: 30px;
-    height: 30px;
+    height: 36px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     border-bottom: none;
@@ -96,34 +97,7 @@
     }
   }
 
-  @include e(arrow-up) {
-    position: absolute;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    content: '';
-    border-style: solid;
-    border-width: 5px;
-    border-color: #fff #fff transparent transparent;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    -webkit-box-shadow: 1px -1px 1px #ccc;
-    box-shadow: 1px -1px 1px #ccc;
-    top: -4px;
-    left: 25px;
-    z-index: $--select-list-index;
-
-    @include m(right) {
-      right: 25px;
-      left: auto;
-    }
-
-    @include m(top) {
-      top: auto;
-      bottom: -3px;
-      transform: rotate(135deg);
-    }
-  }
+  @include drop-arrow();
 
   @include e(add-tag) {
     position: absolute;

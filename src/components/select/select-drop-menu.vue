@@ -79,7 +79,7 @@ export default {
               value: _this.searchText
             },
             on: {
-              keyup: e => {
+              input: e => {
                 _this.action(parent, 'edit-change', e.target.value)
               }
             }
@@ -122,19 +122,14 @@ export default {
           },
           //  very small a bug with position change: animation
           show () {
-            this.$el.style.display = 'block'
-            setTimeout(() => {
-              this.$el.style.opacity = 1
-              this.$el.style.marginTop = 0
-            })
+            this.$el.style.transformOrigin = _this.arrowTop ? 'bottom' : 'top'
+            this.$el.style.transform = 'rotateX(0)'
+            this.$el.style.opacity = 1
           },
           hide () {
+            this.$el.style.transformOrigin = _this.arrowTop ? 'bottom' : 'top'
             this.$el.style.opacity = 0
-            console.log(_this.arrowTop, 'att')
-            this.$el.style.marginTop = _this.arrowTop ? '-10px' : '10px'
-            setTimeout(() => {
-              this.$el.style.display = 'none'
-            }, 300)
+            this.$el.style.transform = 'rotateX(90deg)'
           }
         }
       })
@@ -143,14 +138,11 @@ export default {
       let list = dropComponent.$el
 
       //  set created transition
-      list.style.opacity = '0'
-      list.style.marginTop = '10px'
-
+      dropComponent.hide()
       document.body.appendChild(list)
 
       setTimeout(function () {
-        list.style.opacity = '1'
-        list.style.marginTop = '0'
+        dropComponent.show()
       })
 
       this.list = list

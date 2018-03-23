@@ -99,9 +99,9 @@ export default {
 
   beforeDestroy () {
     if (this.search) {
-      this.action(this.parent, 'search-option-bumper')
+      this.action(this.parent, 'search-option-bumper', this)
     } else {
-      this.action(this.parent, 'option-bumper')
+      this.action(this.parent, 'option-bumper', this)
     }
   }
 }
