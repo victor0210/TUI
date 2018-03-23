@@ -6,7 +6,7 @@
       'is-searchable': searchable
     }">
     <div class="t-cascader__input" @click.prevent="checkout">
-      <input type="text" readonly class="t-cascader__inner" :value="label">
+      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner">
       <i class="t-cascader__input-icon t-cascader__drop-icon fa fa-chevron-down" :class="{
         't-cascader__input-icon--open': isFocus
       }" ref="drop_icon"></i>
@@ -92,7 +92,8 @@ export default {
     clearable: Boolean,
     options: {},
     value: Array,
-    searchable: Boolean
+    searchable: Boolean,
+    onlyLast: Boolean
   },
 
   created () {
@@ -116,8 +117,6 @@ export default {
       const pos = child.lIndex.split(this.indexSplit).length - 1
 
       this.optionChildren[pos].push(child)
-      // const idx = this.optionChildren[pos].length - 5
-      // if (this.value[pos] === child.val && idx > 0) this.$refs.list[pos].scrollTop = idx * 40
     },
     optionBumper (child) {
       const pos = child.lIndex.split(this.indexSplit).length - 1
@@ -151,6 +150,7 @@ export default {
     },
 
     checkout () {
+      if (this.disabled) return
       this.isFocus = !this.isFocus
     },
 
@@ -363,7 +363,8 @@ export default {
     checkBlurEl (el) {
       const ref = this.$refs
       let clickCancelEl = [
-        ref.drop_icon
+        ref.drop_icon,
+        ref.inner
       ]
 
       if (ref.remove_icon) {
@@ -377,7 +378,6 @@ export default {
       let isNone = true
       let cancelBlurClasses = [
         't-cascader-option',
-        't-cascader__inner',
         't-cascader__editor',
         't-cascader__editor-input',
         't-cascader__drop-menu--none'
@@ -401,7 +401,7 @@ export default {
         x: null,
         y: null
       }
-      this.label = ''
+      this.setLabel('')
 
       this.$emit('input', [])
       this.hide()
@@ -426,7 +426,7 @@ export default {
         if (el.children !== undefined) {
           _this.optionFormat(el.children, el.pIndex, el.vIndex, el.lIndex, levelIndex + 1)
         } else if (el.vIndex === _this.value.join(_this.indexSplit)) {
-          _this.label = el.lIndex.split(_this.indexSplit).join('/')
+          _this.setLabel(el.lIndex)
           _this.valueIndex = el.pIndex
           _this.selectIndex = el.pIndex
         }
@@ -437,12 +437,20 @@ export default {
     selectHandler (optionComponent) {
       if (!optionComponent.children) {
         this.$emit('input', optionComponent.vIndex.split(this.indexSplit))
-        this.label = optionComponent.lIndex.split(this.indexSplit).join('/')
+        this.setLabel(optionComponent.lIndex)
         this.hide()
       }
 
       this.selectIndex = optionComponent.pIndex
       this.valueIndex = optionComponent.pIndex
+    },
+
+    setLabel (lIndex) {
+      if (lIndex !== '') {
+        this.label = this.onlyLast ? lIndex.split(this.indexSplit).pop() : lIndex.split(this.indexSplit).join('/')
+      } else {
+        this.label = ''
+      }
     },
 
     dropMenuRegister (dropMenu) {
