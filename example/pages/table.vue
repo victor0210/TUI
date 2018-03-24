@@ -1,284 +1,248 @@
 <template>
   <div>
     <guide title="Table" des="用于数据展示的表格组件"/>
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">普通表格</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data">-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">斑马条纹</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" stripe>-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">带边框</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" border>-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">带状态表格</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" :row-class-name="setRowClasses">-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">固定表头</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data2" body-height="300">-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="A" prop="a"/>-->
-              <!--<t-table-column label="B" prop="b"/>-->
-              <!--<t-table-column label="C" prop="c"/>-->
-              <!--<t-table-column label="D" prop="d"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">固定列</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data3">-->
-              <!--<t-table-column label="姓名" prop="name" fixed/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="A" prop="a"/>-->
-              <!--<t-table-column label="B" prop="b"/>-->
-              <!--<t-table-column label="C" prop="c" fixed-right/>-->
-              <!--<t-table-column label="D" prop="d"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">固定表头和列</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data2" body-height="300">-->
-              <!--<t-table-column label="操作" prop="name" width="300" fixed-right>-->
-                <!--<template slot-scope="{row}">-->
-                  <!--<t-button type="primary" size="sm" @click="addHandler(row)">添加</t-button>-->
-                  <!--<t-button type="danger" size="sm" class="text&#45;&#45;danger">删除</t-button>-->
-                <!--</template>-->
-              <!--</t-table-column>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="A" prop="a"/>-->
-              <!--<t-table-column label="B" prop="b"/>-->
-              <!--<t-table-column label="C" prop="c"/>-->
-              <!--<t-table-column label="D" prop="d"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">表格排序</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data">-->
-              <!--<t-table-column label="姓名" prop="name" :sort-method="sortMethod"/>-->
-              <!--<t-table-column label="年龄" prop="age" />-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">流体高度</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" :body-max-height="200">-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age"/>-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="操作" prop="option">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<t-button @click="removeItem(scope.idx, data)">移除</t-button>-->
-                <!--</template>-->
-              <!--</t-table-column>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">自动编号</div>-->
-      <!--<div class="source">-->
-        <!--<t-row :gutter="20">-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" :body-max-height="200">-->
-              <!--<t-table-column type="index" width="60"/>-->
-              <!--<t-table-column label="姓名" prop="name" :width="200"/>-->
-              <!--<t-table-column label="年龄" prop="age"/>-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="操作" prop="option">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<t-button @click="removeItem(scope.idx, data)">移除</t-button>-->
-                <!--</template>-->
-              <!--</t-table-column>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">单选</div>-->
-      <!--<div class="source">-->
-        <!--<t-row>-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" :body-max-height="300" highlight-current-row :current-change="currentChange" ref="t_table">-->
-              <!--<t-table-column type="index" width="60"/>-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age"/>-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="操作" prop="option">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>-->
-                <!--</template>-->
-              <!--</t-table-column>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-        <!--<t-row>-->
-          <!--<t-col :span="24">-->
-            <!--<t-button @click="setRow(1)">选中第二行</t-button>-->
-            <!--<t-button @click="setRow()">重置</t-button>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
-
-    <!--<div class="demo-block">-->
-      <!--<div class="subtitle">多选</div>-->
-      <!--<div class="source">-->
-        <!--<t-row>-->
-          <!--<t-col :span="24">-->
-            <!--<t-table :data="data" :body-max-height="300" selection :selection-change="selectionChange" ref="t_table_selection">-->
-              <!--<t-table-column type="selection" width="55"/>-->
-              <!--<t-table-column type="index" width="60"/>-->
-              <!--<t-table-column label="姓名" prop="name"/>-->
-              <!--<t-table-column label="年龄" prop="age"/>-->
-              <!--<t-table-column label="身份" prop="role"/>-->
-              <!--<t-table-column label="电话" prop="phone"/>-->
-              <!--<t-table-column label="操作" prop="option">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>-->
-                <!--</template>-->
-              <!--</t-table-column>-->
-            <!--</t-table>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-        <!--<t-row>-->
-          <!--<t-col :span="24">-->
-            <!--<t-button @click="setSelectionRow([data[2], data[3]])">切换第二，三行</t-button>-->
-            <!--<t-button @click="setSelectionRow()">重置</t-button>-->
-          <!--</t-col>-->
-        <!--</t-row>-->
-      <!--</div>-->
-      <!--<time-md/>-->
-    <!--</div>-->
+    <div class="demo-block">
+      <div class="subtitle">普通表格</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data">
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
 
     <div class="demo-block">
-      <div class="subtitle">展开行</div>
+      <div class="subtitle">斑马条纹</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data" stripe>
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">带边框</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data" border>
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">带状态表格</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data" :row-class-name="setRowClasses">
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">固定表头</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data2" :body-height="300">
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="A" prop="a"/>
+              <t-table-column label="B" prop="b"/>
+              <t-table-column label="C" prop="c"/>
+              <t-table-column label="D" prop="d"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">固定列</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data3">
+              <t-table-column label="姓名" prop="name" fixed/>
+              <t-table-column label="年龄" prop="age" width="300"/>
+              <t-table-column label="身份" prop="role" width="300"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="A" prop="a"/>
+              <t-table-column label="B" prop="b"/>
+              <t-table-column label="C" prop="c" fixed-right/>
+              <t-table-column label="D" prop="d"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">固定表头和列</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data2" :body-height="300">
+              <t-table-column label="操作" prop="name" width="300" fixed-right>
+                <template slot-scope="{row}">
+                  <t-button type="primary" size="sm" @click="addHandler(row)">添加</t-button>
+                  <t-button type="danger" size="sm" class="text--danger">删除</t-button>
+                </template>
+              </t-table-column>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="A" prop="a"/>
+              <t-table-column label="B" prop="b"/>
+              <t-table-column label="C" prop="c"/>
+              <t-table-column label="D" prop="d"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">表格排序</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data">
+              <t-table-column label="姓名" prop="name" :sort-method="sortMethod"/>
+              <t-table-column label="年龄" prop="age" />
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">流体高度</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data" :body-max-height="200">
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option">
+                <template slot-scope="scope">
+                  <t-button @click="removeItem(scope.idx, data)">移除</t-button>
+                </template>
+              </t-table-column>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">自动编号</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-table :data="data" :body-max-height="200">
+              <t-table-column type="index" width="60"/>
+              <t-table-column label="姓名" prop="name" :width="200"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option">
+                <template slot-scope="scope">
+                  <t-button @click="removeItem(scope.idx, data)">移除</t-button>
+                </template>
+              </t-table-column>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">单选</div>
       <div class="source">
         <t-row>
           <t-col :span="24">
-            <t-table :data="data" :body-max-height="300" selection :selection-change="selectionChange" ref="t_table_selection" :body-height="200">
-              <t-table-column width="200" type="expand">
+            <t-table :data="data" :body-max-height="300" highlight-current-row :current-change="currentChange" ref="t_table">
+              <t-table-column type="index" width="60"/>
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option">
                 <template slot-scope="scope">
-                  <t-button>button</t-button>
+                  <t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>
                 </template>
               </t-table-column>
+            </t-table>
+          </t-col>
+        </t-row>
+        <t-row>
+          <t-col :span="24">
+            <t-button @click="setRow(1)">选中第二行</t-button>
+            <t-button @click="setRow()">重置</t-button>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">多选</div>
+      <div class="source">
+        <t-row>
+          <t-col :span="24">
+            <t-table :data="data" :body-max-height="300" selection :selection-change="selectionChange" ref="t_table_selection">
+              <t-table-column type="selection" width="55"/>
               <t-table-column type="index" width="60"/>
-              <t-table-column label="姓名" prop="name" width="200" fixed/>
-              <t-table-column label="年龄" prop="age" width="300"/>
-              <t-table-column label="身份" prop="role" width="300"/>
-              <t-table-column label="电话" prop="phone" width="200" fixed-right=""/>
-              <t-table-column label="操作" prop="option" width="300">
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option">
                 <template slot-scope="scope">
-                  <t-select label="请选择" v-model="val_3">
-                    <t-option v-for="o in opt" :key="o.val" :label="o.label" :val="o.val"/>
-                  </t-select>
+                  <t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>
                 </template>
               </t-table-column>
             </t-table>
@@ -288,6 +252,62 @@
           <t-col :span="24">
             <t-button @click="setSelectionRow([data[2], data[3]])">切换第二，三行</t-button>
             <t-button @click="setSelectionRow()">重置</t-button>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">展开行</div>
+      <div class="source">
+        <t-row>
+          <t-col :span="24">
+            <t-table :data="data" selection :selection-change="selectionChange" ref="t_table_selection">
+              <t-table-column width="50" type="expand">
+                <template slot-scope="scope">
+                  <t-button>button</t-button>
+                </template>
+              </t-table-column>
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option">
+                <template slot-scope="scope">
+                  <t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>
+                </template>
+              </t-table-column>
+            </t-table>
+          </t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">展开行</div>
+      <div class="source">
+        <t-row>
+          <t-col :span="24">
+            <t-table :data="data" selection :selection-change="selectionChange" ref="t_table_selection">
+              <t-table-column width="50" type="expand">
+                <template slot-scope="scope">
+                  <t-button>button</t-button>
+                </template>
+              </t-table-column>
+              <t-table-column label="姓名" prop="name"/>
+              <t-table-column label="年龄" prop="age"/>
+              <t-table-column label="身份" prop="role"/>
+              <t-table-column label="电话" prop="phone"/>
+              <t-table-column label="操作" prop="option" :width="180">
+                <template slot-scope="scope">
+                  <t-select>
+                    <t-option label="a" val="1"/>
+                  </t-select>
+                </template>
+              </t-table-column>
+            </t-table>
           </t-col>
         </t-row>
       </div>
@@ -305,18 +325,6 @@ export default {
   },
   data () {
     return {
-      val_3: '3',
-      opt: [
-        {label: 'o1', val: '1'},
-        {label: 'o2', val: '2'},
-        {label: 'o3', val: '3'},
-        {label: 'o4', val: '4'},
-        {label: 'o5', val: '5'},
-        {label: 'o6', val: '6'},
-        {label: 'o7', val: '7'},
-        {label: 'o8', val: '8'},
-        {label: 'o9', val: '9'}
-      ],
       data: [
         {name: 'name2', age: 'ag2', phone: 'phone2', role: 'role2', a: 'a2a2a2a2a2a2a2a2a2', b: 'b2', c: 'c2', d: 'd2'},
         {name: 'name3', age: 'ag3', phone: 'phone3', role: 'role3', a: 'a3', b: 'b3', c: 'c3', d: 'd3'},

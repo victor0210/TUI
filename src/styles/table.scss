@@ -87,7 +87,7 @@
     }
 
     @include when(expand) {
-      i {
+      i.fa-caret-right {
         transform: rotate(90deg);
       }
     }
@@ -178,6 +178,7 @@
     display: table-cell;
     border-bottom: $--border-base;
     position: relative;
+    vertical-align: middle;
 
     @include when(hidden) {
       visibility: hidden;
