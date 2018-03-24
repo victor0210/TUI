@@ -276,7 +276,9 @@
               <t-table-column label="电话" prop="phone" width="200" fixed-right=""/>
               <t-table-column label="操作" prop="option" width="300">
                 <template slot-scope="scope">
-                  <t-button size="sm" @click="removeItem(scope.idx, data)">移除</t-button>
+                  <t-select label="请选择" v-model="val_3">
+                    <t-option v-for="o in opt" :key="o.val" :label="o.label" :val="o.val"/>
+                  </t-select>
                 </template>
               </t-table-column>
             </t-table>
@@ -303,6 +305,18 @@ export default {
   },
   data () {
     return {
+      val_3: '3',
+      opt: [
+        {label: 'o1', val: '1'},
+        {label: 'o2', val: '2'},
+        {label: 'o3', val: '3'},
+        {label: 'o4', val: '4'},
+        {label: 'o5', val: '5'},
+        {label: 'o6', val: '6'},
+        {label: 'o7', val: '7'},
+        {label: 'o8', val: '8'},
+        {label: 'o9', val: '9'}
+      ],
       data: [
         {name: 'name2', age: 'ag2', phone: 'phone2', role: 'role2', a: 'a2a2a2a2a2a2a2a2a2', b: 'b2', c: 'c2', d: 'd2'},
         {name: 'name3', age: 'ag3', phone: 'phone3', role: 'role3', a: 'a3', b: 'b3', c: 'c3', d: 'd3'},

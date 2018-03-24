@@ -6,7 +6,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-cascader :option="option" v-model="op1"/>
+            <t-cascader :options="option" v-model="op1"/>
           </t-col>
         </t-row>
       </div>
@@ -18,7 +18,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-cascader :option="option" v-model="op2" disabled/>
+            <t-cascader :options="option" v-model="op2" disabled/>
           </t-col>
         </t-row>
       </div>
@@ -30,7 +30,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-cascader :option="option" v-model="op3" clearable/>
+            <t-cascader :options="option" v-model="op3" clearable/>
           </t-col>
         </t-row>
       </div>
@@ -42,7 +42,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-cascader :option="option" v-model="op3" only-last/>
+            <t-cascader :options="option" v-model="op3" only-last/>
           </t-col>
         </t-row>
       </div>
@@ -54,7 +54,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-cascader :option="option" v-model="op3" searchable/>
+            <t-cascader :options="option" v-model="op3" searchable/>
           </t-col>
         </t-row>
       </div>
@@ -80,7 +80,7 @@ export default {
   },
   data () {
     return {
-      op1: '',
+      op1: [''],
       op2: ['hp', '1000000', '1000000'],
       op3: ['hp', '1000000', '1000000'],
       option: [

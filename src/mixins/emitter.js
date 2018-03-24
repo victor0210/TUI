@@ -41,6 +41,10 @@ export default {
       }
 
       return parent
+    },
+
+    action (componentTarget, eventName, args) {
+      componentTarget.$emit(eventName, args)
     }
   }
 }

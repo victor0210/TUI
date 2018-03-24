@@ -1,4 +1,12 @@
 export default {
+  removeFromStoreByKey (arr, key, val) {
+    arr.forEach(function (el, idx) {
+      if (el[key] === val) {
+        arr.splice(idx, 1)
+      }
+    })
+    return arr
+  },
   removeFromStore (arr, val) {
     let index = arr.indexOf(val)
     if (index > -1) {

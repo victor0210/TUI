@@ -11,17 +11,17 @@
     line-height: 40px;
   }
 
+  &:hover {
+    background-color: lighten(#f5f7fa, 1.5%);
+    color: $--color-primary;
+  }
+
   @include when(selected) {
     color: $--color-primary;
     //background-color: #fafafa;
   }
 
   @include when(focus) {
-    background-color: #f5f7fa;
-    color: $--color-primary;
-  }
-
-  &:hover {
     background-color: #f5f7fa;
     color: $--color-primary;
   }
