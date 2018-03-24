@@ -46,22 +46,22 @@
 
   @include when(error) {
     input,
-    .t-select__input,
+    .t-select,
     .t-datepicker__input,
     .t-timepicker__input,
     .t-checkbox__inner,
     .t-radio__inner,
-    .t-cascader__input {
+    .t-cascader {
       border-color: $--color-danger;
     }
   }
 
   @include when(validated) {
     input,
-    .t-select__input,
+    .t-select,
     .t-datepicker__input,
     .t-timepicker__input,
-    .t-cascader__input {
+    .t-cascader {
       border-color: $--color-success;
     }
   }

@@ -86,9 +86,11 @@ export default {
     reset () {
       this.$emit('input', '')
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', '')
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', '')
     },
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
     },
     checkInputType () {
       const type = this.type

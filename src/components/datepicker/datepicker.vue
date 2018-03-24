@@ -261,9 +261,11 @@ export default {
     reset () {
       this.clearInput(window.event)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
     },
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
     },
     setDateIndex (year = (new Date()).getFullYear(), month = (new Date()).getMonth()) {
       this.dateIndex = {

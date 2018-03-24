@@ -7,10 +7,14 @@
   @include select-input-variant();
 
   @include e(input) {
-    display: inline-block;
+    display: block;
     height: 100%;
     width: 100%;
     position: relative;
+  }
+
+  @include e(placeholder) {
+    color: #777777;
   }
 
   input {
@@ -21,15 +25,17 @@
     position: relative;
     border: none;
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     min-height: $--select-input-line-height;
     line-height: $--select-input-line-height;
     padding: $--select-input-wrapper-padding;
     cursor: pointer;
     width: 100%;
     margin: 0;
-    display: inline-block;
-    -webkit-box-sizing: border-box;
+    display: block;
+    overflow: hidden;
     vertical-align: middle;
+    font-size: 12px;
   }
 
   @include e(list) {

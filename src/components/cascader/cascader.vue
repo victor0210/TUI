@@ -6,7 +6,7 @@
       'is-searchable': searchable
     }">
     <div class="t-cascader__input" @click.prevent="checkout">
-      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner">
+      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner" :placeholder="placeholder">
       <i class="t-cascader__input-icon t-cascader__drop-icon fa fa-chevron-down" :class="{
         't-cascader__input-icon--open': isFocus
       }" ref="drop_icon"></i>
@@ -88,6 +88,9 @@ export default {
     }
   },
   props: {
+    placeholder: {
+      default: '请选择'
+    },
     disabled: Boolean,
     clearable: Boolean,
     options: {},
@@ -106,6 +109,9 @@ export default {
     this.$on('search-option-bumper', this.searchOptionBumper)
 
     this.$on('edit-change', this.editChangeHandler)
+
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
   },
 
   mounted () {
@@ -113,6 +119,15 @@ export default {
   },
 
   methods: {
+    reset () {
+      this.clearInput(window.event)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
     optionRegister (child) {
       const pos = child.lIndex.split(this.indexSplit).length - 1
 
@@ -470,6 +485,9 @@ export default {
     }
   },
   watch: {
+    value () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+    },
     isFocus (focus) {
       if (focus) {
         if (!this.initialized) this.initialized = true
@@ -489,6 +507,7 @@ export default {
 
         this.addListener()
       } else {
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
         this.dropMenu.hide()
 
         this.removeListener()

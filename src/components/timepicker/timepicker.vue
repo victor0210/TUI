@@ -148,9 +148,11 @@ export default {
     reset () {
       this.clearInput(window.event)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
     },
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
     },
     initTimes () {
       for (let i = 0; i <= 60; i++) {
@@ -273,7 +275,7 @@ export default {
         this.scrollFilter
       )
       document.removeEventListener('keydown', this.keyDownHandler)
-      document.removeEventListener('click', this.clickBlurSelect, true)
+      document.removeEventListener('click', this.clickBlurSelect)
     },
     clickBlurSelect (e) {
       console.log(this.$refs.submit_btn)

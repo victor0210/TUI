@@ -11,6 +11,9 @@
       <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput" ref="clear_icon"></i>
 
       <div v-if="multiple" class="t-select__inner" ref="multi_inner">
+        <template v-if="value.length === 0">
+          <span class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
+        </template>
         <template v-if="!collapseTags">
           <span class="t-select__tag" v-for="(t, idx) in multipleInputLabel" :key="idx" ref="multi_tag">{{ t.label }}<i class="fa fa-times-circle" @click.prevent="removeTag(t.val)" ref="remove_icon"></i></span>
         </template>
@@ -20,7 +23,7 @@
         </template>
       </div>
 
-      <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner"/>
+      <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner" :placeholder="placeholder"/>
     </div>
 
     <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
@@ -44,6 +47,12 @@ export default {
   },
 
   mixins: [Emitter, ArrayHelper],
+
+  inject: {
+    TFormItem: {
+      default: ''
+    }
+  },
 
   name: 't-select',
 
@@ -76,6 +85,9 @@ export default {
   },
 
   props: {
+    placeholder: {
+      default: '清选择'
+    },
     multiple: Boolean,
     collapseTags: Boolean,
     disabled: Boolean,
@@ -98,6 +110,9 @@ export default {
     this.$on('select', this.selectHandler)
     this.$on('edit-change', this.editChangeHandler)
     this.$on('add-custom-tag', this.addTag)
+
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
   },
 
   mounted () {
@@ -111,6 +126,17 @@ export default {
   },
 
   methods: {
+    //  form validate
+    reset () {
+      this.clearInput(window.event)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+
     validatorInput () {
       if (this.multiple && !Array.isArray(this.value)) {
         throw new Error('init value must be type "Array" when use "multiple" attribute')
@@ -344,7 +370,8 @@ export default {
         ref.input_inner,
         ref.multi_inner,
         ref.drop_icon,
-        ref.clear_icon
+        ref.clear_icon,
+        ref.placeholder
       ]
 
       if (ref.multi_tag) {
@@ -535,6 +562,7 @@ export default {
       this.store = val
       this.initSelectLabel()
       this.multiple ? this.setValueIndex(val[val.length - 1]) : this.setValueIndex(val)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
     },
     isFocus (focus) {
       if (focus) {
@@ -557,6 +585,8 @@ export default {
       } else {
         //  close
         this.dropMenu.hide()
+
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
 
         //  clear focus index
         this.focusIndex = null
