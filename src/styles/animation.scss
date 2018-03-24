@@ -1,9 +1,11 @@
 //  Dropmenu
 .fade-enter-active, .fade-leave-active {
   transform-origin: top;
+  transform: rotateX(0);
   opacity: 1;
 }
 .fade-enter, .fade-leave-to {
+  transform-origin: top;
   transform: rotateX(90deg);
   margin-top: 0;
   opacity: 0;

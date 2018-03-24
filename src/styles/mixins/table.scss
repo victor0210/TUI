@@ -4,6 +4,7 @@
 }
 
 @mixin table-fixed-variant() {
+  z-index: $--table-fixed-index;
   position: absolute;
   height: 100%;
   overflow: hidden;

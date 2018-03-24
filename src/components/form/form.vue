@@ -29,11 +29,7 @@ export default {
   },
 
   props: {
-    action: String,
-    method: {
-      type: String,
-      default: 'post'
-    },
+    trigger: String,
     rules: {}
   },
 

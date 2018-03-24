@@ -4,6 +4,7 @@
 2. performance optimization
 3. check remote request contains async
 4. remote source adapter transfer to [{value, label}, ...]
+5. animation bug
 
 ##form
 1. name prop

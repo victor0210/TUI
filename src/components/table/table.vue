@@ -43,7 +43,7 @@
           <tr :key="idx" class="t-table__body-row" :class="[
             rowClasses[idx],
             hoverRowIdx === idx ? 'is-hover' : '',
-            currentRow === idx ? 'is-select' : ''
+            currentRow === idx ? 'is-select-bak' : ''
           ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
             <td v-for="(c, idx2) in columns" :key="idx2" :style="{
               width: c.width ? `${c.width}px` : `${averageWidth}px`
@@ -113,7 +113,7 @@
             <tr :key="idx" class="t-table__body-row" :class="[
             rowClasses[idx],
             hoverRowIdx === idx ? 'is-hover' : '',
-            currentRow === idx ? 'is-select' : ''
+            currentRow === idx ? 'is-select-bak' : ''
           ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
               <td v-for="(c, idx2) in columns" :key="idx2" :style="{
               width: c.width ? `${c.width}px` : `${averageWidth}px`
@@ -188,7 +188,7 @@
             <tr :key="idx" class="t-table__body-row" :class="[
             rowClasses[idx],
             hoverRowIdx === idx ? 'is-hover' : '',
-            currentRow === idx ? 'is-select' : ''
+            currentRow === idx ? 'is-select-bak' : ''
           ]" @mouseenter="rowMouseEnter(idx)" @click="setCurrentRow(idx)">
               <td v-for="(c, idx2) in columns" :key="idx2" :style="{
               width: c.width ? `${c.width}px` : `${averageWidth}px`

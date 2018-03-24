@@ -1,78 +1,118 @@
 @import "variables";
 @import "mixins/mixins";
+@import "mixins/select";
 @import "mixins/drop";
 
 @include b(cascader) {
-  display: block;
-  box-sizing: border-box;
-  position: relative;
-  cursor: pointer;
-  background-color: $--select-fill-color;
-  border-radius: 4px;
+  @include select-input-variant();
 
-  input {
-    font-size: 12px;
-    cursor: pointer;
+  @include e(input) {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    position: relative;
   }
 
-  @include e(icon) {
-    width: 12px;
-    height: 12px;
+  input {
+    height: 38px;
+  }
+
+  @include e(inner) {
+    position: relative;
+    border: none;
+    box-sizing: border-box;
+    min-height: $--select-input-line-height;
+    line-height: $--select-input-line-height;
+    padding: $--select-input-wrapper-padding;
+    cursor: pointer;
+    width: 100%;
+    margin: 0;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    vertical-align: middle;
+  }
+
+  @include e(input-icon) {
+    z-index: 1;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 10px;
-    margin: auto;
+    right: 8px;
+    margin: auto auto;
+    width: 14px;
+    height: 14px;
     color: $--color-text-placeholder;
-    transition: all .2s;
+    text-align: center;
+    transition: .3s;
+    &::before {
+      vertical-align: middle;
+    }
 
     @include m(open) {
-      transform: rotate(-180deg);
+      transform: rotate(180deg);
       color: $--color-primary;
     }
   }
 
-  @include e(input) {
-    min-width: 118px;
-    position: relative;
-    padding: 4px 11px;
-    border-radius: $--border-radius-base;
-    min-height: $--input-height-base - 10;
-    overflow: hidden;
-    border: $--border-base;
-    transition: all .3s linear;
-
-    &:hover {
-      border-color: mix($--color-white, $--color-gray, 20%);
-    }
-
-    &:focus {
-      border-color: $--color-primary;
-    }
-  }
-
   @include e(list) {
-    @include drop-variant();
-    & + .t-cascader__list {
-      border-left: none;
+    position: fixed;
+    display: inline-block;
+    background-color: #fff;
+    z-index: $--select-list-index;
+    border-radius: 4px;
+    box-shadow: 1px 1px 10px 1px #eee;
+    transition: transform .2s ease-out, opacity .2s ease-out;
+  }
+
+  @include e(list-sub-container) {
+    display: inline-flex;
+    max-height: 200px;
+    border-radius: 4px;
+  }
+
+  @include e(editor) {
+    width: auto;
+    min-width: 100px;
+    background-color: #fff;
+    line-height: 30px;
+    height: 36px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: none;
+    padding: 4px 12px;
+    position: relative;
+    box-sizing: border-box;
+
+    input {
+      outline: none;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      background-color: #f4f5f6;
+      border-radius: 10px;
+      float: left;
+    }
+
+    & + .t-cascader__list-sub-container {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
   }
 
-  @include e(search-none) {
+  @include e(list-sub) {
     @include drop-variant();
-    width: 100%;
-    height: 40px;
-  }
 
-  @include e(search-list) {
-    @include drop-variant();
-    position: absolute;
-    left: 0;
-    z-index: $--select-list-index - 1;
-  }
+    & + .t-cascader__list-sub {
+      border-left: 1px solid #f4f5f6;
+    }
 
-  @include e(list-container) {
-    position: absolute;
+    @include m(search) {
+      height: auto;
+    }
   }
 
   @include e(keyword) {
@@ -80,41 +120,16 @@
     color: $--color-primary;
   }
 
-  @include e(search) {
-    -webkit-appearance: none;
-    background-color: #fff;
-    border-radius: 4px;
-    border: none;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    font-size: inherit;
-    height: 30px;
-    float: left;
-    line-height: 1;
-    outline: none;
-    padding: 0;
-    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-    width: 85%;
-    text-overflow: ellipsis;
-    &:focus {
-      border-color: $--border-color-base;
-    }
-    &:hover {
-      border-color: mix($--color-white, $--color-gray, 20%);
-    }
-  }
-
-  @include when(focus) {
-    input, .t-cascader__input {
-      border-color: $--color-primary;
-    }
-  }
+  @include drop-arrow();
 
   @include when(disabled) {
     & * {
       user-select: none;
       cursor: not-allowed;
+    }
+
+    &:hover {
+      border-color: $--border-color-base;
     }
 
     ::placeholder {
@@ -125,37 +140,23 @@
       z-index: 0;
     }
 
-    .t-cascader__input, input {
+    &, .t-cascader__input, input {
       background-color: #f5f7fa;
       color: #c0c4cc;
-      &:hover {
-        border-color: $--border-color-base;
-      }
     }
 
-    .t-cascader__tag {
-      color: $--color-text-placeholder;
-      i {
-        &:hover {
-          color: $--color-text-placeholder;
-        }
-      }
-    }
   }
 
+  .t-cascader__clear-icon {
+    display: none;
+  }
   @include when(clearable) {
-    .t-cascader__input {
-      .t-cascader__icon--clear {
-        z-index: 1;
-        display: none;
+    .t-cascader__input:hover {
+      .t-cascader__clear-icon {
+        display: block;
       }
-      &:hover {
-        .fa-chevron-down {
-          display: none;
-        }
-        .t-cascader__icon--clear {
-          display: block;
-        }
+      .t-cascader__drop-icon {
+        display: none;
       }
     }
   }

@@ -85,6 +85,7 @@ $--aside-padding: 20px !default;
  */
 $--background-level-index: -1 !default;
 $--select-list-index: 100 !default;
+$--table-fixed-index: 99 !default;
 $--dialog-mask-index: 1000 !default;
 
 
@@ -182,6 +183,13 @@ $--input-icon-width: 30px;
 $--select-inner-height: 36px !default;
 $--select-inner-color: #5c5c5c !default;
 $--select-fill-color: $--color-white !default;
+$--select-input-radius: 4px !default;
+$--select-input-min-height: 40px !default;
+$--select-input-min-width: 130px !default;
+$--select-input-line-height: 32px !default;
+$--select-input-wrapper-padding: 3px 25px 3px 10px !default;
+$--select-input-padding: 3px 10px !default;
+$--select-input-hover-border-color: mix($--color-white, $--color-gray, 20%) !default;
 
 /**
  * -------------------- Grid Contains Row & Col --------------------

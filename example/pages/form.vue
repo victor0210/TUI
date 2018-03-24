@@ -79,11 +79,11 @@
         <t-row :gutter="20">
           <t-col :span="12">
             <t-form :rules="rules">
-              <t-form-item label="姓名" name="name">
+              <t-form-item label="姓名" name="name" trigger="change">
                 <t-input v-model="form.name" placeholder="name"/>
               </t-form-item>
 
-              <t-form-item label="电话" name="phone">
+              <t-form-item label="电话" name="phone" trigger="change">
                 <t-input v-model="form.phone" type="number" placeholder="phone"/>
               </t-form-item>
 
@@ -91,7 +91,7 @@
                 <t-input v-model="form.email" placeholder="email"/>
               </t-form-item>
 
-              <t-form-item label="爱好" name="habit">
+              <t-form-item label="爱好" name="habit" trigger="change">
                 <t-select v-model="form.habit" placeholder="habit" multiple editable>
                   <t-option label="篮球" val="basketball"></t-option>
                   <t-option label="足球" val="football"></t-option>
@@ -99,26 +99,26 @@
                 </t-select>
               </t-form-item>
 
-              <t-form-item label="身份" name="role">
+              <t-form-item label="身份" name="role" trigger="change">
                 <t-select v-model="form.role" placeholder="role">
                   <t-option label="学生" val="student"></t-option>
                   <t-option label="老师" val="teacher"></t-option>
                 </t-select>
               </t-form-item>
 
-              <t-form-item label="身价" name="price">
-                <t-cascader :option="option" v-model="form.price" placeholder="price"/>
+              <t-form-item label="身价" name="price" trigger="change">
+                <t-cascader :options="option" v-model="form.price" placeholder="price"/>
               </t-form-item>
 
-              <t-form-item label="生日" name="birthday">
+              <t-form-item label="生日" name="birthday" trigger="change">
                 <t-date-picker v-model="form.birthday" placeholder="birthday"/>
               </t-form-item>
 
-              <t-form-item label="时间" name="time">
+              <t-form-item label="时间" name="time" trigger="change">
                 <t-time-picker v-model="form.time" placeholder="time"/>
               </t-form-item>
 
-              <t-form-item label="城市" name="city">
+              <t-form-item label="城市" name="city" trigger="change">
                 <t-checkbox-group v-model="form.city">
                   <t-checkbox label="上海" val="shanghai"></t-checkbox>
                   <t-checkbox label="北京" val="beijing"></t-checkbox>
@@ -127,7 +127,7 @@
                 </t-checkbox-group>
               </t-form-item>
 
-              <t-form-item label="性别" name="sex">
+              <t-form-item label="性别" name="sex" trigger="change">
                 <t-radio-group v-model="form.sex">
                     <t-radio label="男" val="man"></t-radio>
                     <t-radio label="女" val="women"></t-radio>
@@ -164,7 +164,7 @@ export default {
         sex: '',
         role: '',
         birthday: '',
-        price: '',
+        price: [],
         habit: []
       },
       rules: {
