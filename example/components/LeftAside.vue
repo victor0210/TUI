@@ -151,6 +151,11 @@ export default {
           route: '/tag',
           name: 'Tag',
           chinese: '标签'
+        },
+        {
+          route: '/progress',
+          name: 'Progress',
+          chinese: '进度条'
         }
       ]
     }

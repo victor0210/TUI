@@ -27,6 +27,7 @@ import Submit from './components/submit/index'
 import Table from './components/table/index'
 import TableColumn from './components/tableColumn/index'
 import Tag from './components/tag/index'
+import Progress from './components/progress/index'
 
 import TFocus from './directives/focus'
 
@@ -58,7 +59,8 @@ const Tui = {
   Submit,
   Table,
   TableColumn,
-  Tag
+  Tag,
+  Progress
 }
 
 const install = function (Vue, opts = {}) {
