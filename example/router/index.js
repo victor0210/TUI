@@ -75,6 +75,11 @@ export default new Router({
       path: '/table',
       name: 'table',
       component: r => require.ensure([], () => r(require('../pages/table.vue')))
+    },
+    {
+      path: '/tag',
+      name: 'tag',
+      component: r => require.ensure([], () => r(require('../pages/tag.vue')))
     }
   ]
 })
