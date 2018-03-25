@@ -1,0 +1,91 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(progress) {
+  position: relative;
+  box-sizing: border-box;
+  min-width: 100px;
+
+  @include e(line-wrapper) {
+    vertical-align: middle;
+    display: inline-block;
+    background: #ebeef5;
+    border-radius: 100px;
+    box-sizing: border-box;
+  }
+
+  @include e(bar) {
+    height: 100%;
+    background: $--color-primary;
+    border-radius: 100px;
+    text-align: right;
+  }
+
+  @include e(circle-bar) {
+    stroke: $--color-primary;
+    transform-origin: center;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+
+  @include e(text) {
+    color: $--color-text-regular;
+    margin-left: 7px;
+    display: inline-block;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+
+  @include e(inner-text) {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 12px;
+    margin: 0 5px;
+  }
+
+  @include when(success) {
+    .t-progress__bar {
+      background: $--color-success;
+    }
+
+    .t-progress__circle-bar {
+      stroke: $--color-success;
+    }
+  }
+
+  @include when(danger) {
+    .t-progress__bar {
+      background: $--color-danger;
+    }
+
+    .t-progress__circle-bar {
+      stroke: $--color-danger;
+    }
+  }
+
+  @include e(circle-wrapper) {
+    position: relative;
+    top: 0;
+    left: 0;
+    stroke-dasharray: 255%;
+    stroke-dashoffset: 255%;
+    fill: none;
+    box-sizing: border-box;
+  }
+
+  @include e(circle-back) {
+    stroke: #ebeef5;
+  }
+
+  @include e(circle-text) {
+    stroke: $--color-text-regular;
+  }
+
+  @include when(circle) {
+    display: inline-block;
+  }
+}

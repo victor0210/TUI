@@ -80,6 +80,11 @@ export default new Router({
       path: '/tag',
       name: 'tag',
       component: r => require.ensure([], () => r(require('../pages/tag.vue')))
+    },
+    {
+      path: '/progress',
+      name: 'progress',
+      component: r => require.ensure([], () => r(require('../pages/progress.vue')))
     }
   ]
 })
