@@ -146,6 +146,11 @@ export default {
           route: '/table',
           name: 'Table',
           chinese: '表格'
+        },
+        {
+          route: '/tag',
+          name: 'Tag',
+          chinese: '标签'
         }
       ]
     }

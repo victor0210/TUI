@@ -191,6 +191,37 @@ $--select-input-wrapper-padding: 3px 25px 3px 10px !default;
 $--select-input-padding: 3px 10px !default;
 $--select-input-hover-border-color: mix($--color-white, $--color-gray, 20%) !default;
 
+
+/**
+ * ----------------------------- Tag ------------------------------
+ */
+$--tag-padding: 0 10px !default;
+$--tag-fill: rgba($--color-primary, 0.10) !default;
+$--tag-color: $--color-primary !default;
+$--tag-border: rgba($--color-primary, 0.20) !default;
+$--tag-font-size: 12px !default;
+$--tag-border-radius: 4px !default;
+
+$--tag-inverse-fill: rgba($--color-inverse, 0.05) !default;
+$--tag-inverse-border: rgba($--color-inverse, 0.10) !default;
+$--tag-inverse-color: $--color-inverse !default;
+
+$--tag-primary-fill: rgba($--color-primary, 0.10) !default;
+$--tag-primary-border: rgba($--color-primary, 0.20) !default;
+$--tag-primary-color: $--color-primary !default;
+
+$--tag-success-fill: rgba($--color-success, 0.10) !default;
+$--tag-success-border: rgba($--color-success, 0.20) !default;
+$--tag-success-color: $--color-success !default;
+
+$--tag-warning-fill: rgba($--color-warning, 0.10) !default;
+$--tag-warning-border: rgba($--color-warning, 0.20) !default;
+$--tag-warning-color: $--color-warning !default;
+
+$--tag-danger-fill: rgba($--color-danger, 0.10) !default;
+$--tag-danger-border: rgba($--color-danger, 0.20) !default;
+$--tag-danger-color: $--color-danger !default;
+
 /**
  * -------------------- Grid Contains Row & Col --------------------
  */

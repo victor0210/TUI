@@ -30,3 +30,14 @@
 .expand-enter, .expand-leave-to {
   opacity: 0;
 }
+
+
+.t-zoom-in-center-enter-active,
+.t-zoom-in-center-leave-active {
+  transition: all .3s ease-out;
+}
+.t-zoom-in-center-enter,
+.t-zoom-in-center-leave-active {
+  opacity: 0;
+  transform: scaleX(0);
+}
