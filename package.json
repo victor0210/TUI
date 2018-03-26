@@ -4,6 +4,9 @@
   "description": "A high quantity ui component library",
   "author": "Deris",
   "private": true,
+  "bin": {
+    "tui": "./tui-cli"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
