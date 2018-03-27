@@ -41,3 +41,13 @@
   opacity: 0;
   transform: scaleX(0);
 }
+
+.t-fly-in-center-enter-active,
+.t-fly-in-center-leave-active {
+  transition: all .3s ease-out;
+}
+.t-fly-in-center-enter,
+.t-fly-in-center-leave-active {
+  opacity: 0;
+  padding-left: 70px;
+}
