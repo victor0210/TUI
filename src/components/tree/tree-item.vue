@@ -6,16 +6,19 @@
       :style="{paddingLeft: indent}">
       <i
         class="fa fa-caret-right t-tree-item__drop-icon"
-        :style="{visibility: hasChildren ? 'visible' : 'hidden'}"
-        :class="[showChildren ? 't-tree-item__drop-icon--open' : '']">
+        :style="{visibility: (hasChildren || (!hasChildren && lazy && !loaded)) ? 'visible' : 'hidden'}"
+        :class="[expand ? 't-tree-item__drop-icon--open' : '']">
       </i>
       <t-checkbox :indeterminate="indeterminate" v-model="isChecked" v-if="showCheckbox"/>
+      <i v-if="loading"
+         class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
+      </i>
       {{ label }}
     </div>
     <transition name="t-fly-in-center">
       <div
         class="t-tree-item__children"
-        v-show="showChildren">
+        v-show="expand">
         <slot></slot>
       </div>
     </transition>
@@ -42,11 +45,13 @@ export default {
 
   data () {
     return {
-      showChildren: false,
+      expand: false,
       currentIndex: '',
       isChecked: false,
       childrenCheckCount: 0,
-      indeterminate: false
+      indeterminate: false,
+      loaded: false,
+      loading: false
     }
   },
 
@@ -54,7 +59,10 @@ export default {
     label: String,
     indent: String,
     hasChildren: Boolean,
-    showCheckbox: Boolean
+    showCheckbox: Boolean,
+    lazy: Boolean,
+    nodeIndex: String,
+    initChecked: Boolean
   },
 
   created () {
@@ -64,9 +72,13 @@ export default {
     this.$on('tree-item-remove', this.removeChild)
   },
 
+  mounted () {
+    this.isChecked = this.initChecked
+  },
+
   methods: {
     checkout () {
-      this.showChildren = !this.showChildren
+      this.expand = !this.expand
     },
     unChecked () {
       this.isChecked = false
@@ -109,10 +121,14 @@ export default {
         indeterminate: this.indeterminate
       })
     },
-    showChildren () {
+    expand (val) {
       this.dispatch('t-tree', 'node-click', {
         label: this.label
       })
+      if (this.lazy && !this.loaded && !this.loading) {
+        this.loading = true
+        this.dispatch('t-tree', 'lazy-load', this)
+      }
     }
   }
 }

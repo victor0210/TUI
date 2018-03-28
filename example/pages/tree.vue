@@ -16,9 +16,18 @@
       </div>
       <Dialog></Dialog>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">动态加载</div>
+      <div class="source">
+        <t-tree :load="loadData" lazy show-checkbox :default-props="defaultProps"/>
+      </div>
+      <Dialog></Dialog>
+    </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 import Dialog from '../documents/dialog/dialog.md'
 export default {
   components: {
@@ -65,7 +74,7 @@ export default {
       }],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'name'
       }
     }
   },
@@ -75,6 +84,18 @@ export default {
     },
     handleCheckChange (data) {
       console.log(data)
+    },
+    loadData (node, resolve) {
+      axios.get('/tree/list').then((resp) => {
+        let c = node ? 1000 : 0
+        setTimeout(() => {
+          if (!node || node.nodeIndex.split('-').length < 4) {
+            resolve(resp.data)
+          } else {
+            resolve()
+          }
+        }, c)
+      })
     }
   }
 }

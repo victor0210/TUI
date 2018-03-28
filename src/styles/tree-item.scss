@@ -26,10 +26,20 @@
     width: 14px;
     height: 14px;
     padding: 5px;
-    transition: all .3s;
+    transition: transform .3s;
 
     @include m(open) {
       transform: rotate(90deg);
     }
+  }
+
+
+  @include e(loading-icon) {
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
+    color: $--color-primary;
+    transition: all .3s;
   }
 }
