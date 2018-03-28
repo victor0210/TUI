@@ -59,6 +59,7 @@ export default {
         if (el.children) {
           children = getItems(h, el)
         }
+
         let item = h(TTreeItem, {
           props: {
             label: el[_this.labelKey],
@@ -68,7 +69,10 @@ export default {
             lazy: _this.lazy,
             nodeIndex: el.nodeIndex,
             initChecked: el.initChecked,
-            initExpand: el.initExpand
+            initExpand: el.initExpand,
+            checkDisabled: el.disabled,
+            checkMax: el.checkMax,
+            checkMin: el.checkMin
           }
         }, children)
         items.push(item)
@@ -98,9 +102,17 @@ export default {
       const _this = this
       const indexPrefix = parent ? `${parent.nodeIndex}-` : ''
       let data = parent ? parent.children : this.treeData
-
+      if (parent) {
+        parent.checkMax = 0
+        parent.checkMin = 0
+      }
       data.forEach(function (el, idx) {
         let checked
+
+        if (parent) {
+          el.disabled && parent.checkMin++
+          parent.checkMax++
+        }
 
         if (parent && parent.initChecked) {
           checked = parent.initChecked

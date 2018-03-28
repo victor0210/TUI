@@ -9,7 +9,7 @@
         :style="{visibility: (hasChildren || (!hasChildren && lazy && !loaded)) ? 'visible' : 'hidden'}"
         :class="[expand ? 't-tree-item__drop-icon--open' : '']">
       </i>
-      <t-checkbox :indeterminate="indeterminate" v-model="isChecked" v-if="showCheckbox"/>
+      <t-checkbox :indeterminate="indeterminate || indeterminateChildren > 0" v-model="isChecked" v-if="showCheckbox" :disabled="checkDisabled" @change="checkChangeHandler"/>
       <i v-if="loading"
          class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
       </i>
@@ -49,6 +49,7 @@ export default {
       currentIndex: '',
       isChecked: false,
       childrenCheckCount: 0,
+      indeterminateChildren: 0,
       indeterminate: false,
       loaded: false,
       loading: false
@@ -63,14 +64,18 @@ export default {
     lazy: Boolean,
     nodeIndex: String,
     initChecked: Boolean,
-    initExpand: Boolean
+    initExpand: Boolean,
+    checkDisabled: Boolean,
+    checkMax: Number,
+    checkMin: Number
   },
 
   created () {
-    this.$on('tree-item-unchecked', this.unChecked)
-    this.$on('tree-item-checked', this.checked)
+    this.$on('check-change', this.checkChangeHandler)
     this.$on('tree-item-add', this.addChild)
     this.$on('tree-item-remove', this.removeChild)
+    this.$on('tree-item-add-indeterminate', this.addIndeterminate)
+    this.$on('tree-item-remove-indeterminate', this.removeIndeterminate)
   },
 
   mounted () {
@@ -79,43 +84,50 @@ export default {
   },
 
   methods: {
+    checkChangeHandler (val) {
+      !this.checkDisabled && (this.isChecked = val)
+      this.broadcast('t-tree-item', 'check-change', val)
+    },
     checkout () {
       this.expand = !this.expand
-    },
-    unChecked () {
-      this.isChecked = false
-      this.broadcast('t-tree-item', 'tree-item-unchecked')
-    },
-    checked () {
-      this.isChecked = true
-      this.broadcast('t-tree-item', 'tree-item-checked')
     },
     addChild () {
       this.childrenCheckCount++
     },
     removeChild () {
       this.childrenCheckCount--
+    },
+    addIndeterminate () {
+      this.indeterminateChildren++
+    },
+    removeIndeterminate () {
+      this.indeterminateChildren--
     }
   },
 
   watch: {
     childrenCheckCount (count) {
       //  length - 1 because item component has an another checkbox component , so ignore 1 length
-      if (this.childrenCheckCount < this.$children.length - 1 && this.childrenCheckCount > 0) {
+      if (this.childrenCheckCount < this.checkMax && this.childrenCheckCount > 0) {
         this.indeterminate = true
         this.isChecked = false
       } else {
+        this.isChecked = this.childrenCheckCount === this.checkMax
         this.indeterminate = false
-        this.isChecked = this.childrenCheckCount === this.$children.length - 1
+      }
+    },
+    indeterminate (val) {
+      if (val) {
+        this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-add-indeterminate')
+      } else {
+        this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-remove-indeterminate')
       }
     },
     isChecked (val) {
       if (val) {
         this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-add')
-        this.broadcast('t-tree-item', 'tree-item-checked')
       } else {
         this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-remove')
-        !this.indeterminate && this.broadcast('t-tree-item', 'tree-item-unchecked')
       }
       this.dispatch('t-tree', 'check-change', {
         label: this.label,
@@ -132,6 +144,19 @@ export default {
         this.dispatch('t-tree', 'lazy-load', this)
       }
     }
+    // getChildrenLength (parent) {
+    //   let len = 0
+    //   const _this = this
+    //   const children = parent ? parent.$children : this.$children
+    //   children.forEach(function (el, idx) {
+    //     if (el.$children && idx > 0) {
+    //       len += _this.getChildrenLength(el)
+    //     } else {
+    //       len += 1
+    //     }
+    //   })
+    //   return len
+    // }
   }
 }
 </script>

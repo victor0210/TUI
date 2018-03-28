@@ -28,7 +28,15 @@
     <div class="demo-block">
       <div class="subtitle">默认展开</div>
       <div class="source">
-        <t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[4]"/>
+        <t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[3]"/>
+      </div>
+      <Dialog></Dialog>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">禁用选项</div>
+      <div class="source">
+        <t-tree show-checkbox :data="data2" node-key="id" :expand-node="[1, 2]" :checked-node="[4]"/>
       </div>
       <Dialog></Dialog>
     </div>
@@ -63,7 +71,53 @@ export default {
           }]
         }, {
           label: '二级 2-2',
-          id: 4,
+          children: [{
+            label: '三级 2-2-1'
+          }]
+        }]
+      }, {
+        label: '一级 3',
+        children: [{
+          label: '二级 3-1',
+          children: [{
+            label: '三级 3-1-1'
+          }]
+        }, {
+          label: '二级 3-2',
+          children: [{
+            label: '三级 3-2-1'
+          }, {
+            label: '三级 3-2-2'
+          }]
+        }]
+      }],
+      data2: [{
+        label: '一级 1',
+        id: 1,
+        children: [{
+          id: 2,
+          label: '二级 1-1',
+          children: [{
+            id: 3,
+            label: '三级 1-1-1'
+          }]
+        }]
+      }, {
+        label: '一级 2',
+        children: [{
+          label: '二级 2-1',
+          disabled: true,
+          children: [{
+            label: '三级 2-1-1',
+            id: 4,
+            disabled: true
+          }, {
+            label: '三级 3-1-2'
+          }]
+        }, {
+          label: '二级 2-2',
+          id: 6,
+          disabled: true,
           children: [{
             label: '三级 2-2-1'
           }]
