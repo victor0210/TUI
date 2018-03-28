@@ -24,6 +24,14 @@
       </div>
       <Dialog></Dialog>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">默认展开</div>
+      <div class="source">
+        <t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[4]"/>
+      </div>
+      <Dialog></Dialog>
+    </div>
   </div>
 </template>
 <script>
@@ -37,9 +45,12 @@ export default {
     return {
       data: [{
         label: '一级 1',
+        id: 1,
         children: [{
+          id: 2,
           label: '二级 1-1',
           children: [{
+            id: 3,
             label: '三级 1-1-1'
           }]
         }]
@@ -52,6 +63,7 @@ export default {
           }]
         }, {
           label: '二级 2-2',
+          id: 4,
           children: [{
             label: '三级 2-2-1'
           }]

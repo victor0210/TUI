@@ -33,7 +33,10 @@ export default {
     nodeClick: Function,
     checkChange: Function,
     load: Function,
-    lazy: Boolean
+    lazy: Boolean,
+    nodeKey: String,
+    expandNode: Array,
+    checkedNode: Array
   },
 
   created () {
@@ -51,7 +54,6 @@ export default {
       const _this = this
       let arr = parent ? parent.children : (this.treeData || [])
       let items = []
-
       arr.forEach(function (el) {
         let children = []
         if (el.children) {
@@ -65,7 +67,8 @@ export default {
             showCheckbox: _this.showCheckbox,
             lazy: _this.lazy,
             nodeIndex: el.nodeIndex,
-            initChecked: el.initChecked
+            initChecked: el.initChecked,
+            initExpand: el.initExpand
           }
         }, children)
         items.push(item)
@@ -94,13 +97,22 @@ export default {
     formatData (parent) {
       const _this = this
       const indexPrefix = parent ? `${parent.nodeIndex}-` : ''
-      const checked = parent ? parent.initChecked : false
       let data = parent ? parent.children : this.treeData
-      console.log('format data', data)
 
       data.forEach(function (el, idx) {
+        let checked
+
+        if (parent && parent.initChecked) {
+          checked = parent.initChecked
+        } else {
+          checked = !!(_this.nodeKey && _this.checkedNode && _this.checkedNode.indexOf(el[_this.nodeKey]) !== -1)
+        }
+
         el.nodeIndex = `${indexPrefix}${idx + 1}`
         el.initChecked = el.initChecked || checked
+        if (_this.nodeKey && _this.expandNode && _this.expandNode.indexOf(el[_this.nodeKey]) !== -1) {
+          el.initExpand = true
+        }
         if (el.children) _this.formatData(el)
       })
 

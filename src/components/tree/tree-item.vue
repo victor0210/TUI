@@ -62,7 +62,8 @@ export default {
     showCheckbox: Boolean,
     lazy: Boolean,
     nodeIndex: String,
-    initChecked: Boolean
+    initChecked: Boolean,
+    initExpand: Boolean
   },
 
   created () {
@@ -74,6 +75,7 @@ export default {
 
   mounted () {
     this.isChecked = this.initChecked
+    this.initExpand && (this.expand = true)
   },
 
   methods: {
