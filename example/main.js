@@ -4,7 +4,6 @@ import demoPanel from './components/DemoPanel'
 import router from './router'
 import highlight from 'highlightjs'
 import Guide from './components/Guide'
-
 // import part of tui
 // import Button from '../src/components/button'
 // Vue.use(Button)
@@ -28,3 +27,5 @@ new Vue({
   router,
   render: h => h(App)
 })
+
+require('./mocks/index')

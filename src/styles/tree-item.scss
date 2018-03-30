@@ -1,0 +1,45 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(tree-item) {
+  user-select: none;
+  transition: all .3s;
+
+  @include e(label) {
+    color: $--color-text-regular;
+    cursor: pointer;
+    transition: all .3s;
+    font-size: 14px;
+
+    .t-checkbox {
+      margin-top: -2px;
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: $--color-primary-lighter;
+    }
+  }
+
+  @include e(drop-icon) {
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    padding: 5px;
+    transition: transform .3s;
+
+    @include m(open) {
+      transform: rotate(90deg);
+    }
+  }
+
+
+  @include e(loading-icon) {
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
+    color: $--color-primary;
+    transition: all .3s;
+  }
+}

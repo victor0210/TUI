@@ -85,6 +85,11 @@ export default new Router({
       path: '/progress',
       name: 'progress',
       component: r => require.ensure([], () => r(require('../pages/progress.vue')))
+    },
+    {
+      path: '/tree',
+      name: 'tree',
+      component: r => require.ensure([], () => r(require('../pages/tree.vue')))
     }
   ]
 })

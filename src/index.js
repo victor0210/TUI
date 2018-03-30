@@ -28,6 +28,7 @@ import Table from './components/table/index'
 import TableColumn from './components/tableColumn/index'
 import Tag from './components/tag/index'
 import Progress from './components/progress/index'
+import Tree from './components/tree/index'
 
 import TFocus from './directives/focus'
 
@@ -60,7 +61,8 @@ const Tui = {
   Table,
   TableColumn,
   Tag,
-  Progress
+  Progress,
+  Tree
 }
 
 const install = function (Vue, opts = {}) {

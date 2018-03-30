@@ -156,6 +156,11 @@ export default {
           route: '/progress',
           name: 'Progress',
           chinese: '进度条'
+        },
+        {
+          route: '/tree',
+          name: 'Tree',
+          chinese: '树型控件'
         }
       ]
     }
