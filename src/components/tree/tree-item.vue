@@ -9,7 +9,7 @@
         :style="{visibility: (hasChildren || (!hasChildren && lazy && !loaded)) ? 'visible' : 'hidden'}"
         :class="[expand ? 't-tree-item__drop-icon--open' : '']">
       </i>
-      <t-checkbox :indeterminate="indeterminate || indeterminateChildren > 0" v-model="isChecked" v-if="showCheckbox" :disabled="checkDisabled" @change="checkChangeHandler"/>
+      <t-checkbox :indeterminate="indeterminate" v-model="isChecked" v-if="showCheckbox" :disabled="checkDisabled" @change="checkChangeHandler"/>
       <i v-if="loading"
          class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
       </i>
@@ -72,10 +72,8 @@ export default {
 
   created () {
     this.$on('check-change', this.checkChangeHandler)
-    this.$on('tree-item-add', this.addChild)
-    this.$on('tree-item-remove', this.removeChild)
-    this.$on('tree-item-add-indeterminate', this.addIndeterminate)
-    this.$on('tree-item-remove-indeterminate', this.removeIndeterminate)
+    this.$on('node-item-echo', this.echoHandler)
+    this.$on('node-item-reecho', this.reechoHandler)
   },
 
   mounted () {
@@ -84,51 +82,19 @@ export default {
   },
 
   methods: {
+    echoHandler () {},
+    reechoHandler () {},
     checkChangeHandler (val) {
       !this.checkDisabled && (this.isChecked = val)
       this.broadcast('t-tree-item', 'check-change', val)
     },
     checkout () {
       this.expand = !this.expand
-    },
-    addChild () {
-      this.childrenCheckCount++
-    },
-    removeChild () {
-      this.childrenCheckCount--
-    },
-    addIndeterminate () {
-      this.indeterminateChildren++
-    },
-    removeIndeterminate () {
-      this.indeterminateChildren--
     }
   },
 
   watch: {
-    childrenCheckCount (count) {
-      //  length - 1 because item component has an another checkbox component , so ignore 1 length
-      if (this.childrenCheckCount < this.checkMax && this.childrenCheckCount > 0) {
-        this.indeterminate = true
-        this.isChecked = false
-      } else {
-        this.isChecked = this.childrenCheckCount === this.checkMax
-        this.indeterminate = false
-      }
-    },
-    indeterminate (val) {
-      if (val) {
-        this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-add-indeterminate')
-      } else {
-        this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-remove-indeterminate')
-      }
-    },
     isChecked (val) {
-      if (val) {
-        this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-add')
-      } else {
-        this.TTreeItem && this.dispatch('t-tree-item', 'tree-item-remove')
-      }
       this.dispatch('t-tree', 'check-change', {
         label: this.label,
         checked: val,
@@ -144,19 +110,6 @@ export default {
         this.dispatch('t-tree', 'lazy-load', this)
       }
     }
-    // getChildrenLength (parent) {
-    //   let len = 0
-    //   const _this = this
-    //   const children = parent ? parent.$children : this.$children
-    //   children.forEach(function (el, idx) {
-    //     if (el.$children && idx > 0) {
-    //       len += _this.getChildrenLength(el)
-    //     } else {
-    //       len += 1
-    //     }
-    //   })
-    //   return len
-    // }
   }
 }
 </script>
