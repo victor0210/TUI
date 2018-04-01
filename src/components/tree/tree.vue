@@ -154,7 +154,10 @@ export default {
       arr.some(function (el) {
         if (el.nodeIndex === nodeIndex) {
           el.initChecked = node.isChecked
-          el.children = children
+          if (children) {
+            el.children = children
+            _this.formatData(el)
+          }
           return true
         }
 
@@ -164,7 +167,6 @@ export default {
         }
       })
 
-      this.formatData()
       return arr
     },
 
