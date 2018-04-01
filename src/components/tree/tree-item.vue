@@ -66,9 +66,7 @@ export default {
     nodeIndex: String,
     initChecked: Boolean,
     initExpand: Boolean,
-    checkDisabled: Boolean,
-    checkMax: Number,
-    checkMin: Number
+    checkDisabled: Boolean
   },
 
   created () {
