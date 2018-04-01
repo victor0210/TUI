@@ -33,7 +33,7 @@ npm run dev
 ```
 
 ## Contribution
-1. Fork t-ui repository and clone to your own repository to local
+1. Fork TUI repository and clone from your own repository
 2. Enjoy coding ...
 3. Push to your github and commit a pull request
 4. Come on ! I'm waiting for you
@@ -60,7 +60,7 @@ Form <br>
 Table <br>
 Tag <br>
 Progress <br>
-Tree <br>
+Tree (pending)<br>
 
 
 ## Todo
@@ -84,4 +84,5 @@ Tree <br>
 example:(feat: add XXX component)
 
 ## Join us
-...
+I'll build a community when the version 1.0.0 complete.
+To Be Expected !!
