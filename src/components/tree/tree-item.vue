@@ -102,13 +102,13 @@ export default {
       } else {
         this.isChecked = val
         this.TTreeItem && this.dispatch('t-tree-item', 'node-item-reecho', val)
-
-        this.dispatch('t-tree', 'check-change', {
-          label: this.label,
-          checked: val,
-          indeterminate: this.indeterminate
-        })
       }
+
+      this.dispatch('t-tree', 'check-change', {
+        label: this.label,
+        checked: val,
+        indeterminate: this.indeterminate
+      })
     },
     checkout () {
       this.expand = !this.expand
