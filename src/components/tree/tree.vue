@@ -70,9 +70,7 @@ export default {
             nodeIndex: el.nodeIndex,
             initChecked: el.initChecked,
             initExpand: el.initExpand,
-            checkDisabled: el.disabled,
-            checkMax: el.checkMax,
-            checkMin: el.checkMin
+            checkDisabled: el.disabled
           }
         }, children)
         items.push(item)
@@ -102,17 +100,8 @@ export default {
       const _this = this
       const indexPrefix = parent ? `${parent.nodeIndex}-` : ''
       let data = parent ? parent.children : this.treeData
-      if (parent) {
-        parent.checkMax = 0
-        parent.checkMin = 0
-      }
       data.forEach(function (el, idx) {
         let checked
-
-        if (parent) {
-          el.disabled && parent.checkMin++
-          parent.checkMax++
-        }
 
         if (parent && parent.initChecked) {
           checked = parent.initChecked
@@ -121,7 +110,7 @@ export default {
         }
 
         el.nodeIndex = `${indexPrefix}${idx + 1}`
-        el.initChecked = el.initChecked || checked
+        el.initChecked = checked
         if (_this.nodeKey && _this.expandNode && _this.expandNode.indexOf(el[_this.nodeKey]) !== -1) {
           el.initExpand = true
         }
@@ -138,6 +127,7 @@ export default {
         })
       })
     },
+
     async dynamicLoad (node) {
       let result = await this.runLoad(node)
       if (node) {
@@ -164,7 +154,10 @@ export default {
       arr.some(function (el) {
         if (el.nodeIndex === nodeIndex) {
           el.initChecked = node.isChecked
-          el.children = children
+          if (children) {
+            el.children = children
+            _this.formatData(el)
+          }
           return true
         }
 
@@ -174,7 +167,6 @@ export default {
         }
       })
 
-      this.formatData()
       return arr
     },
 
