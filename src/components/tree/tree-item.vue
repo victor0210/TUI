@@ -13,7 +13,7 @@
       <i v-if="loading"
          class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
       </i>
-      {{ isChecked }}
+      {{ label }}
     </div>
     <transition name="t-fly-in-center">
       <div
@@ -66,13 +66,17 @@ export default {
     nodeIndex: String,
     initChecked: Boolean,
     initExpand: Boolean,
-    checkDisabled: Boolean
+    checkDisabled: Boolean,
+    nodeKeyValue: {}
   },
 
   created () {
     this.$on('check-change', this.checkChangeHandler)
     this.$on('node-item-echo', this.echoHandler)
     this.$on('node-item-reecho', this.reechoHandler)
+    this.$on('get-checked-item', this.sendCheckedItem)
+    this.$on('set-checked-nodes', this.setChecked)
+    this.$on('reset-checked-nodes', this.resetCheck)
   },
 
   mounted () {
@@ -145,6 +149,27 @@ export default {
       })
 
       return checked
+    },
+
+    sendCheckedItem () {
+      this.broadcast('t-tree-item', 'get-checked-item')
+      this.isChecked && this.dispatch('t-tree', 'catch-checked-node', this)
+    },
+
+    setChecked (keys) {
+      if (keys.indexOf(this.nodeKeyValue) !== -1 && !this.isChecked) {
+        this.$emit('check-change')
+      } else {
+        this.broadcast('t-tree-item', 'set-checked-nodes', keys)
+      }
+    },
+
+    resetCheck () {
+      if (this.isChecked) {
+        this.$emit('check-change')
+      } else {
+        this.broadcast('t-tree-item', 'reset-checked-nodes')
+      }
     }
   },
 

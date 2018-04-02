@@ -1,17 +1,25 @@
 <script>
 import TTreeItem from './tree-item.vue'
+import Emitter from '../../mixins/emitter'
 
 export default {
   components: {
     TTreeItem
   },
+
+  mixins: [Emitter],
+
   name: 't-tree',
 
   data () {
     return {
       treeData: [],
       labelKey: 'label',
-      childrenKey: 'children'
+      childrenKey: 'children',
+
+      //  user gotten
+      checkedNodesCollection: [],
+      checkedKeysCollection: []
     }
   },
 
@@ -36,13 +44,16 @@ export default {
     lazy: Boolean,
     nodeKey: String,
     expandNode: Array,
-    checkedNode: Array
+
+    //  for check switch
+    checkedNodes: Array
   },
 
   created () {
     this.$on('node-click', this.handleNodeClick)
     this.$on('check-change', this.handleCheckChange)
     this.$on('lazy-load', this.lazyLoad)
+    this.$on('catch-checked-node', this.catchCheckedNode)
 
     this.setPropKeys()
     this.initData()
@@ -70,7 +81,8 @@ export default {
             nodeIndex: el.nodeIndex,
             initChecked: el.initChecked,
             initExpand: el.initExpand,
-            checkDisabled: el.disabled
+            checkDisabled: el.disabled,
+            nodeKeyValue: el[_this.nodeKey]
           }
         }, children)
         items.push(item)
@@ -176,6 +188,44 @@ export default {
 
     handleCheckChange (data) {
       this.checkChange && this.checkChange(data)
+    },
+
+    getChecks () {
+      this.checkedNodesCollection = []
+      this.checkedKeysCollection = []
+      this.broadcast('t-tree-item', 'get-checked-item')
+    },
+
+    getCheckNodes () {
+      this.getChecks()
+      return this.checkedNodesCollection
+    },
+
+    getCheckKeys () {
+      this.getChecks()
+      return this.checkedKeysCollection
+    },
+
+    setCheckNodes (keys) {
+      this.broadcast('t-tree-item', 'set-checked-nodes', keys)
+    },
+
+    resetCheckNodes () {
+      this.broadcast('t-tree-item', 'reset-checked-nodes')
+    },
+
+    catchCheckedNode (node) {
+      this.checkedNodesCollection.push(this.customNode(node))
+      this.checkedKeysCollection.push(this.customNode(node)[this.nodeKey])
+    },
+
+    customNode (node) {
+      let n = {
+        label: node.label
+      }
+      n[this.nodeKey] = node.nodeKeyValue
+
+      return n
     }
   },
 
