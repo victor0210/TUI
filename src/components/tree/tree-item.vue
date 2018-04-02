@@ -13,7 +13,7 @@
       <i v-if="loading"
          class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
       </i>
-      {{ label }}
+      {{ isChecked }}
     </div>
     <transition name="t-fly-in-center">
       <div
@@ -98,7 +98,7 @@ export default {
       if (!init && this.checkDisabled) return
 
       if (this.hasChildren) {
-        this.broadcast('t-tree-item', 'node-item-echo', val)
+        this.broadcast('t-tree-item', 'node-item-echo', !this.childCheckableCheckAll())
       } else {
         this.isChecked = val
         this.TTreeItem && this.dispatch('t-tree-item', 'node-item-reecho', val)
@@ -124,6 +124,27 @@ export default {
       })
 
       return [checkCount === this.childLen, (checkCount > 0 && checkCount < this.childLen) || indeterminateCount > 0]
+    },
+    childCheckableCheckAll (parent) {
+      let checked = true
+
+      const _this = this
+      const arr = parent ? parent.$children : this.$children
+      arr.some(function (el, idx) {
+        if (idx > 0) {
+          if (el.hasChildren) {
+            checked = _this.childCheckableCheckAll(el)
+          } else {
+            if (!el.checkDisabled && !el.isChecked) {
+              checked = false
+            }
+          }
+
+          if (checked === false) return true
+        }
+      })
+
+      return checked
     }
   },
 

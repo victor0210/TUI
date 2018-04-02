@@ -112,11 +112,12 @@ export default {
             id: 4,
             disabled: true
           }, {
-            label: '三级 3-1-2'
+            label: '三级 3-1-2',
+            id: 6,
+            disabled: true
           }]
         }, {
           label: '二级 2-2',
-          id: 6,
           disabled: true,
           children: [{
             label: '三级 2-2-1'
