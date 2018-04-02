@@ -66,13 +66,17 @@ export default {
     nodeIndex: String,
     initChecked: Boolean,
     initExpand: Boolean,
-    checkDisabled: Boolean
+    checkDisabled: Boolean,
+    nodeKeyValue: {}
   },
 
   created () {
     this.$on('check-change', this.checkChangeHandler)
     this.$on('node-item-echo', this.echoHandler)
     this.$on('node-item-reecho', this.reechoHandler)
+    this.$on('get-checked-item', this.sendCheckedItem)
+    this.$on('set-checked-nodes', this.setChecked)
+    this.$on('reset-checked-nodes', this.resetCheck)
   },
 
   mounted () {
@@ -98,7 +102,7 @@ export default {
       if (!init && this.checkDisabled) return
 
       if (this.hasChildren) {
-        this.broadcast('t-tree-item', 'node-item-echo', val)
+        this.broadcast('t-tree-item', 'node-item-echo', !this.childCheckableCheckAll())
       } else {
         this.isChecked = val
         this.TTreeItem && this.dispatch('t-tree-item', 'node-item-reecho', val)
@@ -124,6 +128,48 @@ export default {
       })
 
       return [checkCount === this.childLen, (checkCount > 0 && checkCount < this.childLen) || indeterminateCount > 0]
+    },
+    childCheckableCheckAll (parent) {
+      let checked = true
+
+      const _this = this
+      const arr = parent ? parent.$children : this.$children
+      arr.some(function (el, idx) {
+        if (idx > 0) {
+          if (el.hasChildren) {
+            checked = _this.childCheckableCheckAll(el)
+          } else {
+            if (!el.checkDisabled && !el.isChecked) {
+              checked = false
+            }
+          }
+
+          if (checked === false) return true
+        }
+      })
+
+      return checked
+    },
+
+    sendCheckedItem () {
+      this.broadcast('t-tree-item', 'get-checked-item')
+      this.isChecked && this.dispatch('t-tree', 'catch-checked-node', this)
+    },
+
+    setChecked (keys) {
+      if (keys.indexOf(this.nodeKeyValue) !== -1 && !this.isChecked) {
+        this.$emit('check-change')
+      } else {
+        this.broadcast('t-tree-item', 'set-checked-nodes', keys)
+      }
+    },
+
+    resetCheck () {
+      if (this.isChecked) {
+        this.$emit('check-change')
+      } else {
+        this.broadcast('t-tree-item', 'reset-checked-nodes')
+      }
     }
   },
 
