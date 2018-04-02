@@ -1,63 +1,73 @@
 <template>
   <div>
     <guide title="树形控件" des="用清晰的层级结构展示信息，可展开或折叠"/>
-    <div class="demo-block">
-      <div class="subtitle">基本用法</div>
-      <div class="source">
-        <t-tree :data="data"/>
-      </div>
-      <Dialog></Dialog>
-    </div>
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">基本用法</div>-->
+      <!--<div class="source">-->
+        <!--<t-tree :data="data"/>-->
+      <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
 
-    <div class="demo-block">
-      <div class="subtitle">可选择</div>
-      <div class="source">
-        <t-tree :data="data" show-checkbox :node-click="handleNodeClick" :check-change="handleCheckChange"/>
-      </div>
-      <Dialog></Dialog>
-    </div>
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">可选择</div>-->
+      <!--<div class="source">-->
+        <!--<t-tree :data="data" show-checkbox :node-click="handleNodeClick" :check-change="handleCheckChange"/>-->
+      <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
 
-    <div class="demo-block">
-      <div class="subtitle">动态加载</div>
-      <div class="source">
-        <t-tree :load="loadData" lazy show-checkbox :default-props="defaultProps"/>
-      </div>
-      <Dialog></Dialog>
-    </div>
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">动态加载</div>-->
+      <!--<div class="source">-->
+        <!--<t-tree :load="loadData" lazy show-checkbox :default-props="defaultProps"/>-->
+      <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
 
-    <div class="demo-block">
-      <div class="subtitle">默认展开</div>
-      <div class="source">
-        <t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[3]"/>
-      </div>
-      <Dialog></Dialog>
-    </div>
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">默认展开</div>-->
+      <!--<div class="source">-->
+        <!--<t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[3]"/>-->
+      <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
+
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">禁用选项</div>-->
+      <!--<div class="source">-->
+        <!--<t-tree show-checkbox :data="data2" node-key="id" :expand-node="[1, 2]" :checked-node="[4]"/>-->
+      <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
+
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">树节点的操作</div>-->
+      <!--<div class="source">-->
+        <!--<t-row>-->
+          <!--<t-col :span="24">-->
+            <!--<t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[4]" ref="tree"/>-->
+          <!--</t-col>-->
+          <!--<t-col :span="24">-->
+            <!--<br>-->
+            <!--<br>-->
+            <!--<t-button @click="getCheckNodes">获取node</t-button>-->
+            <!--<t-button @click="getCheckKeys">获取key</t-button>-->
+            <!--<t-button @click="setCheckNodes">通过node设置</t-button>-->
+            <!--<t-button @click="reset">重置</t-button>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
 
     <div class="demo-block">
       <div class="subtitle">禁用选项</div>
-      <div class="source">
-        <t-tree show-checkbox :data="data2" node-key="id" :expand-node="[1, 2]" :checked-node="[4]"/>
-      </div>
-      <Dialog></Dialog>
-    </div>
-
-    <div class="demo-block">
-      <div class="subtitle">树节点的操作</div>
-      <div class="source">
-        <t-row>
-          <t-col :span="24">
-            <t-tree show-checkbox :data="data" node-key="id" :expand-node="[1, 2]" :checked-node="[4]" ref="tree"/>
-          </t-col>
-          <t-col :span="24">
-            <br>
-            <br>
-            <t-button @click="getCheckNodes">获取node</t-button>
-            <t-button @click="getCheckKeys">获取key</t-button>
-            <t-button @click="setCheckNodes">通过node设置</t-button>
-            <t-button @click="reset">重置</t-button>
-          </t-col>
-        </t-row>
-      </div>
+        <div class="source">
+          <t-input v-model="filterText" placeholder="输入关键字"/>
+          <br>
+          <t-tree show-checkbox :data="data2" node-key="id" :expand-node="[1, 2]" :checked-node="[4]" :filterText="filterText"/>
+        </div>
       <Dialog></Dialog>
     </div>
   </div>
@@ -173,7 +183,8 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'name'
-      }
+      },
+      filterText: ''
     }
   },
   methods: {

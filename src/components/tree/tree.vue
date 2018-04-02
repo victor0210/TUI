@@ -44,6 +44,7 @@ export default {
     lazy: Boolean,
     nodeKey: String,
     expandNode: Array,
+    filterText: String,
 
     //  for check switch
     checkedNodes: Array
@@ -226,6 +227,10 @@ export default {
       n[this.nodeKey] = node.nodeKeyValue
 
       return n
+    },
+
+    filter (key) {
+      this.broadcast('t-tree-item', 'filter-node', key)
     }
   },
 
@@ -239,6 +244,9 @@ export default {
     },
     treeData () {
       this.formatData()
+    },
+    filterText (val) {
+      this.filter(val)
     }
   }
 }

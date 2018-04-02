@@ -1,5 +1,5 @@
 <template>
-  <div class="t-tree-item">
+  <div class="t-tree-item" v-show="isMatchKey">
     <div
       @click="checkout"
       class="t-tree-item__label"
@@ -53,7 +53,9 @@ export default {
       reechoCount: 0,
       indeterminate: false,
       loaded: false,
-      loading: false
+      loading: false,
+      //  for filter
+      isMatchKey: true
     }
   },
 
@@ -77,6 +79,8 @@ export default {
     this.$on('get-checked-item', this.sendCheckedItem)
     this.$on('set-checked-nodes', this.setChecked)
     this.$on('reset-checked-nodes', this.resetCheck)
+    this.$on('filter-node', this.filterHandler)
+    this.$on('child-match-node', this.childMatchHandler)
   },
 
   mounted () {
@@ -170,6 +174,21 @@ export default {
       } else {
         this.broadcast('t-tree-item', 'reset-checked-nodes')
       }
+    },
+    filterHandler (key) {
+      if (key === '') {
+        this.isMatchKey = true
+      } else {
+        this.isMatchKey = this.label.indexOf(key) !== -1
+        this.isMatchKey && this.TTreeItem && this.dispatch('t-tree-item', 'child-match-node')
+      }
+      this.broadcast('t-tree-item', 'filter-node', key)
+    },
+
+    childMatchHandler () {
+      this.isMatchKey = true
+      this.expand = true
+      this.TTreeItem && this.dispatch('t-tree-item', 'child-match-node')
     }
   },
 
