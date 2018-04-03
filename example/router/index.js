@@ -90,6 +90,11 @@ export default new Router({
       path: '/tree',
       name: 'tree',
       component: r => require.ensure([], () => r(require('../pages/tree.vue')))
+    },
+    {
+      path: '/pagination',
+      name: 'pagination',
+      component: r => require.ensure([], () => r(require('../pages/pagination.vue')))
     }
   ]
 })

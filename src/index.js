@@ -29,6 +29,7 @@ import TableColumn from './components/tableColumn/index'
 import Tag from './components/tag/index'
 import Progress from './components/progress/index'
 import Tree from './components/tree/index'
+import TPagination from './components/pagination/index'
 
 import TFocus from './directives/focus'
 
@@ -62,7 +63,8 @@ const Tui = {
   TableColumn,
   Tag,
   Progress,
-  Tree
+  Tree,
+  TPagination
 }
 
 const install = function (Vue, opts = {}) {

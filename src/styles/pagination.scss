@@ -1,0 +1,58 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(pagination) {
+  display: block;
+  position: relative;
+  height: 24px;
+
+  @include e(prev) {
+    float: left;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: 12px;
+    margin-right: 10px;
+    i {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      display: block;
+      width: 7px;
+      height: 14px;
+    }
+  }
+
+  @include e(next) {
+    float: left;
+    height: 100%;
+    width: 12px;
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+
+    i {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      display: block;
+      width: 7px;
+      height: 14px;
+    }
+  }
+
+  @include e(pager) {
+    float: left;
+    height: 100%;
+    display: inline-block;
+  }
+
+  @include e(pager-item) {
+    display: inline-block;
+    height: 100%;
+    line-height: 100%;
+    text-align: center;
+  }
+}
