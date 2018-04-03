@@ -1,19 +1,23 @@
 <template>
   <div class="t-tree-item" v-show="isMatchKey">
     <div
-      @click="checkout"
       class="t-tree-item__label"
       :style="{paddingLeft: indent}">
-      <i
-        class="fa fa-caret-right t-tree-item__drop-icon"
-        :style="{visibility: (hasChildren || (!hasChildren && lazy && !loaded)) ? 'visible' : 'hidden'}"
-        :class="[expand ? 't-tree-item__drop-icon--open' : '']">
-      </i>
-      <t-checkbox :indeterminate="indeterminate" v-model="isChecked" v-if="showCheckbox" :disabled="checkDisabled" @change="checkChangeHandler"/>
-      <i v-if="loading"
-         class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
-      </i>
-      {{ label }}
+      <div class="t-tree-item__main">
+        <i
+          class="fa fa-caret-right t-tree-item__drop-icon"
+          :style="{visibility: (hasChildren || (!hasChildren && lazy && !loaded)) ? 'visible' : 'hidden'}"
+          :class="[expand ? 't-tree-item__drop-icon--open' : '']"
+          @click="checkout"
+        >
+        </i>
+        <t-checkbox :indeterminate="indeterminate" v-model="isChecked" v-if="showCheckbox" :disabled="checkDisabled" @change="checkChangeHandler"/>
+        <i v-if="loading"
+           class="fa fa-circle-notch fa-spin t-tree-item__loading-icon">
+        </i>
+        {{ label }}
+      </div>
+      <slot name="user"></slot>
     </div>
     <transition name="t-fly-in-center">
       <div
@@ -55,14 +59,14 @@ export default {
       loaded: false,
       loading: false,
       //  for filter
-      isMatchKey: true
+      isMatchKey: true,
+      childrenNode: []
     }
   },
 
   props: {
     label: String,
     indent: String,
-    hasChildren: Boolean,
     showCheckbox: Boolean,
     lazy: Boolean,
     nodeIndex: String,
@@ -81,14 +85,24 @@ export default {
     this.$on('reset-checked-nodes', this.resetCheck)
     this.$on('filter-node', this.filterHandler)
     this.$on('child-match-node', this.childMatchHandler)
+    this.$on('child-node-register', this.registerHandler)
+    this.$on('child-node-bumper', this.bumperHandler)
+    this.$on('find-node-by-index', this.findHandler)
   },
 
   mounted () {
+    this.TTreeItem && this.dispatch('t-tree-item', 'child-node-register', this)
     this.initChecked && this.checkChangeHandler(this.initChecked, true)
     this.initExpand && (this.expand = true)
   },
 
   methods: {
+    registerHandler (node) {
+      this.childrenNode.push(node)
+    },
+    bumperHandler () {
+      this.childrenNode.pop()
+    },
     echoHandler (val) {
       if (this.hasChildren) {
         this.broadcast('t-tree-item', 'node-item-echo', val)
@@ -124,11 +138,9 @@ export default {
     childCheckAll () {
       let checkCount = 0
       let indeterminateCount = 0
-      this.$children.forEach(function (el, idx) {
-        if (idx > 0) {
-          el.isChecked && checkCount++
-          el.indeterminate && indeterminateCount++
-        }
+      this.childrenNode.forEach(function (el) {
+        el.isChecked && checkCount++
+        el.indeterminate && indeterminateCount++
       })
 
       return [checkCount === this.childLen, (checkCount > 0 && checkCount < this.childLen) || indeterminateCount > 0]
@@ -137,19 +149,17 @@ export default {
       let checked = true
 
       const _this = this
-      const arr = parent ? parent.$children : this.$children
-      arr.some(function (el, idx) {
-        if (idx > 0) {
-          if (el.hasChildren) {
-            checked = _this.childCheckableCheckAll(el)
-          } else {
-            if (!el.checkDisabled && !el.isChecked) {
-              checked = false
-            }
+      const arr = parent ? parent.childrenNode : this.childrenNode
+      arr.some(function (el) {
+        if (el.hasChildren) {
+          checked = _this.childCheckableCheckAll(el)
+        } else {
+          if (!el.checkDisabled && !el.isChecked) {
+            checked = false
           }
-
-          if (checked === false) return true
         }
+
+        if (checked === false) return true
       })
 
       return checked
@@ -189,6 +199,14 @@ export default {
       this.isMatchKey = true
       this.expand = true
       this.TTreeItem && this.dispatch('t-tree-item', 'child-match-node')
+    },
+
+    findHandler (nodeIndex) {
+      if (this.nodeIndex === nodeIndex) {
+        this.dispatch('t-tree', 'catch-node-by-index', this)
+      } else {
+        this.hasChildren && this.broadcast('t-tree-item', 'find-node-by-index', nodeIndex)
+      }
     }
   },
 
@@ -205,8 +223,15 @@ export default {
   },
   computed: {
     childLen () {
-      return this.$children.length - 1
+      return this.childrenNode.length
+    },
+    hasChildren () {
+      return this.childrenNode.length > 0
     }
+  },
+
+  beforeDestroy () {
+    this.TTreeItem && this.dispatch('t-tree-item', 'child-node-bumper')
   }
 }
 </script>

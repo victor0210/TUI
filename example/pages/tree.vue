@@ -61,13 +61,26 @@
       <!--<Dialog></Dialog>-->
     <!--</div>-->
 
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">节点过滤</div>-->
+        <!--<div class="source">-->
+          <!--<t-input v-model="filterText" placeholder="输入关键字"/>-->
+          <!--<br>-->
+          <!--<t-tree show-checkbox :data="data2" node-key="id" :expand-node="[1, 2]" :checked-node="[4]" :filterText="filterText"/>-->
+        <!--</div>-->
+      <!--<Dialog></Dialog>-->
+    <!--</div>-->
+
     <div class="demo-block">
-      <div class="subtitle">禁用选项</div>
-        <div class="source">
-          <t-input v-model="filterText" placeholder="输入关键字"/>
-          <br>
-          <t-tree show-checkbox :data="data2" node-key="id" :expand-node="[1, 2]" :checked-node="[4]" :filterText="filterText"/>
-        </div>
+      <div class="subtitle">自定义节点</div>
+      <div class="source">
+        <t-tree show-checkbox :data="data2" ref="tree2">
+          <template slot-scope="{node}">
+            <t-button type="text" size="sm" @click="append(node)">append</t-button>
+            <t-button type="text" size="sm" @click="remove(node)">remove</t-button>
+          </template>
+        </t-tree>
+      </div>
       <Dialog></Dialog>
     </div>
   </div>
@@ -217,6 +230,15 @@ export default {
     },
     reset () {
       this.$refs.tree.resetCheckNodes()
+    },
+    append (node) {
+      this.$refs.tree2.append(node, {
+        label: 'append1',
+        id: 32
+      })
+    },
+    remove (node) {
+      this.$refs.tree2.remove(node)
     }
   }
 }

@@ -16,6 +16,7 @@ export default {
       treeData: [],
       labelKey: 'label',
       childrenKey: 'children',
+      findNode: null,
 
       //  user gotten
       checkedNodesCollection: [],
@@ -55,6 +56,7 @@ export default {
     this.$on('check-change', this.handleCheckChange)
     this.$on('lazy-load', this.lazyLoad)
     this.$on('catch-checked-node', this.catchCheckedNode)
+    this.$on('catch-node-by-index', this.catchFindNode)
 
     this.setPropKeys()
     this.initData()
@@ -76,7 +78,6 @@ export default {
           props: {
             label: el[_this.labelKey],
             indent: `${_this.childIndent * (el.nodeIndex.split('-').length - 1)}px`,
-            hasChildren: !!el.children,
             showCheckbox: _this.showCheckbox,
             lazy: _this.lazy,
             nodeIndex: el.nodeIndex,
@@ -84,6 +85,13 @@ export default {
             initExpand: el.initExpand,
             checkDisabled: el.disabled,
             nodeKeyValue: el[_this.nodeKey]
+          },
+          scopedSlots: {
+            user: () => h('div', {
+              class: 't-tree-item__suffix'
+            }, _this.$scopedSlots.default({
+              node: el
+            }))
           }
         }, children)
         items.push(item)
@@ -166,17 +174,38 @@ export default {
 
       arr.some(function (el) {
         if (el.nodeIndex === nodeIndex) {
+          console.log(nodeIndex, el.nodeIndex)
           el.initChecked = node.isChecked
-          if (children) {
+          if (el.children) {
+            el.children = [...el.children, ...children]
+          } else {
             el.children = children
-            _this.formatData(el)
           }
+          _this.formatData(el)
           return true
         }
 
         if (el.children) {
           el.children = _this.appendNodeInTreeData(node, children, el)
+        }
+      })
+
+      return arr
+    },
+
+    removeNodeInTreeData (node, parent) {
+      const nodeIndex = node.nodeIndex
+      let arr = parent ? parent.children : this.treeData
+      const _this = this
+
+      arr.some(function (el, idx) {
+        if (el.nodeIndex === nodeIndex) {
+          arr.splice(idx, 1)
           return true
+        }
+
+        if (el.children) {
+          el.children = _this.removeNodeInTreeData(node, el)
         }
       })
 
@@ -231,6 +260,26 @@ export default {
 
     filter (key) {
       this.broadcast('t-tree-item', 'filter-node', key)
+    },
+
+    append (node, child) {
+      this.findNodeByIndex(node.nodeIndex)
+      const c = Array.isArray(child) ? child : [child]
+      this.appendNodeInTreeData(this.findNode, c)
+      this.$forceUpdate()
+    },
+
+    remove (node) {
+      this.removeNodeInTreeData(node)
+      this.$forceUpdate()
+    },
+
+    findNodeByIndex (nodeIndex) {
+      this.broadcast('t-tree-item', 'find-node-by-index', nodeIndex)
+    },
+
+    catchFindNode (node) {
+      this.findNode = node
     }
   },
 
