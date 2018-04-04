@@ -1,24 +1,6 @@
-<template>
-  <div class="t-pagination">
-    <div class="t-pagination__prev">
-      <i class="fa fa-angle-left" @click="prevPage"></i>
-    </div>
-    <div class="t-pagination__pager">
-      <div class="t-pagination__pager-item" v-for="p in pageNumCollections" :key="p" :class="[
-        current === p ? 'is-current' : '',
-        (p === 'next' || p === 'prev') ? 't-pagination__pager-ellipsis' : ''
-      ]">
-        <span v-if="!isNaN(p)" @click="jumpPage(p)">{{ p }}</span>
-        <span v-else-if="p === 'prev'" @click="jumpPage(current - 5)"><i class="fa fa-ellipsis-h"></i><i class="fa fa-angle-double-left"></i></span>
-        <span v-else-if="p === 'next'" @click="jumpPage(current + 5)" class="t-pagination__pager-ellipsis"><i class="fa fa-ellipsis-h"></i><i class="fa fa-angle-double-right"></i></span>
-      </div>
-    </div>
-    <div class="t-pagination__next" @click="nextPage">
-      <i class="fa fa-angle-right"></i>
-    </div>
-  </div>
-</template>
 <script>
+import TPager from './pager.vue'
+
 export default {
   name: 't-pagination',
 
@@ -38,6 +20,23 @@ export default {
     currentPage: {
       default: 1
     }
+  },
+
+  render (h) {
+    const _this = this
+    return h('div', {
+      class: 't-pagination'
+    }, [h(TPager, {
+      on: {
+        'next-page': _this.nextPage,
+        'prev-page': _this.prevPage,
+        'jump-page': _this.jumpPage
+      },
+      props: {
+        pageNumCollections: _this.pageNumCollections,
+        current: _this.current
+      }
+    })])
   },
 
   mounted () {
