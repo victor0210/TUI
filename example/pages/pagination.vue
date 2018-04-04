@@ -6,7 +6,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
-            <t-pagination/>
+            <t-pagination total="120"/>
           </t-col>
         </t-row>
       </div>
