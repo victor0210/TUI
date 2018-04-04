@@ -161,6 +161,11 @@ export default {
           route: '/tree',
           name: 'Tree',
           chinese: '树型控件'
+        },
+        {
+          route: '/pagination',
+          name: 'Pagination',
+          chinese: '分页组件'
         }
       ]
     }

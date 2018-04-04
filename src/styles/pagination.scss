@@ -1,0 +1,121 @@
+@import "variables";
+@import "mixins/mixins";
+
+$--pagination-base-height: 24px;
+$--pagination-base-padding: 0 2px;
+$--pagination-item-base-width: 28px;
+$--pagination-ellipsis-base-width: 16px;
+$--pagination-item-base-font-size: 13px;
+
+@include b(pagination) {
+  display: inline-block;
+  position: relative;
+  padding: 4px 0;
+  height: $--pagination-base-height;
+
+  @include e(prev) {
+    float: left;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: 16px;
+    cursor: pointer;
+    color: $--color-text-regular;
+    user-select: none;
+    text-align: center;
+
+    i {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      width: 7px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: $--color-primary;
+    }
+  }
+
+  @include e(next) {
+    float: left;
+    height: 100%;
+    width: 16px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    color: $--color-text-regular;
+    user-select: none;
+    text-align: center;
+
+    i {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      width: 7px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: $--color-primary;
+    }
+  }
+
+  @include e(pager) {
+    float: left;
+    height: 100%;
+    display: inline-block;
+  }
+
+  @include e(pager-item) {
+    user-select: none;
+    font-weight: 500;
+    width: $--pagination-item-base-width;
+    padding: $--pagination-base-padding;
+    display: inline-block;
+    height: 100%;
+    line-height: $--pagination-base-height;
+    text-align: center;
+    cursor: pointer;
+    font-size: $--pagination-item-base-font-size;
+
+    &:hover {
+      color: $--color-primary;
+    }
+
+    @include when(current) {
+      color: $--color-primary;
+    }
+
+    span {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @include e(pager-ellipsis) {
+    width: $--pagination-ellipsis-base-width;
+    i:last-child {
+      display: none;
+    }
+
+    &:hover {
+      i:first-child {
+        display: none;
+      }
+
+      i:last-child {
+        display: inline-block;
+      }
+    }
+  }
+}

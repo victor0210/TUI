@@ -60,7 +60,8 @@ Form <br>
 Table <br>
 Tag <br>
 Progress <br>
-Tree (pending)<br>
+Tree <br>
+Pagination <br>
 
 
 ## Todo
