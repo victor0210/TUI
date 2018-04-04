@@ -5,7 +5,10 @@
       <div class="subtitle">基本用法</div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="24">
+          <t-col :span="12">
+            <t-pagination total="50"/>
+          </t-col>
+          <t-col :span="12">
             <t-pagination total="120"/>
           </t-col>
         </t-row>
