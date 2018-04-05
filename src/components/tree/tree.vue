@@ -174,7 +174,6 @@ export default {
 
       arr.some(function (el) {
         if (el.nodeIndex === nodeIndex) {
-          console.log(nodeIndex, el.nodeIndex)
           el.initChecked = node.isChecked
           if (el.children) {
             el.children = [...el.children, ...children]

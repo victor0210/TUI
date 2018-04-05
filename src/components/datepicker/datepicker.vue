@@ -316,7 +316,6 @@ export default {
       }
     },
     keyDownHandler (e) {
-      console.log(e.keyCode)
       if (this.type === 'daterange') return
       const _this = this
       switch (e.keyCode) {
@@ -394,7 +393,6 @@ export default {
       }
       day = new Date(year, month, date)
 
-      console.log(year, month, date)
       this.keyboardFocusIndex = {
         year: day.getFullYear(),
         month: day.getMonth(),
@@ -586,9 +584,6 @@ export default {
     }
   },
   watch: {
-    keyboardFocusIndex () {
-      console.log('kbic')
-    },
     value (val) {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)

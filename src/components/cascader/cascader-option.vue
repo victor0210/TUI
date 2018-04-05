@@ -75,13 +75,9 @@ export default {
     isSelect () {
       return this.parent.selectIndex.indexOf(this.pIndex) === 0
     }
-    // isChoosing () {
-    //   return this.parent.selectIndex.indexOf(this.idx) === 0 && !this.search
-    // }
   },
 
   beforeDestroy () {
-    console.log(this, 'option remove')
     this.search ? this.action(this.parent, 'search-option-bumper', this) : this.action(this.parent, 'option-bumper', this)
   }
 }
