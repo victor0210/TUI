@@ -48,6 +48,7 @@ Input <br>
 Checkbox <br>
 CheckboxGroup <br>
 Radio <br>
+Switch <br>
 RadioGroup <br>
 Select <br>
 OptionGroup <br>
