@@ -26,6 +26,12 @@
       color: $--color-text-primary;
       display: table-cell;
 
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
       &:hover {
         border-color: mix($--color-white, $--color-gray, 20%);
       }

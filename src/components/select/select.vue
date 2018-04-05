@@ -29,9 +29,7 @@
         </template>
       </div>
 
-      <span class="t-select__inner" v-if="!multiple" ref="input_inner" :class="[
-        !inputLabel ? 't-select__inner--placeholder' : ''
-      ]" :style="{
+      <span class="t-select__inner" v-if="!multiple" ref="input_inner" :style="{
         lineHeight: height ? `${height - 8}px` : 'auto',
       }">
         <template v-if="inputLabel">
