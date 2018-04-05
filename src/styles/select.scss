@@ -17,10 +17,6 @@
     color: #777777;
   }
 
-  input {
-    height: 38px;
-  }
-
   @include e(inner) {
     position: relative;
     border: none;
@@ -36,6 +32,10 @@
     overflow: hidden;
     vertical-align: middle;
     font-size: 12px;
+
+    @include m(placeholder) {
+      color: #777777;
+    }
   }
 
   @include e(list) {
@@ -210,6 +210,14 @@
       .t-select__drop-icon {
         display: none;
       }
+    }
+  }
+
+  @include m(sm) {
+    width: auto;
+    .t-select__inner {
+      min-height: $--select-input-sm-min-height;
+      line-height: $--select-input-sm-line-height;
     }
   }
 }
