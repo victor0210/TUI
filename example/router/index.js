@@ -47,6 +47,11 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/radio.vue')))
     },
     {
+      path: '/switch',
+      name: 'switch',
+      component: r => require.ensure([], () => r(require('../pages/switch.vue')))
+    },
+    {
       path: '/select',
       name: 'select',
       component: r => require.ensure([], () => r(require('../pages/select.vue')))

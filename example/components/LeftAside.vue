@@ -116,6 +116,11 @@ export default {
           chinese: '单选框'
         },
         {
+          route: '/switch',
+          name: 'Switch',
+          chinese: '开关'
+        },
+        {
           route: '/select',
           name: 'Select',
           chinese: '下拉框'
