@@ -22,7 +22,6 @@
     border: none;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    min-height: $--select-input-line-height;
     line-height: $--select-input-line-height;
     padding: $--select-input-wrapper-padding;
     cursor: pointer;
@@ -210,14 +209,6 @@
       .t-select__drop-icon {
         display: none;
       }
-    }
-  }
-
-  @include m(sm) {
-    width: auto;
-    .t-select__inner {
-      min-height: $--select-input-sm-min-height;
-      line-height: $--select-input-sm-line-height;
     }
   }
 }
