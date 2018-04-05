@@ -1,0 +1,51 @@
+@import "variables";
+@import "mixins/mixins";
+
+$--switch-base-fill: #d4d6d6;
+$--switch-base-border-radius: 100px;
+
+@include b(switch) {
+  @include e(text) {
+    display: inline-block;
+    float: left;
+
+    @include m(inactive) {
+      color: $--color-primary;
+    }
+  }
+
+  @include e(wrapper) {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    background-color: $--switch-base-fill;
+    border-radius: $--switch-base-border-radius;
+    padding: 1px;
+    cursor: pointer;
+    transition: all .3s;
+    user-select: none;
+    float: left;
+    margin: 0 5px;
+    box-shadow: 0 2px 6px 0 #eee;
+
+    @include e(inner) {
+      display: inline-block;
+      background-color: white;
+      border-radius: $--switch-base-border-radius;
+      transition: all .3s;
+      transform: translate(0);
+    }
+  }
+
+  @include when(open) {
+    .t-switch__text--inactive {
+      color: $--color-text-regular;
+    }
+    .t-switch__text--active {
+      color: $--color-primary;
+    }
+    .t-switch__wrapper {
+      background-color: $--color-primary;
+    }
+  }
+}
