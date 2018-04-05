@@ -509,7 +509,6 @@ export default {
       let direction
 
       if (this.isSearching) {
-
         list = this.searchMenu
         index = this.searchFocusIndex
         direction = this.searchFocusDirection
