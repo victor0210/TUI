@@ -2,15 +2,21 @@
   <div class="t-select" @click="checkout" :class="[
     isFocus ? 'is-focus' : '',
     disabled ? 'is-disabled' : '',
-    clearable && !isEmpty ? 'is-clearable' : ''
-  ]">
+    clearable && !isEmpty ? 'is-clearable' : '',
+    size ? `t-select--${size}` : ''
+  ]" :style="{
+    width: width ? `${width}px` : 'auto',
+    height: height ? `${height}px` : 'auto',
+  }">
     <div class="t-select__input" ref="input">
       <i class="t-select__input-icon t-select__drop-icon fa fa-chevron-down" :class="{
         't-select__input-icon--open': isFocus
       }" ref="drop_icon"></i>
       <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput" ref="clear_icon"></i>
 
-      <div v-if="multiple" class="t-select__inner" ref="multi_inner">
+      <div v-if="multiple" class="t-select__inner" ref="multi_inner" :style="{
+        lineHeight: height ? `${height - 8}px` : 'auto',
+      }">
         <template v-if="value.length === 0">
           <span class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
         </template>
@@ -23,7 +29,19 @@
         </template>
       </div>
 
-      <input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner" :placeholder="placeholder"/>
+      <span class="t-select__inner" v-if="!multiple" ref="input_inner" :class="[
+        !inputLabel ? 't-select__inner--placeholder' : ''
+      ]" :style="{
+        lineHeight: height ? `${height - 8}px` : 'auto',
+      }">
+        <template v-if="inputLabel">
+          {{ inputLabel }}
+        </template>
+        <template v-else>
+          {{ placeholder }}
+        </template>
+      </span>
+      <!--<input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner" :placeholder="placeholder"/>-->
     </div>
 
     <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
@@ -94,7 +112,10 @@ export default {
     clearable: Boolean,
     editable: Boolean,
     searchable: Boolean,
-    value: {}
+    value: {},
+    width: Number,
+    height: Number,
+    size: String
   },
 
   created () {
