@@ -25,7 +25,6 @@ export default {
       let parent = this.$parent
       while (parent && parent.$options._componentTag !== 't-row') {
         parent = parent.$parent
-        console.log(parent)
       }
       return parent ? parent.gutter : 0
     }

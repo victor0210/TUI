@@ -227,7 +227,6 @@ export default {
     scrollFilter (e) {
       const _this = this
       const st = e.target.scrollTop
-      console.log(st)
       let type
       switch (e.target) {
         case _this.$refs.hour_list:
@@ -244,13 +243,11 @@ export default {
       this.setScrollTop(type, st)
     },
     setTimeValue (type, v) {
-      console.log('123')
       const st = v * 30
       this.fixScrollTop(type, st)
     },
 
     submitValue () {
-      console.log('submit click')
       const {h, m, s} = this.scrollTops
       this.store = {
         h: (h / 30),
@@ -278,7 +275,6 @@ export default {
       document.removeEventListener('click', this.clickBlurSelect)
     },
     clickBlurSelect (e) {
-      console.log(this.$refs.submit_btn)
       //  add blur listener to some element which couldn't auto fire checkout
       const className = e.target.className
       this.clickCancelEl = [this.$refs.box]
@@ -308,17 +304,14 @@ export default {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     },
     store ({h, m, s}) {
-      console.log('store change')
       let d = new Date()
       d.setHours(h)
       d.setMinutes(m)
       d.setSeconds(s)
 
       if (this.valueFormat !== 'timestamp') {
-        console.log('timstamp')
         this.$emit('input', DateHelper.format(d, this.valueFormat))
       } else {
-        console.log('nottimestap')
         this.$emit('input', d.getTime())
       }
     }

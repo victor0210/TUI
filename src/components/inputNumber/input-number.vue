@@ -145,7 +145,6 @@ export default {
       this.val = val
     },
     val (val, pre) {
-      console.log(val)
       if (!isNaN(val)) {
         if (val !== '') {
           this.val = val

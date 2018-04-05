@@ -268,7 +268,6 @@ export default {
       this.setMultipleInputLabel(ArrayHelper.removeFromStoreByKey(this.multipleInputLabel, 'val', val))
     },
     setMultipleInputLabel (labels) {
-      console.log(labels, 'labels')
       this.multipleInputLabel = labels
     },
 
@@ -318,7 +317,6 @@ export default {
             return true
           }
         } else if (el.tag && (el.componentOptions.tag === 't-option-group')) {
-          console.log(el)
           el.componentOptions.children.some(function (opt) {
             if (opt.tag) {
               const elm = opt.componentOptions.propsData
@@ -510,14 +508,11 @@ export default {
       let index
       let direction
 
-      console.log(this.isSearching)
       if (this.isSearching) {
-        console.log('s')
         list = this.searchMenu
         index = this.searchFocusIndex
         direction = this.searchFocusDirection
       } else {
-        console.log('o')
         list = this.optionMenu
         index = this.focusIndex
         direction = this.focusDirection
@@ -629,7 +624,6 @@ export default {
       }
     },
     searchFocusIndex (val, old) {
-      console.log(val, old)
       if (old !== null) this.action(this.searchOptions[old], 'blur')
       if (val !== null) {
         if (!this.options[val].disabled) {
