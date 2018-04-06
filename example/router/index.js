@@ -105,6 +105,11 @@ export default new Router({
       path: '/badge',
       name: 'badge',
       component: r => require.ensure([], () => r(require('../pages/badge.vue')))
+    },
+    {
+      path: '/alert',
+      name: 'Alert',
+      component: r => require.ensure([], () => r(require('../pages/alert.vue')))
     }
   ]
 })

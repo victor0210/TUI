@@ -70,6 +70,20 @@
           </li>
         </ul>
       </li>
+      <!--用户提示组件-->
+      <li class="t-menu-item-group">
+        <div class="t-menu-item-title">
+          Notice
+        </div>
+        <ul class="t-menu-item-list">
+          <li v-for="(i, k) in noticeList" :key="k">
+            <router-link :to="i.route">
+              <span>{{ i.name }}</span>
+              <span class="chinese">{{ i.chinese }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </template>
@@ -177,6 +191,13 @@ export default {
           name: 'Badge',
           chinese: '标记'
         }
+      ],
+      noticeList: [
+        {
+          route: '/alert',
+          name: 'Alert',
+          chinese: '警告'
+        },
       ]
     }
   }
