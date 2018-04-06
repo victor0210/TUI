@@ -197,6 +197,11 @@ export default {
           route: '/alert',
           name: 'Alert',
           chinese: '警告'
+        },
+        {
+          route: '/loading',
+          name: 'Loading',
+          chinese: '加载'
         }
       ]
     }

@@ -1,0 +1,11 @@
+@import "../variables";
+
+@mixin loading-mask(){
+  transition: all .2s ease-out;
+  z-index: $--dialog-mask-index;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

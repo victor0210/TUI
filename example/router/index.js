@@ -110,6 +110,11 @@ export default new Router({
       path: '/alert',
       name: 'Alert',
       component: r => require.ensure([], () => r(require('../pages/alert.vue')))
+    },
+    {
+      path: '/loading',
+      name: 'Loading',
+      component: r => require.ensure([], () => r(require('../pages/loading.vue')))
     }
   ]
 })

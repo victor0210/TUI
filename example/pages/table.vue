@@ -362,7 +362,7 @@ export default {
       if (rowIndex === 3) return ['row-warning']
     },
     addHandler (row) {
-      this.$Dialog.success({
+      this.$TDialog.success({
         title: '添加成功',
         msg: row.name,
         showFooter: true,
