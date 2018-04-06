@@ -2,7 +2,6 @@ import Loading from './loading.vue'
 import Vue from 'vue'
 
 Loading.initial = _props => {
-
   const instance = new Vue({
     data () {
       return {
@@ -47,10 +46,12 @@ Loading.initial = _props => {
   return {
     show () {
       component.show()
+      document.body.style.overflow = 'hidden'
     },
 
     hide () {
       component.hide()
+      document.body.style.overflow = 'auto'
     }
   }
 }

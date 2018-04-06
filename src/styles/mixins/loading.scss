@@ -9,3 +9,13 @@
   right: 0;
   bottom: 0;
 }
+
+@mixin loading-inbox-mask(){
+  transition: all .2s ease-out;
+  z-index: $--dialog-mask-index;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
