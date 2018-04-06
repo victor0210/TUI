@@ -197,7 +197,7 @@ export default {
           route: '/alert',
           name: 'Alert',
           chinese: '警告'
-        },
+        }
       ]
     }
   }

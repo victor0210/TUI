@@ -2,4 +2,62 @@
 @import "mixins/mixins";
 
 @include b(alert) {
+  padding: 10px 16px;
+  position: relative;
+  display: block;
+  background-color: $--color-success-lighter;
+  color: $--color-success;
+  border-radius: 4px;
+  font-weight: 400;
+  transition: all .3s;
+
+  @include e(title) {
+    font-size: 14px;
+    height: 16px;
+    line-height: 16px;
+
+    @include m(center) {
+      text-align: center;
+    }
+  }
+
+  @include e(sub) {
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  @include e(title-icon) {
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 6px;
+  }
+
+  @include e(close) {
+    position: absolute;
+    display: block;
+    height: 14px;
+    top: 10px;
+    right: 16px;
+    cursor: pointer;
+
+    @include m(icon) {
+      width: 14px;
+    }
+  }
+
+  @include m(info) {
+    background-color: $--color-inverse-lighter;
+    color: $--color-inverse;
+  }
+
+  @include m(warning) {
+    background-color: $--color-warning-lighter;
+    color: $--color-warning;
+  }
+
+  @include m(danger) {
+    background-color: $--color-danger-lighter;
+    color: $--color-danger;
+  }
 }
