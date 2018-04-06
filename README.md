@@ -65,6 +65,8 @@ Tree <br>
 Pagination <br>
 Badge <br>
 Alert <br>
+Loading <br>
+Message <br>
 
 
 ## Todo
