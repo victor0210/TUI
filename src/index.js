@@ -30,7 +30,8 @@ import TableColumn from './components/tableColumn/index'
 import Tag from './components/tag/index'
 import Progress from './components/progress/index'
 import Tree from './components/tree/index'
-import TPagination from './components/pagination/index'
+import Pagination from './components/pagination/index'
+import Badge from './components/badge/index'
 
 import TFocus from './directives/focus'
 
@@ -66,7 +67,8 @@ const Tui = {
   Tag,
   Progress,
   Tree,
-  TPagination
+  Pagination,
+  Badge
 }
 
 const install = function (Vue, opts = {}) {

@@ -37,6 +37,7 @@
 </template>
 
 <script>
+//  TODO: disabled
 export default {
   name: 't-switch',
 

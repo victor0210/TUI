@@ -100,6 +100,11 @@ export default new Router({
       path: '/pagination',
       name: 'pagination',
       component: r => require.ensure([], () => r(require('../pages/pagination.vue')))
+    },
+    {
+      path: '/badge',
+      name: 'badge',
+      component: r => require.ensure([], () => r(require('../pages/badge.vue')))
     }
   ]
 })
