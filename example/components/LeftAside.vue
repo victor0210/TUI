@@ -202,6 +202,11 @@ export default {
           route: '/loading',
           name: 'Loading',
           chinese: '加载'
+        },
+        {
+          route: '/message',
+          name: 'Message',
+          chinese: '消息'
         }
       ]
     }

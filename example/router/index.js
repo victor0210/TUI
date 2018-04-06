@@ -115,6 +115,11 @@ export default new Router({
       path: '/loading',
       name: 'Loading',
       component: r => require.ensure([], () => r(require('../pages/loading.vue')))
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: r => require.ensure([], () => r(require('../pages/message.vue')))
     }
   ]
 })
