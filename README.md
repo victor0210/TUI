@@ -63,6 +63,7 @@ Tag <br>
 Progress <br>
 Tree <br>
 Pagination <br>
+Badge <br>
 
 
 ## Todo
