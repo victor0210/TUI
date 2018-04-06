@@ -36,6 +36,7 @@ import Alert from './components/alert/index'
 //  global
 import Dialog from './components/dialog/index'
 import Loading from './components/loading/index'
+import Message from './components/message/index'
 
 import TFocus from './directives/focus'
 import TLoading from './directives/loading'
@@ -74,7 +75,8 @@ const Tui = {
   Tree,
   Pagination,
   Badge,
-  Alert
+  Alert,
+  Message
 }
 
 const install = function (Vue, opts = {}) {
@@ -86,6 +88,7 @@ const install = function (Vue, opts = {}) {
 
   Vue.prototype.$TDialog = Dialog
   Vue.prototype.$TLoading = Loading
+  Vue.prototype.$TMessage = Message
 }
 
 // auto install
