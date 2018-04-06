@@ -171,6 +171,11 @@ export default {
           route: '/pagination',
           name: 'Pagination',
           chinese: '分页组件'
+        },
+        {
+          route: '/badge',
+          name: 'Badge',
+          chinese: '标记'
         }
       ]
     }

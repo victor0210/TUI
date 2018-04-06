@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(badge) {
+  position: relative;
+  display: inline-block;
+
+  @include e(content) {
+    display: inline-block;
+    padding: 3px 6px;
+    font-size: 12px;
+    line-height: 12px;
+    border: 2px solid #fff;
+    background-color: $--color-danger;
+    color: white;
+    border-radius: 100px;
+    font-weight: 400;
+
+    @include m(dot) {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+    }
+  }
+
+  @include m(alone) {
+    .t-badge__content {
+      z-index: $--popover-index;
+      position: absolute;
+      right: 10px;
+      top: 0;
+      transform: translate(100%, -50%);
+    }
+    .t-badge__content--dot {
+      top: 0;
+      right: 6px;
+    }
+  }
+}
