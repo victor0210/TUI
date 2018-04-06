@@ -38,6 +38,7 @@ import Dialog from './components/dialog/index'
 import Loading from './components/loading/index'
 
 import TFocus from './directives/focus'
+import TLoading from './directives/loading'
 
 const Tui = {
   Button,
@@ -93,7 +94,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 const TD = {
-  TFocus
+  TFocus,
+  TLoading
 }
 
 const Component = {

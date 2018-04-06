@@ -3,7 +3,7 @@
     stripe ? 't-table--stripe' : '',
     border ? 't-table--border' : '',
     highlightCurrentRow ? 'is-highlight' : ''
-  ]" ref="container">
+  ]" ref="container" v-t-loading="loading">
     <!--main columns-->
     <div class="t-table__hidden" v-show="false"><slot/></div>
     <div class="t-table__header-wrapper" ref="table_header" @scroll="tableScrollHandler('header')">
@@ -281,7 +281,8 @@ export default {
     highlightCurrentRow: Boolean,
     currentChange: Function,
     selection: Boolean,
-    selectionChange: Function
+    selectionChange: Function,
+    loading: Boolean
   },
 
   created () {

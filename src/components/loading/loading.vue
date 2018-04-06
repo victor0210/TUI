@@ -1,5 +1,7 @@
 <template>
-    <div class="t-loading">
+    <div class="t-loading" :class="[
+      type === 'inbox' ? 't-loading--inbox' : ''
+    ]">
       <transition name="t-fade-out">
       <div class="t-loading__mask" v-if="isShow"
         :style="{
@@ -23,13 +25,15 @@
             ]"
            :style="{
               color: iconColor ? iconColor : '',
-              lineHeight: height ? `${(height - 20) / 2}px` : ''
+              lineHeight: height ? `${(height - 20) / 2}px` : '',
+              fontSize: iconSize ? iconSize : ''
             }"
           ></i>
           <p class="t-loading__text"
            :style="{
              color: textColor ? textColor : '',
-             lineHeight: height ? `${(height - 20) / 2}px` : ''
+             lineHeight: height ? `${(height - 20) / 2}px` : '',
+             fontSize: textSize ? textSize : ''
             }"
           >{{ text }}</p>
         </div>
@@ -57,7 +61,10 @@ export default {
     iconClass: {
       type: String,
       default: 'fa fa-circle-notch fa-spin'
-    }
+    },
+    iconSize: String,
+    textSize: String,
+    type: String
   }
 }
 </script>
