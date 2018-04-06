@@ -201,18 +201,18 @@
 
 ## 提示框-dialog
 <div class="demo-block">
-<t-button type="success" @click="this.$Dialog.success">success</t-button>
-<t-button type="info" @click="this.$Dialog.info">info</t-button>
-<t-button type="warning" @click="this.$Dialog.warning">warning</t-button>
-<t-button type="danger" @click="this.$Dialog.danger">danger</t-button>
+<t-button type="success" @click="this.$TDialog.success">success</t-button>
+<t-button type="info" @click="this.$TDialog.info">info</t-button>
+<t-button type="warning" @click="this.$TDialog.warning">warning</t-button>
+<t-button type="danger" @click="this.$TDialog.danger">danger</t-button>
 </div>
 
 :::demo
 ```html
-<t-button type="success" @click="this.$Dialog.success">success</t-button>
-<t-button type="info" @click="this.$Dialog.info">info</t-button>
-<t-button type="warning" @click="this.$Dialog.warning">warning</t-button>
-<t-button type="danger" @click="this.$Dialog.danger">danger</t-button>
+<t-button type="success" @click="this.$TDialog.success">success</t-button>
+<t-button type="info" @click="this.$TDialog.info">info</t-button>
+<t-button type="warning" @click="this.$TDialog.warning">warning</t-button>
+<t-button type="danger" @click="this.$TDialog.danger">danger</t-button>
 ```
 :::
 

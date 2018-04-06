@@ -340,7 +340,7 @@ export default {
       validator.validate(this.form, (errors, fields) => {
         if (!errors) {
           // pass validate and do something
-          this.$Dialog.success({
+          this.$TDialog.success({
             showFooter: false,
             msg: '验证通过!'
           })

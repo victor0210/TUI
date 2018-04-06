@@ -1,0 +1,44 @@
+@import "variables";
+@import "mixins/mixins";
+@import "utils/utils";
+@import "mixins/loading";
+
+@include b(loading) {
+
+  @include e(mask) {
+    @include loading-mask();
+    background-color: $--loading-mask-background-color;
+  }
+
+  @include e(wrapper) {
+    @include loading-mask();
+  }
+
+  @include e(container) {
+    transition: all .2s ease-in;
+    overflow: hidden;
+    width: 200px;
+    height: 100px;
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: inherit;
+    border-radius: $--loading-border-radius;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  @include e(icon) {
+    font-size: 3em;
+    color: $--color-primary;
+  }
+
+  @include e(text) {
+    color: $--color-text-regular;
+  }
+}

@@ -21,22 +21,22 @@ export default {
   },
   methods: {
     showSuccess () {
-      this.$Dialog.success({
+      this.$TDialog.success({
         showFooter: true
       })
     },
     showInfo () {
-      this.$Dialog.info({
+      this.$TDialog.info({
         showFooter: true
       })
     },
     showDanger () {
-      this.$Dialog.danger({
+      this.$TDialog.danger({
         showFooter: true
       })
     },
     showWarning () {
-      this.$Dialog.warning({
+      this.$TDialog.warning({
         showFooter: true
       })
     }

@@ -2,7 +2,6 @@ import Button from './components/button/index'
 import ButtonGroup from './components/buttonGroup/index'
 import Row from './components/row/index'
 import Col from './components/col/index'
-import Dialog from './components/dialog/index'
 import Input from './components/input/index'
 import CheckBox from './components/checkbox/index'
 import CheckBoxGroup from './components/checkboxGroup/index'
@@ -33,6 +32,10 @@ import Tree from './components/tree/index'
 import Pagination from './components/pagination/index'
 import Badge from './components/badge/index'
 import Alert from './components/alert/index'
+
+//  global
+import Dialog from './components/dialog/index'
+import Loading from './components/loading/index'
 
 import TFocus from './directives/focus'
 
@@ -80,7 +83,8 @@ const install = function (Vue, opts = {}) {
     Vue.component(name, Tui[key])
   })
 
-  Vue.prototype.$Dialog = Dialog
+  Vue.prototype.$TDialog = Dialog
+  Vue.prototype.$TLoading = Loading
 }
 
 // auto install

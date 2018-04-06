@@ -281,6 +281,13 @@ $--dialog-header-height: 16px;
 $--dialog-footer-height: 32px;
 
 /**
+ * ---------------------------- Loading ----------------------------
+ */
+$--loading-background-color: $--color-white;
+$--loading-mask-background-color: rgba(255, 255, 255, .8);
+$--loading-border-radius: 6px;
+
+/**
  *  TODO: add component style flow such as flow except common style like border:
  *  //button
  *  btn-bg-color        :#abcdef
