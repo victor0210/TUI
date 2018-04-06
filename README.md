@@ -64,6 +64,7 @@ Progress <br>
 Tree <br>
 Pagination <br>
 Badge <br>
+Alert <br>
 
 
 ## Todo
