@@ -32,6 +32,7 @@ import Progress from './components/progress/index'
 import Tree from './components/tree/index'
 import Pagination from './components/pagination/index'
 import Badge from './components/badge/index'
+import Alert from './components/alert/index'
 
 import TFocus from './directives/focus'
 
@@ -68,7 +69,8 @@ const Tui = {
   Progress,
   Tree,
   Pagination,
-  Badge
+  Badge,
+  Alert
 }
 
 const install = function (Vue, opts = {}) {

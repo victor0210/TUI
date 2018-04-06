@@ -51,3 +51,14 @@
   opacity: 0;
   padding-left: 70px;
 }
+
+
+.t-fade-out-enter-active,
+.t-fade-out-leave-active {
+  opacity: 1;
+}
+
+.t-fade-out-enter,
+.t-fade-out-leave-active {
+  opacity: 0;
+}
