@@ -50,6 +50,7 @@ Dialog.initial = properties => {
 
   const dialogContainerStyle = document.querySelector('.t-dialog__container').style
   const dialogMaskStyle = document.querySelector('.t-dialog__mask').style
+  const wrapperMaskStyle = document.querySelector('.t-dialog__wrapper').style
   const bodyDomStyle = document.body.style
 
   const domInit = function () {
@@ -70,6 +71,7 @@ Dialog.initial = properties => {
     bodyDomStyle.overflow = ''
 
     dialogMaskStyle.opacity = 0
+    wrapperMaskStyle.opacity = 0
   }
 
   const domInTransition = function () {
@@ -79,6 +81,7 @@ Dialog.initial = properties => {
     bodyDomStyle.overflow = 'hidden'
 
     dialogMaskStyle.opacity = 1
+    wrapperMaskStyle.opacity = 1
   }
 
   return {
