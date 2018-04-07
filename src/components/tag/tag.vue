@@ -4,7 +4,7 @@
       type ? `t-tag--${type}` : ''
     ]">
       <slot></slot>
-      <i class="fa fa-times t-tag__close" v-if="closeable" @click="closeHandler"></i>
+      <i class="fa fa-times t-tag__close" v-if="closable" @click="closeHandler"></i>
     </div>
   <!--</transition>-->
 </template>
@@ -15,7 +15,7 @@ export default {
 
   props: {
     type: String,
-    closeable: Boolean
+    closable: Boolean
   },
 
   methods: {

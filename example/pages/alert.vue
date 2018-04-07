@@ -18,7 +18,7 @@
       <div class="subtitle">关闭</div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="24"><t-alert title="不可关闭的警告" :closeable="false"/></t-col>
+          <t-col :span="24"><t-alert title="不可关闭的警告" :closable="false"/></t-col>
           <t-col :span="24"><t-alert title="自定义 close-text" type="warning" closeText="关闭"/></t-col>
           <t-col :span="24"><t-alert title="设置回调" type="danger" @close="closeHandler"/></t-col>
         </t-row>

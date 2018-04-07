@@ -12,7 +12,7 @@
       <div class="t-alert__sub" v-if="sub">
         {{ sub }}
       </div>
-      <template v-if="closeable">
+      <template v-if="closable">
         <span class="t-alert__close t-alert__close-text" v-if="closeText" @click="$emit('alert-close')">{{ closeText }}</span>
         <i class="t-alert__close t-alert__close--icon fa fa-times" v-if="!closeText" @click="$emit('alert-close')"></i>
       </template>
@@ -43,7 +43,7 @@ export default {
       type: String,
       default: 'success'
     },
-    closeable: {
+    closable: {
       type: Boolean,
       default: true
     },

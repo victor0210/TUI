@@ -207,6 +207,11 @@ export default {
           route: '/message',
           name: 'Message',
           chinese: '消息'
+        },
+        {
+          route: '/notify',
+          name: 'Notify',
+          chinese: '通知'
         }
       ]
     }

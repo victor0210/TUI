@@ -13,7 +13,7 @@
       <div class="demo-block">
         <div class="subtitle">可关闭标签</div>
         <div class="source">
-          <t-tag v-for="(t, idx) in tags1" closeable :key="idx" :type="t.type">{{ t.label }}</t-tag>
+          <t-tag v-for="(t, idx) in tags1" closable :key="idx" :type="t.type">{{ t.label }}</t-tag>
         </div>
         <button-md></button-md>
       </div>
@@ -21,7 +21,7 @@
       <div class="demo-block">
         <div class="subtitle">可关闭标签</div>
         <div class="source">
-          <t-tag v-for="(t, idx) in tags" closeable :key="idx" @close="closeHandler(t)">{{ t.label }}</t-tag>
+          <t-tag v-for="(t, idx) in tags" closable :key="idx" @close="closeHandler(t)">{{ t.label }}</t-tag>
           <t-button size="sm" @click="addTag">+ 标签</t-button>
         </div>
         <button-md></button-md>
