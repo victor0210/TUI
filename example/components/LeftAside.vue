@@ -84,7 +84,21 @@
           </li>
         </ul>
       </li>
-      <!--用户提示组件-->
+      <!--导航组件-->
+      <li class="t-menu-item-group">
+        <div class="t-menu-item-title">
+          Menu
+        </div>
+        <ul class="t-menu-item-list">
+          <li v-for="(i, k) in menuList" :key="k">
+            <router-link :to="i.route">
+              <span>{{ i.name }}</span>
+              <span class="chinese">{{ i.chinese }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </li>
+      <!--其他组件-->
       <li class="t-menu-item-group">
         <div class="t-menu-item-title">
           Other
@@ -221,6 +235,13 @@ export default {
           route: '/notify',
           name: 'Notify',
           chinese: '通知'
+        }
+      ],
+      menuList: [
+        {
+          route: '/menu',
+          name: 'Menu',
+          chinese: '导航菜单'
         }
       ],
       otherList: [
