@@ -84,6 +84,20 @@
           </li>
         </ul>
       </li>
+      <!--用户提示组件-->
+      <li class="t-menu-item-group">
+        <div class="t-menu-item-title">
+          Other
+        </div>
+        <ul class="t-menu-item-list">
+          <li v-for="(i, k) in otherList" :key="k">
+            <router-link :to="i.route">
+              <span>{{ i.name }}</span>
+              <span class="chinese">{{ i.chinese }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </template>
@@ -96,11 +110,6 @@ export default {
           route: '/button',
           name: 'Button',
           chinese: '按钮'
-        },
-        {
-          route: '/dialog',
-          name: 'Dialog',
-          chinese: '提示框'
         },
         {
           route: '/layout',
@@ -212,6 +221,13 @@ export default {
           route: '/notify',
           name: 'Notify',
           chinese: '通知'
+        }
+      ],
+      otherList: [
+        {
+          route: '/dialog',
+          name: 'Dialog',
+          chinese: '提示框'
         }
       ]
     }
