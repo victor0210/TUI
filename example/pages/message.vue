@@ -84,22 +84,22 @@ export default {
       },
       c5: {
         showIcon: true,
-        closeable: true
+        closable: true
       },
       c6: {
         type: 'info',
         showIcon: true,
-        closeable: true
+        closable: true
       },
       c7: {
         type: 'warning',
         showIcon: true,
-        closeable: true
+        closable: true
       },
       c8: {
         type: 'danger',
         showIcon: true,
-        closeable: true
+        closable: true
       },
       c11: {
         type: 'info',
@@ -110,7 +110,7 @@ export default {
         title: '欢迎来到TUI',
         sub: 'there is the sub description',
         type: 'info'
-      },
+      }
     }
   },
 

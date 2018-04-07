@@ -1,0 +1,67 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(notify) {
+  position: fixed;
+  width: 320px;
+  box-shadow: 0 2px 12px 0 #eee;
+  padding: 14px 18px;
+  background-color: white;
+  z-index: 2000;
+  border: $--border-base;
+  border-radius: 5px;
+  transition: all .2s;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+
+  @include e(title) {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 0;
+  }
+
+  @include e(sub) {
+    font-size: 13px;
+    font-weight: 400;
+    color: $--color-text-regular;
+    padding: 8px 0;
+    line-height: 18px;
+  }
+
+  @include e(close) {
+    position: absolute;
+    right: 18px;
+    color: $--color-text-regular;
+    cursor: pointer;
+  }
+
+  @include when(withicon) {
+    padding-left: 50px;
+
+    .t-notify__icon {
+      position: absolute;
+      text-align: center;
+      width: 40px;
+      left: 5px;
+      top: 17px;
+      font-size: 2em;
+    }
+  }
+
+  @include e(icon) {
+    @include m(success) {
+      color: $--color-success;
+    }
+    @include m(warning) {
+      color: $--color-warning;
+    }
+    @include m(info) {
+      color: $--color-inverse;
+    }
+    @include m(danger) {
+      color: $--color-danger;
+    }
+  }
+}
