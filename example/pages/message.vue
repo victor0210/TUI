@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="消息组件" des="永远短暂的消息提醒组件"/>
+    <guide title="消息组件" des="用于短暂的消息提醒组件"/>
     <div class="demo-block">
       <div class="subtitle">基本使用</div>
       <div class="source">
