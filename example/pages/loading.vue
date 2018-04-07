@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="警告" des="用于一些警告信息的提示组件"/>
+    <guide title="加载" des="更好的用户加载等待提示"/>
     <div class="demo-block">
       <div class="subtitle">基本用法</div>
       <div class="source">
