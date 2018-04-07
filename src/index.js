@@ -32,6 +32,7 @@ import Tree from './components/tree/index'
 import Pagination from './components/pagination/index'
 import Badge from './components/badge/index'
 import Alert from './components/alert/index'
+import Menu from './components/menu/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -76,7 +77,8 @@ const Tui = {
   Tree,
   Pagination,
   Badge,
-  Alert
+  Alert,
+  Menu
 }
 
 const install = function (Vue, opts = {}) {

@@ -125,6 +125,11 @@ export default new Router({
       path: '/notify',
       name: 'notify',
       component: r => require.ensure([], () => r(require('../pages/notify.vue')))
+    },
+    {
+      path: '/menu',
+      name: 'menu',
+      component: r => require.ensure([], () => r(require('../pages/menu.vue')))
     }
   ]
 })
