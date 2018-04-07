@@ -1,4 +1,15 @@
 @import "variables";
 @import "mixins/mixins";
 
-@include b(menu) {}
+@include b(menu) {
+  display: block;
+  height: 50px;
+  box-sizing: border-box;
+  padding-left: 100px;
+
+  @include e(item) {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+  }
+}

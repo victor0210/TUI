@@ -2,11 +2,11 @@
   <div>
     <guide title="导航菜单" des="用于显示网站菜单的导航组件"/>
     <div class="demo-block">
-      <div class="subtitle">Switch</div>
+      <div class="subtitle">基本用法</div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="8">
-            <t-menu></t-menu>
+          <t-col :span="24">
+            <t-menu :data="menu"/>
           </t-col>
         </t-row>
       </div>
@@ -21,6 +21,13 @@ import RadioGroup from '../documents/radio/radioGroup.md'
 export default {
   components: {
     RadioGroup
+  },
+  data () {
+    return {
+      menu: [{
+        name: 'name1'
+      }]
+    }
   }
 }
 </script>
