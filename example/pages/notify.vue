@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="消息组件" des="永远短暂的消息提醒组件"/>
+    <guide title="通知" des="用于重要消息提醒组件"/>
     <div class="demo-block">
       <div class="subtitle">不同坐标</div>
       <div class="source">
