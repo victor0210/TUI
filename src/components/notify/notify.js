@@ -75,14 +75,14 @@ Notify.initial = (_props, _type) => {
 
     methods: {
       show () {
-        const {left, right} = positions[_props.position.split('-')[1]].end
+        const {left, right} = positions[props.position.split('-')[1]].end
 
         this.$el.style.opacity = 1
         this.$el.style.left = left
         this.$el.style.right = right
       },
       hide () {
-        const {left, right} = positions[_props.position.split('-')[1]].start
+        const {left, right} = positions[props.position.split('-')[1]].start
 
         this.$el.style.opacity = 0
         this.$el.style.left = left
@@ -103,7 +103,7 @@ Notify.initial = (_props, _type) => {
         const height = arr.splice(rIdx, 1)[0].$el.offsetHeight + 15
         const _this = this
 
-        switch (_props.position.split('-')[0]) {
+        switch (props.position.split('-')[0]) {
           case 'top':
             arr.forEach(function (el, idx) {
               console.log('remove', idx, rIdx)
@@ -126,7 +126,7 @@ Notify.initial = (_props, _type) => {
       },
       initPosition () {
         const _this = this
-        switch (_props.position.split('-')[0]) {
+        switch (props.position.split('-')[0]) {
           case 'top':
             if (arr.length > 0) {
               _this.$el.style.top = `${arr[arr.length - 1].$el.offsetTop + arr[arr.length - 1].$el.offsetHeight + 15}px`
