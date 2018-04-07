@@ -24,9 +24,12 @@ export default {
   },
   data () {
     return {
-      menu: [{
-        name: 'name1'
-      }]
+      menu: [
+        {name: '首页'},
+        {name: '下载'},
+        {name: '帮助'},
+        {name: '个人中心'}
+      ]
     }
   }
 }

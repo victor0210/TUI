@@ -3,13 +3,28 @@
 
 @include b(menu) {
   display: block;
-  height: 50px;
+  height: 56px;
   box-sizing: border-box;
-  padding-left: 100px;
+  padding-left: 60px;
+  background-color: rgb(84, 92, 100);
 
   @include e(item) {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
+    height: 56px;
+    box-sizing: border-box;
+    line-height: 56px;
+    padding: 0 20px;
+    transition: all .2s;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+      background-color: rgb(67, 74, 80);
+    }
+
+    @include when(active) {
+      color: gold;
+      border-bottom: 2px solid gold;
+    }
   }
 }
