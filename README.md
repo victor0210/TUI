@@ -67,6 +67,7 @@ Badge <br>
 Alert <br>
 Loading <br>
 Message <br>
+Notify <br>
 
 
 ## Todo
