@@ -18,6 +18,10 @@
     cursor: pointer;
     color: $--color-text-regular;
 
+    &:hover {
+      color: $--color-primary;
+    }
+
     @include when(active) {
       color: $--color-primary;
       border-bottom: 2px solid $--color-primary;
@@ -33,6 +37,7 @@
 
       &:hover {
         background-color: rgb(67, 74, 80);
+        color: gold;
       }
 
       @include when(active) {
