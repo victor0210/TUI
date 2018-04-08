@@ -12,6 +12,18 @@
       </div>
       <radio-group/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">inverse主题</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-menu :data="menu" type="inverse"/>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
   </div>
 </template>
 

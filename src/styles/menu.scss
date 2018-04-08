@@ -6,7 +6,7 @@
   height: 56px;
   box-sizing: border-box;
   padding-left: 60px;
-  background-color: rgb(84, 92, 100);
+  border-bottom: 1px solid #e4e7ed;
 
   @include e(item) {
     display: inline-block;
@@ -16,15 +16,29 @@
     padding: 0 20px;
     transition: all .2s;
     cursor: pointer;
-    color: white;
-
-    &:hover {
-      background-color: rgb(67, 74, 80);
-    }
+    color: $--color-text-regular;
 
     @include when(active) {
-      color: gold;
-      border-bottom: 2px solid gold;
+      color: $--color-primary;
+      border-bottom: 2px solid $--color-primary;
+    }
+  }
+
+  @include m(inverse) {
+    border-bottom: none;
+    background-color: rgb(84, 92, 100);
+
+    .t-menu__item {
+      color: white;
+
+      &:hover {
+        background-color: rgb(67, 74, 80);
+      }
+
+      @include when(active) {
+        color: gold;
+        border-bottom: 2px solid gold;
+      }
     }
   }
 }
