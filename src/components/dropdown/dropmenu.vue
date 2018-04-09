@@ -19,8 +19,9 @@ export default {
 
   props: {
     parent: {},
-    isOpen: false,
-    initial: false
+    isOpen: Boolean,
+    initial: Boolean,
+    width: Number
   },
 
   created () {
@@ -58,6 +59,9 @@ export default {
         render (h) {
           return h('ul', {
             class: 't-dropdown__menu',
+            style: {
+              width: _this.width ? `${_this.width}px` : (_this.width === 0 ? `${_this.parent.$el.offsetWidth}px` : '')
+            },
             on: {
               'mouseleave': _this.onMouseLeave,
               'mouseenter': _this.onMouseEnter

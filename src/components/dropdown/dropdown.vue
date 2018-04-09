@@ -1,7 +1,15 @@
 <template>
   <div class="t-dropdown" @mouseleave="onMouseLeave" @mouseenter="onMouseOver">
     <slot></slot>
-    <t-dropmenu :parent="self" :isOpen="isOpen" :initial="initial" @mouseleave="onMouseLeave" @mouseenter="onMouseOver" @command="handleCommand">
+    <t-dropmenu
+      :parent="self"
+      :isOpen="isOpen"
+      :initial="initial"
+      :width="width"
+      @mouseleave="onMouseLeave"
+      @mouseenter="onMouseOver"
+      @command="handleCommand"
+    >
       <slot name="dropdown"/>
     </t-dropmenu>
   </div>
@@ -23,6 +31,10 @@ export default {
       isOpen: false,
       closeTimer: null
     }
+  },
+
+  props: {
+    width: Number
   },
 
   created () {
