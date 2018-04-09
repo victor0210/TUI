@@ -54,7 +54,18 @@ export default {
       menu: [
         {
           name: '首页',
-          icon: 'fa fa-home'
+          icon: 'fa fa-home',
+          subMenu: [
+            {
+              name: '首页一'
+            },
+            {
+              name: '首页二'
+            },
+            {
+              name: '首页三'
+            }
+          ]
         },
         {
           name: '下载',
