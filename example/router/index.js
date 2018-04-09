@@ -130,6 +130,11 @@ export default new Router({
       path: '/menu',
       name: 'menu',
       component: r => require.ensure([], () => r(require('../pages/menu.vue')))
+    },
+    {
+      path: '/dropdown',
+      name: 'dropdown',
+      component: r => require.ensure([], () => r(require('../pages/dropdown.vue')))
     }
   ]
 })
