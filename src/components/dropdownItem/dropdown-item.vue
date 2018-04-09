@@ -1,5 +1,14 @@
 <template>
-  <li class="t-dropdown-item" @click="clickHandler"><slot></slot></li>
+  <li
+    class="t-dropdown-item"
+    :class="[
+      disabled ? 'is-disabled' : '',
+      divided ? 't-dropdown-item--divided' : ''
+    ]"
+    @click="clickHandler"
+  >
+    <slot/>
+  </li>
 </template>
 
 <script>
@@ -11,12 +20,14 @@ export default {
   mixins: [Emitter],
 
   props: {
-    command: {}
+    command: {},
+    disabled: Boolean,
+    divided: Boolean
   },
 
   methods: {
     clickHandler () {
-      this.dispatch('t-dropdown-menu', 'item-click', this.command)
+      !this.disabled && this.dispatch('t-dropdown-menu', 'item-click', this.command)
     }
   }
 }

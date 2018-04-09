@@ -4,11 +4,24 @@
 @include b(dropdown-item) {
   cursor: pointer;
   display: block;
-  padding: 10px 30px;
+  padding: 5px 30px;
   text-align: center;
+  height: 30px;
+  line-height: 20px;
+  box-sizing: border-box;
   color: $--color-text-regular;
+  user-select: none;
 
   &:hover {
     color: $--color-primary;
+  }
+
+  @include when(disabled) {
+    cursor: not-allowed;
+    color: $--color-text-placeholder;
+  }
+
+  @include m(divided) {
+    border-top: $--border-base;
   }
 }

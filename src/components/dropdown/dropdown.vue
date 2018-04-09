@@ -1,11 +1,12 @@
 <template>
-  <div class="t-dropdown" @mouseleave="onMouseLeave" @mouseenter="onMouseOver">
+  <div class="t-dropdown" @click="onClick" @mouseleave="onMouseLeave" @mouseenter="onMouseOver">
     <slot></slot>
     <t-dropmenu
       :parent="self"
       :isOpen="isOpen"
       :initial="initial"
       :width="width"
+      :maxHeight="maxHeight"
       @mouseleave="onMouseLeave"
       @mouseenter="onMouseOver"
       @command="handleCommand"
@@ -29,12 +30,19 @@ export default {
       self: this,
       initial: false,
       isOpen: false,
-      closeTimer: null
+      closeTimer: null,
+      forceCheck: false
     }
   },
 
   props: {
-    width: Number
+    width: Number,
+    maxHeight: Number,
+    hideOnClick: Boolean,
+    trigger: {
+      type: String,
+      default: 'hover'
+    }
   },
 
   created () {
@@ -44,17 +52,42 @@ export default {
 
   methods: {
     onMouseOver () {
+      if (!this.forceCheck && this.trigger === 'hover') {
+        this.open()
+      }
+    },
+    onMouseLeave () {
+      if (!this.forceCheck && this.trigger === 'hover') {
+        this.close()
+      }
+    },
+    onClick () {
+      if (!this.forceCheck && this.trigger === 'click') {
+        this.checkout()
+      }
+    },
+    open () {
       clearTimeout(this.closeTimer)
       !this.initial && (this.initial = true)
       this.isOpen = true
     },
-    onMouseLeave () {
+    close () {
       this.closeTimer = setTimeout(() => {
         this.isOpen = false
       }, 100)
     },
+    checkout () {
+      this.isOpen ? this.close() : this.open()
+    },
     handleCommand (cmd) {
       this.$emit('command', cmd)
+      if (this.hideOnClick) {
+        this.forceCheck = true
+        this.isOpen = false
+        setTimeout(() => {
+          this.forceCheck = false
+        })
+      }
     }
   }
 }
