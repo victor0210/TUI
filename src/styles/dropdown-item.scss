@@ -1,0 +1,14 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(dropdown-item) {
+  cursor: pointer;
+  display: block;
+  padding: 10px 30px;
+  text-align: center;
+  color: $--color-text-regular;
+
+  &:hover {
+    color: $--color-primary;
+  }
+}

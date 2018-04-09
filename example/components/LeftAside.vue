@@ -242,6 +242,11 @@ export default {
           route: '/menu',
           name: 'Menu',
           chinese: '导航菜单'
+        },
+        {
+          route: '/dropdown',
+          name: 'Dropdown',
+          chinese: '下拉菜单'
         }
       ],
       otherList: [

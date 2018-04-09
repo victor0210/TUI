@@ -38,7 +38,7 @@ export default {
 
   props: {
     title: {
-      type: String,
+      type: [String, Number],
       default: 'Edit Message Here !!'
     },
     sub: String,

@@ -33,6 +33,8 @@ import Pagination from './components/pagination/index'
 import Badge from './components/badge/index'
 import Alert from './components/alert/index'
 import Menu from './components/menu/index'
+import DropDown from './components/dropdown/index'
+import DropDownItem from './components/dropdownItem/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -78,7 +80,9 @@ const Tui = {
   Pagination,
   Badge,
   Alert,
-  Menu
+  Menu,
+  DropDown,
+  DropDownItem
 }
 
 const install = function (Vue, opts = {}) {

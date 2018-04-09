@@ -19,8 +19,9 @@
     @mouseout="mouseOutHandler"
   >
     <i class="t-icon fa fa-spinner" v-if="loading"></i>
-    <i :class="['t-icon',icon]" v-if="icon && !loading"></i>
+    <i :class="['t-icon',icon]" v-if="icon && !loading && !iconRight"></i>
     <span v-if="$slots.default"><slot></slot></span>
+    <i :class="['t-icon',icon]" v-if="icon && !loading && iconRight"></i>
   </button>
 </template>
 
@@ -50,7 +51,8 @@ export default {
     disabled: Boolean,
     outline: Boolean,
     autofocus: Boolean,
-    round: Boolean
+    round: Boolean,
+    iconRight: Boolean
   },
   methods: {
     handleClick (e) {
