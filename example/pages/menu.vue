@@ -24,6 +24,21 @@
       </div>
       <radio-group/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">inverse主题</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="12">
+            <t-menu :data="menu" vertical/>
+          </t-col>
+          <t-col :span="12">
+            <t-menu :data="menu" type="inverse" vertical/>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
   </div>
 </template>
 
@@ -37,10 +52,33 @@ export default {
   data () {
     return {
       menu: [
-        {name: '首页'},
-        {name: '下载'},
-        {name: '帮助'},
-        {name: '个人中心'}
+        {
+          name: '首页',
+          icon: 'fa fa-home',
+          subMenu: [
+            {
+              name: '首页一'
+            },
+            {
+              name: '首页二'
+            },
+            {
+              name: '首页三'
+            }
+          ]
+        },
+        {
+          name: '下载',
+          icon: 'fa fa-download'
+        },
+        {
+          name: '帮助',
+          icon: 'fa fa-hand-paper'
+        },
+        {
+          name: '个人中心',
+          icon: 'fa fa-user'
+        }
       ]
     }
   }
