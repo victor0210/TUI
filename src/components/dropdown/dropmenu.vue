@@ -2,7 +2,6 @@
 import PositionHelper from '../../mixins/positionHelper'
 import Emitter from '../../mixins/emitter'
 import Vue from 'vue'
-let DropMenu
 
 export default {
   name: 't-dropmenu',
@@ -13,14 +12,17 @@ export default {
     return {
       arrowRight: false,
       arrowTop: false,
-      dropComponent: {}
+      dropComponent: {},
+      DropMenu: undefined
     }
   },
 
   props: {
     parent: {},
-    isOpen: false,
-    initial: false
+    isOpen: Boolean,
+    initial: Boolean,
+    width: Number,
+    maxHeight: Number
   },
 
   created () {
@@ -28,8 +30,8 @@ export default {
   },
 
   updated () {
-    if (DropMenu !== undefined) {
-      DropMenu.$forceUpdate()
+    if (this.DropMenu !== undefined) {
+      this.DropMenu.$forceUpdate()
       this.$emit('fresh-position')
     }
   },
@@ -58,17 +60,15 @@ export default {
         render (h) {
           return h('ul', {
             class: 't-dropdown__menu',
+            style: {
+              width: _this.width ? `${_this.width}px` : (_this.width === 0 ? `${_this.parent.$el.offsetWidth}px` : ''),
+              maxHeight: _this.maxHeight ? `${_this.maxHeight}px` : ''
+            },
             on: {
               'mouseleave': _this.onMouseLeave,
               'mouseenter': _this.onMouseEnter
             }
-          }, [h('div', {
-            class: [
-              't-select__arrow-up',
-              _this.arrowRight ? 't-select__arrow-up--right' : '',
-              _this.arrowTop ? 't-select__arrow-up--top' : ''
-            ]
-          }), _this.$slots.default])
+          }, [_this.$slots.default])
         },
         methods: {
           remove () {
@@ -94,7 +94,7 @@ export default {
 
       const component = dropmenu.$mount()
       component.$options.name = 't-dropdown-menu'
-      DropMenu = component
+      this.DropMenu = component
       this.list = component.$el
       component.hide()
       document.body.appendChild(component.$el)
@@ -149,11 +149,10 @@ export default {
 
   watch: {
     initial () {
-      console.log('initial')
       this.createList()
     },
     isOpen (val) {
-      val ? DropMenu.show() : DropMenu.hide()
+      val ? this.DropMenu.show() : this.DropMenu.hide()
     }
   }
 }

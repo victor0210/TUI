@@ -1,6 +1,5 @@
 @import "variables";
 @import "mixins/mixins";
-@import "mixins/drop";
 
 @include b(dropdown) {
   display: inline-block;
@@ -13,8 +12,12 @@
     z-index: $--select-list-index;
     border-radius: 4px;
     box-shadow: 1px 1px 10px 1px #eee;
+    max-height: 150px;
+    overflow: scroll;
     transition: transform .2s ease-in, opacity .2s ease-in;
-  }
 
-  @include drop-arrow()
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
 }
