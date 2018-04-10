@@ -53,11 +53,15 @@ export default {
     onItemClick (cmd) {
       this.$emit('command', cmd)
     },
+    onSubClose (cmd) {
+      this.$emit('subcommand', cmd)
+    },
     createList () {
       const _this = this
       const dropmenu = new Vue({
         created () {
           this.$on('item-click', _this.onItemClick)
+          this.$on('sub-close', _this.onSubClose)
         },
 
         render (h) {
@@ -145,7 +149,7 @@ export default {
             listTop = parentViewTop + parentOffsetHeight + 5
           }
         } else {
-          listTop = parent.$el.offsetTop
+          listTop = 0
           listLeft = null
 
           if (listWidth + parentOffsetWidth + parentViewLeft + 5 >= document.body.offsetWidth) {

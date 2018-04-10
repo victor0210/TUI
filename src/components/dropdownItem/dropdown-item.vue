@@ -14,7 +14,10 @@
   <t-dropdown
     v-else
     side
-    :min-width="280"
+    :min-width="200"
+    has-parent-menu
+    hide-on-click
+    :text-center="false"
   >
     <li
       class="t-dropdown-item"

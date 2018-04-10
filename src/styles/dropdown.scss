@@ -16,6 +16,8 @@
 
     .t-dropdown {
       width: 100%;
+      float: left;
+      position: relative;
     }
 
     &::-webkit-scrollbar{
