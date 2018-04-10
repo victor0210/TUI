@@ -6,7 +6,9 @@
       :isOpen="isOpen"
       :initial="initial"
       :width="width"
+      :minWidth="minWidth"
       :maxHeight="maxHeight"
+      :textCenter="textCenter"
       @mouseleave="onMouseLeave"
       @mouseenter="onMouseOver"
       @command="handleCommand"
@@ -37,12 +39,18 @@ export default {
 
   props: {
     width: Number,
+    minWidth: Number,
     maxHeight: Number,
     hideOnClick: Boolean,
+    textCenter: {
+      type: Boolean,
+      default: true
+    },
     trigger: {
       type: String,
       default: 'hover'
-    }
+    },
+    value: {}
   },
 
   created () {

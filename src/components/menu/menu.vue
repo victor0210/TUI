@@ -6,10 +6,21 @@
     <li v-for="(m, idx) in data" :key="idx" class="t-menu__item" :class="[
       idx === 0 ? 'is-active' : ''
     ]">
-      <i v-if="m.icon" :class="[
-        't-menu__icon',
-        m.icon
-      ]"></i>{{ m.name }}
+      <t-dropdown :text-center="false" :min-width="180">
+        <span class="t-menu__item-content">
+          <i v-if="m.icon" :class="[
+            't-menu__icon',
+            m.icon
+          ]"></i>{{ m.name }}
+          <i v-if="m.subMenu" class="fa fa-caret-down"></i>
+        </span>
+        <template slot="dropdown">
+          <t-dropdown-item>选项1</t-dropdown-item>
+          <t-dropdown-item>选项2</t-dropdown-item>
+          <t-dropdown-item>选项3</t-dropdown-item>
+          <t-dropdown-item>选项4</t-dropdown-item>
+        </template>
+      </t-dropdown>
     </li>
   </ul>
 </template>

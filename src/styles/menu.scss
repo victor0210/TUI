@@ -8,12 +8,14 @@
   padding-left: 60px;
   border-bottom: 1px solid #e4e7ed;
 
+  @include e(item-content) {
+    padding: 0 20px;
+  }
   @include e(item) {
     display: inline-block;
     height: 56px;
     box-sizing: border-box;
     line-height: 56px;
-    padding: 0 20px;
     transition: all .2s;
     cursor: pointer;
     color: $--color-text-regular;

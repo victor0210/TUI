@@ -22,7 +22,9 @@ export default {
     isOpen: Boolean,
     initial: Boolean,
     width: Number,
-    maxHeight: Number
+    minWidth: Number,
+    maxHeight: Number,
+    textCenter: Boolean
   },
 
   created () {
@@ -62,7 +64,9 @@ export default {
             class: 't-dropdown__menu',
             style: {
               width: _this.width ? `${_this.width}px` : (_this.width === 0 ? `${_this.parent.$el.offsetWidth}px` : ''),
-              maxHeight: _this.maxHeight ? `${_this.maxHeight}px` : ''
+              minWidth: _this.minWidth ? `${_this.minWidth}px` : '',
+              maxHeight: _this.maxHeight ? `${_this.maxHeight}px` : '',
+              textAlign: _this.textCenter ? 'center' : ''
             },
             on: {
               'mouseleave': _this.onMouseLeave,
@@ -154,6 +158,10 @@ export default {
     isOpen (val) {
       val ? this.DropMenu.show() : this.DropMenu.hide()
     }
+  },
+
+  destroyed () {
+    this.DropMenu && this.DropMenu.remove()
   }
 }
 </script>

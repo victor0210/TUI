@@ -10,14 +10,18 @@
     display: inline-block;
     background-color: #fff;
     z-index: $--select-list-index;
-    border-radius: 4px;
-    box-shadow: 1px 1px 10px 1px #eee;
+    border-radius: 1px;
+    box-shadow: 2px 3px 10px 4px #eee;
     max-height: 150px;
     overflow: scroll;
     transition: transform .2s ease-in, opacity .2s ease-in;
 
     &::-webkit-scrollbar{
       display: none;
+    }
+
+    .t-dropdown-item {
+      height: 40px;
     }
   }
 }
