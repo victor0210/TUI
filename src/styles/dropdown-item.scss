@@ -4,9 +4,9 @@
 @include b(dropdown-item) {
   cursor: pointer;
   display: block;
-  padding: 5px 30px;
-  text-align: center;
+  padding: 5px 10px;
   height: 30px;
+  min-width: 100px;
   line-height: 20px;
   box-sizing: border-box;
   color: $--color-text-regular;

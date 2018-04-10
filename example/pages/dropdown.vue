@@ -77,7 +77,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="8">
-            <t-dropdown @command="commandHandler">
+            <t-dropdown @command="commandHandler" side>
               <t-button type="primary" icon="fa fa-caret-down" icon-right>Dropdown</t-button>
               <template slot="dropdown">
                 <t-dropdown-item :command="1" disabled>北京</t-dropdown-item>
