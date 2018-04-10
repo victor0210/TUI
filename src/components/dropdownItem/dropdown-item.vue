@@ -15,7 +15,6 @@
     v-else
     side
     :min-width="280"
-    hide-on-click
   >
     <li
       class="t-dropdown-item"
