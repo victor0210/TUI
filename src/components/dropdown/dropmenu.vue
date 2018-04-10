@@ -66,8 +66,8 @@ export default {
             style: {
               width: _this.width ? `${_this.width}px` : (_this.width === 0 ? `${_this.parent.$el.offsetWidth}px` : ''),
               minWidth: _this.minWidth ? `${_this.minWidth}px` : '',
-              maxHeight: _this.maxHeight ? `${_this.maxHeight}px` : '',
-              textAlign: _this.textCenter ? 'center' : ''
+              textAlign: _this.textCenter ? 'center' : '',
+              position: _this.side ? 'absolute' : 'fixed'
             },
             on: {
               'mouseleave': _this.onMouseLeave,
@@ -78,7 +78,7 @@ export default {
         methods: {
           remove () {
             this.$destroy()
-            document.body.removeChild(this.$el)
+            this.side ? this.parent.$el.removeChild(this.$el) : document.body.removeChild(this.$el)
 
             //  remove position fixer
             window.removeEventListener('resize', _this.setListPosition)
@@ -102,7 +102,7 @@ export default {
       this.DropMenu = component
       this.list = component.$el
       component.hide()
-      document.body.appendChild(component.$el)
+      this.side ? this.parent.$el.appendChild(component.$el) : document.body.appendChild(component.$el)
 
       setTimeout(function () {
         component.show()
@@ -145,13 +145,13 @@ export default {
             listTop = parentViewTop + parentOffsetHeight + 5
           }
         } else {
-          listTop = parentViewTop
+          listTop = parent.$el.offsetTop
           listLeft = null
 
           if (listWidth + parentOffsetWidth + parentViewLeft + 5 >= document.body.offsetWidth) {
-            listLeft = parentViewLeft - listWidth - 5
+            listLeft = -listWidth - 5
           } else {
-            listLeft = parentViewLeft + parentOffsetWidth + 5
+            listLeft = parentOffsetWidth + 5
           }
         }
 

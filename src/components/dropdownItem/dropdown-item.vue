@@ -1,5 +1,6 @@
 <template>
   <li
+    v-if="!subMenu"
     class="t-dropdown-item"
     :class="[
       disabled ? 'is-disabled' : '',
@@ -9,6 +10,38 @@
   >
     <slot/>
   </li>
+
+  <t-dropdown
+    v-else
+    side
+    :min-width="280"
+    hide-on-click
+  >
+    <li
+      class="t-dropdown-item"
+      :class="[
+      disabled ? 'is-disabled' : '',
+      divided ? 't-dropdown-item--divided' : ''
+    ]"
+      @click="clickHandler"
+    >
+      <slot/>
+      <i class="t-dropdown-item__icon fa fa-caret-right"></i>
+    </li>
+
+    <template slot="dropdown">
+      <t-dropdown-item
+        v-for="(m, idx) in subMenu"
+        :key="idx"
+        :command="m.command"
+        :disabled="m.disabled"
+        :divided="m.divided"
+        :subMenu="m.subMenu"
+      >
+        {{ m.name }}
+      </t-dropdown-item>
+    </template>
+  </t-dropdown>
 </template>
 
 <script>
@@ -22,12 +55,13 @@ export default {
   props: {
     command: {},
     disabled: Boolean,
-    divided: Boolean
+    divided: Boolean,
+    subMenu: Array
   },
 
   methods: {
     clickHandler () {
-      !this.disabled && this.dispatch('t-dropdown-menu', 'item-click', this.command)
+      !this.disabled && !this.subMenu && this.dispatch('t-dropdown-menu', 'item-click', this.command)
     }
   }
 }

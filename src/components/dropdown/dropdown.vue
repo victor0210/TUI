@@ -7,7 +7,6 @@
       :initial="initial"
       :width="width"
       :minWidth="minWidth"
-      :maxHeight="maxHeight"
       :textCenter="textCenter"
       :side="side"
       @mouseleave="onMouseLeave"
