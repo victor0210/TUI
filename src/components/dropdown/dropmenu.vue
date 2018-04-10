@@ -24,7 +24,8 @@ export default {
     width: Number,
     minWidth: Number,
     maxHeight: Number,
-    textCenter: Boolean
+    textCenter: Boolean,
+    side: Boolean
   },
 
   created () {
@@ -124,25 +125,34 @@ export default {
         let parentOffsetWidth = parent.$el.offsetWidth
         let windowViewHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
-        let listLeft = parentViewLeft
-        let listTop = null
+        let listLeft
+        let listTop
 
         let listWidth = this.list.offsetWidth
         let listHeight = this.list.offsetHeight
 
-        if (listWidth + parentViewLeft >= document.body.offsetWidth) {
-          listLeft -= listWidth - parentOffsetWidth
-          this.arrowRight = true
-        } else {
-          this.arrowRight = false
-        }
+        if (!this.side) {
+          listLeft = parentViewLeft
+          listTop = null
 
-        if (parentViewTop + listHeight + parentOffsetHeight + 5 > windowViewHeight) {
-          this.arrowTop = true
-          listTop = parentViewTop - listHeight - 5
+          if (listWidth + parentViewLeft >= document.body.offsetWidth) {
+            listLeft -= listWidth - parentOffsetWidth
+          }
+
+          if (parentViewTop + listHeight + parentOffsetHeight + 5 > windowViewHeight) {
+            listTop = parentViewTop - listHeight - 5
+          } else {
+            listTop = parentViewTop + parentOffsetHeight + 5
+          }
         } else {
-          this.arrowTop = false
-          listTop = parentViewTop + parentOffsetHeight + 5
+          listTop = parentViewTop
+          listLeft = null
+
+          if (listWidth + parentOffsetWidth + parentViewLeft + 5 >= document.body.offsetWidth) {
+            listLeft = parentViewLeft - listWidth - 5
+          } else {
+            listLeft = parentViewLeft + parentOffsetWidth + 5
+          }
         }
 
         this.list.style.left = `${listLeft}px`

@@ -9,6 +9,7 @@
       :minWidth="minWidth"
       :maxHeight="maxHeight"
       :textCenter="textCenter"
+      :side="side"
       @mouseleave="onMouseLeave"
       @mouseenter="onMouseOver"
       @command="handleCommand"
@@ -50,7 +51,8 @@ export default {
       type: String,
       default: 'hover'
     },
-    value: {}
+    value: {},
+    side: Boolean
   },
 
   created () {
