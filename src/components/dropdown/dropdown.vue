@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+//  TODO: open/close main menu /sub menu with focusIndex
 import TDropmenu from './dropmenu.vue'
 import Emitter from '../../mixins/emitter'
 
