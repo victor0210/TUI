@@ -7,19 +7,21 @@
       :initial="initial"
       :width="width"
       :minWidth="minWidth"
-      :maxHeight="maxHeight"
       :textCenter="textCenter"
       :side="side"
       @mouseleave="onMouseLeave"
       @mouseenter="onMouseOver"
       @command="handleCommand"
+      @subcommand="handleSubCommand"
     >
       <slot name="dropdown"/>
     </t-dropmenu>
   </div>
 </template>
 <script>
+//  TODO: open/close main menu /sub menu with focusIndex
 import TDropmenu from './dropmenu.vue'
+import Emitter from '../../mixins/emitter'
 
 export default {
   components: {
@@ -27,6 +29,8 @@ export default {
   },
 
   name: 't-dropdown',
+
+  mixins: [Emitter],
 
   data () {
     return {
@@ -52,12 +56,14 @@ export default {
       default: 'hover'
     },
     value: {},
-    side: Boolean
+    side: Boolean,
+    hasParentMenu: Boolean
   },
 
   created () {
     this.$on('drop-focus', this.onMouseEnter)
     this.$on('drop-blur', this.onMouseLeave)
+    this.$on('on-sub-command', this.handleSubCommand)
   },
 
   methods: {
@@ -84,14 +90,34 @@ export default {
     close () {
       this.closeTimer = setTimeout(() => {
         this.isOpen = false
-      }, 100)
+      }, 300)
     },
     checkout () {
       this.isOpen ? this.close() : this.open()
     },
     handleCommand (cmd) {
-      this.$emit('command', cmd)
+      if (this.hasParentMenu) {
+        this.dispatch('t-dropdown-menu', 'sub-close', {cmd: cmd, isClose: this.hideOnClick})
+      } else {
+        this.$emit('command', cmd)
+      }
+
       if (this.hideOnClick) {
+        this.forceCheck = true
+        this.isOpen = false
+        setTimeout(() => {
+          this.forceCheck = false
+        })
+      }
+    },
+    handleSubCommand ({cmd, isClose}) {
+      if (this.hasParentMenu) {
+        this.dispatch('t-dropdown-menu', 'sub-close', {cmd: cmd, isClose: isClose})
+      } else {
+        this.$emit('command', cmd)
+      }
+
+      if (isClose) {
         this.forceCheck = true
         this.isOpen = false
         setTimeout(() => {

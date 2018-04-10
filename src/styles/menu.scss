@@ -60,10 +60,15 @@
     padding-left: 0;
     height: auto;
 
-    .t-menu__item {
+    .t-menu__item, .t-menu__item-content {
       width: 100%;
       display: inline-block;
       float: left;
+      position: relative;
+
+      .t-dropdown {
+        width: 100%;
+      }
     }
   }
 }

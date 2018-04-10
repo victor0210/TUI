@@ -63,7 +63,29 @@ export default {
               name: '首页二'
             },
             {
-              name: '首页三'
+              name: '首页三',
+              subMenu: [
+                {
+                  name: '首页一'
+                },
+                {
+                  name: '首页二'
+                },
+                {
+                  name: '首页三',
+                  subMenu: [
+                    {
+                      name: '首页一'
+                    },
+                    {
+                      name: '首页二'
+                    },
+                    {
+                      name: '首页三'
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
