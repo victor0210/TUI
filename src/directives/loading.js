@@ -34,9 +34,11 @@ const TLoading = Vue.directive('t-loading', {
       methods: {
         show () {
           this.isShow = true
+          this.$el.style.zIndex = 1
         },
         hide () {
           this.isShow = false
+          this.$el.style.zIndex = -99
         },
         remove () {
           el.removeChild(this.$el)
@@ -46,6 +48,7 @@ const TLoading = Vue.directive('t-loading', {
     }).$mount()
 
     el.appendChild(loading.$el)
+    loading.$el.style.zIndex = -99
 
     el.tToadingKey = ~~(Math.random() * 1000000000)
     loadingQueue[el.tToadingKey] = loading
