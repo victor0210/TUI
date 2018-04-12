@@ -2,5 +2,43 @@
 @import "mixins/mixins";
 
 @include b(tabs) {
+  display: block;
 
+  @include e(header) {
+    display: block;
+    overflow: hidden;
+    margin: 0 0 15px;
+  }
+  @include e(header-item) {
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    float: left;
+    cursor: pointer;
+    color: $--color-text-placeholder;
+    border-bottom: $--border-base;
+    border-radius: 0;
+    transition: color .2s;
+
+    &:hover {
+      color: $--color-text-regular;
+    }
+
+    @include when(active) {
+      color: $--color-primary;
+      border: $--border-base;
+      line-height: 38px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom: none;
+    }
+
+    @include when(dragging) {
+      color: $--color-white;
+      border: none;
+      border-radius: 0;
+      background-color: #409EFF;
+    }
+  }
 }
