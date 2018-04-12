@@ -2,7 +2,6 @@
   <div
     class="t-tab-panel"
     v-show="isActive">
-    {{ val }}
     <slot/>
   </div>
 </template>
@@ -29,7 +28,8 @@ export default {
   mounted () {
     this.dispatch('t-tabs', 'tab-panel-register', {
       title: this.title,
-      val: this.val
+      val: this.val,
+      el: this.$el
     })
   },
 

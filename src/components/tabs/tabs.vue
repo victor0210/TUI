@@ -1,6 +1,12 @@
 <template>
-  <div class="t-tabs">
+  <div class="t-tabs" :class="[
+    tabDraggable ? 'is-draggable' : ''
+  ]">
     <div class="t-tabs__header">
+      <span class="t-tabs__active-line" :style="{
+        width: `${tabItemWidth[val]}px`,
+        transform: `translate(${tabItemOffsetX[val]}px)`
+      }" v-if="!tabDraggable"></span>
       <span
         class="t-tabs__header-item"
         :class="[
@@ -10,13 +16,14 @@
         v-for="(t, idx) in tabPanels"
         :key="idx"
         @click="changeTab(t.val)"
-        draggable="true"
+        :draggable="tabDraggable"
         @dragstart="onDragStart"
         @drag="onDrag"
         @dragend="onDragEnd"
         :tTabKey="idx"
+        :tTabVal="t.val"
+        ref="header_item"
       >{{ t.title }}</span>
-      <div class="t-tab__header-clear"></div>
     </div>
     <div class="t-tabs__content">
       <slot/>
@@ -30,6 +37,8 @@ export default {
   data () {
     return {
       tabPanels: [],
+      tabItemWidth: {},
+      tabItemOffsetX: {},
       sourceTabPanels: [],
       val: '',
       tDrags: {
@@ -46,14 +55,37 @@ export default {
   },
 
   props: {
-    value: {}
+    value: {},
+    tabDraggable: Boolean
   },
 
   created () {
     this.$on('tab-panel-register', this.registerHandler)
   },
 
+  mounted () {
+    setTimeout(() => {
+      this.initActiveLine()
+    }, 0)
+  },
+
   methods: {
+    initActiveLine () {
+      const _this = this
+      let offsetX = 0
+      this.$refs.header_item.forEach(function (el, idx) {
+        let widthPatch = 40
+        if (idx === 0 || idx === _this.$refs.header_item.length - 1) {
+          widthPatch = 20
+        }
+
+        _this.tabItemWidth[el.attributes.tTabVal.value] = el.offsetWidth - widthPatch
+        _this.tabItemOffsetX[el.attributes.tTabVal.value] = offsetX
+        offsetX += el.offsetWidth + 40 - widthPatch
+      })
+
+      this.$forceUpdate()
+    },
     registerHandler (panel) {
       if (this.tabPanels.length === 0 || this.value === panel.val) {
         this.val = panel.val //  init val
@@ -94,13 +126,13 @@ export default {
       if (sourceIndex > targetIndex) {
         let foo = arr[sourceIndex]
         for (let i = sourceIndex; i > targetIndex; i--) {
-          arr[i] = arr[i-1]
+          arr[i] = arr[i - 1]
         }
         arr[targetIndex] = foo
       } else {
         let foo = arr[sourceIndex]
         for (let i = sourceIndex; i < targetIndex; i++) {
-          arr[i] = arr[i+1]
+          arr[i] = arr[i + 1]
         }
         arr[targetIndex] = foo
       }

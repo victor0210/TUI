@@ -1,20 +1,42 @@
 <template>
   <div>
-    <guide title="开关" des="用于输入的表单开关组件"/>
+    <guide title="标签页" des="用于数据切换类别显示"/>
     <div class="demo-block">
-      <div class="subtitle">Switch</div>
+      <div class="subtitle">基础用法</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
             <t-tabs v-model="tabValue">
-              <t-tab-panel title="标签页1">
-                内容1
+              <t-tab-panel title="旅游住店">
+                <h3>旅游住店</h3>
               </t-tab-panel>
-              <t-tab-panel title="标签页2">
-                内容2
+              <t-tab-panel title="美食餐饮">
+                <h3>美食餐饮</h3>
               </t-tab-panel>
-              <t-tab-panel title="标签页3">
-                内容3
+              <t-tab-panel title="娱乐服务">
+                <h3>娱乐服务</h3>
+              </t-tab-panel>
+            </t-tabs>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">Draggable</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-tabs v-model="tabValue" tab-draggable>
+              <t-tab-panel title="旅游住店">
+                旅游住店
+              </t-tab-panel>
+              <t-tab-panel title="美食餐饮">
+                美食餐饮
+              </t-tab-panel>
+              <t-tab-panel title="娱乐服务">
+                娱乐服务
               </t-tab-panel>
             </t-tabs>
           </t-col>
