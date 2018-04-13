@@ -1,46 +1,47 @@
-<template>
-  <div class="t-tabs" :class="[
-    tabDraggable ? 'is-draggable' : ''
-  ]">
-    <div class="t-tabs__header">
-      <span class="t-tabs__active-line" :style="{
-        width: `${tabItemWidth[val]}px`,
-        transform: `translate(${tabItemOffsetX[val]}px)`
-      }" v-if="!tabDraggable"></span>
-      <span
-        class="t-tabs__header-item"
-        :class="[
-          t.val === val ? 'is-active' : '',
-          tDrags.isDragging && idx === tDrags.targetIndex ? 'is-dragging' : ''
-        ]"
-        v-for="(t, idx) in tabPanels"
-        :key="idx"
-        @click="changeTab(t.val)"
-        :draggable="tabDraggable"
-        @dragstart="onDragStart"
-        @drag="onDrag"
-        @dragend="onDragEnd"
-        :tTabKey="idx"
-        :tTabVal="t.val"
-        ref="header_item"
-      >{{ t.title }}</span>
-    </div>
-    <div class="t-tabs__content">
-      <slot/>
-    </div>
-  </div>
-</template>
+<!--<template>-->
+  <!--<div class="t-tabs" :class="[-->
+    <!--tabDraggable ? 'is-draggable' : ''-->
+  <!--]">-->
+    <!--<div class="t-tabs__header">-->
+      <!--<span class="t-tabs__active-line" :style="{-->
+        <!--width: `${tabItemWidth[val]}px`,-->
+        <!--transform: `translate(${tabItemOffsetX[val]}px)`-->
+      <!--}" v-if="!tabDraggable"></span>-->
+      <!--<span-->
+        <!--class="t-tabs__header-item"-->
+        <!--:class="[-->
+          <!--t.val === val ? 'is-active' : '',-->
+          <!--tDrags.isDragging && idx === tDrags.targetIndex ? 'is-dragging' : ''-->
+        <!--]"-->
+        <!--v-for="(t, idx) in tabPanels"-->
+        <!--:key="idx"-->
+        <!--@click="changeTab(t.idx)"-->
+        <!--:draggable="tabDraggable"-->
+        <!--@dragstart="onDragStart"-->
+        <!--@drag="onDrag"-->
+        <!--@dragend="onDragEnd"-->
+        <!--:tTabKey="idx"-->
+        <!--ref="header_item"-->
+      <!--&gt;{{ t.title }}</span>-->
+    <!--</div>-->
+    <!--<div class="t-tabs__content">-->
+      <!--<slot/>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</template>-->
 <script>
+import TTabPanel from '../tabPanel/tab-panel.vue'
+import THeaderItem from './tab-header-item.vue'
 export default {
   name: 't-tabs',
 
   data () {
     return {
       tabPanels: [],
-      tabItemWidth: {},
-      tabItemOffsetX: {},
+      tabItemWidth: 0,
+      tabItemOffsetX: 0,
       sourceTabPanels: [],
-      val: '',
+      focusIndex: 0,
       tDrags: {
         startX: 0,
         startY: 0,
@@ -59,44 +60,100 @@ export default {
     tabDraggable: Boolean
   },
 
-  created () {
-    this.$on('tab-panel-register', this.registerHandler)
-  },
+  render (h) {
+    const _this = this._self
 
-  mounted () {
-    setTimeout(() => {
-      this.initActiveLine()
-    }, 0)
-  },
+    let panels = []
+    _this.$slots.default.forEach(function (el) {
+      if (el.tag && el.componentOptions.tag === 't-tab-panel') {
+        panels.push(el)
+      }
+    })
 
-  methods: {
-    initActiveLine () {
-      const _this = this
-      let offsetX = 0
-      this.$refs.header_item.forEach(function (el, idx) {
-        let widthPatch = 40
-        if (idx === 0 || idx === _this.$refs.header_item.length - 1) {
-          widthPatch = 20
-        }
-
-        _this.tabItemWidth[el.attributes.tTabVal.value] = el.offsetWidth - widthPatch
-        _this.tabItemOffsetX[el.attributes.tTabVal.value] = offsetX
-        offsetX += el.offsetWidth + 40 - widthPatch
+    let tabHeaderItems = () => {
+      let tabHeaderItems = []
+      panels.forEach(function (el, idx) {
+        tabHeaderItems.push(
+          h(THeaderItem, {
+            domProps: {
+              draggable: _this.tabDraggable
+            },
+            props: {
+              $idx: idx,
+              isActive: _this.focusIndex === idx,
+              itemLength: panels.length
+            }
+          }, [el.componentOptions.propsData.title])
+        )
       })
 
-      this.$forceUpdate()
-    },
-    registerHandler (panel) {
-      if (this.tabPanels.length === 0 || this.value === panel.val) {
-        this.val = panel.val //  init val
-      }
+      return tabHeaderItems
+    }
 
-      this.tabPanels.indexOf(panel) === -1 && this.tabPanels.push(panel)
-      this.sourceTabPanels = this.tabPanels
+    let contentPanels = () => {
+      let panelContents = []
+      panels.forEach(function (el, idx) {
+        panelContents.push(
+          h(TTabPanel, {
+            props: Object.assign({}, {
+              $idx: idx
+            }, el.componentOptions.propsData)
+          }, [el.componentOptions.children])
+        )
+      })
+      return panelContents
+    }
+
+    return h('div', {
+      class: [
+        't-tabs',
+        this.tabDraggable ? 'is-draggable' : ''
+      ]
+    }, [
+      h('div', {
+        class: [
+          't-tabs__header'
+        ]
+      }, [
+        h('span', {
+          class: [
+            't-tabs__active-line'
+          ],
+          style: {
+            width: `${_this.tabItemWidth}px`,
+            transform: `translate(${_this.tabItemOffsetX}px)`
+          }
+        }),
+        //  filter tab-panel
+        tabHeaderItems()
+      ]),
+
+      //  render tabpanel content
+      contentPanels()
+    ])
+  },
+
+  created () {
+    // this.$on('tab-panel-register', this.registerHandler)
+    this.$on('init-active-line', this.renderActiveLine)
+  },
+
+
+  methods: {
+    renderActiveLine ({idx, width, offsetX}) {
+      this.focusIndex = idx
+      this.tabItemWidth = width
+      this.tabItemOffsetX = offsetX
     },
-    changeTab (val) {
-      this.val = val
-    },
+
+    // registerHandler (panel) {
+    //   if (this.tabPanels.length === 0 || this.value === panel.val) {
+    //     this.val = panel.val //  init val
+    //   }
+    //
+    //   this.tabPanels.indexOf(panel) === -1 && this.tabPanels.push(panel)
+    //   this.sourceTabPanels = this.tabPanels
+    // },
 
     onDragStart (e) {
       this.tDrags.index = ~~e.target.attributes.tTabKey.value

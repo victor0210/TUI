@@ -17,25 +17,16 @@ export default {
       type: [String, Number],
       default: 'title'
     },
-    val: {
-      type: [String, Number],
-      default: () => {
-        return ~~(Math.random() * 1000000000)
-      }
-    }
+    $idx: 0
   },
 
   mounted () {
-    this.dispatch('t-tabs', 'tab-panel-register', {
-      title: this.title,
-      val: this.val,
-      el: this.$el
-    })
+    console.log(this.$parent)
   },
 
   computed: {
     isActive () {
-      return this.$parent.val === this.val
+      return this.$parent.focusIndex === this.$idx
     }
   }
 }

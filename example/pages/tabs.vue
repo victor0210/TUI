@@ -7,13 +7,13 @@
         <t-row :gutter="20">
           <t-col :span="24">
             <t-tabs v-model="tabValue">
-              <t-tab-panel title="旅游住店">
-                <h3>旅游住店</h3>
+              <t-tab-panel title="旅游住店12">
+                <h3>旅游住店打</h3>
               </t-tab-panel>
               <t-tab-panel title="美食餐饮">
                 <h3>美食餐饮</h3>
               </t-tab-panel>
-              <t-tab-panel title="娱乐服务">
+              <t-tab-panel title="娱乐服务dkasjdlaksj">
                 <h3>娱乐服务</h3>
               </t-tab-panel>
             </t-tabs>
