@@ -57,7 +57,11 @@ export default {
 
   props: {
     value: {},
-    tabDraggable: Boolean
+    tabDraggable: Boolean,
+    position: {
+      type: String,
+      default: 'top'
+    }
   },
 
   render (h) {
@@ -107,9 +111,13 @@ export default {
     return h('div', {
       class: [
         't-tabs',
-        this.tabDraggable ? 'is-draggable' : ''
+        this.tabDraggable ? 'is-draggable' : '',
+        `is-${_this.position}`
       ]
     }, [
+      //  render tabpanel content
+      _this.position === 'bottom' && contentPanels(),
+
       h('div', {
         class: [
           't-tabs__header'
@@ -129,7 +137,7 @@ export default {
       ]),
 
       //  render tabpanel content
-      contentPanels()
+      _this.position === 'top' && contentPanels()
     ])
   },
 
