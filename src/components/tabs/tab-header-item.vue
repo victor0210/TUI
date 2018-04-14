@@ -17,7 +17,12 @@ export default {
   props: {
     $idx: Number,
     isActive: Boolean,
-    itemLength: Number
+    itemLength: Number,
+    position: String
+  },
+
+  created () {
+    this.$on('get-width', this.reportWidth)
   },
 
   mounted () {
@@ -29,8 +34,15 @@ export default {
       this.dispatch('t-tabs', 'init-active-line', {
         idx: this.$idx,
         width: this.lineWidth,
-        offsetX: this.lineOffsetX
+        lineWidth: this.lineWidth,
+        height: this.$el.offsetHeight,
+        offsetX: this.lineOffsetX,
+        offsetY: this.$el.offsetTop
       })
+    },
+
+    reportWidth () {
+      this.dispatch('t-tabs', 'report-width', this.$el.offsetWidth)
     }
   },
 

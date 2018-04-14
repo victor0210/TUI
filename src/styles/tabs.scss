@@ -15,7 +15,7 @@
         bottom: 0;
       }
 
-      .t-tabs__active-line {
+      .t-tabs__active-line-horizon {
         bottom: 0;
       }
     }
@@ -31,7 +31,7 @@
         top: 0;
       }
 
-      .t-tabs__active-line {
+      .t-tabs__active-line-horizon {
         top: 0;
       }
     }
@@ -39,6 +39,46 @@
 
   @include when(left) {
     @include header-vertical-variant();
+
+    .t-tabs__header {
+      float: left;
+      margin: 0 15px 0 0;
+      height: 100%;
+
+      &:after {
+        left: auto;
+        right: 0;
+      }
+
+      .t-tabs__active-line-vertical {
+        right: 0;
+      }
+
+      .t-tabs__header-item {
+        display: block;
+        padding: 0 20px;
+      }
+    }
+  }
+
+  @include when(right) {
+    @include header-vertical-variant();
+
+    .t-tabs__header {
+      float: right;
+      margin: 0 0 0 15px;
+      height: 100%;
+
+      .t-tabs__header-item {
+        display: block;
+        padding: 0 20px;
+      }
+    }
+  }
+
+  @include e(content) {
+    position: relative;
+    overflow: hidden;
   }
 
   /**

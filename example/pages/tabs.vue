@@ -28,7 +28,15 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
-            <t-tabs v-model="tabValue" position="left">
+            <t-radio-group v-model="position">
+              <t-radio label="top" val="top"/>
+              <t-radio label="left" val="left"/>
+              <t-radio label="bottom" val="bottom"/>
+              <t-radio label="right" val="right"/>
+            </t-radio-group>
+          </t-col>
+          <t-col :span="24">
+            <t-tabs v-model="tabValue" :position="position" style="height: 200px">
               <t-tab-panel title="旅游住店">
                 <h3>旅游住店打</h3>
               </t-tab-panel>
@@ -78,7 +86,8 @@ export default {
 
   data () {
     return {
-      tabValue: ''
+      tabValue: '',
+      position: 'top'
     }
   }
 }

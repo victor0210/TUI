@@ -14,7 +14,7 @@
       z-index: 1;
     }
 
-    .t-tabs__active-line {
+    .t-tabs__active-line-horizon {
       display: block;
       position: absolute;
       height: 2px;
@@ -22,7 +22,7 @@
       width: 0;
       transform: translate(0);
       z-index: 2;
-      transition: all .2s;
+      transition: all .2s, height 0s;
     }
 
     .t-tabs__header-item {
@@ -71,15 +71,15 @@
       z-index: 1;
     }
 
-    .t-tabs__active-line {
+    .t-tabs__active-line-vertical {
       display: block;
       position: absolute;
-      width: 2px;
       height: 0;
+      width: 2px;
       background-color: $--color-primary;
-      transform: translate(0);
+      transform: translateY(0);
       z-index: 2;
-      transition: all .2s;
+      transition: all .2s, width 0s;
     }
 
     .t-tabs__header-item {

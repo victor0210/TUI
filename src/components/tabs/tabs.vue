@@ -1,47 +1,22 @@
-<!--<template>-->
-  <!--<div class="t-tabs" :class="[-->
-    <!--tabDraggable ? 'is-draggable' : ''-->
-  <!--]">-->
-    <!--<div class="t-tabs__header">-->
-      <!--<span class="t-tabs__active-line" :style="{-->
-        <!--width: `${tabItemWidth[val]}px`,-->
-        <!--transform: `translate(${tabItemOffsetX[val]}px)`-->
-      <!--}" v-if="!tabDraggable"></span>-->
-      <!--<span-->
-        <!--class="t-tabs__header-item"-->
-        <!--:class="[-->
-          <!--t.val === val ? 'is-active' : '',-->
-          <!--tDrags.isDragging && idx === tDrags.targetIndex ? 'is-dragging' : ''-->
-        <!--]"-->
-        <!--v-for="(t, idx) in tabPanels"-->
-        <!--:key="idx"-->
-        <!--@click="changeTab(t.idx)"-->
-        <!--:draggable="tabDraggable"-->
-        <!--@dragstart="onDragStart"-->
-        <!--@drag="onDrag"-->
-        <!--@dragend="onDragEnd"-->
-        <!--:tTabKey="idx"-->
-        <!--ref="header_item"-->
-      <!--&gt;{{ t.title }}</span>-->
-    <!--</div>-->
-    <!--<div class="t-tabs__content">-->
-      <!--<slot/>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</template>-->
 <script>
 import TTabPanel from '../tabPanel/tab-panel.vue'
 import THeaderItem from './tab-header-item.vue'
+import Emitter from '../../mixins/emitter'
 export default {
   name: 't-tabs',
+
+  mixins: [Emitter],
 
   data () {
     return {
       tabPanels: [],
       tabItemWidth: 0,
       tabItemOffsetX: 0,
+      tabItemHeight: 0,
+      tabItemOffsetY: 0,
       sourceTabPanels: [],
       focusIndex: 0,
+      maxHeaderItemWidth: 0,
       tDrags: {
         startX: 0,
         startY: 0,
@@ -51,7 +26,7 @@ export default {
         targetIndex: 0,
         elWidth: 0,
         isDragging: false
-      }
+      },
     }
   },
 
@@ -79,13 +54,15 @@ export default {
       panels.forEach(function (el, idx) {
         tabHeaderItems.push(
           h(THeaderItem, {
+            key: idx,
             domProps: {
               draggable: _this.tabDraggable
             },
             props: {
               $idx: idx,
               isActive: _this.focusIndex === idx,
-              itemLength: panels.length
+              itemLength: panels.length,
+              position: _this.position
             }
           }, [el.componentOptions.propsData.title])
         )
@@ -100,12 +77,39 @@ export default {
         panelContents.push(
           h(TTabPanel, {
             props: Object.assign({}, {
-              $idx: idx
+              $idx: idx,
             }, el.componentOptions.propsData)
           }, [el.componentOptions.children])
         )
       })
-      return panelContents
+      return h('div', {
+              class: 't-tabs__content'
+             }, panelContents)
+    }
+
+    let header = () => {
+      return h('div', {
+        key: _this.position,
+        class: [
+          't-tabs__header'
+        ],
+        style: {
+          width: _this.isVertical && _this.maxHeaderItemWidth > 0 ? `${_this.maxHeaderItemWidth}px` : ''
+        }
+      }, [
+        h('span', {
+          class: [
+            _this.isVertical ? 't-tabs__active-line-vertical' : 't-tabs__active-line-horizon'
+          ],
+          style: {
+            width: !_this.isVertical ? `${_this.tabItemWidth}px` : '',
+            height: _this.isVertical ? `${_this.tabItemHeight}px` : '',
+            transform: !_this.isVertical ? `translate(${_this.tabItemOffsetX}px)`: `translateY(${_this.tabItemOffsetY}px)`
+          }
+        }),
+        //  filter tab-panel
+        tabHeaderItems()
+      ])
     }
 
     return h('div', {
@@ -118,50 +122,34 @@ export default {
       //  render tabpanel content
       _this.position === 'bottom' && contentPanels(),
 
-      h('div', {
-        class: [
-          't-tabs__header'
-        ]
-      }, [
-        h('span', {
-          class: [
-            't-tabs__active-line'
-          ],
-          style: {
-            width: `${_this.tabItemWidth}px`,
-            transform: `translate(${_this.tabItemOffsetX}px)`
-          }
-        }),
-        //  filter tab-panel
-        tabHeaderItems()
-      ]),
-
+      header(),
       //  render tabpanel content
-      _this.position === 'top' && contentPanels()
+      _this.position !== 'bottom' && contentPanels()
     ])
   },
 
   created () {
-    // this.$on('tab-panel-register', this.registerHandler)
     this.$on('init-active-line', this.renderActiveLine)
+    this.$on('report-width', this.reportWidthHandler)
+  },
+
+  mounted () {
+    this.broadcast('t-tab-header-item', 'get-width')
   },
 
 
   methods: {
-    renderActiveLine ({idx, width, offsetX}) {
+    renderActiveLine ({idx, width, height, offsetX, offsetY}) {
       this.focusIndex = idx
       this.tabItemWidth = width
+      this.tabItemHeight = height
       this.tabItemOffsetX = offsetX
+      this.tabItemOffsetY = offsetY
     },
 
-    // registerHandler (panel) {
-    //   if (this.tabPanels.length === 0 || this.value === panel.val) {
-    //     this.val = panel.val //  init val
-    //   }
-    //
-    //   this.tabPanels.indexOf(panel) === -1 && this.tabPanels.push(panel)
-    //   this.sourceTabPanels = this.tabPanels
-    // },
+    reportWidthHandler (w) {
+      if (this.maxHeaderItemWidth < w) this.maxHeaderItemWidth = w
+    },
 
     onDragStart (e) {
       this.tDrags.index = ~~e.target.attributes.tTabKey.value
@@ -209,6 +197,9 @@ export default {
   computed: {
     dragOffset () {
       return this.tDrags.currentX - this.tDrags.startX
+    },
+    isVertical () {
+      return this.position === 'left' || this.position === 'right'
     }
   }
 }
