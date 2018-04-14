@@ -44,14 +44,6 @@
         color: $--color-primary;
       }
     }
-
-    :nth-child(2) {
-      padding-left: 0;
-    }
-
-    :last-child {
-      padding-right: 0;
-    }
   }
 }
 
@@ -100,14 +92,6 @@
       @include when(active) {
         color: $--color-primary;
       }
-    }
-
-    :nth-child(2) {
-      padding-left: 0;
-    }
-
-    :last-child {
-      padding-right: 0;
     }
   }
 }

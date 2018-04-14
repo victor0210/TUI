@@ -4,6 +4,9 @@
 
 @include b(tabs) {
   display: block;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
 
   @include when(top) {
     @include header-horizon-variant();
@@ -18,13 +21,27 @@
       .t-tabs__active-line-horizon {
         bottom: 0;
       }
+
+      :nth-child(2) {
+        padding-left: 0;
+      }
+      :last-child {
+        padding-right: 0;
+      }
     }
   }
 
   @include when(bottom) {
     @include header-horizon-variant();
 
+    .t-tabs__content {
+      padding-bottom: 40px;
+    }
     .t-tabs__header {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
       margin: 15px 0 0;
 
       &:after {
@@ -33,6 +50,13 @@
 
       .t-tabs__active-line-horizon {
         top: 0;
+      }
+
+      :nth-child(2) {
+        padding-left: 0;
+      }
+      :last-child {
+        padding-right: 0;
       }
     }
   }
@@ -76,52 +100,174 @@
     }
   }
 
+  @include m(card) {
+    @include header-horizon-variant();
+
+    .t-tabs__header {
+
+      .t-tabs__header-item {
+        padding: 0 20px !important;
+        transition: all .2s;
+      }
+
+      .t-tabs__header-item.is-active {
+        background-color: $--color-primary;
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+
+    @include when(top) {
+      .t-tabs__header {
+        border-bottom: $--border-base;
+
+        .t-tabs__header-item.is-active {
+          color: $--color-white;
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        }
+
+        .t-tabs__active-line-horizon {
+          display: none;
+        }
+      }
+    }
+
+    @include when(bottom) {
+      .t-tabs__header {
+        border-top: $--border-base;
+
+        .t-tabs__header-item.is-active {
+          color: $--color-white;
+          border-bottom-left-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+
+        .t-tabs__active-line-horizon {
+          display: none;
+        }
+      }
+    }
+
+    @include when(left) {
+      .t-tabs__header {
+        border-right: $--border-base;
+
+        .t-tabs__header-item.is-active {
+          color: $--color-white;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+
+        .t-tabs__active-line-vertical {
+          display: none;
+        }
+      }
+    }
+
+    @include when(right) {
+      .t-tabs__header {
+        border-left: $--border-base;
+
+        .t-tabs__header-item.is-active {
+          color: $--color-white;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+
+        .t-tabs__active-line-vertical {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @include m(box) {
+    box-shadow: 0 2px 8px 4px #f0f1f2;
+    .t-tabs__content {
+      padding: 20px;
+    }
+    @include header-horizon-variant();
+
+    .t-tabs__header {
+      background-color: $--color-primary-lighter;
+      margin: 0 !important;
+
+      .t-tabs__header-item.is-active {
+        background-color: $--color-white;
+      }
+
+      .t-tabs__header-item {
+        padding: 0 20px !important;
+        transition: all .2s;
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+
+    @include when(top) {
+      .t-tabs__header {
+
+        .t-tabs__header-item.is-active {
+          color: $--color-primary;
+        }
+
+        .t-tabs__active-line-horizon {
+          display: none;
+        }
+      }
+    }
+
+    @include when(bottom) {
+      .t-tabs__content {
+        padding-bottom: 55px;
+      }
+
+      .t-tabs__header {
+
+        .t-tabs__header-item.is-active {
+          color: $--color-primary;
+        }
+
+        .t-tabs__active-line-horizon {
+          display: none;
+        }
+      }
+    }
+
+    @include when(left) {
+      .t-tabs__header {
+
+        .t-tabs__header-item.is-active {
+          color: $--color-primary;
+        }
+
+        .t-tabs__active-line-vertical {
+          display: none;
+        }
+      }
+    }
+
+    @include when(right) {
+      .t-tabs__header {
+
+        .t-tabs__header-item.is-active {
+          color: $--color-primary;
+        }
+
+        .t-tabs__active-line-vertical {
+          display: none;
+        }
+      }
+    }
+  }
+
   @include e(content) {
     position: relative;
     overflow: hidden;
-  }
-
-  /**
-   * draggable styles
-   */
-  @include when(draggable) {
-    .t-tabs__header {
-      display: block;
-      overflow: hidden;
-      margin: 0 0 15px;
-      position: relative;
-    }
-    .t-tabs__header-item {
-      padding: 0 20px;
-      height: 40px;
-      line-height: 40px;
-      box-sizing: border-box;
-      float: left;
-      cursor: pointer;
-      color: $--color-text-placeholder;
-      border-bottom: $--border-base;
-      border-radius: 0;
-      transition: color .2s;
-
-      &:hover {
-        color: $--color-text-regular;
-      }
-
-      @include when(active) {
-        color: $--color-primary;
-        border: $--border-base;
-        line-height: 38px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        border-bottom: none;
-      }
-
-      @include when(dragging) {
-        color: $--color-white;
-        border: none;
-        border-radius: 0;
-        background-color: #409EFF;
-      }
-    }
   }
 }

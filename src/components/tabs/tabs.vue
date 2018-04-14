@@ -26,13 +26,14 @@ export default {
         targetIndex: 0,
         elWidth: 0,
         isDragging: false
-      },
+      }
     }
   },
 
   props: {
     value: {},
     tabDraggable: Boolean,
+    type: String,
     position: {
       type: String,
       default: 'top'
@@ -52,6 +53,12 @@ export default {
     let tabHeaderItems = () => {
       let tabHeaderItems = []
       panels.forEach(function (el, idx) {
+        let titleSlot = null
+        el.componentOptions.children.forEach(function (c, idx) {
+          if (c.data && c.data.slot === 'title') {
+            titleSlot = c
+          }
+        })
         tabHeaderItems.push(
           h(THeaderItem, {
             key: idx,
@@ -64,7 +71,7 @@ export default {
               itemLength: panels.length,
               position: _this.position
             }
-          }, [el.componentOptions.propsData.title])
+          }, [titleSlot ? titleSlot : el.componentOptions.propsData.title])
         )
       })
 
@@ -74,17 +81,23 @@ export default {
     let contentPanels = () => {
       let panelContents = []
       panels.forEach(function (el, idx) {
+        let children = []
+        el.componentOptions.children.forEach(function (c, idx) {
+          if (!(c.data && c.data.slot === 'title')) {
+            children.push(c)
+          }
+        })
         panelContents.push(
           h(TTabPanel, {
             props: Object.assign({}, {
-              $idx: idx,
+              $idx: idx
             }, el.componentOptions.propsData)
-          }, [el.componentOptions.children])
+          }, [children])
         )
       })
       return h('div', {
-              class: 't-tabs__content'
-             }, panelContents)
+        class: 't-tabs__content'
+      }, panelContents)
     }
 
     let header = () => {
@@ -104,7 +117,7 @@ export default {
           style: {
             width: !_this.isVertical ? `${_this.tabItemWidth}px` : '',
             height: _this.isVertical ? `${_this.tabItemHeight}px` : '',
-            transform: !_this.isVertical ? `translate(${_this.tabItemOffsetX}px)`: `translateY(${_this.tabItemOffsetY}px)`
+            transform: !_this.isVertical ? `translate(${_this.tabItemOffsetX}px)` : `translateY(${_this.tabItemOffsetY}px)`
           }
         }),
         //  filter tab-panel
@@ -116,6 +129,7 @@ export default {
       class: [
         't-tabs',
         this.tabDraggable ? 'is-draggable' : '',
+        _this.type ? `t-tabs--${_this.type}` : '',
         `is-${_this.position}`
       ]
     }, [
@@ -137,14 +151,16 @@ export default {
     this.broadcast('t-tab-header-item', 'get-width')
   },
 
-
   methods: {
     renderActiveLine ({idx, width, height, offsetX, offsetY}) {
       this.focusIndex = idx
-      this.tabItemWidth = width
-      this.tabItemHeight = height
-      this.tabItemOffsetX = offsetX
-      this.tabItemOffsetY = offsetY
+
+      if (!this.type) {
+        this.tabItemWidth = width
+        this.tabItemHeight = height
+        this.tabItemOffsetX = offsetX
+        this.tabItemOffsetY = offsetY
+      }
     },
 
     reportWidthHandler (w) {
@@ -190,7 +206,6 @@ export default {
         arr[targetIndex] = foo
       }
 
-      // console.log(arr)
       this.tabPanels = arr
     }
   },

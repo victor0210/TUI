@@ -20,10 +20,6 @@ export default {
     $idx: 0
   },
 
-  mounted () {
-    console.log(this.$parent)
-  },
-
   computed: {
     isActive () {
       return this.$parent.focusIndex === this.$idx
