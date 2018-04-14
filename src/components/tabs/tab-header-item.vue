@@ -1,8 +1,12 @@
 <template>
-  <span class='t-tabs__header-item' :class="[
-    isActive ? 'is-active' : ''
-  ]" @click="changeActive">
+  <span
+    class='t-tabs__header-item'
+    :class="[
+      isActive ? 'is-active' : ''
+    ]"
+    @click="changeActive">
     <slot></slot>
+    <i class="t-tabs__item-close fa fa-times" v-if="editable" @click="onTabRemove"></i>
   </span>
 </template>
 
@@ -18,11 +22,14 @@ export default {
     $idx: Number,
     isActive: Boolean,
     itemLength: Number,
-    position: String
+    position: String,
+    editable: Boolean
   },
 
   created () {
     this.$on('get-width', this.reportWidth)
+    this.$on('get-idx-width', this.reportIdxWidth)
+    this.$on('get-item-length', this.reportItemLength)
   },
 
   mounted () {
@@ -30,6 +37,9 @@ export default {
   },
 
   methods: {
+    reportItemLength () {
+      this.dispatch('t-tabs', 'report-item')
+    },
     changeActive () {
       this.dispatch('t-tabs', 'init-active-line', {
         idx: this.$idx,
@@ -43,6 +53,22 @@ export default {
 
     reportWidth () {
       this.dispatch('t-tabs', 'report-width', this.$el.offsetWidth)
+    },
+
+    reportIdxWidth (idx) {
+      if (idx === this.$idx) {
+        this.changeActive()
+      }
+    },
+
+    onTabRemove (e) {
+      e.preventDefault()
+      e.cancelBubble = true
+      this.$emit('tab-remove', this.$idx)
+      this.dispatch('t-tabs', 'switch-active', {
+        idx: this.$idx,
+        isActive: this.isActive
+      })
     }
   },
 

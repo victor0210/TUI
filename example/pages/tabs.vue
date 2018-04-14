@@ -121,6 +121,29 @@
       </div>
       <radio-group/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">可编辑</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-tabs v-model="tabValue" editable @tab-remove="removeHandler" type="box">
+              <t-tab-panel
+                v-for="t in tabs"
+                :title="t.title"
+                :key="t.title"
+              >
+                {{ t.content }}
+              </t-tab-panel>
+            </t-tabs>
+          </t-col>
+          <t-col style="margin-top: 20px">
+            <t-button size="sm" @click="addTab">add tab</t-button>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
   </div>
 </template>
 <script>
@@ -134,7 +157,33 @@ export default {
   data () {
     return {
       tabValue: '',
-      position: 'top'
+      position: 'top',
+      tabs: [
+        {
+          title: '旅游住店',
+          content: '旅游住店'
+        },
+        {
+          title: '美食餐饮',
+          content: '美食餐饮'
+        },
+        {
+          title: '娱乐服务',
+          content: '娱乐服务'
+        },
+      ]
+    }
+  },
+
+  methods: {
+    removeHandler (idx) {
+      this.tabs.splice(idx, 1)
+    },
+    addTab () {
+      this.tabs.push({
+        title: 'New Tab',
+        content: 'new Tab'
+      })
     }
   }
 }

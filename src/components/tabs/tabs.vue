@@ -17,6 +17,7 @@ export default {
       sourceTabPanels: [],
       focusIndex: 0,
       maxHeaderItemWidth: 0,
+      itemLength: 0,
       tDrags: {
         startX: 0,
         startY: 0,
@@ -37,14 +38,15 @@ export default {
     position: {
       type: String,
       default: 'top'
-    }
+    },
+    editable: Boolean
   },
 
   render (h) {
     const _this = this._self
 
     let panels = []
-    _this.$slots.default.forEach(function (el) {
+    _this.$slots.default && _this.$slots.default.forEach(function (el) {
       if (el.tag && el.componentOptions.tag === 't-tab-panel') {
         panels.push(el)
       }
@@ -69,7 +71,13 @@ export default {
               $idx: idx,
               isActive: _this.focusIndex === idx,
               itemLength: panels.length,
-              position: _this.position
+              position: _this.position,
+              editable: _this.editable
+            },
+            on: {
+              'tab-remove': (idx) => {
+                _this.$emit('tab-remove', idx)
+              }
             }
           }, [titleSlot ? titleSlot : el.componentOptions.propsData.title])
         )
@@ -145,6 +153,8 @@ export default {
   created () {
     this.$on('init-active-line', this.renderActiveLine)
     this.$on('report-width', this.reportWidthHandler)
+    this.$on('report-item', this.reportLengthHandler)
+    this.$on('switch-active', this.switchActive)
   },
 
   mounted () {
@@ -152,6 +162,26 @@ export default {
   },
 
   methods: {
+    reportLengthHandler () {
+      this.itemLength += 1
+    },
+
+    switchActive ({idx}) {
+      this.itemLength = 0
+      this.broadcast('t-tab-header-item', 'get-item-length')
+      let focus = 0
+      if (this.itemLength - 1 === this.focusIndex) {
+        focus = this.focusIndex - 1
+      } else {
+        if (idx >= this.focusIndex) {
+          focus = this.focusIndex
+        } else {
+          focus = this.focusIndex - 1
+        }
+      }
+      this.broadcast('t-tab-header-item', 'get-idx-width', focus)
+    },
+
     renderActiveLine ({idx, width, height, offsetX, offsetY}) {
       this.focusIndex = idx
 
