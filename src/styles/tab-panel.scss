@@ -1,0 +1,7 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(tab-panel) {
+  display: block;
+  width: 100%;
+}

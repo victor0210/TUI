@@ -254,6 +254,11 @@ export default {
           route: '/dialog',
           name: 'Dialog',
           chinese: '提示框'
+        },
+        {
+          route: '/tabs',
+          name: 'Tabs',
+          chinese: '标签页'
         }
       ]
     }
