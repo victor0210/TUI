@@ -1,0 +1,30 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(breadcrumb-item) {
+  position: relative;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  color: $--color-text-secondary;
+  font-weight: 400;
+
+  > span {
+    float: left;
+  }
+
+  @include e(router) {
+    a {
+      transition: color .2s;
+      font-weight: 700;
+      color: $--color-text-primary;
+      &:hover {
+        color: $--color-primary;
+      }
+    }
+  }
+
+  @include e(separator) {
+    margin: 0 10px;
+  }
+}

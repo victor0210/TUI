@@ -252,8 +252,7 @@ export default {
           route: '/breadcrumb',
           name: 'Breadcrumb',
           chinese: '面包屑'
-        },
-
+        }
       ],
       otherList: [
         {
