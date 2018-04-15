@@ -38,13 +38,13 @@
 </template>
 
 <script>
-  import RadioGroup from '../documents/radio/radioGroup.md'
+import RadioGroup from '../documents/radio/radioGroup.md'
 
-  export default {
-    components: {
-      RadioGroup
-    }
+export default {
+  components: {
+    RadioGroup
   }
+}
 </script>
 
 <style></style>

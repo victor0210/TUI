@@ -170,7 +170,7 @@ export default {
         {
           title: '娱乐服务',
           content: '娱乐服务'
-        },
+        }
       ]
     }
   },
