@@ -249,8 +249,18 @@ export default {
           chinese: '下拉菜单'
         },
         {
+          route: '/tabs',
+          name: 'Tabs',
+          chinese: '标签页'
+        },
+        {
           route: '/breadcrumb',
           name: 'Breadcrumb',
+          chinese: '面包屑'
+        },
+        {
+          route: '/step',
+          name: 'Step',
           chinese: '面包屑'
         }
       ],
@@ -259,11 +269,6 @@ export default {
           route: '/dialog',
           name: 'Dialog',
           chinese: '提示框'
-        },
-        {
-          route: '/tabs',
-          name: 'Tabs',
-          chinese: '标签页'
         }
       ]
     }

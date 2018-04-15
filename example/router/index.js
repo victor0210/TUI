@@ -145,6 +145,11 @@ export default new Router({
       path: '/breadcrumb',
       name: 'breadcrumb',
       component: r => require.ensure([], () => r(require('../pages/breadcrumb.vue')))
+    },
+    {
+      path: '/step',
+      name: 'step',
+      component: r => require.ensure([], () => r(require('../pages/step.vue')))
     }
   ]
 })

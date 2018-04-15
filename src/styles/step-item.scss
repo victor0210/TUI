@@ -1,0 +1,75 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(step-item) {
+  position: relative;
+  color: $--color-text-primary;
+
+  @include e(progress) {
+    height: 24px;
+  }
+
+  @include e(logo) {
+    height: 24px;
+    width: 40px;
+    text-align: center;
+    background-color: inherit;
+    padding-left: 8px;
+
+    @include m(text) {
+      span {
+        width: 24px;
+        height: 24px;
+        line-height: 20px;
+        border-radius: 50%;
+        display: block;
+        box-sizing: border-box;
+        border: 2px solid $--color-text-primary;
+      }
+    }
+
+    @include when(active) {
+      color: $--color-primary;
+
+      span {
+        border-color: $--color-primary;
+      }
+    }
+  }
+
+  @include e(line) {
+    position: absolute;
+    height: 2px;
+    background-color: $--color-text-placeholder;
+    left: 40px;
+    right: 0;
+    top: 11px;
+
+    @include when(active) {
+      background-color: $--color-primary;
+    }
+  }
+
+  @include e(content) {
+    @include when(active) {
+      .t-step-item__title,
+      .t-step-item__desc {
+        color: $--color-primary;
+      }
+    }
+  }
+
+  @include e(title) {
+    height: 34px;
+    line-height: 34px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  @include e(desc) {
+    white-space: nowrap;
+    line-height: 13px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+}
