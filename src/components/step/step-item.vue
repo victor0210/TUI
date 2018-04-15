@@ -1,9 +1,14 @@
 <template>
   <div
     class="t-step-item"
+    :class="[
+      textCenter ? 't-step-item--center' : ''
+    ]"
     :style="{
-      flexBasis: !isLast ? `${100 / (total - 1)}%` : 'auto',
-      maxWidth: isLast ? `${100 / total}%` : ''
+      flexBasis: textCenter ? `${100 / total}%` : (!isLast ? `${100 / (total - 1)}%` : 'auto'),
+      maxWidth: isLast ? `${100 / total}%` : '',
+      flexShrink: isLast ? 0 : '',
+      flexGrow: isLast ? 0 : ''
     }">
     <div class="t-step-item__progress">
       <div
@@ -55,7 +60,8 @@ export default {
     active: Number,
     title: String,
     desc: String,
-    icon: String
+    icon: String,
+    textCenter: Boolean
   },
 
   computed: {

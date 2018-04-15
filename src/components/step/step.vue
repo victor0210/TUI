@@ -11,6 +11,7 @@
       :desc="s.desc"
       :icon="s.icon"
       :key="idx"
+      :textCenter="textCenter"
     />
   </div>
 </template>
@@ -27,7 +28,8 @@ export default  {
   props: {
     steps: Array,
     vertical: Boolean,
-    active: Number
+    active: Number,
+    textCenter: Boolean
   }
 }
 </script>
