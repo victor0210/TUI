@@ -79,7 +79,7 @@ export default {
                 _this.$emit('tab-remove', idx)
               }
             }
-          }, [titleSlot ? titleSlot : el.componentOptions.propsData.title])
+          }, [titleSlot || el.componentOptions.propsData.title])
         )
       })
 

@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "t-breadcrumb-item",
+  name: 't-breadcrumb-item',
 
   props: {
     separator: String,
