@@ -37,6 +37,7 @@ import DropDown from './components/dropdown/index'
 import DropDownItem from './components/dropdownItem/index'
 import Tabs from './components/tabs/index'
 import TabPanel from './components/tabPanel/index'
+import BreadCrumb from './components/breadcrumb/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -86,7 +87,8 @@ const Tui = {
   DropDown,
   DropDownItem,
   Tabs,
-  TabPanel
+  TabPanel,
+  BreadCrumb
 }
 
 const install = function (Vue, opts = {}) {

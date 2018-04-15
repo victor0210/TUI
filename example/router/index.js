@@ -140,6 +140,11 @@ export default new Router({
       path: '/tabs',
       name: 'tabs',
       component: r => require.ensure([], () => r(require('../pages/tabs.vue')))
+    },
+    {
+      path: '/breadcrumb',
+      name: 'breadcrumb',
+      component: r => require.ensure([], () => r(require('../pages/breadcrumb.vue')))
     }
   ]
 })
