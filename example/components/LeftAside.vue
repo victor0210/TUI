@@ -247,6 +247,11 @@ export default {
           route: '/dropdown',
           name: 'Dropdown',
           chinese: '下拉菜单'
+        },
+        {
+          route: '/breadcrumb',
+          name: 'Breadcrumb',
+          chinese: '面包屑'
         }
       ],
       otherList: [

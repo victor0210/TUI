@@ -1,0 +1,7 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(breadcrumb) {
+  position: relative;
+  overflow: hidden;
+}
