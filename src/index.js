@@ -39,6 +39,7 @@ import Tabs from './components/tabs/index'
 import TabPanel from './components/tabPanel/index'
 import BreadCrumb from './components/breadcrumb/index'
 import BreadCrumbItem from './components/breadcrumbItem/index'
+import Step from './components/step/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -90,7 +91,8 @@ const Tui = {
   Tabs,
   TabPanel,
   BreadCrumb,
-  BreadCrumbItem
+  BreadCrumbItem,
+  Step
 }
 
 const install = function (Vue, opts = {}) {
