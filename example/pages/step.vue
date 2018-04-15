@@ -12,6 +12,18 @@
       </div>
       <radio-group/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">居中步骤条</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-step :steps="steps" :active="2" text-center/>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
   </div>
 </template>
 
@@ -27,16 +39,16 @@
       return {
         steps: [
           {
-            title: '步骤1',
-            desc: '很长的第一段描述文字...'
+            title: '步骤 1',
+            desc: '很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字...'
           },
           {
-            title: '步骤2',
-            desc: '很长的第一段描述文字...'
+            title: '步骤 2',
+            desc: '很长的第一段描述文字很长的第一段描述文字...'
           },
           {
-            title: '步骤3',
-            desc: '没那么长了'
+            title: '步骤 3',
+            desc: '比较短了哈哈好'
           }
         ]
       }

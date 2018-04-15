@@ -6,6 +6,7 @@
   color: $--color-text-primary;
 
   @include e(progress) {
+    position: relative;
     height: 24px;
   }
 
@@ -71,5 +72,26 @@
     line-height: 13px;
     font-size: 13px;
     font-weight: 400;
+  }
+
+  @include m(center) {
+    text-align: center;
+    .t-step-item__line {
+      left: 50%;
+      right: -50%;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .t-step-item__desc {
+      padding: 0 30px;
+      white-space: normal;
+      word-break: break-all;
+    }
+    .t-step-item__logo--text {
+      padding-left: 0;
+      justify-content: space-around;
+      display: inline-flex;
+    }
   }
 }
