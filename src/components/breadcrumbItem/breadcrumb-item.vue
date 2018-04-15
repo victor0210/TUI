@@ -1,7 +1,11 @@
 <template>
   <span class="t-breadcrumb-item">
     <span class="t-breadcrumb-item__router" v-if="to">
-      <router-link :to="to">
+      <router-link
+        :to="to"
+        :replace="replace"
+        :append="append"
+      >
         <slot/>
       </router-link>
     </span>
@@ -16,9 +20,12 @@ export default {
   name: "t-breadcrumb-item",
 
   props: {
-    to: String,
     separator: String,
-    separatorIcon: String
+    separatorIcon: String,
+    //  router link props
+    to: String,
+    replace: Boolean,
+    append: Boolean
   }
 }
 </script>
