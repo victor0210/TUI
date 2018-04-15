@@ -2,7 +2,7 @@
   <div>
     <guide title="标签页" des="用于数据切换类别显示"/>
     <div class="demo-block">
-      <div class="subtitle">基础用法</div>
+      <div class="subtitle">基础用法（适用于tab页较少的场景）</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
@@ -46,7 +46,7 @@
     </div>
 
     <div class="demo-block">
-      <div class="subtitle">box样式</div>
+      <div class="subtitle">box样式（适用于tab页较多的场景）</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
@@ -127,7 +127,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
-            <t-tabs v-model="tabValue" editable @tab-remove="removeHandler" type="box">
+            <t-tabs v-model="tabValue" editable @tab-remove="removeHandler" type="card">
               <t-tab-panel
                 v-for="t in tabs"
                 :title="t.title"
@@ -144,6 +144,29 @@
       </div>
       <radio-group/>
     </div>
+
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">自动填满宽度(适用于标签不多的场景)</div>-->
+      <!--<div class="source">-->
+        <!--<t-row :gutter="20">-->
+          <!--<t-col :span="24">-->
+            <!--<t-tabs v-model="tabValue" editable @tab-remove="removeHandler" inline-flex>-->
+              <!--<t-tab-panel-->
+                <!--v-for="t in tabs"-->
+                <!--:title="t.title"-->
+                <!--:key="t.title"-->
+              <!--&gt;-->
+                <!--{{ t.content }}-->
+              <!--</t-tab-panel>-->
+            <!--</t-tabs>-->
+          <!--</t-col>-->
+          <!--<t-col style="margin-top: 20px">-->
+            <!--<t-button size="sm" @click="addTab">add tab</t-button>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<radio-group/>-->
+    <!--</div>-->
   </div>
 </template>
 <script>

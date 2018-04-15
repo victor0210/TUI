@@ -47,8 +47,11 @@
 
       .t-tabs__item-close {
         display: block;
-        position: relative;
-        float: right;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 2px;
+        margin: auto;
         height: 40px;
         line-height: 40px;
         width: 20px;
@@ -57,6 +60,15 @@
       }
     }
   }
+  //.t-tabs__header--flex {
+  //  display: flex;
+  //  overflow: hidden;
+  //  .t-tabs__header-item {
+  //    flex: 1;
+  //    flex-direction: row;
+  //    max-width: 25%;
+  //  }
+  //}
 }
 
 @mixin header-vertical-variant() {
