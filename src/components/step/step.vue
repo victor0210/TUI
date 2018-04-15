@@ -18,7 +18,7 @@
 
 <script>
 import TStepItem from './step-item.vue'
-export default  {
+export default {
   components: {
     TStepItem
   },

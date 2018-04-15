@@ -28,32 +28,32 @@
 </template>
 
 <script>
-  import RadioGroup from '../documents/radio/radioGroup.md'
+import RadioGroup from '../documents/radio/radioGroup.md'
 
-  export default {
-    components: {
-      RadioGroup
-    },
+export default {
+  components: {
+    RadioGroup
+  },
 
-    data () {
-      return {
-        steps: [
-          {
-            title: '步骤 1',
-            desc: '很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字...'
-          },
-          {
-            title: '步骤 2',
-            desc: '很长的第一段描述文字很长的第一段描述文字...'
-          },
-          {
-            title: '步骤 3',
-            desc: '比较短了哈哈好'
-          }
-        ]
-      }
+  data () {
+    return {
+      steps: [
+        {
+          title: '步骤 1',
+          desc: '很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字...'
+        },
+        {
+          title: '步骤 2',
+          desc: '很长的第一段描述文字很长的第一段描述文字...'
+        },
+        {
+          title: '步骤 3',
+          desc: '比较短了哈哈好'
+        }
+      ]
     }
   }
+}
 </script>
 
 <style></style>

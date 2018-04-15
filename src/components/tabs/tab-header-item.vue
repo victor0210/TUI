@@ -33,7 +33,7 @@ export default {
   data () {
     return {
       isHover: false,
-      isHoverClose: false,
+      isHoverClose: false
     }
   },
 
