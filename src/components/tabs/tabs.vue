@@ -39,7 +39,9 @@ export default {
       type: String,
       default: 'top'
     },
-    editable: Boolean
+    editable: Boolean,
+    showClose: Boolean,
+    inlineFlex: Boolean
   },
 
   render (h) {
@@ -72,7 +74,8 @@ export default {
               isActive: _this.focusIndex === idx,
               itemLength: panels.length,
               position: _this.position,
-              editable: _this.editable
+              editable: _this.editable,
+              showClose: _this.showClose
             },
             on: {
               'tab-remove': (idx) => {
@@ -112,7 +115,8 @@ export default {
       return h('div', {
         key: _this.position,
         class: [
-          't-tabs__header'
+          't-tabs__header',
+          _this.inlineFlex ? 't-tabs__header--flex' : ''
         ],
         style: {
           width: _this.isVertical && _this.maxHeaderItemWidth > 0 ? `${_this.maxHeaderItemWidth}px` : ''

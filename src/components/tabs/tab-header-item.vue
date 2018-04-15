@@ -4,9 +4,21 @@
     :class="[
       isActive ? 'is-active' : ''
     ]"
-    @click="changeActive">
+    @click="changeActive"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+  >
     <slot></slot>
-    <i class="t-tabs__item-close fa fa-times" v-if="editable" @click="onTabRemove"></i>
+    <i
+      v-if="editable && (showClose || isHover)"
+      class="t-tabs__item-close fa"
+      :class="[
+        isHoverClose ? 'fa-times-circle' : 'fa-times'
+      ]"
+      @click="onTabRemove"
+      @mouseenter="onMouseEnterClose"
+      @mouseleave="onMouseLeaveClose"
+    ></i>
   </span>
 </template>
 
@@ -18,12 +30,20 @@ export default {
 
   mixins: [Emitter],
 
+  data () {
+    return {
+      isHover: false,
+      isHoverClose: false,
+    }
+  },
+
   props: {
     $idx: Number,
     isActive: Boolean,
     itemLength: Number,
     position: String,
-    editable: Boolean
+    editable: Boolean,
+    showClose: Boolean
   },
 
   created () {
@@ -37,6 +57,18 @@ export default {
   },
 
   methods: {
+    onMouseEnter () {
+      this.isHover = true
+    },
+    onMouseLeave () {
+      this.isHover = false
+    },
+    onMouseEnterClose () {
+      this.isHoverClose = true
+    },
+    onMouseLeaveClose () {
+      this.isHoverClose = false
+    },
     reportItemLength () {
       this.dispatch('t-tabs', 'report-item')
     },
