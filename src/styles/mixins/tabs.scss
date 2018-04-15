@@ -60,15 +60,15 @@
       }
     }
   }
-  .t-tabs__header--flex {
-    display: flex;
-    overflow: hidden;
-    .t-tabs__header-item {
-      flex: 1;
-      flex-direction: row;
-      max-width: 25%;
-    }
-  }
+  //.t-tabs__header--flex {
+  //  display: flex;
+  //  overflow: hidden;
+  //  .t-tabs__header-item {
+  //    flex: 1;
+  //    flex-direction: row;
+  //    max-width: 25%;
+  //  }
+  //}
 }
 
 @mixin header-vertical-variant() {

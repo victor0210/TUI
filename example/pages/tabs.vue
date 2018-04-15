@@ -145,28 +145,28 @@
       <radio-group/>
     </div>
 
-    <div class="demo-block">
-      <div class="subtitle">自动填满宽度(适用于标签不多的场景)</div>
-      <div class="source">
-        <t-row :gutter="20">
-          <t-col :span="24">
-            <t-tabs v-model="tabValue" editable @tab-remove="removeHandler" type="card" inline-flex>
-              <t-tab-panel
-                v-for="t in tabs"
-                :title="t.title"
-                :key="t.title"
-              >
-                {{ t.content }}
-              </t-tab-panel>
-            </t-tabs>
-          </t-col>
-          <t-col style="margin-top: 20px">
-            <t-button size="sm" @click="addTab">add tab</t-button>
-          </t-col>
-        </t-row>
-      </div>
-      <radio-group/>
-    </div>
+    <!--<div class="demo-block">-->
+      <!--<div class="subtitle">自动填满宽度(适用于标签不多的场景)</div>-->
+      <!--<div class="source">-->
+        <!--<t-row :gutter="20">-->
+          <!--<t-col :span="24">-->
+            <!--<t-tabs v-model="tabValue" editable @tab-remove="removeHandler" inline-flex>-->
+              <!--<t-tab-panel-->
+                <!--v-for="t in tabs"-->
+                <!--:title="t.title"-->
+                <!--:key="t.title"-->
+              <!--&gt;-->
+                <!--{{ t.content }}-->
+              <!--</t-tab-panel>-->
+            <!--</t-tabs>-->
+          <!--</t-col>-->
+          <!--<t-col style="margin-top: 20px">-->
+            <!--<t-button size="sm" @click="addTab">add tab</t-button>-->
+          <!--</t-col>-->
+        <!--</t-row>-->
+      <!--</div>-->
+      <!--<radio-group/>-->
+    <!--</div>-->
   </div>
 </template>
 <script>
