@@ -2,7 +2,7 @@
   <div>
     <guide title="标签页" des="用于数据切换类别显示"/>
     <div class="demo-block">
-      <div class="subtitle">基础用法</div>
+      <div class="subtitle">基础用法（适用于tab页较少的场景）</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
@@ -46,7 +46,7 @@
     </div>
 
     <div class="demo-block">
-      <div class="subtitle">box样式</div>
+      <div class="subtitle">box样式（适用于tab页较多的场景）</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
