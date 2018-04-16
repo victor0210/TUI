@@ -1,5 +1,10 @@
 <template>
   <div>
+    <t-modal :show="show">
+      <span slot="header">
+        modal
+      </span>
+    </t-modal>
     <guide title="开关" des="用于输入的表单开关组件"/>
     <div class="demo-block">
       <div class="subtitle">Switch</div>
@@ -30,7 +35,7 @@ export default {
   },
   methods: {
     showModal () {
-      this.show = true
+      this.show = !this.show
     }
   }
 }
