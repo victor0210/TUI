@@ -5,10 +5,9 @@
       textCenter ? 't-step-item--center' : ''
     ]"
     :style="{
-      flexBasis: textCenter ? `${100 / total}%` : (!isLast ? `${100 / (total - 1)}%` : 'auto'),
+      flexBasis: flexBasis || (textCenter ? `${100 / total}%` : (!isLast ? `${100 / (total - 1)}%` : 'auto')),
       maxWidth: isLast ? `${100 / total}%` : '',
-      flexShrink: isLast ? 0 : '',
-      flexGrow: isLast ? 0 : ''
+      flexShrink: isLast ? 0 : ''
     }">
     <div class="t-step-item__progress">
       <div
@@ -23,10 +22,10 @@
         :class="[
           isActive ? 'is-active' : ''
         ]"
-        v-if="icon"
+        v-if="icon || (isActive && completeIcon)"
       >
         <i
-          :class="icon"
+          :class="isActive ? (completeIcon || icon) : icon"
         ></i>
       </div>
       <div
@@ -34,7 +33,7 @@
         :class="[
           isActive ? 'is-active' : ''
         ]"
-        v-if="!icon"
+        v-else
       >
         <span>{{ idx + 1 }}</span>
       </div>
@@ -45,7 +44,9 @@
       ]"
     >
       <div class="t-step-item__title">{{ title }}</div>
-      <div class="t-step-item__desc">{{ desc }}</div>
+      <div class="t-step-item__desc" :style="{
+        paddingRight: isLast ? '0' : ''
+      }">{{ desc }}</div>
     </div>
   </div>
 </template>
@@ -61,7 +62,9 @@ export default {
     title: String,
     desc: String,
     icon: String,
-    textCenter: Boolean
+    completeIcon: String,
+    textCenter: Boolean,
+    flexBasis: String
   },
 
   computed: {

@@ -7,20 +7,28 @@
 
   @include e(progress) {
     position: relative;
-    height: 24px;
+    height: 25px;
+    box-sizing: border-box;
   }
 
   @include e(logo) {
-    height: 24px;
+    height: 25px;
     width: 40px;
     text-align: center;
     background-color: inherit;
-    padding-left: 8px;
+
+    @include m(icon) {
+      line-height: 25px;
+      height: 25px;
+      box-sizing: border-box;
+      font-size: 25px;
+    }
 
     @include m(text) {
+      padding-left: 8px;
       span {
-        width: 24px;
-        height: 24px;
+        width: 25px;
+        height: 25px;
         line-height: 20px;
         border-radius: 50%;
         display: block;
@@ -45,6 +53,7 @@
     left: 40px;
     right: 0;
     top: 11px;
+    box-sizing: border-box;
 
     @include when(active) {
       background-color: $--color-primary;
@@ -68,8 +77,8 @@
   }
 
   @include e(desc) {
-    white-space: nowrap;
-    line-height: 13px;
+    padding-right: 20%;
+    line-height: 20px;
     font-size: 13px;
     font-weight: 400;
   }
@@ -84,11 +93,12 @@
     }
 
     .t-step-item__desc {
-      padding: 0 30px;
+      padding: 0 20%;
       white-space: normal;
       word-break: break-all;
     }
-    .t-step-item__logo--text {
+    .t-step-item__logo--text,
+    .t-step-item__logo--icon {
       padding-left: 0;
       justify-content: space-around;
       display: inline-flex;

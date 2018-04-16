@@ -1,9 +1,21 @@
 @import "variables";
 @import "mixins/mixins";
+@import "mixins/step";
 
 @include b(step) {
   @include when(horizon) {
-    white-space: nowrap;
     display: flex;
+  }
+
+  @include m(success) {
+    @include step-type-variant($--color-success)
+  }
+
+  @include m(warning) {
+    @include step-type-variant($--color-warning)
+  }
+
+  @include m(danger) {
+    @include step-type-variant($--color-danger)
   }
 }

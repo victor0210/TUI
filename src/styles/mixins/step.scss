@@ -1,0 +1,15 @@
+@mixin step-type-variant($color) {
+  .t-step-item__content.is-active .t-step-item__title,
+  .t-step-item__content.is-active .t-step-item__desc,
+  .t-step-item__logo.is-active,
+  .t-step-item__logo.is-active span {
+    color: $color;
+  }
+  .t-step-item__logo.is-active span {
+    border-color: $color;
+  }
+  .t-step-item__line.is-active {
+    background-color: $color;
+  }
+}
+
