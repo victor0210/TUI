@@ -22,10 +22,10 @@
         :class="[
           isActive ? 'is-active' : ''
         ]"
-        v-if="icon"
+        v-if="icon || (isActive && completeIcon)"
       >
         <i
-          :class="icon"
+          :class="isActive ? (completeIcon || icon) : icon"
         ></i>
       </div>
       <div
@@ -33,7 +33,7 @@
         :class="[
           isActive ? 'is-active' : ''
         ]"
-        v-if="!icon"
+        v-else
       >
         <span>{{ idx + 1 }}</span>
       </div>
@@ -62,6 +62,7 @@ export default {
     title: String,
     desc: String,
     icon: String,
+    completeIcon: String,
     textCenter: Boolean,
     flexBasis: String
   },

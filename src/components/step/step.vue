@@ -1,6 +1,7 @@
 <template>
   <div class="t-step" :class="[
-    vertical ? 'is-vertical' : 'is-horizon'
+    vertical ? 'is-vertical' : 'is-horizon',
+    status ? `t-step--${status}` : ''
   ]">
     <t-step-item
       v-for="(s, idx) in steps"
@@ -10,6 +11,7 @@
       :title="s.title"
       :desc="s.desc"
       :icon="s.icon"
+      :completeIcon="s.completeIcon"
       :key="idx"
       :textCenter="textCenter"
       :flexBasis="flexBasis"
@@ -31,7 +33,8 @@ export default {
     vertical: Boolean,
     active: Number,
     textCenter: Boolean,
-    flexBasis: String
+    flexBasis: String,
+    status: String
   }
 }
 </script>
