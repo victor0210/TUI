@@ -5,7 +5,7 @@
       textCenter ? 't-step-item--center' : ''
     ]"
     :style="{
-      flexBasis: textCenter ? `${100 / total}%` : (!isLast ? `${100 / (total - 1)}%` : 'auto'),
+      flexBasis: flexBasis || (textCenter ? `${100 / total}%` : (!isLast ? `${100 / (total - 1)}%` : 'auto')),
       maxWidth: isLast ? `${100 / total}%` : '',
       flexShrink: isLast ? 0 : ''
     }">
@@ -62,7 +62,8 @@ export default {
     title: String,
     desc: String,
     icon: String,
-    textCenter: Boolean
+    textCenter: Boolean,
+    flexBasis: String
   },
 
   computed: {

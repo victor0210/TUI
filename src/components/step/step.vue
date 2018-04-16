@@ -12,6 +12,7 @@
       :icon="s.icon"
       :key="idx"
       :textCenter="textCenter"
+      :flexBasis="flexBasis"
     />
   </div>
 </template>
@@ -29,7 +30,8 @@ export default {
     steps: Array,
     vertical: Boolean,
     active: Number,
-    textCenter: Boolean
+    textCenter: Boolean,
+    flexBasis: String
   }
 }
 </script>

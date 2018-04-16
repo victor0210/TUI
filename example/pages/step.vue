@@ -24,6 +24,30 @@
       </div>
       <radio-group/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">居中步骤条</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-step :steps="stepsWithIcon" :active="2"/>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">居中步骤条</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-step :steps="stepsWithIcon" :active="2" flex-basis="200px"/>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
   </div>
 </template>
 
@@ -49,6 +73,23 @@ export default {
         {
           title: '步骤 3',
           desc: '比较短了哈哈好'
+        }
+      ],
+      stepsWithIcon: [
+        {
+          title: '步骤 1',
+          desc: '很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字很长的第一段描述文字...',
+          icon: 'fa fa-file'
+        },
+        {
+          title: '步骤 2',
+          desc: '很长的第一段描述文字很长的第一段描述文字...',
+          icon: 'fa fa-cloud-upload-alt'
+        },
+        {
+          title: '步骤 3',
+          desc: '比较短了哈哈好',
+          icon: 'fa fa-check-circle'
         }
       ]
     }

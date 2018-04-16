@@ -15,9 +15,16 @@
     width: 40px;
     text-align: center;
     background-color: inherit;
-    padding-left: 8px;
+
+    @include m(icon) {
+      line-height: 24px;
+      height: 24px;
+      box-sizing: border-box;
+      font-size: 24px;
+    }
 
     @include m(text) {
+      padding-left: 8px;
       span {
         width: 24px;
         height: 24px;
