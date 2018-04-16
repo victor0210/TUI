@@ -7,8 +7,7 @@
     :style="{
       flexBasis: textCenter ? `${100 / total}%` : (!isLast ? `${100 / (total - 1)}%` : 'auto'),
       maxWidth: isLast ? `${100 / total}%` : '',
-      flexShrink: isLast ? 0 : '',
-      flexGrow: isLast ? 0 : ''
+      flexShrink: isLast ? 0 : ''
     }">
     <div class="t-step-item__progress">
       <div
@@ -45,7 +44,9 @@
       ]"
     >
       <div class="t-step-item__title">{{ title }}</div>
-      <div class="t-step-item__desc">{{ desc }}</div>
+      <div class="t-step-item__desc" :style="{
+        paddingRight: isLast ? '0' : ''
+      }">{{ desc }}</div>
     </div>
   </div>
 </template>

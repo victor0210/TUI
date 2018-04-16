@@ -3,7 +3,6 @@
 
 @include b(step) {
   @include when(horizon) {
-    white-space: nowrap;
     display: flex;
   }
 }

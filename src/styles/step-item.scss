@@ -68,8 +68,8 @@
   }
 
   @include e(desc) {
-    white-space: nowrap;
-    line-height: 13px;
+    padding-right: 20%;
+    line-height: 20px;
     font-size: 13px;
     font-weight: 400;
   }
@@ -84,7 +84,7 @@
     }
 
     .t-step-item__desc {
-      padding: 0 30px;
+      padding: 0 20%;
       white-space: normal;
       word-break: break-all;
     }
