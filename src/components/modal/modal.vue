@@ -32,7 +32,8 @@ export default {
       const _this = this._self
       let Modal = new Vue({
         render (h) {
-          return h(TModalTemp, {}, [_this.$slots.default, _this.$slots.header, _this.$slots.footer])
+          return h(TModalTemp, {
+          }, [_this.$slots.header])
         },
 
         data () {
