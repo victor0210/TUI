@@ -25,6 +25,17 @@ export default {
     top: {
       type: Number,
       default: 0
+    },
+    noAnimation: Boolean,
+    animation: {
+      type: String,
+      default: 't-top-to-center'
+    },
+    animationIn: String,
+    animationOut: String,
+    animationDuration: {
+      type: Number,
+      default: 300
     }
   },
 
@@ -91,9 +102,11 @@ export default {
             setTimeout(() => {
               this.$el.children[0].style.opacity = 1
               this.$el.children[1].style.opacity = 1
+              !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ease-in-out`)
             }, 100)
           },
           hideModal () {
+            !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ease-in-out`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <t-modal :show="show" :top="100">
+    <t-modal :show="show" :top="100" animation="t-top-to-center-bounce">
       <h3 slot="header">
         登录
       </h3>
@@ -51,6 +51,10 @@ export default {
     showModal () {
       this.show = !this.show
       this.count++
+
+      setTimeout(() => {
+        this.show = false
+      }, 2000)
     }
   }
 }

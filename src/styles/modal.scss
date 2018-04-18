@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/mixins";
 @import "mixins/dialog";
+@import "animation";
 
 @include b(modal) {
   @include m(center) {
@@ -24,7 +25,6 @@
   }
 
   @include e(container) {
-    transition: all .2s ease-in;
     overflow: hidden;
     display: inline-block;
     vertical-align: middle;
