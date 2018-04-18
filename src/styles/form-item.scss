@@ -4,7 +4,7 @@
 
 @include b(form-item) {
   margin-bottom: 22px;
-  margin-right: 10px;
+  //margin-right: 10px;
   position: relative;
 
   @include e(label) {
@@ -20,7 +20,7 @@
   }
 
   @include e(content) {
-    margin-left: 80px;
+    margin-left: 90px;
     line-height: 38px;
     font-size: 14px;
   }
@@ -73,7 +73,7 @@
 
   @include when(right) {
     .t-form-item__label {
-      width: 80px;
+      width: 90px;
       text-align: right;
     }
   }

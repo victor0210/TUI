@@ -13,7 +13,19 @@ export default {
   },
 
   props: {
-    show: Boolean
+    show: Boolean,
+    width: {
+      type: Number,
+      default: 0
+    },
+    height: {
+      type: Number,
+      default: 0
+    },
+    top: {
+      type: Number,
+      default: 0
+    }
   },
 
   render (h) {
@@ -33,23 +45,62 @@ export default {
       let Modal = new Vue({
         render (h) {
           return h(TModalTemp, {
-          }, [_this.$slots.header])
+            props: {
+              top: _this.top ? `${_this.top}px` : '',
+              width: _this.width ? `${_this.width}px` : '',
+              height: _this.height ? `${_this.height}px` : ''
+            }
+          }, [
+            (function () {
+              let contents = []
+              _this.$slots.header && contents.push(
+                h('div', {
+                  class: 't-modal__header'
+                }, [_this.$slots.header])
+              )
+
+              _this.$slots.body && contents.push(
+                h('div', {
+                  class: 't-modal__body'
+                }, [_this.$slots.body])
+              )
+
+              _this.$slots.footer && contents.push(
+                h('div', {
+                  class: 't-modal__footer'
+                }, [_this.$slots.footer])
+              )
+
+              return contents
+            })()
+          ])
         },
 
         data () {
           return {
-            isShow: false
+            show: false
           }
         },
 
         methods: {
           showModal () {
-            !this.isShow && document.body.appendChild(this.$el)
-            this.isShow = true
+            !this.show && document.body.appendChild(this.$el)
+            this.show = true
+            this.$forceUpdate()
+
+            setTimeout(() => {
+              this.$el.children[0].style.opacity = 1
+              this.$el.children[1].style.opacity = 1
+            }, 100)
           },
           hideModal () {
-            this.isShow && document.body.removeChild(this.$el)
-            this.isShow = false
+            this.$el.children[0].style.opacity = 0
+            this.$el.children[1].style.opacity = 0
+
+            setTimeout(() => {
+              this.show && document.body.removeChild(this.$el)
+              this.show = false
+            }, 300)
           },
           remove () {
             this.$destroy()

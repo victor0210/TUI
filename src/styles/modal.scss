@@ -1,6 +1,58 @@
 @import "variables";
 @import "mixins/mixins";
+@import "mixins/dialog";
 
 @include b(modal) {
+  @include m(center) {
+    .t-modal__wrapper {
+      @include dialog-mask();
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
 
+  @include e(mask) {
+    @include dialog-mask();
+    background-color: $--modal-mask-background-color;
+  }
+
+  @include e(wrapper) {
+    @include dialog-mask();
+    text-align: center;
+  }
+
+  @include e(container) {
+    transition: all .2s ease-in;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin: auto;
+    position: relative;
+    text-align: left;
+    background-color: $--modal-background-color;
+    border-radius: $--modal-border-radius;
+    width: $--modal-width-base;
+  }
+  @include e(header) {
+    @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
+    overflow: hidden;
+  }
+
+  @include e(footer) {
+    @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
+    overflow: hidden;
+    border-top: $--border-base;
+  }
+
+  @include e(body) {
+    @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
+    overflow: hidden;
+    border-top: $--border-base;
+  }
+
+  @include m(sm) {
+
+  }
 }

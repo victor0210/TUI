@@ -281,6 +281,23 @@ $--dialog-header-height: 16px;
 $--dialog-footer-height: 32px;
 
 /**
+ * ---------------------------- Modal ----------------------------
+ */
+$--modal-background-color: $--color-white;
+$--modal-mask-background-color: rgba(55, 55, 55, .6);
+$--modal-border-radius: 6px;
+
+$--modal-content-padding-vertical: 16px;
+$--modal-content-padding-horizontal: 24px;
+$--modal-font-size-base: auto;
+$--modal-border-base: $--border-base;
+
+$--modal-width-base: 520px;
+$--modal-width-lg: 640px;
+$--modal-width-xl: 720px;
+$--modal-width-sm: 400px;
+$--modal-width-xs: 280px;
+/**
  * ---------------------------- Loading ----------------------------
  */
 $--loading-background-color: $--color-white;
