@@ -31,6 +31,10 @@ export default {
       type: String,
       default: 't-top-to-center'
     },
+    animationTimingFunction: {
+      type: String,
+      default: 'ease-in-out'
+    },
     animationIn: String,
     animationOut: String,
     animationDuration: {
@@ -102,11 +106,11 @@ export default {
             setTimeout(() => {
               this.$el.children[0].style.opacity = 1
               this.$el.children[1].style.opacity = 1
-              !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ease-in-out`)
+              !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             }, 100)
           },
           hideModal () {
-            !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ease-in-out`)
+            !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
 
