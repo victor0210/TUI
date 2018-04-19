@@ -44,7 +44,8 @@ export default {
     animationDuration: {
       type: Number,
       default: 300
-    }
+    },
+    size: String
   },
 
   render (h) {
@@ -66,7 +67,8 @@ export default {
               top: _this.top ? `${_this.top}px` : '',
               width: _this.width ? `${_this.width}px` : '',
               height: _this.height ? `${_this.height}px` : '',
-              showClose: _this.showClose
+              showClose: _this.showClose,
+              size: _this.size
             },
             on: {
               close: () => {

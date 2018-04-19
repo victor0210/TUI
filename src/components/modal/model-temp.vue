@@ -1,6 +1,7 @@
 <template>
   <div class="t-modal" :class="[
-    !top ? 't-modal--center' : ''
+    !top ? 't-modal--center' : '',
+    size ? `t-modal--${size}` : ''
   ]">
     <div class="t-modal__mask"></div>
     <div class="t-modal__wrapper">
@@ -21,7 +22,8 @@ export default {
     width: {},
     height: {},
     top: {},
-    showClose: Boolean
+    showClose: Boolean,
+    size: String
   }
 }
 </script>

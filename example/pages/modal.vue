@@ -1,6 +1,6 @@
 <template>
   <div>
-    <t-modal :show.sync="show" :top="100" animation="t-top-to-center-bounce" @modal-open="onOpen" @modal-close="onClose">
+    <t-modal :show.sync="show" size="xl" :top="100" animation="t-top-to-center-bounce" @modal-open="onOpen" @modal-close="onClose">
       <h3 slot="header">
         登录
       </h3>

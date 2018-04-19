@@ -67,6 +67,26 @@
   }
 
   @include m(sm) {
+    .t-modal__container {
+      width: $--modal-width-sm;
+    }
+  }
 
+  @include m(xs) {
+    .t-modal__container {
+      width: $--modal-width-xs;
+    }
+  }
+
+  @include m(lg) {
+    .t-modal__container {
+      width: $--modal-width-lg;
+    }
+  }
+
+  @include m(xl) {
+    .t-modal__container {
+      width: $--modal-width-xl;
+    }
   }
 }
