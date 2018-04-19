@@ -261,7 +261,7 @@ export default {
         {
           route: '/step',
           name: 'Step',
-          chinese: '面包屑'
+          chinese: '步骤条'
         }
       ],
       otherList: [
@@ -269,6 +269,11 @@ export default {
           route: '/dialog',
           name: 'Dialog',
           chinese: '提示框'
+        },
+        {
+          route: '/modal',
+          name: 'Modal',
+          chinese: '模态框'
         }
       ]
     }

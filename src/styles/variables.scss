@@ -93,7 +93,7 @@ $--dialog-mask-index: 1000 !default;
 /**
  * -------------------------- BoxShadow --------------------------
  */
-$--box-shadow-base: 0 2px 4px 0 #eee !default;
+$--box-shadow-base: 0 0 1px rgba(34, 25, 25, 0.4) !default;
 
 /**
  * -------------------------- Button -------------------------
@@ -280,6 +280,23 @@ $--dialog-border-base: $--border-base;
 $--dialog-header-height: 16px;
 $--dialog-footer-height: 32px;
 
+/**
+ * ---------------------------- Modal ----------------------------
+ */
+$--modal-background-color: $--color-white;
+$--modal-mask-background-color: rgba(55, 55, 55, .6);
+$--modal-border-radius: 6px;
+
+$--modal-content-padding-vertical: 16px;
+$--modal-content-padding-horizontal: 24px;
+$--modal-font-size-base: auto;
+$--modal-border-base: $--border-base;
+
+$--modal-width-xl: 760px;
+$--modal-width-lg: 640px;
+$--modal-width-base: 520px;
+$--modal-width-sm: 400px;
+$--modal-width-xs: 280px;
 /**
  * ---------------------------- Loading ----------------------------
  */

@@ -1,0 +1,92 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/dialog";
+@import "animation";
+
+@include b(modal) {
+  @include m(center) {
+    .t-modal__wrapper {
+      @include dialog-mask();
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
+
+  @include e(mask) {
+    @include dialog-mask();
+    background-color: $--modal-mask-background-color;
+  }
+
+  @include e(wrapper) {
+    @include dialog-mask();
+    text-align: center;
+  }
+
+  @include e(container) {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin: auto;
+    position: relative;
+    text-align: left;
+    background-color: $--modal-background-color;
+    border-radius: $--modal-border-radius;
+    width: $--modal-width-base;
+  }
+  @include e(header) {
+    @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
+    overflow: hidden;
+  }
+
+  @include e(footer) {
+    @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
+    overflow: hidden;
+    border-top: $--border-base;
+  }
+
+  @include e(body) {
+    @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
+    overflow: hidden;
+    border-top: $--border-base;
+  }
+
+  @include e(close) {
+    width: 24px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    right: 24px;
+    top: 15px;
+    font-size: 16px;
+    text-align: right;
+    line-height: 16px;
+    cursor: pointer;
+    color: $--color-gray;
+  }
+
+  @include m(sm) {
+    .t-modal__container {
+      width: $--modal-width-sm;
+    }
+  }
+
+  @include m(xs) {
+    .t-modal__container {
+      width: $--modal-width-xs;
+    }
+  }
+
+  @include m(lg) {
+    .t-modal__container {
+      width: $--modal-width-lg;
+    }
+  }
+
+  @include m(xl) {
+    .t-modal__container {
+      width: $--modal-width-xl;
+    }
+  }
+}

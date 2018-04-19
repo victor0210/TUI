@@ -150,6 +150,11 @@ export default new Router({
       path: '/step',
       name: 'step',
       component: r => require.ensure([], () => r(require('../pages/step.vue')))
+    },
+    {
+      path: '/modal',
+      name: 'modal',
+      component: r => require.ensure([], () => r(require('../pages/modal.vue')))
     }
   ]
 })
