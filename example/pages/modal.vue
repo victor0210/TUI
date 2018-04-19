@@ -1,6 +1,6 @@
 <template>
   <div>
-    <t-modal :show.sync="show" :top="100" animation="t-top-to-center-bounce">
+    <t-modal :show.sync="show" :top="100" animation="t-top-to-center-bounce" @modal-open="onOpen" @modal-close="onClose">
       <h3 slot="header">
         登录
       </h3>
@@ -55,6 +55,19 @@ export default {
       // setTimeout(() => {
       //   this.show = false
       // }, 3000)
+    },
+    onOpen () {
+      this.$TMessage.show({
+        title: '打开 Modal',
+        type: 'info'
+      })
+    },
+
+    onClose () {
+      this.$TMessage.show({
+        title: '关闭 Modal',
+        type: 'info'
+      })
     }
   }
 }

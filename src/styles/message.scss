@@ -17,7 +17,7 @@
   z-index: 2000;
   margin-left: -190px;
   margin-top: -50px;
-  box-shadow: 0 2px 5px 0 #eee;
+  box-shadow: $--box-shadow-base;
 
   @include e(title) {
     font-size: 15px;
