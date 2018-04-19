@@ -274,6 +274,11 @@ export default {
           route: '/modal',
           name: 'Modal',
           chinese: '模态框'
+        },
+        {
+          route: '/popover',
+          name: 'Popover',
+          chinese: '弹出层'
         }
       ]
     }

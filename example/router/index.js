@@ -155,6 +155,11 @@ export default new Router({
       path: '/modal',
       name: 'modal',
       component: r => require.ensure([], () => r(require('../pages/modal.vue')))
+    },
+    {
+      path: '/popover',
+      name: 'popover',
+      component: r => require.ensure([], () => r(require('../pages/popover.vue')))
     }
   ]
 })
