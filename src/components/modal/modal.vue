@@ -72,7 +72,8 @@ export default {
             },
             on: {
               close: () => {
-                this.hideModal(true)
+                //  emit close from in to out && change props outbox
+                _this.$emit('update:show', false)
               }
             }
           }, [
@@ -121,15 +122,11 @@ export default {
 
             _this.$emit('modal-open')
           },
-          //  emit close from in to out && change props outbox
-          hideModal (reverseClose = false) {
+          hideModal () {
             !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
 
-            if (reverseClose) {
-              _this.$emit('update:show', false)
-            }
             setTimeout(() => {
               this.show && document.body.removeChild(this.$el)
               this.show = false
@@ -149,7 +146,8 @@ export default {
   },
 
   watch: {
-    show (val) {
+    show (val, pre) {
+      console.log(val, pre)
       val ? this.instance.showModal() : this.instance.hideModal()
     }
   },
