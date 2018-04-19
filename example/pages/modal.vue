@@ -1,6 +1,6 @@
 <template>
   <div>
-    <t-modal :show="show" :top="100" animation="t-top-to-center-bounce">
+    <t-modal :show.sync="show" :top="100" animation="t-top-to-center-bounce">
       <h3 slot="header">
         登录
       </h3>
@@ -15,7 +15,7 @@
         </t-form>
       </div>
       <div slot="footer" style="text-align: right">
-        <t-button size="sm" type="primary">登录</t-button>
+        <t-button size="sm" type="primary" @click="show = !show">登录</t-button>
       </div>
     </t-modal>
     <guide title="开关" des="用于输入的表单开关组件"/>
@@ -24,7 +24,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="12">
-            <t-button @click="showModal">show Modal {{ count }}</t-button>
+            <t-button @click="showModal">show Modal {{ count }}</t-button> {{ show }}
           </t-col>
         </t-row>
       </div>
@@ -52,9 +52,9 @@ export default {
       this.show = !this.show
       this.count++
 
-      setTimeout(() => {
-        this.show = false
-      }, 2000)
+      // setTimeout(() => {
+      //   this.show = false
+      // }, 3000)
     }
   }
 }

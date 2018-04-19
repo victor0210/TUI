@@ -9,6 +9,7 @@
         height: height,
         top: top
       }">
+        <i class="fa fa-times t-modal__close" @click="$emit('close')" v-if="showClose"></i>
         <slot/>
       </div>
     </div>
@@ -19,7 +20,8 @@ export default {
   props: {
     width: {},
     height: {},
-    top: {}
+    top: {},
+    showClose: Boolean
   }
 }
 </script>

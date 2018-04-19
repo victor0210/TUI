@@ -14,6 +14,10 @@ export default {
 
   props: {
     show: Boolean,
+    showClose: {
+      type: Boolean,
+      default: true
+    },
     width: {
       type: Number,
       default: 0
@@ -63,7 +67,13 @@ export default {
             props: {
               top: _this.top ? `${_this.top}px` : '',
               width: _this.width ? `${_this.width}px` : '',
-              height: _this.height ? `${_this.height}px` : ''
+              height: _this.height ? `${_this.height}px` : '',
+              showClose: _this.showClose
+            },
+            on: {
+              close: () => {
+                this.hideModal(true)
+              }
             }
           }, [
             (function () {
@@ -109,19 +119,22 @@ export default {
               !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             }, 100)
           },
-          hideModal () {
+          hideModal (reverseClose = false) {  //  emit close from in to out && change props outbox
             !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
 
+            if (reverseClose) {
+              _this.$emit('update:show', false)
+            }
             setTimeout(() => {
               this.show && document.body.removeChild(this.$el)
               this.show = false
             }, 300)
           },
           remove () {
+            this.show && document.body.removeChild(this.$el)
             this.$destroy()
-            _this.initial && document.body.removeChild(this.$el)
           }
         }
       })
