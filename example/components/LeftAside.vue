@@ -261,7 +261,7 @@ export default {
         {
           route: '/step',
           name: 'Step',
-          chinese: '面包屑'
+          chinese: '步骤条'
         }
       ],
       otherList: [

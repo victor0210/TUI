@@ -119,7 +119,8 @@ export default {
               !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             }, 100)
           },
-          hideModal (reverseClose = false) {  //  emit close from in to out && change props outbox
+          //  emit close from in to out && change props outbox
+          hideModal (reverseClose = false) {
             !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
