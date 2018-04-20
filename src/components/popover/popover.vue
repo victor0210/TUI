@@ -15,7 +15,8 @@ export default {
       hideClear: null,
       hideDomClear: null,
       positionParent: null,
-      show: false
+      show: false,
+      popoverIndex: ~~(Math.random() * 10000000)
     }
   },
 
@@ -41,7 +42,8 @@ export default {
     trigger: {
       type: String,
       default: 'hover'
-    }
+    },
+    hideOnClick: Boolean
   },
 
   render (h) {
@@ -66,8 +68,10 @@ export default {
           if (_this.trigger === 'click') {
             if (_this.show) {
               _this.hidePopover()
+              _this.hideOnClick && document.body.removeEventListener('click', _this.outboxClickHandler)
             } else {
               _this.showPopover()
+              _this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
             }
           }
         },
@@ -82,6 +86,21 @@ export default {
   },
 
   methods: {
+    outboxClickHandler (e) {
+      let parent = e.target.offsetParent
+
+      let inPopover = false
+      while (parent !== null) {
+        if (parent.attributes['popoveridx']) {
+          if (~~parent.attributes['popoveridx'].value === this.popoverIndex) inPopover = true
+        }
+        parent = parent.offsetParent
+      }
+
+      if (!inPopover) {
+        this.hidePopover()
+      }
+    },
     showPopover () {
       !this.instance && this.createInstance()
       clearTimeout(this.hideClear)
@@ -104,7 +123,8 @@ export default {
               bgColor: _this.bgColor,
               borderColor: _this.borderColor,
               width: _this.width,
-              height: _this.height
+              height: _this.height,
+              $idx: _this.popoverIndex
             },
             on: {
               'popover-mouseenter': () => {
@@ -179,51 +199,51 @@ export default {
         case 'top':
           targetTop = parentViewTop - targetHeight - this.popoverOffset
           targetLeft = parentViewLeft + (parentOffsetWidth - targetWidth) / 2
-          break;
+          break
         case 'top-left':
           targetTop = parentViewTop - targetHeight - this.popoverOffset
           targetLeft = parentViewLeft - (parentOffsetWidth > targetWidth ? 0 : targetWidth - parentOffsetWidth)
-          break;
+          break
         case 'top-right':
           targetTop = parentViewTop - targetHeight - this.popoverOffset
           targetLeft = parentViewLeft + (parentOffsetWidth > targetWidth ? parentOffsetWidth - targetWidth : 0)
-          break;
+          break
         case 'bottom':
           targetTop = parentViewTop + parentOffsetHeight + this.popoverOffset
           targetLeft = parentViewLeft + (parentOffsetWidth - targetWidth) / 2
-          break;
+          break
         case 'bottom-left':
           targetTop = parentViewTop + parentOffsetHeight + this.popoverOffset
           targetLeft = parentViewLeft - (parentOffsetWidth > targetWidth ? 0 : targetWidth - parentOffsetWidth)
-          break;
+          break
         case 'bottom-right':
           targetTop = parentViewTop + parentOffsetHeight + this.popoverOffset
           targetLeft = parentViewLeft + (parentOffsetWidth > targetWidth ? parentOffsetWidth - targetWidth : 0)
-          break;
+          break
         case 'left':
           targetTop = parentViewTop + (parentOffsetHeight - targetHeight) / 2
           targetLeft = parentViewLeft - targetWidth - this.popoverOffset
-          break;
+          break
         case 'left-top':
           targetTop = parentViewTop - (parentOffsetHeight > targetHeight ? 0 : (targetHeight - parentOffsetHeight))
           targetLeft = parentViewLeft - targetWidth - this.popoverOffset
-          break;
+          break
         case 'left-bottom':
           targetTop = parentViewTop + (parentOffsetHeight > targetHeight ? (parentOffsetHeight - targetHeight) : 0)
           targetLeft = parentViewLeft - targetWidth - this.popoverOffset
-          break;
+          break
         case 'right':
           targetTop = parentViewTop + (parentOffsetHeight - targetHeight) / 2
           targetLeft = parentViewLeft + parentOffsetWidth + this.popoverOffset
-          break;
+          break
         case 'right-top':
           targetTop = parentViewTop - (parentOffsetHeight > targetHeight ? 0 : (targetHeight - parentOffsetHeight))
           targetLeft = parentViewLeft + parentOffsetWidth + this.popoverOffset
-          break;
+          break
         case 'right-bottom':
           targetTop = parentViewTop + (parentOffsetHeight > targetHeight ? (parentOffsetHeight - targetHeight) : 0)
           targetLeft = parentViewLeft + parentOffsetWidth + this.popoverOffset
-          break;
+          break
       }
 
       target.style.left = `${targetLeft}px`
@@ -232,7 +252,7 @@ export default {
   },
 
   watch: {
-    show(val) {
+    show (val) {
       (val && this.instance) ? this.instance.showPopover() : this.instance.hidePopover()
     }
   },

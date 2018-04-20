@@ -8,7 +8,9 @@
       borderColor: borderColor,
       width: width ? `${width}px` : '',
       height: width ? `${height}px` : ''
-    }">
+    }"
+    :popoveridx="$idx"
+  >
     <div
       class="t-popover__arrow"
       :class="[
@@ -32,7 +34,8 @@ export default {
     bgColor: String,
     borderColor: String,
     width: Number,
-    height: Number
+    height: Number,
+    $idx: Number
   }
 }
 </script>

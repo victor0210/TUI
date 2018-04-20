@@ -18,7 +18,7 @@
               </div>
             </t-popover>
 
-            <t-popover position="bottom" trigger="click">
+            <t-popover position="bottom" trigger="click" hide-on-click>
               <t-button type="primary" size="lg">click</t-button>
               <div slot="popover">
                 <t-table :data="data" border stripe>
