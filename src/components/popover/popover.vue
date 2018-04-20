@@ -14,7 +14,8 @@ export default {
       initial: false,
       hideClear: null,
       hideDomClear: null,
-      positionParent: null
+      positionParent: null,
+      show: false
     }
   },
 
@@ -27,8 +28,20 @@ export default {
       type: Number,
       default: 10
     },
-    bgColor: String,
-    borderColor: String
+    bgColor: {
+      type: String,
+      default: '#fff'
+    },
+    borderColor: {
+      type: String,
+      default: 'rgba(0,0,0,0.3)'
+    },
+    width: Number,
+    height: Number,
+    trigger: {
+      type: String,
+      default: 'hover'
+    }
   },
 
   render (h) {
@@ -42,46 +55,73 @@ export default {
     })
 
     return h('span', {
+      domProps: {
+        tabIndex: 0
+      },
       on: {
         mouseenter: () => {
-          !_this.instance && _this.createInstance()
-          clearTimeout(_this.hideClear)
-          _this.instance.showPopover()
+          _this.trigger === 'hover' && _this.showPopover()
         },
         mouseleave: () => {
-          _this.hideClear = setTimeout(() => {
-            _this.instance.hidePopover()
-          }, 200)
+          _this.trigger === 'hover' && _this.hidePopover()
+        },
+        click: () => {
+          if (_this.trigger === 'click') {
+            if (_this.show) {
+              _this.hidePopover()
+            } else {
+              _this.showPopover()
+            }
+          }
+        },
+        mousedown: () => {
+          _this.trigger === 'focus' && _this.showPopover()
+        },
+        mouseup: () => {
+          _this.trigger === 'focus' && _this.hidePopover()
         }
       }
     }, [this.$slots.default])
   },
 
   methods: {
+    showPopover () {
+      !this.instance && this.createInstance()
+      clearTimeout(this.hideClear)
+      this.instance.showPopover()
+      this.show = true
+    },
+    hidePopover () {
+      this.hideClear = setTimeout(() => {
+        this.instance.hidePopover()
+      }, 200)
+      this.show = false
+    },
     createInstance () {
       const _this = this
       let Popover = new Vue({
-        data () {
-          return {
-            show: false
-          }
-        },
         render (h) {
           return h(PopoverContent, {
             props: {
               position: _this.position,
               bgColor: _this.bgColor,
               borderColor: _this.borderColor,
+              width: _this.width,
+              height: _this.height
             },
             on: {
               'popover-mouseenter': () => {
                 clearTimeout(_this.hideClear)
                 this.showPopover()
+                _this.show = true
               },
               'popover-mouseleave': () => {
-                _this.hideClear = setTimeout(() => {
-                  this.hidePopover()
-                }, 200)
+                if (_this.trigger === 'hover') {
+                  _this.hideClear = setTimeout(() => {
+                    this.hidePopover()
+                  }, 200)
+                  _this.show = false
+                }
               }
             }
           }, [_this.$slots.popover || ''])
@@ -123,7 +163,6 @@ export default {
     },
 
     setPosition () {
-      console.log('set position')
       const parent = this.$el.children[0]
       const target = this.instance.$el
 

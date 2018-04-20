@@ -18,7 +18,7 @@
     @mouseover="mouseOverHandler"
     @mouseout="mouseOutHandler"
   >
-    <i class="t-icon fa fa-spinner" v-if="loading"></i>
+    <i class="t-icon fa fa-circle-notch fa-spin" v-if="loading"></i>
     <i :class="['t-icon',icon]" v-if="icon && !loading && !iconRight"></i>
     <span v-if="$slots.default"><slot></slot></span>
     <i :class="['t-icon',icon]" v-if="icon && !loading && iconRight"></i>

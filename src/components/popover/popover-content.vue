@@ -5,7 +5,9 @@
     @mouseleave="$emit('popover-mouseleave')"
     :style="{
       backgroundColor: bgColor,
-      borderColor: borderColor
+      borderColor: borderColor,
+      width: width ? `${width}px` : '',
+      height: width ? `${height}px` : ''
     }">
     <div
       class="t-popover__arrow"
@@ -29,6 +31,8 @@ export default {
     position: String,
     bgColor: String,
     borderColor: String,
+    width: Number,
+    height: Number
   }
 }
 </script>
