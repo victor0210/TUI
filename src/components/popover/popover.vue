@@ -55,9 +55,6 @@ export default {
     })
 
     return h('span', {
-      domProps: {
-        tabIndex: 0
-      },
       on: {
         mouseenter: () => {
           _this.trigger === 'hover' && _this.showPopover()
