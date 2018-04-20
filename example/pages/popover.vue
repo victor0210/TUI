@@ -6,8 +6,12 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="8">
-            <t-popover>
-              hello popover
+            <t-popover position="right" bg-color="#ffcc00" border-color="#000">
+              <t-button type="primary" size="lg">hover</t-button>
+              <div slot="popover">
+                okok
+                what fuck ?? what
+              </div>
             </t-popover>
           </t-col>
         </t-row>
@@ -19,13 +23,13 @@
 </template>
 
 <script>
-  import RadioGroup from '../documents/radio/radioGroup.md'
+import RadioGroup from '../documents/radio/radioGroup.md'
 
-  export default {
-    components: {
-      RadioGroup
-    }
+export default {
+  components: {
+    RadioGroup
   }
+}
 </script>
 
 <style></style>

@@ -1,6 +1,119 @@
 @import "variables";
 @import "mixins/mixins";
+@import "mixins/drop";
 
 @include b(popover) {
-  
+  position: fixed;
+  opacity: 0;
+  background-color: #fff;
+  border-radius: 4px;
+  border: $--border-base;
+  transition: opacity .2s;
+
+  @include e(content) {
+    padding: 12px 20px;
+    box-sizing: border-box;
+  }
+
+  @include e(arrow) {
+    position: absolute;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    content: '';
+    border-width: 1px;
+    border-style: solid;
+    border-color: $--border-color-base $--border-color-base transparent transparent;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    z-index: $--select-list-index + 1;
+    transition: opacity .2s;
+    border-left-width: 0;
+    border-bottom-width: 0;
+
+    @include m(top) {
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transform: rotate(135deg);
+    }
+
+    @include m(top-left) {
+      bottom: -5px;
+      right: 20px;
+      margin: auto;
+      transform: rotate(135deg);
+    }
+
+    @include m(top-right) {
+      bottom: -5px;
+      left: 20px;
+      margin: auto;
+      transform: rotate(135deg);
+    }
+
+    @include m(bottom) {
+      top: -6px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    @include m(bottom-left) {
+      top: -6px;
+      right: 20px;
+      margin: auto;
+    }
+
+    @include m(bottom-right) {
+      top: -6px;
+      left: 20px;
+      margin: auto;
+    }
+
+    @include m(left) {
+      right: -6px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      transform: rotate(45deg);
+    }
+
+    @include m(left-top) {
+      right: -6px;
+      bottom: 20px;
+      margin: auto;
+      transform: rotate(45deg);
+    }
+
+    @include m(left-bottom) {
+      right: -6px;
+      top: 20px;
+      margin: auto;
+      transform: rotate(45deg);
+    }
+
+    @include m(right) {
+      left: -6px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      transform: rotate(-135deg);
+    }
+
+    @include m(right-top) {
+      left: -6px;
+      bottom: 20px;
+      margin: auto;
+      transform: rotate(-135deg);
+    }
+
+    @include m(right-bottom) {
+      left: -6px;
+      top: 20px;
+      margin: auto;
+      transform: rotate(-135deg);
+    }
+  }
 }
