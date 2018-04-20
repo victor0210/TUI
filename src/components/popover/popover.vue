@@ -57,18 +57,20 @@ export default {
     })
 
     return h('span', {
+      // domProps: {
+      //   popoveridx: _this.popoverIndex
+      // },
       on: {
         mouseenter: () => {
           _this.trigger === 'hover' && _this.showPopover()
         },
         mouseleave: () => {
-          _this.trigger === 'hover' && _this.hidePopover()
+          (_this.trigger === 'hover' || _this.trigger === 'focus') && _this.hidePopover()
         },
         click: () => {
           if (_this.trigger === 'click') {
             if (_this.show) {
-              _this.hidePopover()
-              _this.hideOnClick && document.body.removeEventListener('click', _this.outboxClickHandler)
+              _this.hideOnClick ? document.body.removeEventListener('click', _this.outboxClickHandler) : _this.hidePopover()
             } else {
               _this.showPopover()
               _this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
@@ -110,8 +112,8 @@ export default {
     hidePopover () {
       this.hideClear = setTimeout(() => {
         this.instance.hidePopover()
-      }, 200)
-      this.show = false
+        this.show = false
+      }, 100)
     },
     createInstance () {
       const _this = this
@@ -128,16 +130,18 @@ export default {
             },
             on: {
               'popover-mouseenter': () => {
-                clearTimeout(_this.hideClear)
-                this.showPopover()
-                _this.show = true
+                if (_this.trigger === 'hover') {
+                  clearTimeout(_this.hideClear)
+                  this.showPopover()
+                  _this.show = true
+                }
               },
               'popover-mouseleave': () => {
                 if (_this.trigger === 'hover') {
                   _this.hideClear = setTimeout(() => {
                     this.hidePopover()
-                  }, 200)
-                  _this.show = false
+                    _this.show = false
+                  }, 100)
                 }
               }
             }
