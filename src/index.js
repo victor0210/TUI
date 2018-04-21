@@ -41,6 +41,7 @@ import BreadCrumb from './components/breadcrumb/index'
 import BreadCrumbItem from './components/breadcrumbItem/index'
 import Step from './components/step/index'
 import Modal from './components/modal/index'
+import Popover from './components/popover/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -94,7 +95,8 @@ const Tui = {
   BreadCrumb,
   BreadCrumbItem,
   Step,
-  Modal
+  Modal,
+  Popover
 }
 
 const install = function (Vue, opts = {}) {
