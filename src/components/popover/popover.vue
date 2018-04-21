@@ -43,7 +43,8 @@ export default {
       type: String,
       default: 'hover'
     },
-    hideOnClick: Boolean
+    hideOnClick: Boolean,
+    value: {}
   },
 
   render (h) {
@@ -56,6 +57,7 @@ export default {
       }
     })
 
+    this.value && this.showPopover()
     return h('span', {
       class: `t-popover-${_this.popoverIndex}`,
       on: {
@@ -112,6 +114,7 @@ export default {
         clearTimeout(this.hideClear)
         this.instance.showPopover()
         this.show = true
+        this.$emit('input', true)
       }
     },
     hidePopover () {
@@ -120,6 +123,7 @@ export default {
           this.instance.hidePopover()
         }, 100)
         this.show = false
+        this.$emit('input', false)
       }
     },
     createInstance () {
@@ -264,8 +268,8 @@ export default {
   },
 
   watch: {
-    show (val) {
-      (val && this.instance) ? this.instance.showPopover() : this.instance.hidePopover()
+    value (val) {
+      val ? this.showPopover() : this.hidePopover()
     }
   },
 

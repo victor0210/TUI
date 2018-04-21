@@ -174,6 +174,27 @@
       <radio-group/>
     </div>
 
+    <div class="demo-block">
+      <div class="subtitle">嵌套操作</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-popover position="bottom" trigger="click" hide-on-click v-model="visible" :width="250">
+              <t-button type="primary" size="lg">删除</t-button>
+              <div slot="popover">
+                <p style="margin-bottom: 10px">您确定删除这段消息吗？</p>
+                <div style="text-align: right">
+                  <t-button size="sm" type="text" @click="visible = false">取消</t-button>
+                  <t-button size="sm" type="primary" @click="visible = false">确定</t-button>
+                </div>
+              </div>
+            </t-popover>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
+
   </div>
 </template>
 
@@ -193,7 +214,8 @@ export default {
         {name: 'name4', age: 'ag4', phone: 'phone4', role: 'role4', a: 'a4', b: 'b4', c: 'c4', d: 'd4'}
       ],
       msg: 'Welcome TUI !',
-      msg2: 'Here is Popover!'
+      msg2: 'Here is Popover!',
+      visible: true
     }
   }
 }
