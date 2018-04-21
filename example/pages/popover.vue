@@ -211,17 +211,25 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
-            <t-popover position="bottom" :width="250" target="popover1">
+            <t-popover position="bottom" :width="250" ref="popover1">
               <p>Here Is Popover1</p>
             </t-popover>
 
-            <t-popover position="right" :width="250" target="popover2">
+            <t-popover position="top" :width="250" ref="popover2">
               <p>Here Is Popover2</p>
             </t-popover>
 
+            <t-popover position="right" trigger="click" :width="250" ref="popover3" v-model="visible2">
+              <p style="margin-bottom: 10px">您确定删除这段消息吗？</p>
+              <div style="text-align: right">
+                <t-button size="sm" type="text" @click="visible2 = false">取消</t-button>
+                <t-button size="sm" type="primary" @click="visible2 = false">确定</t-button>
+              </div>
+            </t-popover>
+
             <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover1>弹出层1</t-button>
-            <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover1>复用弹出层1</t-button>
             <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover2>弹出层2</t-button>
+            <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover3>复用弹出层1</t-button>
           </t-col>
         </t-row>
       </div>
@@ -248,7 +256,8 @@ export default {
       ],
       msg: 'Welcome TUI !',
       msg2: 'Here is Popover!',
-      visible: false
+      visible: false,
+      visible2: false
     }
   }
 }
