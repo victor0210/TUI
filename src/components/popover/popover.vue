@@ -57,37 +57,7 @@ export default {
       }
     })
 
-    return h('span', {
-      // style: {
-      //   display: this.$slots.popover ? '' : 'none'
-      // },
-      // class: this.$slots.popover ? `t-popover-${_this.popoverIndex}` : '',
-      // on: {
-      //   mouseenter: () => {
-      //     _this.trigger === 'hover' && _this.showPopover()
-      //   },
-      //   mouseleave: () => {
-      //     (_this.trigger === 'hover' || _this.trigger === 'focus') && _this.hidePopover()
-      //   },
-      //   click: () => {
-      //     if (_this.trigger === 'click') {
-      //       if (_this.show) {
-      //         _this.hidePopover()
-      //         _this.hideOnClick && document.body.removeEventListener('click', _this.outboxClickHandler, true)
-      //       } else {
-      //         _this.showPopover()
-      //         _this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
-      //       }
-      //     }
-      //   },
-      //   mousedown: () => {
-      //     _this.trigger === 'focus' && _this.showPopover()
-      //   },
-      //   mouseup: () => {
-      //     _this.trigger === 'focus' && _this.hidePopover()
-      //   }
-      // }
-    }, [this.$slots.popover ? this.$slots.default : ''])
+    return h('span', {}, [this.$slots.popover ? this.$slots.default : ''])
   },
 
   mounted () {
