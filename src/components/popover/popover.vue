@@ -57,7 +57,10 @@ export default {
       }
     })
 
+    //  init popover visible
     this.value && this.showPopover()
+    this.trigger === 'click' && this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
+
     return h('span', {
       class: `t-popover-${_this.popoverIndex}`,
       on: {
