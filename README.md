@@ -72,6 +72,9 @@ Menu <br>
 DropDown <br>
 Tabs <br>
 Step <br>
+Breadcrumb <br>
+Modal <br>
+Popover <br>
 
 
 ## Todo
