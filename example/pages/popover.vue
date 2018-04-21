@@ -2,43 +2,32 @@
   <div>
     <guide title="弹出层" des="用于提示简单的信息"/>
     <div class="demo-block">
-      <div class="subtitle">基本用法</div>
+      <div class="subtitle">触发方式</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
             <t-popover position="bottom">
               <t-button type="primary" size="lg">hover</t-button>
               <div slot="popover">
-                <t-table :data="data" border stripe>
-                  <t-table-column label="姓名" prop="name"/>
-                  <t-table-column label="年龄" prop="age" />
-                  <t-table-column label="身份" prop="role"/>
-                  <t-table-column label="电话" prop="phone"/>
-                </t-table>
+                Welcome TUI !
               </div>
             </t-popover>
-
-            <t-popover position="bottom" trigger="click" hide-on-click>
+            <t-popover position="bottom" trigger="click">
               <t-button type="primary" size="lg">click</t-button>
               <div slot="popover">
-                <t-table :data="data" border stripe>
-                  <t-table-column label="姓名" prop="name"/>
-                  <t-table-column label="年龄" prop="age" />
-                  <t-table-column label="身份" prop="role"/>
-                  <t-table-column label="电话" prop="phone"/>
-                </t-table>
+                Welcome TUI !
               </div>
             </t-popover>
-
+            <t-popover position="bottom" trigger="click" hide-on-click>
+              <t-button type="primary" size="lg">click on hide</t-button>
+              <div slot="popover">
+                Welcome TUI !
+              </div>
+            </t-popover>
             <t-popover position="bottom" trigger="focus">
               <t-button type="primary" size="lg">focus</t-button>
               <div slot="popover">
-                <t-table :data="data" border stripe>
-                  <t-table-column label="姓名" prop="name"/>
-                  <t-table-column label="年龄" prop="age" />
-                  <t-table-column label="身份" prop="role"/>
-                  <t-table-column label="电话" prop="phone"/>
-                </t-table>
+                Welcome TUI !
               </div>
             </t-popover>
           </t-col>
@@ -175,6 +164,28 @@
     </div>
 
     <div class="demo-block">
+      <div class="subtitle">嵌套内容</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-popover position="right-bottom" trigger="click">
+              <t-button type="primary" size="lg" style="top: 200px; left: 500px">显示内容</t-button>
+              <div slot="popover">
+                <t-table :data="data" border stripe>
+                  <t-table-column label="姓名" prop="name"/>
+                  <t-table-column label="年龄" prop="age" />
+                  <t-table-column label="身份" prop="role"/>
+                  <t-table-column label="电话" prop="phone"/>
+                </t-table>
+              </div>
+            </t-popover>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
+
+    <div class="demo-block">
       <div class="subtitle">嵌套操作</div>
       <div class="source">
         <t-row :gutter="20">
@@ -189,6 +200,28 @@
                 </div>
               </div>
             </t-popover>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">指令触发</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-popover position="bottom" :width="250" target="popover1">
+              <p>Here Is Popover1</p>
+            </t-popover>
+
+            <t-popover position="right" :width="250" target="popover2">
+              <p>Here Is Popover2</p>
+            </t-popover>
+
+            <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover1>弹出层1</t-button>
+            <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover1>复用弹出层1</t-button>
+            <t-button type="primary" size="lg" style="margin-right: 10px" v-t-popover:popover2>弹出层2</t-button>
           </t-col>
         </t-row>
       </div>

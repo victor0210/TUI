@@ -51,6 +51,7 @@ import Notify from './components/notify/index'
 
 import TFocus from './directives/focus'
 import TLoading from './directives/loading'
+import TPopover from './directives/popover'
 
 const Tui = {
   Button,
@@ -119,7 +120,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 const TD = {
   TFocus,
-  TLoading
+  TLoading,
+  TPopover
 }
 
 const Component = {

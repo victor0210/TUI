@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import PositionHelper from '../../mixins/positionHelper'
 import PopoverContent from './popover-content.vue'
+import PopoverBus from '../../utils/popoverBus'
 
 export default {
   name: 't-popover',
@@ -62,7 +63,10 @@ export default {
     this.trigger === 'click' && this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
 
     return h('span', {
-      class: `t-popover-${_this.popoverIndex}`,
+      style: {
+        display: this.$slots.popover ? '' : 'none'
+      },
+      class: this.$slots.popover ? `t-popover-${_this.popoverIndex}` : '',
       on: {
         mouseenter: () => {
           _this.trigger === 'hover' && _this.showPopover()
@@ -91,13 +95,21 @@ export default {
     }, [this.$slots.default])
   },
 
+  mounted () {
+    if (this.$el.attributes['target']) {
+      PopoverBus.set(this.$el.attributes['target'].value, {
+        props: this.$props,
+        slots: this.$slots.default
+      })
+    }
+  },
+
   methods: {
     outboxClickHandler (e) {
       let parent = e.target.parentElement
 
       let inPopover = false
       while (parent !== null) {
-        console.log(parent)
         if (parent.attributes['popoveridx']) {
           if (~~parent.attributes['popoveridx'].value === this.popoverIndex) inPopover = true
         } else if (parent.className.indexOf(`t-popover-${this.popoverIndex}`) !== -1) {
@@ -159,7 +171,7 @@ export default {
                 }
               }
             }
-          }, [_this.$slots.popover || ''])
+          }, [_this.$slots.popover])
         },
 
         methods: {
@@ -175,14 +187,14 @@ export default {
             this.$el.style.opacity = 0
             _this.hideDomClear = setTimeout(() => {
               this.$el.style.display = 'none'
-            }, 200)
+            }, 100)
           },
           remove () {
             window.removeEventListener('resize', this.setPosition)
             document.removeEventListener('scroll', this.setPosition, true)
 
             this.$el.style.opacity = 0
-            document.body.removeChild(this.$el)
+            _this.show && document.body.removeChild(this.$el)
             this.$destroy()
           }
         }
@@ -190,7 +202,7 @@ export default {
 
       this.instance = Popover.$mount()
 
-      document.body.appendChild(this.instance.$el)
+      _this.$slots.popover && document.body.appendChild(this.instance.$el)
 
       setTimeout(() => {
         window.addEventListener('resize', this.setPosition)
