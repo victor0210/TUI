@@ -1,43 +1,15 @@
 export default {
   methods: {
     getElementViewLeft (element) {
-      let actualLeft = element.offsetLeft
-      let currentOffsetLeft = element.offsetParent
-      let currentScrollLeft = element.parentElement
-      let elementScrollLeft = 0
+      let p = element.getBoundingClientRect()
 
-      while (currentOffsetLeft !== null) {
-        actualLeft += currentOffsetLeft.offsetLeft
-        currentOffsetLeft = currentOffsetLeft.offsetParent
-      }
-
-      while (currentScrollLeft !== null) {
-        elementScrollLeft += currentScrollLeft.scrollLeft
-        currentScrollLeft = currentScrollLeft.parentElement
-      }
-
-      return actualLeft - elementScrollLeft
+      return p.left
     },
 
     getElementViewTop (element) {
-      let actualTop = element.offsetTop
-      let currentOffsetTop = element.offsetParent
-      let currentScrollTop = element.parentElement
-      let elementScrollTop = 0
+      let p = element.getBoundingClientRect()
 
-      while (currentOffsetTop !== null) {
-        actualTop += currentOffsetTop.offsetTop
-        currentOffsetTop = currentOffsetTop.offsetParent
-      }
-
-      while (currentScrollTop !== null) {
-        elementScrollTop += currentScrollTop.scrollTop
-        currentScrollTop = currentScrollTop.parentElement
-      }
-
-      return actualTop - elementScrollTop
+      return p.top
     }
-
-    //  for popover
   }
 }
