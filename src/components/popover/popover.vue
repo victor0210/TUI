@@ -57,9 +57,7 @@ export default {
     })
 
     return h('span', {
-      // domProps: {
-      //   popoveridx: _this.popoverIndex
-      // },
+      class: `t-popover-${_this.popoverIndex}`,
       on: {
         mouseenter: () => {
           _this.trigger === 'hover' && _this.showPopover()
@@ -70,7 +68,8 @@ export default {
         click: () => {
           if (_this.trigger === 'click') {
             if (_this.show) {
-              _this.hideOnClick ? document.body.removeEventListener('click', _this.outboxClickHandler) : _this.hidePopover()
+              _this.hidePopover()
+              _this.hideOnClick && document.body.removeEventListener('click', _this.outboxClickHandler, true)
             } else {
               _this.showPopover()
               _this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
@@ -89,31 +88,39 @@ export default {
 
   methods: {
     outboxClickHandler (e) {
-      let parent = e.target.offsetParent
+      let parent = e.target.parentElement
 
       let inPopover = false
       while (parent !== null) {
+        console.log(parent)
         if (parent.attributes['popoveridx']) {
           if (~~parent.attributes['popoveridx'].value === this.popoverIndex) inPopover = true
+        } else if (parent.className.indexOf(`t-popover-${this.popoverIndex}`) !== -1) {
+          inPopover = true
         }
-        parent = parent.offsetParent
+        parent = parent.parentElement
       }
 
       if (!inPopover) {
         this.hidePopover()
+        document.body.removeEventListener('click', this.outboxClickHandler, true)
       }
     },
     showPopover () {
-      !this.instance && this.createInstance()
-      clearTimeout(this.hideClear)
-      this.instance.showPopover()
-      this.show = true
+      if (!this.show) {
+        !this.instance && this.createInstance()
+        clearTimeout(this.hideClear)
+        this.instance.showPopover()
+        this.show = true
+      }
     },
     hidePopover () {
-      this.hideClear = setTimeout(() => {
-        this.instance.hidePopover()
+      if (this.show) {
+        this.hideClear = setTimeout(() => {
+          this.instance.hidePopover()
+        }, 100)
         this.show = false
-      }, 100)
+      }
     },
     createInstance () {
       const _this = this
@@ -169,6 +176,7 @@ export default {
 
             this.$el.style.opacity = 0
             document.body.removeChild(this.$el)
+            this.$destroy()
           }
         }
       })
@@ -263,7 +271,6 @@ export default {
 
   beforeDestroy () {
     this.instance && this.instance.remove()
-    this.$destroy()
   }
 }
 </script>
