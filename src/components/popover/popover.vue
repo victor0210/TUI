@@ -2,7 +2,6 @@
 import Vue from 'vue'
 import PositionHelper from '../../mixins/positionHelper'
 import PopoverContent from './popover-content.vue'
-import PopoverBus from '../../utils/popoverBus'
 
 export default {
   name: 't-popover',
@@ -17,7 +16,9 @@ export default {
       hideDomClear: null,
       positionParent: null,
       show: false,
-      popoverIndex: ~~(Math.random() * 10000000)
+      popoverIndex: ~~(Math.random() * 10000000),
+      triggerEl: null,
+      popoverEl: null
     }
   },
 
@@ -49,8 +50,6 @@ export default {
   },
 
   render (h) {
-    const _this = this
-
     setTimeout(() => {
       if (this.instance) {
         this.instance.$forceUpdate()
@@ -58,53 +57,51 @@ export default {
       }
     })
 
-    //  init popover visible
-    this.value && this.showPopover()
-    this.trigger === 'click' && this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
-
-    return h('span', {
-      style: {
-        display: this.$slots.popover ? '' : 'none'
-      },
-      class: this.$slots.popover ? `t-popover-${_this.popoverIndex}` : '',
-      on: {
-        mouseenter: () => {
-          _this.trigger === 'hover' && _this.showPopover()
-        },
-        mouseleave: () => {
-          (_this.trigger === 'hover' || _this.trigger === 'focus') && _this.hidePopover()
-        },
-        click: () => {
-          if (_this.trigger === 'click') {
-            if (_this.show) {
-              _this.hidePopover()
-              _this.hideOnClick && document.body.removeEventListener('click', _this.outboxClickHandler, true)
-            } else {
-              _this.showPopover()
-              _this.hideOnClick && document.body.addEventListener('click', _this.outboxClickHandler, true)
-            }
-          }
-        },
-        mousedown: () => {
-          _this.trigger === 'focus' && _this.showPopover()
-        },
-        mouseup: () => {
-          _this.trigger === 'focus' && _this.hidePopover()
-        }
-      }
-    }, [this.$slots.default])
+    return h('span', {}, [this.$slots.popover ? this.$slots.default : ''])
   },
 
   mounted () {
-    if (this.$el.attributes['target']) {
-      PopoverBus.set(this.$el.attributes['target'].value, {
-        props: this.$props,
-        slots: this.$slots.default
-      })
-    }
+    this.$slots.popover && this.setTriggerTarget(this.$el.children[0], true)
+    //  init popover visible
+    this.value && this.showPopover()
+    this.trigger === 'click' && this.hideOnClick && this.value && document.body.addEventListener('click', this.outboxClickHandler, true)
   },
 
   methods: {
+    setTriggerTarget (el, inbox) {
+      this.triggerEl = el
+
+      el.className += ` t-popover-${this.popoverIndex}`
+
+      el.onmouseenter = () => {
+        this.trigger === 'hover' && this.showPopover()
+      }
+
+      el.onmouseleave = () => {
+        (this.trigger === 'hover' || this.trigger === 'focus') && this.hidePopover()
+      }
+
+      el.onclick = () => {
+        console.log(this.trigger, this.show)
+        if (this.trigger === 'click') {
+          if (this.show) {
+            this.hidePopover()
+            this.hideOnClick && document.body.removeEventListener('click', this.outboxClickHandler)
+          } else {
+            this.showPopover()
+            this.hideOnClick && document.body.addEventListener('click', this.outboxClickHandler, true)
+          }
+        }
+      }
+
+      el.onmousedown = () => {
+        this.trigger === 'focus' && this.showPopover()
+      }
+
+      el.onmouseup = () => {
+        this.trigger === 'focus' && this.hidePopover()
+      }
+    },
     outboxClickHandler (e) {
       let parent = e.target.parentElement
 
@@ -124,21 +121,19 @@ export default {
       }
     },
     showPopover () {
-      if (!this.show) {
-        !this.instance && this.createInstance()
-        clearTimeout(this.hideClear)
-        this.instance.showPopover()
-        this.show = true
-        this.$emit('input', true)
-      }
+      !this.instance && this.createInstance()
+      clearTimeout(this.hideClear)
+      this.instance.showPopover()
+      this.show = true
+      this.$emit('input', true)
     },
     hidePopover () {
       if (this.show) {
         this.hideClear = setTimeout(() => {
           this.instance.hidePopover()
+          this.show = false
+          this.$emit('input', false)
         }, 100)
-        this.show = false
-        this.$emit('input', false)
       }
     },
     createInstance () {
@@ -171,7 +166,7 @@ export default {
                 }
               }
             }
-          }, [_this.$slots.popover])
+          }, [_this.$slots.popover || _this.$slots.default])
         },
 
         methods: {
@@ -201,8 +196,10 @@ export default {
       })
 
       this.instance = Popover.$mount()
+      this.popoverEl = this.instance.$el
 
-      _this.$slots.popover && document.body.appendChild(this.instance.$el)
+      // _this.$slots.popover && document.body.appendChild(this.instance.$el)
+      document.body.appendChild(this.popoverEl)
 
       setTimeout(() => {
         window.addEventListener('resize', this.setPosition)
@@ -211,8 +208,8 @@ export default {
     },
 
     setPosition () {
-      const parent = this.$el.children[0]
-      const target = this.instance.$el
+      const parent = this.triggerEl
+      const target = this.popoverEl
 
       let parentViewLeft = this.getElementViewLeft(parent)
       let parentViewTop = this.getElementViewTop(parent)
@@ -284,7 +281,8 @@ export default {
 
   watch: {
     value (val) {
-      val ? this.showPopover() : this.hidePopover()
+      if (val && !this.show) this.showPopover()
+      if (!val && this.show) this.hidePopover()
     }
   },
 
