@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="开关" des="用于输入的表单开关组件"/>
+    <guide title="折叠面板" des="通过折叠隐藏或显示主要内容"/>
     <div class="demo-block">
       <div class="subtitle">基本用法</div>
       <div class="source">
