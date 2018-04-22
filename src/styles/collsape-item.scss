@@ -1,0 +1,42 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(collsape-item) {
+  height: 50px;
+  padding: 0 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: height .3s;
+  border-bottom: $--border-base;
+
+  @include e(title) {
+    height: 48px;
+    line-height: 48px;
+    background-color: $--color-white;
+    color: $--color-text-primary;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  @include e(panel) {
+    padding: 2px 0 25px;
+    color: $--color-text-regular;
+  }
+
+  @include e(drop-icon) {
+    line-height: 48px;
+    float: right;
+    width: 20px;
+    text-align: center;
+    transition: all .3s;
+  }
+
+  @include when(active) {
+    .t-collsape-item__drop-icon {
+      transform: rotate(90deg);
+    }
+  }
+}

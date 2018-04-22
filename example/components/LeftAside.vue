@@ -284,6 +284,11 @@ export default {
           route: '/tooltip',
           name: 'Tooltip',
           chinese: '文字提示'
+        },
+        {
+          route: '/collsape',
+          name: 'Collsape',
+          chinese: '折叠面板'
         }
       ]
     }

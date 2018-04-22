@@ -165,6 +165,11 @@ export default new Router({
       path: '/tooltip',
       name: 'tooltip',
       component: r => require.ensure([], () => r(require('../pages/tooltip.vue')))
+    },
+    {
+      path: '/collsape',
+      name: 'collsape',
+      component: r => require.ensure([], () => r(require('../pages/collsape.vue')))
     }
   ]
 })
