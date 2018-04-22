@@ -71,6 +71,8 @@ export default {
 
   methods: {
     setTriggerTarget (el, inbox) {
+      if (!el) return
+
       this.triggerEl = el
 
       el.className += ` t-popover-${this.popoverIndex}`

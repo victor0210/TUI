@@ -32,16 +32,26 @@
       </div>
       <radio-group/>
     </div>
+    <div class="demo-block">
+      <div class="subtitle">指令</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24">
+            <t-tooltip content="this is tooltip" theme="light" ref="t1"/>
+            <t-button v-t-tooltip:t1>directive</t-button>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
   </div>
 </template>
 
 <script>
 import RadioGroup from '../documents/radio/radioGroup.md'
-import TPopover from "../../src/components/popover/popover";
 
 export default {
   components: {
-    TPopover,
     RadioGroup
   }
 }
