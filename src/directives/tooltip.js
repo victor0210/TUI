@@ -1,9 +1,8 @@
 import Vue from 'vue'
 
-const TPopover = Vue.directive('t-popover', {
+const TPopover = Vue.directive('t-tooltip', {
   bind (el, binding, vnode) {
-    console.log(vnode.context.$refs[binding.arg])
-    let pop = vnode.context.$refs[binding.arg]
+    let pop = vnode.context.$refs[binding.arg].$children[0]
     if (el && pop) pop.setTriggerTarget(el)
     return el
   }

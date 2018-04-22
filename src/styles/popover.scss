@@ -40,7 +40,7 @@
     border-bottom-width: 0;
 
     @include m(top) {
-      bottom: -6px;
+      bottom: -5px;
       left: 0;
       right: 0;
       margin: auto;
@@ -48,14 +48,14 @@
     }
 
     @include m(top-left) {
-      bottom: -6px;
+      bottom: -5px;
       right: 20px;
       margin: auto;
       transform: rotate(135deg);
     }
 
     @include m(top-right) {
-      bottom: -6px;
+      bottom: -5px;
       left: 20px;
       margin: auto;
       transform: rotate(135deg);
