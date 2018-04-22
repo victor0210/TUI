@@ -43,6 +43,8 @@ import Step from './components/step/index'
 import Modal from './components/modal/index'
 import Popover from './components/popover/index'
 import Tooltip from './components/tooltip/index'
+import Collsape from './components/collsape/index'
+import CollsapeItem from './components/collsapeItem/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -101,7 +103,9 @@ const Tui = {
   Step,
   Modal,
   Popover,
-  Tooltip
+  Tooltip,
+  Collsape,
+  CollsapeItem
 }
 
 const install = function (Vue, opts = {}) {

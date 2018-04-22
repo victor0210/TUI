@@ -1,0 +1,10 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(collsape) {
+  width: 100%;
+  border: $--border-base;
+  border-bottom: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
