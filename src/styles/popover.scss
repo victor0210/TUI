@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/mixins";
 @import "mixins/drop";
+@import "mixins/popover";
 
 @include b(popover) {
   position: fixed;
@@ -47,14 +48,14 @@
     }
 
     @include m(top-left) {
-      bottom: -5px;
+      bottom: -6px;
       right: 20px;
       margin: auto;
       transform: rotate(135deg);
     }
 
     @include m(top-right) {
-      bottom: -5px;
+      bottom: -6px;
       left: 20px;
       margin: auto;
       transform: rotate(135deg);
@@ -80,7 +81,7 @@
     }
 
     @include m(left) {
-      right: -6px;
+      right: -5px;
       top: 0;
       bottom: 0;
       margin: auto;
@@ -88,14 +89,14 @@
     }
 
     @include m(left-top) {
-      right: -6px;
+      right: -5px;
       bottom: 10px;
       margin: auto;
       transform: rotate(45deg);
     }
 
     @include m(left-bottom) {
-      right: -6px;
+      right: -5px;
       top: 10px;
       margin: auto;
       transform: rotate(45deg);
@@ -122,5 +123,44 @@
       margin: auto;
       transform: rotate(-135deg);
     }
+  }
+
+  //  themes
+  @include m(light) {
+    background-color: $--color-white;
+    color: $--color-text-primary;
+    border-color: $--color-text-primary;
+
+    .t-popover__arrow {
+      background-color: $--color-white;
+      border-color: $--color-text-primary;
+    }
+  }
+
+  @include m(dark-gold) {
+    @include theme-variant(lighten($--color-black, 15%));
+    color: gold;
+  }
+
+
+
+  @include m(dark) {
+    @include theme-variant(lighten($--color-black, 20%))
+  }
+
+  @include m(info) {
+    @include theme-variant($--color-info)
+  }
+
+  @include m(success) {
+    @include theme-variant($--color-success)
+  }
+
+  @include m(danger) {
+    @include theme-variant($--color-danger)
+  }
+
+  @include m(warning) {
+    @include theme-variant($--color-warning)
   }
 }
