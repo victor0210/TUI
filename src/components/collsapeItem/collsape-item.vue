@@ -5,7 +5,7 @@
     ]">
     <div class="t-collsape-item__title" @click="checkout" ref="title">
       <slot/>
-      <i class="t-collsape-item__drop-icon fa fa-caret-right"></i>
+      <i class="t-collsape-item__drop-icon fa fa-chevron-right"></i>
     </div>
     <div class="t-collsape-item__panel" ref="panel">
       <slot name="content"/>
