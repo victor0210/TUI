@@ -1,12 +1,11 @@
 <template>
   <div class="t-collsape-item"  :style="{
-      height: this.isExpand ? panelHeight : '50px'
     }" :class="[
       isExpand ? 'is-active' : ''
     ]">
     <div class="t-collsape-item__title" @click="checkout" ref="title">
       <slot/>
-      <i class="t-collsape-item__drop-icon fa fa-caret-right"></i>
+      <i class="t-collsape-item__drop-icon fa fa-chevron-right"></i>
     </div>
     <div class="t-collsape-item__panel" ref="panel">
       <slot name="content"/>
@@ -35,6 +34,12 @@ export default {
     this.$on('close-expand', this.closeExpand)
   },
 
+  updated () {
+    this.isExpand && setTimeout(() => {
+      this.$el.style.height = 'auto'
+    }, 300)
+  },
+
   mounted () {
     if (this.$parent.accordion) {
       this.isExpand = this.$parent.value === this.name
@@ -53,12 +58,20 @@ export default {
     },
     closeExpand (key) {
       if (this.name === key) this.isExpand = false
+    },
+    getPanelHeight () {
+      return `${this.$refs.panel.offsetHeight + this.$refs.title.offsetHeight}px`
     }
   },
 
-  computed: {
-    panelHeight () {
-      return `${this.$refs.panel.offsetHeight + this.$refs.title.offsetHeight}px`
+  watch: {
+    isExpand (val) {
+      if (!val) {
+        this.$el.style.height = this.getPanelHeight()
+      }
+      setTimeout(() => {
+        this.$el.style.height = val ? this.getPanelHeight() : '50px'
+      })
     }
   }
 }

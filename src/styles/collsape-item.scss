@@ -35,7 +35,7 @@
   }
 
   @include when(active) {
-    .t-collsape-item__drop-icon {
+    > .t-collsape-item__title > .t-collsape-item__drop-icon{
       transform: rotate(90deg);
     }
   }
