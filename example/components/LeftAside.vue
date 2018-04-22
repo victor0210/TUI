@@ -279,6 +279,11 @@ export default {
           route: '/popover',
           name: 'Popover',
           chinese: '弹出层'
+        },
+        {
+          route: '/tooltip',
+          name: 'Tooltip',
+          chinese: '文字提示'
         }
       ]
     }

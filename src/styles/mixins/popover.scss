@@ -1,0 +1,10 @@
+@mixin theme-variant ($theme-color){
+  background-color: $theme-color;
+  color: $--color-white;
+  border-color: $theme-color;
+
+  .t-popover__arrow {
+    background-color: $theme-color;
+    border-color: $theme-color;
+  }
+}

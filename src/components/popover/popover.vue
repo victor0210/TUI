@@ -39,6 +39,8 @@ export default {
       type: String,
       default: 'rgba(0,0,0,0.3)'
     },
+    textColor: String,
+    theme: String,
     width: Number,
     height: Number,
     trigger: {
@@ -145,8 +147,10 @@ export default {
               position: _this.position,
               bgColor: _this.bgColor,
               borderColor: _this.borderColor,
+              textColor: _this.textColor,
               width: _this.width,
               height: _this.height,
+              theme: _this.theme,
               $idx: _this.popoverIndex
             },
             on: {

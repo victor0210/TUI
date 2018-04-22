@@ -160,6 +160,11 @@ export default new Router({
       path: '/popover',
       name: 'popover',
       component: r => require.ensure([], () => r(require('../pages/popover.vue')))
+    },
+    {
+      path: '/tooltip',
+      name: 'tooltip',
+      component: r => require.ensure([], () => r(require('../pages/tooltip.vue')))
     }
   ]
 })
