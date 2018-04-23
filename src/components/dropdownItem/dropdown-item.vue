@@ -14,6 +14,7 @@
   <t-dropdown
     v-else
     side
+    sub
     :min-width="200"
     has-parent-menu
     hide-on-click
