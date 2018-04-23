@@ -48,10 +48,11 @@ export default {
 
   data () {
     return {
-      itemHeight: 56,
+      itemHeight: '56px',
       heightCache: '',
       isOpen: false,
-      collsapeTimeout: null,
+      collsapeTimeout_1: null,
+      collsapeTimeout_2: null,
       heightMutation: false
     }
   },
@@ -99,22 +100,20 @@ export default {
     },
     isOpen (val) {
       let needMutation = val && this.TMenuItem && !this.$parent.isOpen
+      clearTimeout(this.collsapeTimeout_2)
 
-      clearTimeout(this.collsapeTimeout)
-      if (!val) {
-        this.itemHeight = `${this.$refs.wrapper.offsetHeight}px`
-      }
       if (needMutation) {
         this.itemHeight = 'auto'
+        this.dispatch('t-menu-item', 'sub-open')
       } else {
+        if (!val) this.itemHeight = `${this.$refs.wrapper.offsetHeight}px`
         setTimeout(() => {
           this.itemHeight = val ? `${this.$refs.wrapper.offsetHeight}px` : '56px'
-          val && (this.collsapeTimeout = setTimeout(() => {
+          val && (this.collsapeTimeout_2 = setTimeout(() => {
             this.itemHeight = 'auto'
           }, 300))
-        })
+        }, 50)
       }
-      needMutation && this.dispatch('t-menu-item', 'sub-open')
     }
   }
 }
