@@ -92,8 +92,7 @@ export default {
         methods: {
           remove () {
             this.$destroy()
-            // this.side ? this.parent.$el.removeChild(this.$el) :
-              document.body.removeChild(this.$el)
+            document.body.removeChild(this.$el)
 
             //  remove position fixer
             window.removeEventListener('resize', _this.setListPosition)
@@ -147,7 +146,6 @@ export default {
         let listHeight = this.list.offsetHeight
 
         if (!this.side) {
-
           if (listWidth + parentViewLeft >= document.body.offsetWidth) {
             listLeft -= listWidth - parentOffsetWidth
           }

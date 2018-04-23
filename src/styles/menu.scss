@@ -19,6 +19,7 @@
     transition: all .2s;
     cursor: pointer;
     color: $--color-text-regular;
+    overflow: hidden;
 
     @include e(icon) {
       margin-right: 6px;
@@ -31,6 +32,10 @@
     @include when(active) {
       color: $--color-primary;
       border-bottom: 2px solid $--color-primary;
+
+      > .t-menu__item-wrapper > .t-menu__item-content > .t-menu__drop-icon {
+        transform: rotate(90deg);
+      }
     }
   }
 
@@ -41,16 +46,33 @@
     .t-menu__item {
       color: white;
 
-      &:hover {
-        background-color: rgb(67, 74, 80);
-        color: gold;
-      }
-
       @include when(active) {
         color: gold;
         border-bottom: 2px solid gold;
       }
     }
+
+    .t-menu__item-content {
+      &:hover {
+        background-color: rgb(67, 74, 80);
+        color: gold;
+      }
+    }
+  }
+
+  @include e(item-wrapper) {
+    overflow: hidden;
+  }
+
+  @include e(submenu) {
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 0 10px
+  }
+
+  @include e(drop-icon) {
+    float: right;
+    line-height: 56px;
   }
 
   @include when(vertical) {
@@ -58,13 +80,15 @@
     width: 240px;
     display: inline-block;
     padding-left: 0;
-    height: auto;
+    height: 100%;
+    overflow: scroll;
 
     .t-menu__item, .t-menu__item-content {
       width: 100%;
       display: inline-block;
       float: left;
       position: relative;
+      box-sizing: border-box;
 
       .t-dropdown {
         width: 100%;

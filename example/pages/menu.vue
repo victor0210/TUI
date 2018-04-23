@@ -29,10 +29,10 @@
       <div class="subtitle">inverse主题</div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="12">
-            <t-menu :data="menu" vertical/>
+          <t-col :span="12" style="height: 500px">
+            <t-menu :data="menu" vertical collsape/>
           </t-col>
-          <t-col :span="12">
+          <t-col :span="12" style="height: 500px">
             <t-menu :data="menu" type="inverse" vertical/>
           </t-col>
         </t-row>
