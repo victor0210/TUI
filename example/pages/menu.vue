@@ -30,10 +30,22 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="12" style="height: 500px">
-            <t-menu :data="menu" vertical collsape/>
+            <t-menu :data="menu" vertical/>
           </t-col>
           <t-col :span="12" style="height: 500px">
             <t-menu :data="menu" type="inverse" vertical/>
+          </t-col>
+        </t-row>
+      </div>
+      <radio-group/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">collsape</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="12" style="height: 500px">
+            <t-menu :data="menu" vertical :collsape="false" type="inverse"/>
           </t-col>
         </t-row>
       </div>

@@ -6,7 +6,7 @@
       vertical ? 'is-vertical' : ''
   ]">
     <li
-      v-if="collsape || (!collsape && !vertical)"
+      v-if="(collsape && vertical) || !vertical"
       v-for="(m, idx) in data"
       :key="idx"
       class="t-menu__item"
@@ -18,6 +18,7 @@
           :text-center="false"
           :min-width="200"
           :side="vertical"
+          hide-on-click
         >
         <span
           class="t-menu__item-content"
@@ -71,7 +72,7 @@ export default {
 
   data () {
     return {
-      activeIndex: 1,
+      activeIndex: '0-2',
       menuItems: []
     }
   },
@@ -85,12 +86,6 @@ export default {
 
   created () {
     this.$on('item-checkout', this.checkoutHandler)
-  },
-
-  mounted () {
-    setTimeout(() => {
-      this.activeIndex = 0
-    }, 1000)
   },
 
   methods: {
