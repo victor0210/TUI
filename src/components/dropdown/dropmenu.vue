@@ -30,6 +30,7 @@ export default {
 
   created () {
     this.$on('fresh-position', this.setListPosition)
+    this.$on('sub-close-track', this.subCloseTrack)
   },
 
   updated () {
@@ -44,6 +45,12 @@ export default {
   },
 
   methods: {
+    handleSubClose () {
+      this.$emit('subclose')
+    },
+    handleSubOpen () {
+      this.$emit('subopen')
+    },
     onMouseEnter () {
       this.$emit('mouseenter')
     },
@@ -62,6 +69,8 @@ export default {
         created () {
           this.$on('item-click', _this.onItemClick)
           this.$on('sub-close', _this.onSubClose)
+          this.$on('on-sub-open', _this.handleSubOpen)
+          this.$on('on-sub-close', _this.handleSubClose)
         },
 
         render (h) {
@@ -71,7 +80,8 @@ export default {
               width: _this.width ? `${_this.width}px` : (_this.width === 0 ? `${_this.parent.$el.offsetWidth}px` : ''),
               minWidth: _this.minWidth ? `${_this.minWidth}px` : '',
               textAlign: _this.textCenter ? 'center' : '',
-              position: _this.side ? 'absolute' : 'fixed'
+              // position: _this.side ? 'absolute' : 'fixed'
+              position: 'fixed'
             },
             on: {
               'mouseleave': _this.onMouseLeave,
@@ -82,7 +92,7 @@ export default {
         methods: {
           remove () {
             this.$destroy()
-            this.side ? this.parent.$el.removeChild(this.$el) : document.body.removeChild(this.$el)
+            document.body.removeChild(this.$el)
 
             //  remove position fixer
             window.removeEventListener('resize', _this.setListPosition)
@@ -106,7 +116,7 @@ export default {
       this.DropMenu = component
       this.list = component.$el
       component.hide()
-      this.side ? this.parent.$el.appendChild(component.$el) : document.body.appendChild(component.$el)
+      document.body.appendChild(component.$el)
 
       setTimeout(function () {
         component.show()
@@ -129,16 +139,13 @@ export default {
         let parentOffsetWidth = parent.$el.offsetWidth
         let windowViewHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
-        let listLeft
-        let listTop
+        let listLeft = parentViewLeft
+        let listTop = null
 
         let listWidth = this.list.offsetWidth
         let listHeight = this.list.offsetHeight
 
         if (!this.side) {
-          listLeft = parentViewLeft
-          listTop = null
-
           if (listWidth + parentViewLeft >= document.body.offsetWidth) {
             listLeft -= listWidth - parentOffsetWidth
           }
@@ -149,13 +156,12 @@ export default {
             listTop = parentViewTop + parentOffsetHeight + 5
           }
         } else {
-          listTop = 0
-          listLeft = null
+          listTop = parentViewTop
 
           if (listWidth + parentOffsetWidth + parentViewLeft + 5 >= document.body.offsetWidth) {
-            listLeft = -listWidth - 5
+            listLeft -= listWidth + 5
           } else {
-            listLeft = parentOffsetWidth + 5
+            listLeft += parentOffsetWidth + 5
           }
         }
 
@@ -170,7 +176,7 @@ export default {
       this.createList()
     },
     isOpen (val) {
-      val ? this.DropMenu.show() : this.DropMenu.hide()
+      this.DropMenu && (val ? this.DropMenu.show() : this.DropMenu.hide())
     }
   },
 

@@ -9,6 +9,7 @@
   border-bottom: 1px solid #e4e7ed;
 
   @include e(item-content) {
+    font-size: 16px;
     padding: 0 20px;
   }
   @include e(item) {
@@ -16,12 +17,13 @@
     height: 56px;
     box-sizing: border-box;
     line-height: 56px;
-    transition: all .2s;
+    transition: all .3s;
     cursor: pointer;
     color: $--color-text-regular;
+    overflow: hidden;
 
     @include e(icon) {
-      margin-right: 6px;
+      margin-right: 14px;
     }
 
     &:hover {
@@ -32,6 +34,11 @@
       color: $--color-primary;
       border-bottom: 2px solid $--color-primary;
     }
+    @include when(open) {
+      > .t-menu__item-wrapper > .t-menu__item-content > .t-menu__drop-icon {
+        transform: rotate(90deg);
+      }
+    }
   }
 
   @include m(inverse) {
@@ -41,11 +48,6 @@
     .t-menu__item {
       color: white;
 
-      &:hover {
-        background-color: rgb(67, 74, 80);
-        color: gold;
-      }
-
       @include when(active) {
         color: gold;
         border-bottom: 2px solid gold;
@@ -53,22 +55,51 @@
     }
   }
 
+  @include e(item-wrapper) {
+    overflow: hidden;
+  }
+
+  @include e(submenu) {
+    overflow: hidden;
+    padding: 0 10px;
+
+    .t-menu__item-content {
+      font-size: 14px;
+    }
+  }
+
+  @include e(drop-icon) {
+    float: right;
+    line-height: 56px;
+    transition: all .3s;
+  }
+
   @include when(vertical) {
     border-bottom: none;
     width: 240px;
     display: inline-block;
     padding-left: 0;
-    height: auto;
+    height: 100%;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .t-menu__item, .t-menu__item-content {
       width: 100%;
       display: inline-block;
       float: left;
       position: relative;
+      box-sizing: border-box;
+      border-bottom: none;
 
       .t-dropdown {
         width: 100%;
       }
+    }
+
+    .t-menu__item.is-active > .t-menu__item-content{
+      border-right: 3px solid #ffcc00;
     }
   }
 }

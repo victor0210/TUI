@@ -11,6 +11,8 @@
       :side="side"
       @mouseleave="onMouseLeave"
       @mouseenter="onMouseOver"
+      @subopen="onSubOpen"
+      @subclose="onSubClose"
       @command="handleCommand"
       @subcommand="handleSubCommand"
     >
@@ -38,7 +40,8 @@ export default {
       initial: false,
       isOpen: false,
       closeTimer: null,
-      forceCheck: false
+      forceCheck: false,
+      isHover: false
     }
   },
 
@@ -57,7 +60,8 @@ export default {
     },
     value: {},
     side: Boolean,
-    hasParentMenu: Boolean
+    hasParentMenu: Boolean,
+    sub: Boolean
   },
 
   created () {
@@ -67,12 +71,21 @@ export default {
   },
 
   methods: {
+    onSubClose () {
+      !this.isHover && this.close()
+    },
+    onSubOpen () {
+      this.open()
+    },
     onMouseOver () {
+      this.isHover = true
       if (!this.forceCheck && this.trigger === 'hover') {
         this.open()
+        this.sub && this.dispatch('t-dropdown-menu', 'on-sub-open')
       }
     },
     onMouseLeave () {
+      this.isHover = false
       if (!this.forceCheck && this.trigger === 'hover') {
         this.close()
       }
@@ -90,7 +103,8 @@ export default {
     close () {
       this.closeTimer = setTimeout(() => {
         this.isOpen = false
-      }, 300)
+        this.sub && this.dispatch('t-dropdown-menu', 'on-sub-close')
+      }, 100)
     },
     checkout () {
       this.isOpen ? this.close() : this.open()
