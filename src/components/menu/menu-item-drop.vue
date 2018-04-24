@@ -14,13 +14,7 @@
       hide-on-click
       @command="dropDownCheckout"
     >
-      <span class="t-menu__item-content">
-        <i v-if="data.icon" :class="['t-menu__icon',data.icon]"></i>
-        <template v-if="!isCollsape">
-          {{ data.name }}
-          <i v-if="data.subMenu" class="fa fa-caret-down"></i>
-        </template>
-      </span>
+      <t-menu-item-content :is-collsape="isCollsape" :data="data" :default-item-mode="defaultItemMode"/>
       <template slot="dropdown">
         <t-dropdown-item
           v-for="(sm, idx) in data.subMenu"
@@ -30,39 +24,18 @@
           :subMenu="sm.subMenu"
           :command="sm.command"
         >
-          {{ sm.name }}
+        {{ sm.name }}
         </t-dropdown-item>
       </template>
     </t-dropdown>
     <template v-else>
-      <span
-        class="t-menu__item-content"
-        v-if="!vertical"
-      >
-        <i
-          v-if="data.icon"
-          :class="[
-            't-menu__icon',
-            data.icon
-        ]"></i>
-        {{ data.name }}
-      </span>
+      <t-menu-item-content v-if="!vertical" :data="data" :is-collsape="isCollsape" :default-item-mode="defaultItemMode"/>
       <t-tooltip
         v-else
         :content="data.name"
         position="right"
         theme="dark">
-        <span class="t-menu__item-content">
-          <i
-            v-if="data.icon"
-            :class="[
-              't-menu__icon',
-              data.icon
-          ]"></i>
-        <template v-if="!isCollsape">
-          {{ data.name }}
-        </template>
-        </span>
+        <t-menu-item-content :data="data" :is-collsape="isCollsape" :default-item-mode="defaultItemMode"/>
       </t-tooltip>
     </template>
   </li>
@@ -70,8 +43,13 @@
 
 <script>
 import Emitter from '../../mixins/emitter'
+import TMenuItemContent from './menu-item-content'
 export default {
   name: 't-menu-item-drop',
+
+  components: {
+    TMenuItemContent
+  },
 
   mixins: [Emitter],
 
@@ -80,7 +58,8 @@ export default {
     activeIndex: '',
     $idx: '',
     isCollsape: Boolean,
-    vertical: Boolean
+    vertical: Boolean,
+    defaultItemMode: String
   },
 
   methods: {

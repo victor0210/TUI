@@ -49,7 +49,7 @@
           <t-checkbox label="collsape" v-model="c"/>
           </t-col>
           <t-col :span="12" style="height: 500px">
-            <t-menu :data="menu" vertical :collsape="c" type="inverse"/>
+            <t-menu :data="menu" vertical :collsape="c" type="inverse" default-item-mode="link"/>
           </t-col>
         </t-row>
       </div>
@@ -72,34 +72,43 @@ export default {
         {
           name: '首页',
           icon: 'fa fa-home',
-          route: '/tooltip',
+          link: '/tooltip',
           subMenu: [
             {
-              name: '首页一'
+              name: '首页一',
+              link: '/tooltip'
             },
             {
-              name: '首页二'
+              name: '首页二',
+              link: '/tooltip'
             },
             {
               name: '首页三',
+              link: '/tooltip',
               subMenu: [
                 {
-                  name: '首页一'
+                  name: '首页一',
+                  link: '/tooltip'
                 },
                 {
-                  name: '首页二'
+                  name: '首页二',
+                  link: '/tooltip'
                 },
                 {
                   name: '首页三',
+                  link: '/tooltip',
                   subMenu: [
                     {
-                      name: '首页一'
+                      name: '首页一',
+                      link: '/tooltip'
                     },
                     {
-                      name: '首页二'
+                      name: '首页二',
+                      link: '/tooltip'
                     },
                     {
-                      name: '首页三'
+                      name: '首页三',
+                      link: '/tooltip'
                     }
                   ]
                 }
@@ -109,15 +118,18 @@ export default {
         },
         {
           name: '下载',
-          icon: 'fa fa-download'
+          icon: 'fa fa-download',
+          link: '/tooltip'
         },
         {
           name: '帮助',
-          icon: 'fa fa-hand-paper'
+          icon: 'fa fa-hand-paper',
+          link: '/tooltip'
         },
         {
           name: '个人中心',
-          icon: 'fa fa-user'
+          icon: 'fa fa-user',
+          link: '/tooltip'
         }
       ]
     }

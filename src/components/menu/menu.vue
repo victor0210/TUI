@@ -50,7 +50,11 @@ export default {
     data: Array,
     type: String,
     vertical: Boolean,
-    collsape: Boolean
+    collsape: Boolean,
+    defaultItemMode: {
+      default: 'normal',
+      type: String
+    }
   },
 
   created () {
@@ -72,7 +76,7 @@ export default {
     }
   },
 
-  computed : {
+  computed: {
     // vertical menu horizon collsape
     isCollsape () {
       return this.vertical && this.collsape
