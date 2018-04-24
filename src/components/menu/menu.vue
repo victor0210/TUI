@@ -23,7 +23,7 @@
       v-for="(i, idx) in data"
       :key="idx"
       :data="i"
-      :$idx="i.command"
+      :$idx="i.$idx"
       :active-index="activeIndex"/>
   </ul>
 </template>
@@ -41,8 +41,7 @@ export default {
 
   data () {
     return {
-      activeIndex: '0-2',
-      menuItems: []
+      activeIndex: '0'
     }
   },
 
@@ -50,11 +49,7 @@ export default {
     data: Array,
     type: String,
     vertical: Boolean,
-    collsape: Boolean,
-    defaultItemMode: {
-      default: 'normal',
-      type: String
-    }
+    collsape: Boolean
   },
 
   created () {
@@ -67,12 +62,20 @@ export default {
       const arr = parent ? parent.subMenu : this.data
       const _this = this
       arr.forEach(function (el, idx) {
-        el.command = parent ? `${parent.command}-${idx}` : idx
+        el.$idx = parent ? `${parent.$idx}-${idx}` : idx.toString()
+        el.command = Object.assign({}, el)
+        delete el.command['command']
         if (el.subMenu) _this.formatData(el)
       })
     },
-    checkoutHandler (idx) {
+    checkoutHandler ({idx, item}) {
       this.activeIndex = idx
+
+      let i = Object.assign({}, item)
+      delete i['command']
+      i['hasSub'] = !!i['subMenu']
+      delete i['subMenu']
+      this.$emit('handleClick', i)
     }
   },
 

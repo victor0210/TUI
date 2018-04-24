@@ -23,7 +23,7 @@
         <i class="t-menu__drop-icon fa fa-chevron-right" v-if="data.subMenu"></i>
       </span>
       <ul v-if="data.subMenu" class="t-menu__submenu">
-        <t-menu-item v-for="(i, idx) in data.subMenu" :key="idx" :data="i" :active-index="activeIndex" :$idx="i.command"/>
+        <t-menu-item v-for="(i, idx) in data.subMenu" :key="idx" :data="i" :active-index="activeIndex" :$idx="i.$idx"/>
       </ul>
     </div>
   </li>
@@ -78,7 +78,7 @@ export default {
       if (this.activeIndex === this.$idx) {
         this.isOpen = !this.isOpen
       } else {
-        this.dispatch('t-menu', 'item-checkout', this.$idx)
+        this.dispatch('t-menu', 'item-checkout', {idx: this.$idx, item: this.data})
       }
     },
     getIndex (idx) {

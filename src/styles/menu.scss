@@ -74,6 +74,7 @@
   }
 
   @include when(vertical) {
+    border-right: $--border-base;
     border-bottom: none;
     width: 240px;
     display: inline-block;

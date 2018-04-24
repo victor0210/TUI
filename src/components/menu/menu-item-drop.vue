@@ -14,7 +14,7 @@
       hide-on-click
       @command="dropDownCheckout"
     >
-      <t-menu-item-content :is-collsape="isCollsape" :data="data" :default-item-mode="defaultItemMode"/>
+      <t-menu-item-content :is-collsape="isCollsape" :data="data"/>
       <template slot="dropdown">
         <t-dropdown-item
           v-for="(sm, idx) in data.subMenu"
@@ -29,13 +29,13 @@
       </template>
     </t-dropdown>
     <template v-else>
-      <t-menu-item-content v-if="!vertical" :data="data" :is-collsape="isCollsape" :default-item-mode="defaultItemMode"/>
+      <t-menu-item-content v-if="!vertical" :data="data" :is-collsape="isCollsape"/>
       <t-tooltip
         v-else
         :content="data.name"
         position="right"
         theme="dark">
-        <t-menu-item-content :data="data" :is-collsape="isCollsape" :default-item-mode="defaultItemMode"/>
+        <t-menu-item-content :data="data" :is-collsape="isCollsape"/>
       </t-tooltip>
     </template>
   </li>
@@ -58,16 +58,15 @@ export default {
     activeIndex: '',
     $idx: '',
     isCollsape: Boolean,
-    vertical: Boolean,
-    defaultItemMode: String
+    vertical: Boolean
   },
 
   methods: {
     checkout () {
-      this.dispatch('t-menu', 'item-checkout', this.$idx)
+      this.dispatch('t-menu', 'item-checkout', {idx: this.$idx, item: this.data})
     },
-    dropDownCheckout (idx) {
-      this.dispatch('t-menu', 'item-checkout', idx)
+    dropDownCheckout (command) {
+      this.dispatch('t-menu', 'item-checkout', {idx: command.$idx, item: command})
     }
   },
 

@@ -16,8 +16,7 @@ export default {
 
   props: {
     data: {},
-    isCollsape: Boolean,
-    defaultItemMode: String
+    isCollsape: Boolean
   }
 }
 </script>

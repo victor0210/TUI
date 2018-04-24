@@ -6,7 +6,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
-            <t-menu :data="menu"/>
+            <t-menu :data="menu" @handleClick="handleClick"/>
           </t-col>
         </t-row>
       </div>
@@ -49,7 +49,7 @@
           <t-checkbox label="collsape" v-model="c"/>
           </t-col>
           <t-col :span="12" style="height: 500px">
-            <t-menu :data="menu" vertical :collsape="c" type="inverse" default-item-mode="link"/>
+            <t-menu :data="menu" vertical :collsape="c" type="inverse" @handleClick="handleClick"/>
           </t-col>
         </t-row>
       </div>
@@ -65,6 +65,13 @@ export default {
   components: {
     RadioGroup
   },
+  methods: {
+    handleClick (item) {
+      if (!item.hasSub) {
+        this.$router.push(item.path)
+      }
+    }
+  },
   data () {
     return {
       c: false,
@@ -72,43 +79,42 @@ export default {
         {
           name: '首页',
           icon: 'fa fa-home',
-          link: '/tooltip',
           subMenu: [
             {
               name: '首页一',
-              link: '/tooltip'
+              path: '/tooltip'
             },
             {
               name: '首页二',
-              link: '/tooltip'
+              path: '/tooltip'
             },
             {
               name: '首页三',
-              link: '/tooltip',
+              path: '/tooltip',
               subMenu: [
                 {
                   name: '首页一',
-                  link: '/tooltip'
+                  path: '/tooltip'
                 },
                 {
                   name: '首页二',
-                  link: '/tooltip'
+                  path: '/tooltip'
                 },
                 {
                   name: '首页三',
-                  link: '/tooltip',
+                  path: '/tooltip',
                   subMenu: [
                     {
                       name: '首页一',
-                      link: '/tooltip'
+                      path: '/tooltip'
                     },
                     {
                       name: '首页二',
-                      link: '/tooltip'
+                      path: '/tooltip'
                     },
                     {
                       name: '首页三',
-                      link: '/tooltip'
+                      path: '/tooltip'
                     }
                   ]
                 }
@@ -119,17 +125,17 @@ export default {
         {
           name: '下载',
           icon: 'fa fa-download',
-          link: '/tooltip'
+          path: '/tooltip'
         },
         {
           name: '帮助',
           icon: 'fa fa-hand-paper',
-          link: '/tooltip'
+          path: '/tooltip'
         },
         {
           name: '个人中心',
           icon: 'fa fa-user',
-          link: '/tooltip'
+          path: '/tooltip'
         }
       ]
     }
