@@ -5,12 +5,12 @@
   color: #606266;
   font-weight: 400;
   font-size: 14px;
+  height: 24px;
   position: relative;
   cursor: pointer;
   display: inline-block;
   white-space: nowrap;
   user-select: none;
-  line-height: 40px;
   vertical-align: middle;
 
   input[type=checkbox] {
@@ -25,6 +25,7 @@
     float: left;
     width: 16px;
     height: 16px;
+    margin: 3px 0 5px;
     border: 1px solid $--border-color-base;
     border-radius: 2px;
     box-sizing: border-box;
@@ -38,7 +39,9 @@
       position: absolute;
       left: 0;
       top: 0;
-      line-height: 14px;
+      margin: auto;
+      line-height: 16px;
+      height: 14px;
       width: 14px;
       color: #fff;
       opacity: 0;
@@ -53,7 +56,8 @@
     padding: 0 10px;
     position: relative;
     float: left;
-    line-height: 18px;
+    height: 24px;
+    line-height: 24px;
     font-size: 15px;
     box-sizing: border-box;
     transition: all .2s;

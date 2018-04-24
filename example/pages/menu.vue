@@ -46,7 +46,7 @@
 
         <t-row :gutter="20">
           <t-col :span="12" style="margin-bottom: 50px">
-          <t-checkbox label="collsape" v-model="c"/>
+          <t-checkbox label="Collsape" v-model="c"/>
           </t-col>
           <t-col :span="12" style="height: 500px">
             <t-menu :data="menu" vertical :collsape="c" type="inverse" @handleClick="handleClick"/>
