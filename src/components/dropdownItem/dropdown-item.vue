@@ -3,6 +3,7 @@
     v-if="!subMenu"
     class="t-dropdown-item"
     :class="[
+      isActive ? 'is-active' : '',
       disabled ? 'is-disabled' : '',
       divided ? 't-dropdown-item--divided' : ''
     ]"
@@ -59,7 +60,8 @@ export default {
     command: {},
     disabled: Boolean,
     divided: Boolean,
-    subMenu: Array
+    subMenu: Array,
+    isActive: Boolean
   },
 
   methods: {

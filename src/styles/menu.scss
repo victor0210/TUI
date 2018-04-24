@@ -7,6 +7,7 @@
   box-sizing: border-box;
   padding-left: 60px;
   border-bottom: 1px solid #e4e7ed;
+  transition: width .2s;
 
   @include e(item-content) {
     font-size: 16px;
@@ -17,13 +18,13 @@
     height: 56px;
     box-sizing: border-box;
     line-height: 56px;
-    transition: all .3s;
+    transition: all .2s;
     cursor: pointer;
     color: $--color-text-regular;
     overflow: hidden;
 
     @include e(icon) {
-      margin-right: 14px;
+      margin-right: 8px;
     }
 
     &:hover {
@@ -32,7 +33,6 @@
 
     @include when(active) {
       color: $--color-primary;
-      border-bottom: 2px solid $--color-primary;
     }
     @include when(open) {
       > .t-menu__item-wrapper > .t-menu__item-content > .t-menu__drop-icon {
@@ -50,7 +50,6 @@
 
       @include when(active) {
         color: gold;
-        border-bottom: 2px solid gold;
       }
     }
   }
@@ -71,10 +70,11 @@
   @include e(drop-icon) {
     float: right;
     line-height: 56px;
-    transition: all .3s;
+    transition: all .2s;
   }
 
   @include when(vertical) {
+    border-right: $--border-base;
     border-bottom: none;
     width: 240px;
     display: inline-block;
@@ -101,5 +101,8 @@
     .t-menu__item.is-active > .t-menu__item-content{
       border-right: 3px solid #ffcc00;
     }
+  }
+  @include when(collsape) {
+    width: 60px;
   }
 }
