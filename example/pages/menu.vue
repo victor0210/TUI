@@ -43,9 +43,13 @@
     <div class="demo-block">
       <div class="subtitle">collsape</div>
       <div class="source">
+
         <t-row :gutter="20">
+          <t-col :span="12" style="margin-bottom: 50px">
+          <t-checkbox label="collsape" v-model="c"/>
+          </t-col>
           <t-col :span="12" style="height: 500px">
-            <t-menu :data="menu" vertical :collsape="false" type="inverse"/>
+            <t-menu :data="menu" vertical :collsape="c" type="inverse"/>
           </t-col>
         </t-row>
       </div>
@@ -63,10 +67,12 @@ export default {
   },
   data () {
     return {
+      c: false,
       menu: [
         {
           name: '首页',
           icon: 'fa fa-home',
+          route: '/tooltip',
           subMenu: [
             {
               name: '首页一'

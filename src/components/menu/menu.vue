@@ -3,68 +3,37 @@
     class="t-menu"
     :class="[
       type ? `t-menu--${type}` : '',
-      vertical ? 'is-vertical' : ''
+      vertical ? 'is-vertical' : '',
+      isCollsape ? 'is-collsape' : ''
   ]">
-    <li
-      v-if="(collsape && vertical) || !vertical"
-      v-for="(m, idx) in data"
+    <!--drop down menu item-->
+    <t-menu-item-drop
+      v-if="isCollsape || !vertical"
+      v-for="(i, idx) in data"
       :key="idx"
-      class="t-menu__item"
-      :class="[
-        idx === 0 ? 'is-active' : ''
-    ]">
-      <t-dropdown
-          v-if="m.subMenu"
-          :text-center="false"
-          :min-width="200"
-          :side="vertical"
-          hide-on-click
-        >
-        <span
-          class="t-menu__item-content"
-        >
-          <i
-            v-if="m.icon"
-            :class="[
-              't-menu__icon',
-              m.icon
-          ]"
-          ></i>{{ m.name }}
-          <i v-if="m.subMenu" class="fa fa-caret-down"></i>
-        </span>
-          <template slot="dropdown">
-            <t-dropdown-item
-              v-for="(sm, idx) in m.subMenu"
-              :key="idx"
-              :command="sm.command"
-              :disabled="sm.disabled"
-              :divided="sm.divided"
-              :subMenu="sm.subMenu"
-            >{{ sm.name }}
-            </t-dropdown-item>
-          </template>
-        </t-dropdown>
-      <span
-          v-else
-          class="t-menu__item-content"
-        >
-        <i
-          v-if="m.icon"
-          :class="[
-            't-menu__icon',
-            m.icon
-        ]"></i>{{ m.name }}
-      </span>
-    </li>
+      :data="i"
+      :$idx="idx"
+      :is-collsape="isCollsape"
+      :vertical="vertical"
+      :active-index="activeIndex"/>
 
-    <t-menu-item v-if="!collsape && vertical" v-for="(i, idx) in data" :key="idx" :data="i" :$idx="idx" :active-index="activeIndex"/>
+    <!--vertical collsape menu item-->
+    <t-menu-item
+      v-if="!collsape && vertical"
+      v-for="(i, idx) in data"
+      :key="idx"
+      :data="i"
+      :$idx="i.command"
+      :active-index="activeIndex"/>
   </ul>
 </template>
 <script>
-import TMenuItem from './menu-item'
+import TMenuItemDrop from './menu-item-drop'
+import TMenuItem from './menu-item.vue'
 
 export default {
   components: {
+    TMenuItemDrop,
     TMenuItem
   },
 
@@ -85,12 +54,28 @@ export default {
   },
 
   created () {
+    this.formatData()
     this.$on('item-checkout', this.checkoutHandler)
   },
 
   methods: {
+    formatData (parent) {
+      const arr = parent ? parent.subMenu : this.data
+      const _this = this
+      arr.forEach(function (el, idx) {
+        el.command = parent ? `${parent.command}-${idx}` : idx
+        if (el.subMenu) _this.formatData(el)
+      })
+    },
     checkoutHandler (idx) {
       this.activeIndex = idx
+    }
+  },
+
+  computed : {
+    // vertical menu horizon collsape
+    isCollsape () {
+      return this.vertical && this.collsape
     }
   }
 }
