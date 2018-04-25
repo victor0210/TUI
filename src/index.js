@@ -14,6 +14,7 @@ import Radio from './components/radio/index'
 import Switch from './components/switch/index'
 import RadioGroup from './components/radioGroup/index'
 import Select from './components/select/index'
+import Upload from './components/upload/index'
 import Option from './components/option/index'
 import OptionGroup from './components/optionGroup/index'
 import InputNumber from './components/inputNumber/index'
@@ -75,6 +76,7 @@ const Tui = {
   Switch,
   RadioGroup,
   Select,
+  Upload,
   Option,
   OptionGroup,
   InputNumber,
