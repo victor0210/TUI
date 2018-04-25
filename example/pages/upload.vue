@@ -6,7 +6,13 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="8">
-            <t-upload></t-upload>
+            <t-upload
+              action="http://upload.test"
+              @on-upload-success="uploadSuccess"
+              @on-upload-error="uploadError"
+            >
+              <t-button type="sm" icon="fa fa-cloud-upload-alt">上传</t-button>
+            </t-upload>
           </t-col>
         </t-row>
       </div>
@@ -21,6 +27,16 @@ import RadioGroup from '../documents/radio/radioGroup.md'
 export default {
   components: {
     RadioGroup
+  },
+
+  methods: {
+    uploadSuccess (resp) {
+      console.log(resp, 'success')
+    },
+
+    uploadError (err) {
+      console.log(err, 'error')
+    }
   }
 }
 </script>

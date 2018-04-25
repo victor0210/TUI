@@ -2,5 +2,44 @@
 @import "mixins/mixins";
 
 @include b(upload) {
+  @include e(file-list) {
+    color: $--color-text-regular;
+    margin-top: 10px;
+  }
 
+  @include e(file-name) {
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    span i {
+      margin-right: 5px;
+    }
+
+    i.fa-times {
+      height: 24px;
+      width: 24px;
+      line-height: 24px;
+      display: none;
+      text-align: center;
+      color: $--color-text-placeholder;
+      float: right;
+
+      &:hover {
+        color: $--color-text-regular;
+      }
+    }
+
+    &:hover {
+      background-color: #e4e7ed;
+
+      i.fa-times {
+        display: inline-block;
+      }
+    }
+  }
 }
