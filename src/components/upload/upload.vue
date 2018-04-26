@@ -3,7 +3,10 @@
     <div class="t-upload__trigger" @click="() => {$refs.upload.click()}">
       <slot></slot>
     </div>
-    <div class="t-upload__file-list">
+    <div class="t-upload__tip" v-if="$slots.tip">
+      <slot name="tip"></slot>
+    </div>
+    <div class="t-upload__file-list" v-if="showFileList">
       <div class="t-upload__file-info" v-for="(f, idx) in fileList" :key="idx">
         <div class="t-upload__file-name">
           <span class="t-upload__name"><i class="fa fa-file-alt"></i> {{ f.file.name }}</span>
@@ -12,6 +15,7 @@
             <t-tooltip content="重新上传" ref="reupload" theme="dark" position="right">
               <i class="fa fa-exclamation-circle" v-show="f.uploadError" @click="uploadFile(f)"></i>
             </t-tooltip>
+            <i class="fa fa-arrow-alt-circle-up" v-show="f.prepearUpload" @click="uploadFile(f)"></i>
             <i class="fa fa-times" v-show="!f.loading" @click="removeFile(f)"></i>
           </span>
         </div>
@@ -42,6 +46,10 @@ export default {
   },
 
   props: {
+    showFileList: {
+      type: Boolean,
+      default: true
+    },
     action: String,
     method: {
       type: String,
@@ -67,7 +75,11 @@ export default {
 
     multiple: Boolean,
 
-    beforeUpload: Function
+    beforeUpload: Function,
+    onUploadSuccess: Function,
+    onUploadError: Function,
+    beforeRemove: Function,
+    onRemove: Function
   },
 
   mounted () {
@@ -98,7 +110,7 @@ export default {
       this.validate(tfile)
         .then(tfile => {
           this.fileList.push(tfile)
-          this.autoUpload && this.uploadFile(tfile)
+          this.autoUpload ? this.uploadFile(tfile) : (tfile.prepearUpload = true)
         })
     },
 
@@ -108,8 +120,6 @@ export default {
 
         if (this.beforeUpload([...this.fileList], file)) {
           resolve(file)
-        } else {
-          reject(file)
         }
       })
     },
@@ -117,20 +127,24 @@ export default {
     uploadFile (tfile) {
       this.uploader.upload(tfile, this.handleProgressChange)
         .then(resp => {
-          this.$emit('on-upload-success', resp)
+          this.onUploadSuccess && this.onUploadSuccess(resp, tfile)
         })
         .catch(err => {
-          this.$emit('on-upload-error', err)
+          this.onUploadError && this.onUploadError(err, tfile)
         })
     },
 
-    removeFile (file) {
-      this.fileList.splice(this.fileList.indexOf(file), 1)
+    removeFile (tfile) {
+      if ((this.beforeRemove && this.beforeRemove([...this.fileList], tfile)) || !this.beforeRemove) {
+        this.fileList.splice(this.fileList.indexOf(tfile), 1)
+        this.onRemove([...this.fileList], tfile)
+      }
     },
 
     handleProgressChange (e, file, uploadCircle) {
       switch (uploadCircle) {
         case 'start':
+          file.prepearUpload = false
           file.uploadSuccess = false
           file.uploadError = false
           file.loading = true

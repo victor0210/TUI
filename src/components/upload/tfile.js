@@ -6,5 +6,6 @@ export default class TFile {
     this.percent = 0
     this.uploadSuccess = false
     this.uploadError = false
+    this.prepearUpload = false
   }
 }

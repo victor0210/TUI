@@ -7,12 +7,18 @@
         <t-row :gutter="20">
           <t-col :span="8">
             <t-upload
+              :auto-upload="false"
               action="http://upload.test"
               :before-upload="beforeUpload"
-              @on-upload-success="uploadSuccess"
-              @on-upload-error="uploadError"
+              :on-upload-success="uploadSuccess"
+              :on-upload-error="uploadError"
+              :before-remove="beforeRemove"
+              :on-remove="onRemove"
               multiple
             >
+              <template slot="tip">
+                只能上传jpg/png文件，且不超过500kb
+              </template>
               <t-button type="sm" icon="fa fa-cloud-upload-alt">上传</t-button>
             </t-upload>
           </t-col>
@@ -41,8 +47,15 @@ export default {
     },
 
     beforeUpload (fileList, file) {
-      console.log(fileList, file)
       return true
+    },
+
+    beforeRemove (fileList, file) {
+      console.log('before remove', fileList, file)
+      return true
+    },
+    onRemove (fileList, file) {
+      console.log('on remove', fileList, file)
     }
   }
 }

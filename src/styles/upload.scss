@@ -7,6 +7,14 @@
     margin-top: 10px;
   }
 
+  @include e(tip) {
+    height: 24px;
+    line-height: 24px;
+    color: $--color-text-regular;
+    margin-top: 5px;
+    font-size: 13px;
+  }
+
   @include e(file-name) {
     height: 24px;
     line-height: 24px;
@@ -16,13 +24,23 @@
     cursor: pointer;
     border-radius: 4px;
 
-    .t-upload__name i {
-      margin-right: 5px;
+    .t-upload__name {
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      width: 70%;
+      height: 100%;
+      text-overflow: ellipsis;
+
+      i {
+        margin-right: 5px;
+      }
     }
 
     i.fa-times,
     i.fa-check-circle,
-    i.fa-exclamation-circle {
+    i.fa-exclamation-circle,
+    i.fa-arrow-alt-circle-up {
       height: 24px;
       width: 24px;
       line-height: 24px;
@@ -39,8 +57,13 @@
       display: none;
     }
 
-    i.fa-check-circle {
+    i.fa-check-circle,
+    i.fa-arrow-alt-circle-up {
       color: $--color-success;
+
+      &:hover {
+        color: $--color-success;
+      }
     }
 
     i.fa-exclamation-circle {
@@ -56,10 +79,6 @@
 
       i.fa-times {
         display: inline-block;
-      }
-
-      i.fa-check-circle {
-        display: none;
       }
     }
   }
