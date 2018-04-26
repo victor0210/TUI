@@ -16,15 +16,16 @@
     cursor: pointer;
     border-radius: 4px;
 
-    span i {
+    .t-upload__name i {
       margin-right: 5px;
     }
 
-    i.fa-times {
+    i.fa-times,
+    i.fa-check-circle,
+    i.fa-exclamation-circle {
       height: 24px;
       width: 24px;
       line-height: 24px;
-      display: none;
       text-align: center;
       color: $--color-text-placeholder;
       float: right;
@@ -34,12 +35,36 @@
       }
     }
 
+    i.fa-times {
+      display: none;
+    }
+
+    i.fa-check-circle {
+      color: $--color-success;
+    }
+
+    i.fa-exclamation-circle {
+      color: $--color-danger;
+
+      &:hover {
+        color: $--color-danger;
+      }
+    }
+
     &:hover {
       background-color: #e4e7ed;
 
       i.fa-times {
         display: inline-block;
       }
+
+      i.fa-check-circle {
+        display: none;
+      }
     }
+  }
+
+  @include e(file-progress) {
+    transition: all .3s;
   }
 }

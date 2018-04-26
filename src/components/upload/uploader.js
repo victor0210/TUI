@@ -9,12 +9,12 @@ export default class Uploader {
     this.headers = headers
   }
 
-  upload (file) {
-    let fd = new FormData
-    fd.append(this.name, file)
-
+  upload (tfile, handleProgressChange) {
     return new Promise((resolve, reject) => {
-      ajax.send(this.uploadUrl, this.method, fd, this.headers)
+      let fd = new FormData()
+      fd.append(this.name, tfile.file)
+
+      ajax.send(this.uploadUrl, this.method, fd, this.headers, handleProgressChange, tfile)
         .then(resp => {
           resolve(resp)
         })

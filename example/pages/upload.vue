@@ -8,8 +8,10 @@
           <t-col :span="8">
             <t-upload
               action="http://upload.test"
+              :before-upload="beforeUpload"
               @on-upload-success="uploadSuccess"
               @on-upload-error="uploadError"
+              multiple
             >
               <t-button type="sm" icon="fa fa-cloud-upload-alt">上传</t-button>
             </t-upload>
@@ -36,6 +38,11 @@ export default {
 
     uploadError (err) {
       console.log(err, 'error')
+    },
+
+    beforeUpload (fileList, file) {
+      console.log(fileList, file)
+      return true
     }
   }
 }

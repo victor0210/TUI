@@ -1,7 +1,16 @@
 export default class TAjax {
-  send (url, method, data, headers) {
+  send (url, method, data, headers, handleProgressChange, tfile) {
     return new Promise((resolve, reject) => {
       let xhr = new XMLHttpRequest()
+
+      xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+          handleProgressChange(e, tfile)
+        }
+      }
+      xhr.onloadstart = function (e) {
+        handleProgressChange(e, tfile, 'start')
+      }
 
       if (method === 'post' || method === 'put') {
         xhr.open(method, url, true)
@@ -14,11 +23,13 @@ export default class TAjax {
         throw new Error('upload method except [POST] or [PUT] but got [' + method.toUpperCase() + '] !')
       }
 
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function (e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
+            handleProgressChange(e, tfile, 'success')
             resolve(new AjaxResponse(xhr))
           } else {
+            handleProgressChange(e, tfile, 'error')
             reject(new AjaxError(xhr))
           }
         }
