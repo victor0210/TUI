@@ -21,7 +21,7 @@
               <template slot="tip">
                 只能上传jpg/png文件，且不超过500kb
               </template>
-              <t-button type="sm" icon="fa fa-cloud-upload-alt">上传</t-button>
+              <!--<t-button type="sm" icon="fa fa-cloud-upload-alt">上传</t-button>-->
             </t-upload>
           </t-col>
         </t-row>

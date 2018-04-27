@@ -3,11 +3,24 @@
     class="t-upload"
   >
     <div
+      v-if="$slots.default"
       class="t-upload__trigger"
       @click="() => {$refs.upload.click()}"
       ref="trigger"
     >
       <slot/>
+    </div>
+
+    <div
+      v-if="!$slots.default && draggable"
+      class="t-upload__trigger"
+      @click="() => {$refs.upload.click()}"
+      ref="trigger"
+    >
+      <div class="t-upload__drop-area">
+        <i class="fa fa-cloud-upload-alt"></i>
+        <p>拖进文件 或 <span>点击上传</span></p>
+      </div>
     </div>
     <div
       class="t-upload__tip"
@@ -135,8 +148,8 @@ export default {
       this.$refs.trigger.addEventListener('drop', this.onDrop)
     },
     removeDragTrigger () {
-      this.$refs.trigger.removeEvent('dragover', this.onDragOver)
-      this.$refs.trigger.removeEvent('drop', this.onDrop)
+      this.$refs.trigger.removeEventListener('dragover', this.onDragOver)
+      this.$refs.trigger.removeEventListener('drop', this.onDrop)
     },
     onDragOver (e) {
       e.preventDefault()

@@ -15,6 +15,34 @@
     font-size: 13px;
   }
 
+  @include e(drop-area) {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px dashed $--color-text-placeholder;
+    cursor: pointer;
+    text-align: center;
+    padding: 50px 0;
+    color: $--color-text-placeholder;
+    &:hover {
+      border-color: $--color-primary;
+    }
+
+    i {
+      height: 50px;
+      font-size: 50px;
+    }
+    p {
+      font-size: 15px;
+      line-height: 50px;
+
+      span {
+        color: $--color-primary;
+      }
+    }
+  }
+
   @include e(file-name) {
     height: 24px;
     line-height: 24px;
