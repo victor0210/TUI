@@ -1,32 +1,70 @@
 <template>
-  <div class="t-upload">
-    <div class="t-upload__trigger" @click="() => {$refs.upload.click()}" ref="trigger">
-      <slot></slot>
+  <div
+    class="t-upload"
+  >
+    <div
+      class="t-upload__trigger"
+      @click="() => {$refs.upload.click()}"
+      ref="trigger"
+    >
+      <slot/>
     </div>
-    <div class="t-upload__tip" v-if="$slots.tip">
-      <slot name="tip"></slot>
+    <div
+      class="t-upload__tip"
+      v-if="$slots.tip"
+    >
+      <slot name="tip"/>
     </div>
-    <div class="t-upload__file-list" v-if="showFileList">
-      <div class="t-upload__file-info" v-for="(f, idx) in fileList" :key="idx">
+    <div
+      class="t-upload__file-list"
+      v-if="showFileList"
+    >
+      <div
+        class="t-upload__file-info"
+        v-for="(f, idx) in fileList"
+        :key="idx"
+      >
         <div class="t-upload__file-name">
-          <span class="t-upload__name"><i class="fa fa-file-alt"></i> {{ f.file.name }}</span>
+          <span class="t-upload__name">
+            <i class="fa fa-file-alt"></i>
+            {{ f.file.name }}
+          </span>
           <span class="t-upload__alt">
-            <i class="fa fa-check-circle" v-show="f.uploadSuccess"></i>
-            <t-tooltip content="重新上传" ref="reupload" theme="dark" position="right">
-              <i class="fa fa-exclamation-circle" v-show="f.uploadError" @click="uploadFile(f)"></i>
+            <i class="fa fa-check-circle" v-show="f.uploadSuccess"/>
+            <t-tooltip
+              content="重新上传"
+              ref="reupload"
+              theme="dark"
+              position="right"
+            >
+              <i class="fa fa-exclamation-circle" v-show="f.uploadError" @click="uploadFile(f)"/>
             </t-tooltip>
-            <i class="fa fa-arrow-alt-circle-up" v-show="f.prepearUpload" @click="uploadFile(f)"></i>
-            <i class="fa fa-times" v-show="!f.loading" @click="removeFile(f)"></i>
+            <i class="fa fa-arrow-alt-circle-up" v-show="f.prepearUpload" @click="uploadFile(f)"/>
+            <i class="fa fa-times" v-show="!f.loading" @click="removeFile(f)"/>
           </span>
         </div>
         <transition name="fly-top">
-          <div class="t-upload__file-progress" v-if="f.loading">
-            <t-progress :percentage="f.percent" v-if="f.loading"/>
+          <div
+            class="t-upload__file-progress"
+            v-if="f.loading"
+          >
+            <t-progress
+              :percentage="f.percent"
+              v-if="f.loading"/>
          </div>
         </transition>
       </div>
     </div>
-    <input type="file" style="display: none" ref="upload" :name="name" @change="onFileLoad" :multiple="multiple" :webkitdirectory="webkitdirectory">
+    <input
+      type="file"
+      style="display: none"
+      ref="upload"
+      :name="name"
+      @change="onFileLoad"
+      :multiple="multiple"
+      :webkitdirectory="webkitdirectory"
+      :accept="accept"
+    >
   </div>
 </template>
 
@@ -44,7 +82,7 @@ export default {
         this.action,
         this.method,
         this.name,
-        this.headers
+        this.header
       ),
       uploadQueue: []
     }
@@ -66,11 +104,7 @@ export default {
       default: 'file'
     },
     headers: {
-      default: () => {
-        return {
-          'Content-Type': 'multipart/form-data; charset=utf-8; boundary=' + Math.random().toString().substr(2)
-        }
-      }
+      type: Object
     },
 
     autoUpload: {
@@ -81,6 +115,7 @@ export default {
     multiple: Boolean,
     draggable: Boolean,
     webkitdirectory: Boolean,
+    accept: String,
 
     beforeUpload: Function,
     onUploadSuccess: Function,
@@ -100,6 +135,7 @@ export default {
       this.$refs.trigger.addEventListener('drop', this.onDrop)
     },
     removeDragTrigger () {
+      this.$refs.trigger.removeEvent('dragover', this.onDragOver)
       this.$refs.trigger.removeEvent('drop', this.onDrop)
     },
     onDragOver (e) {
@@ -232,6 +268,18 @@ export default {
         this.run(q.pop())
       }
     }
+  },
+
+  computed: {
+    header () {
+      return Object.assign({}, {
+        'Content-Type': 'multipart/form-data; charset=utf-8; boundary=' + Math.random().toString().substr(2)
+      }, this.headers)
+    }
+  },
+
+  beforeDestroy () {
+    this.removeDragTrigger()
   }
 }
 </script>
