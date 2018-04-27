@@ -1,6 +1,6 @@
 <template>
   <div class="t-upload">
-    <div class="t-upload__trigger" @click="() => {$refs.upload.click()}">
+    <div class="t-upload__trigger" @click="() => {$refs.upload.click()}" ref="trigger">
       <slot></slot>
     </div>
     <div class="t-upload__tip" v-if="$slots.tip">
@@ -26,7 +26,7 @@
         </transition>
       </div>
     </div>
-    <input type="file" style="display: none" ref="upload" :name="name" @change="onFileLoad" :multiple="multiple">
+    <input type="file" style="display: none" ref="upload" :name="name" @change="onFileLoad" :multiple="multiple" :webkitdirectory="webkitdirectory">
   </div>
 </template>
 
@@ -40,7 +40,12 @@ export default {
     return {
       fileList: [],
       uploadPercentage: 50,
-      uploader: null,
+      uploader: new Uploader(
+        this.action,
+        this.method,
+        this.name,
+        this.headers
+      ),
       uploadQueue: []
     }
   },
@@ -74,6 +79,8 @@ export default {
     },
 
     multiple: Boolean,
+    draggable: Boolean,
+    webkitdirectory: Boolean,
 
     beforeUpload: Function,
     onUploadSuccess: Function,
@@ -83,17 +90,69 @@ export default {
   },
 
   mounted () {
-    this.uploader = new Uploader(
-      this.action,
-      this.method,
-      this.name,
-      this.headers
-    )
+    this.draggable && this.bindDragTrigger()
   },
 
-  //  TODO: 1.select; => draggable
   //  TODO: 2.validate; => default config params
   methods: {
+    bindDragTrigger () {
+      this.$refs.trigger.addEventListener('dragover', this.onDragOver)
+      this.$refs.trigger.addEventListener('drop', this.onDrop)
+    },
+    removeDragTrigger () {
+      this.$refs.trigger.removeEvent('drop', this.onDrop)
+    },
+    onDragOver (e) {
+      e.preventDefault()
+    },
+    onDrop (e) {
+      // Prevent default behavior (Prevent file from being opened)
+      e.preventDefault();
+
+      if (e.dataTransfer.items) {
+        // Use DataTransferItemList interface to access the file(s)
+        for (let i = 0; i < e.dataTransfer.items.length; i++) {
+          let entry = e.dataTransfer.items[i].webkitGetAsEntry()
+          // If dropped items aren't files, reject them
+          if (entry.isFile) {
+            let file = e.dataTransfer.items[i].getAsFile();
+            this.uploadQueue.push(file)
+          } else if (entry.isDirectory) {
+            this.readDirectoryFiles(entry)
+          }
+        }
+      } else {
+        // Use DataTransfer interface to access the file(s)
+        for (let i = 0; i < e.dataTransfer.files.length; i++) {
+          this.uploadQueue.push(e.dataTransfer.files[i])
+        }
+      }
+
+      this.removeDragData(e)
+    },
+    readDirectoryFiles (directoryEntry) {
+      let dirReader = directoryEntry.createReader()
+      dirReader.readEntries(entries => {
+        entries.forEach(entr => {
+          if (entr.isFile) {
+            entr.file(file => {
+              this.uploadQueue.push(file)
+            })
+          } else if (entr.isDirectory) {
+            this.readDirectoryFiles(entr)
+          }
+        })
+      })
+    },
+    removeDragData (e) {
+      if (e.dataTransfer.items) {
+        // Use DataTransferItemList interface to remove the drag data
+        e.dataTransfer.items.clear();
+      } else {
+        // Use DataTransfer interface to remove the drag data
+        e.dataTransfer.clearData();
+      }
+    },
     onFileLoad (e) {
       let len = e.target.files.length
       for (let i = 0; i < len; i++) {

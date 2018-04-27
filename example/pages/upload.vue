@@ -14,7 +14,9 @@
               :on-upload-error="uploadError"
               :before-remove="beforeRemove"
               :on-remove="onRemove"
+              webkitdirectory
               multiple
+              draggable
             >
               <template slot="tip">
                 只能上传jpg/png文件，且不超过500kb
