@@ -2,7 +2,7 @@
   <div
     class="t-progress"
     :style="{
-      width: type === 'circle' ? `${circleSize}px` : `${width}px`,
+      width: type === 'circle' ? `${circleSize}px` : width,
       height: type === 'circle' ? `${circleSize}px` : 'auto'
     }"
     :class="[
@@ -14,7 +14,7 @@
       <div
         class="t-progress__line-wrapper"
         :style="{
-          width: textInside ? `${width}px` : `${width - 50}px`,
+          width: width,
           height: `${strokeWidth}px`
         }"
       >
@@ -109,8 +109,8 @@ export default {
       default: 0
     },
     width: {
-      type: Number,
-      default: 300
+      type: String,
+      default: '100%'
     },
     strokeWidth: {
       type: Number,

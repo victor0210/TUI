@@ -21,10 +21,10 @@
         <div class="source">
           <t-row>
             <t-col>
-              <t-progress :stroke-width="16" text-inside :width="200"/>
-              <t-progress :percentage="35" :stroke-width="16" text-inside :width="250"/>
-              <t-progress :percentage="70" :stroke-width="16" status="success" text-inside :width="300"/>
-              <t-progress :percentage="100" :stroke-width="16" bar-fill="linear-gradient(to left, #ff9900, #ffcc00)" text-inside :width="350"/>
+              <t-progress :stroke-width="16" text-inside width="200px"/>
+              <t-progress :percentage="35" :stroke-width="16" text-inside width="250px"/>
+              <t-progress :percentage="70" :stroke-width="16" status="success" text-inside width="300px"/>
+              <t-progress :percentage="100" :stroke-width="16" bar-fill="linear-gradient(to left, #ff9900, #ffcc00)" text-inside width="350px"/>
             </t-col>
           </t-row>
         </div>

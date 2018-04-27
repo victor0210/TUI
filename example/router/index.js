@@ -170,6 +170,11 @@ export default new Router({
       path: '/collsape',
       name: 'collsape',
       component: r => require.ensure([], () => r(require('../pages/collsape.vue')))
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: r => require.ensure([], () => r(require('../pages/upload.vue')))
     }
   ]
 })

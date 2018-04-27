@@ -23,6 +23,17 @@
 }
 
 //  Input Error Message
+.fly-top-enter-active, .fly-top-leave-active {
+  padding-top: 0;
+  opacity: 1;
+}
+
+.fly-top-enter, .fly-top-leave-to {
+  margin-top: -20px;
+  opacity: 0;
+}
+
+//  Input Error Message
 .expand-enter-active, .expand-leave-active {
   opacity: 1;
 }

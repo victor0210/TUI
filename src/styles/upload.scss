@@ -1,0 +1,182 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(upload) {
+  @include e(tip) {
+    height: 24px;
+    line-height: 24px;
+    color: $--color-text-regular;
+    margin-top: 5px;
+    font-size: 13px;
+  }
+
+  @include e(drop-area) {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px dashed $--color-text-placeholder;
+    cursor: pointer;
+    text-align: center;
+    padding: 50px 0;
+    color: $--color-text-placeholder;
+    &:hover {
+      border-color: $--color-primary;
+    }
+
+    i {
+      height: 50px;
+      font-size: 50px;
+    }
+    p {
+      font-size: 15px;
+      line-height: 50px;
+
+      span {
+        color: $--color-primary;
+      }
+    }
+  }
+
+  @include e(file-name) {
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    .t-upload__name {
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      width: 70%;
+      height: 100%;
+      text-overflow: ellipsis;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+
+    i.fa-times,
+    i.fa-check-circle,
+    i.fa-exclamation-circle,
+    i.fa-arrow-alt-circle-up {
+      height: 24px;
+      width: 24px;
+      line-height: 24px;
+      text-align: center;
+      color: $--color-text-placeholder;
+      float: right;
+
+      &:hover {
+        color: $--color-text-regular;
+      }
+    }
+
+    i.fa-times {
+      display: none;
+    }
+
+    i.fa-check-circle,
+    i.fa-arrow-alt-circle-up {
+      color: $--color-success;
+
+      &:hover {
+        color: $--color-success;
+      }
+    }
+
+    i.fa-exclamation-circle {
+      color: $--color-danger;
+
+      &:hover {
+        color: $--color-danger;
+      }
+    }
+
+    &:hover {
+      background-color: #e4e7ed;
+
+      i.fa-times {
+        display: inline-block;
+      }
+    }
+  }
+
+  @include e(file-progress) {
+    transition: all .3s;
+  }
+
+  @include e(file-list) {
+    color: $--color-text-regular;
+    margin-top: 10px;
+
+    @include m(pic) {
+      .t-upload__file-info {
+        height: 74px;
+        padding: 5px 10px 5px 80px;
+        border: $--border-base;
+        border-radius: 4px;
+        box-sizing: border-box;
+        position: relative;
+        box-shadow: $--box-shadow-base;
+        + .t-upload__file-info {
+          margin-top: 10px;
+        }
+      }
+
+      .t-upload__pic {
+        cursor: zoom-in;
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 60px;
+        height: 60px;
+        display: block;
+        box-sizing: border-box;
+
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+        .t-upload__file-name {
+          height: 60px;
+          &:hover {
+            background-color: $--color-white;
+          }
+
+        .t-upload__name {
+          padding-left: 10px;
+          border-left: 1px dashed $--border-color-base;
+          height: 60px;
+          line-height: 60px;
+        }
+
+        .t-upload__alt {
+          i {
+            height: 60px;
+            line-height: 60px;
+          }
+        }
+      }
+
+      .t-upload__file-progress {
+        bottom: 5px;
+        left: 80px;
+        right: 5px;
+        height: 14px;
+        padding: 0 10px;
+        overflow: hidden;
+        position: absolute;
+      }
+    }
+  }
+}

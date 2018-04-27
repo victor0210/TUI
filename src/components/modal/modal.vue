@@ -45,7 +45,11 @@ export default {
       type: Number,
       default: 300
     },
-    size: String
+    size: String,
+    hideOnClick: {
+      type: Boolean,
+      default: false
+    }
   },
 
   render (h) {
@@ -120,23 +124,45 @@ export default {
               !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             }, 100)
 
+            _this.hideOnClick && document.addEventListener('click', this.handleExtraClick, false)
             _this.$emit('modal-open')
+            _this.$emit('update:show', true)
           },
           hideModal () {
             !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
 
+            _this.hideOnClick && document.removeEventListener('click', this.handleExtraClick, false)
             setTimeout(() => {
               this.show && document.body.removeChild(this.$el)
               this.show = false
             }, 300)
 
             _this.$emit('modal-close')
+            _this.$emit('update:show', false)
           },
           remove () {
             this.show && document.body.removeChild(this.$el)
             this.$destroy()
+          },
+          handleExtraClick (e) {
+            let isInbox = false
+            let parent = e.target.offsetParent
+
+            while (parent !== null) {
+              if (parent.className.indexOf('t-modal__container') !== -1) {
+                isInbox = true
+                break
+              }
+
+              parent = parent.offsetParent
+            }
+            console.log(parent, isInbox)
+
+            if (!isInbox) {
+              this.hideModal()
+            }
           }
         }
       })

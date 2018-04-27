@@ -168,6 +168,11 @@ export default {
           chinese: '级联'
         },
         {
+          route: '/upload',
+          name: 'Upload',
+          chinese: '文件上传'
+        },
+        {
           route: '/datepicker',
           name: 'Datepicker',
           chinese: '日期选择器'
