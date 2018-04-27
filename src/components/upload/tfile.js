@@ -7,5 +7,18 @@ export default class TFile {
     this.uploadSuccess = false
     this.uploadError = false
     this.prepearUpload = false
+    this.uri = ''
+
+    this.setFileUrl()
+  }
+
+  setFileUrl () {
+    let reader  = new FileReader();
+
+    reader.addEventListener("load", () => {
+      this.uri = reader.result;
+    }, false);
+
+    reader.readAsDataURL(this.file);
   }
 }

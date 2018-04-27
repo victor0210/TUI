@@ -30,7 +30,7 @@
     </div>
     <div
       class="t-upload__file-list"
-      v-if="showFileList"
+      v-if="showFileList && !listType"
     >
       <div
         class="t-upload__file-info"
@@ -68,6 +68,49 @@
         </transition>
       </div>
     </div>
+    <div
+      class="t-upload__file-list t-upload__file-list--pic"
+      v-if="showFileList && listType === 'pic' && fileList.length > 0"
+    >
+      <div
+        class="t-upload__file-info"
+        v-for="(f, idx) in fileList"
+        :key="idx"
+      >
+        <div class="t-upload__pic" @click="preview(f.uri)">
+          <img :src="f.uri">
+        </div>
+        <div class="t-upload__file-name">
+          <span class="t-upload__name">
+            <i class="fa fa-file-alt"></i>
+            {{ f.file.name }}
+          </span>
+          <span class="t-upload__alt">
+            <i class="fa fa-check-circle" v-show="f.uploadSuccess"/>
+            <t-tooltip
+              content="重新上传"
+              ref="reupload"
+              theme="dark"
+              position="right"
+            >
+              <i class="fa fa-exclamation-circle" v-show="f.uploadError" @click="uploadFile(f)"/>
+            </t-tooltip>
+            <i class="fa fa-arrow-alt-circle-up" v-show="f.prepearUpload" @click="uploadFile(f)"/>
+            <i class="fa fa-times" v-show="!f.loading" @click="removeFile(f)"/>
+          </span>
+        </div>
+        <transition name="fly-top">
+          <div
+            class="t-upload__file-progress"
+            v-if="f.loading"
+          >
+            <t-progress
+              :percentage="f.percent"
+              v-if="f.loading"/>
+          </div>
+        </transition>
+      </div>
+    </div>
     <input
       type="file"
       style="display: none"
@@ -78,6 +121,12 @@
       :webkitdirectory="webkitdirectory"
       :accept="accept"
     >
+
+    <t-modal :show-close="false" :show.sync="isPreview" hide-on-click style="text-align: center">
+      <template slot="body">
+        <img :src="previewUri" style="width: 100%">
+      </template>
+    </t-modal>
   </div>
 </template>
 
@@ -91,6 +140,8 @@ export default {
     return {
       fileList: [],
       uploadPercentage: 50,
+      isPreview: false,
+      previewUri: '',
       uploader: new Uploader(
         this.action,
         this.method,
@@ -134,7 +185,9 @@ export default {
     onUploadSuccess: Function,
     onUploadError: Function,
     beforeRemove: Function,
-    onRemove: Function
+    onRemove: Function,
+
+    listType: String
   },
 
   mounted () {
@@ -150,6 +203,10 @@ export default {
     removeDragTrigger () {
       this.$refs.trigger.removeEventListener('dragover', this.onDragOver)
       this.$refs.trigger.removeEventListener('drop', this.onDrop)
+    },
+    preview (uri) {
+      this.previewUri = uri
+      this.isPreview = true
     },
     onDragOver (e) {
       e.preventDefault()
@@ -207,14 +264,13 @@ export default {
       for (let i = 0; i < len; i++) {
         this.uploadQueue.push(e.target.files[i])
       }
-
-      e.target.value = null
     },
 
     // run file validate && auto upload
     run (file) {
       let tfile = new TFile(file)
 
+      console.log(tfile)
       this.validate(tfile)
         .then(tfile => {
           this.fileList.push(tfile)
@@ -223,7 +279,7 @@ export default {
     },
 
     validate (file) {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         !this.beforeUpload && resolve(file)
 
         if (this.beforeUpload([...this.fileList], file)) {
@@ -286,7 +342,7 @@ export default {
   computed: {
     header () {
       return Object.assign({}, {
-        'Content-Type': 'multipart/form-data; charset=utf-8; boundary=' + Math.random().toString().substr(2)
+        'Content-Type': 'multipart/form-data; charset=utf-8;'
       }, this.headers)
     }
   },

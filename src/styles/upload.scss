@@ -2,11 +2,6 @@
 @import "mixins/mixins";
 
 @include b(upload) {
-  @include e(file-list) {
-    color: $--color-text-regular;
-    margin-top: 10px;
-  }
-
   @include e(tip) {
     height: 24px;
     line-height: 24px;
@@ -113,5 +108,75 @@
 
   @include e(file-progress) {
     transition: all .3s;
+  }
+
+  @include e(file-list) {
+    color: $--color-text-regular;
+    margin-top: 10px;
+
+    @include m(pic) {
+      .t-upload__file-info {
+        height: 74px;
+        padding: 5px 10px 5px 80px;
+        border: $--border-base;
+        border-radius: 4px;
+        box-sizing: border-box;
+        position: relative;
+        box-shadow: $--box-shadow-base;
+        + .t-upload__file-info {
+          margin-top: 10px;
+        }
+      }
+
+      .t-upload__pic {
+        cursor: zoom-in;
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 60px;
+        height: 60px;
+        display: block;
+        box-sizing: border-box;
+
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+        .t-upload__file-name {
+          height: 60px;
+          &:hover {
+            background-color: $--color-white;
+          }
+
+        .t-upload__name {
+          padding-left: 10px;
+          border-left: 1px dashed $--border-color-base;
+          height: 60px;
+          line-height: 60px;
+        }
+
+        .t-upload__alt {
+          i {
+            height: 60px;
+            line-height: 60px;
+          }
+        }
+      }
+
+      .t-upload__file-progress {
+        bottom: 5px;
+        left: 80px;
+        right: 5px;
+        height: 14px;
+        padding: 0 10px;
+        overflow: hidden;
+        position: absolute;
+      }
+    }
   }
 }
