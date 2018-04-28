@@ -65,7 +65,7 @@
         class="t-upload__file-info"
         v-for="(f, idx) in fileList"
         :key="idx">
-        <div class="t-upload__pic" @click="preview(f.uri)">
+        <div class="t-upload__pic" @click="preview(f)">
           <img :src="f.uri">
         </div>
         <div class="t-upload__file-name">
@@ -173,8 +173,12 @@ export default {
     onUploadError: Function,
     beforeRemove: Function,
     onRemove: Function,
+    onPreview: Function,
+    onExceed: Function,
 
-    listType: String
+    listType: String,
+
+    limit: Number
   },
 
   mounted () {
@@ -194,10 +198,10 @@ export default {
       this.$refs.trigger.removeEventListener('dragover', this.onDragOver)
       this.$refs.trigger.removeEventListener('drop', this.onDrop)
     },
-    preview (uri) {
-      this.previewUri = uri
+    preview (tfile) {
+      this.previewUri = file.uri
       this.isPreview = true
-      this.$emit('on-preview')
+      this.onPreview && this.onPreview(tfile)
     },
     onDragOver (e) {
       e.preventDefault()
@@ -213,7 +217,7 @@ export default {
           // If dropped items aren't files, reject them
           if (entry.isFile) {
             let file = e.dataTransfer.items[i].getAsFile();
-            this.uploadQueue.push(file)
+            this.loadFile(file)
           } else if (entry.isDirectory) {
             this.readDirectoryFiles(entry)
           }
@@ -221,7 +225,7 @@ export default {
       } else {
         // Use DataTransfer interface to access the file(s)
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
-          this.uploadQueue.push(e.dataTransfer.files[i])
+          this.loadFile(e.dataTransfer.files[i])
         }
       }
 
@@ -233,7 +237,7 @@ export default {
         entries.forEach(entr => {
           if (entr.isFile) {
             entr.file(file => {
-              this.uploadQueue.push(file)
+              this.loadFile(file)
             })
           } else if (entr.isDirectory) {
             this.readDirectoryFiles(entr)
@@ -253,8 +257,12 @@ export default {
     onFileLoad (e) {
       let len = e.target.files.length
       for (let i = 0; i < len; i++) {
-        this.uploadQueue.push(e.target.files[i])
+        this.loadFile(e.target.files[i])
       }
+    },
+
+    loadFile (file) {
+      this.uploadQueue.push(file)
     },
 
     // run file validate && auto upload
@@ -266,10 +274,21 @@ export default {
           this.fileList.push(tfile)
           this.autoUpload ? this.uploadFile(tfile) : (tfile.prepearUpload = true)
         })
+        .catch(err => {
+          console.warn(err)
+        })
     },
 
     validate (file) {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
+
+        //  component validator
+        if (this.limit === this.fileList.length) {
+          this.onExceed && this.onExceed(file)
+          reject('list size exceed !')
+        }
+
+        //  user validator
         !this.beforeUpload && resolve(file)
 
         if (this.beforeUpload([...this.fileList], file)) {
@@ -324,7 +343,9 @@ export default {
   watch: {
     uploadQueue (q) {
       if (q.length > 0) {
-        this.run(q.pop())
+        setTimeout(() => {
+          this.run(q.pop())
+        }, 50)
       }
     }
   },
@@ -338,7 +359,7 @@ export default {
   },
 
   beforeDestroy () {
-    this.removeDragTrigger()
+    this.$refs.trigger && this.removeDragTrigger()
   }
 }
 </script>
