@@ -7,7 +7,7 @@
     }">
     <div class="t-cascader__input" @click.prevent="checkout">
       <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner" :placeholder="placeholder">
-      <i class="t-cascader__input-icon t-cascader__drop-icon fa fa-chevron-down" :class="{
+      <i class="t-cascader__input-icon t-cascader__drop-icon fa fa-caret-down" :class="{
         't-cascader__input-icon--open': isFocus
       }" ref="drop_icon"></i>
       <i class="t-cascader__input-icon t-cascader__clear-icon fa fa-times-circle" v-if="clearable && label !== ''" ref="clear_icon" @click.prevent="clearInput"></i>
