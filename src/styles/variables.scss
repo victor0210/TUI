@@ -7,29 +7,23 @@ $--color-white: #fff !default;
 $--color-black: #000 !default;
 $--color-gray: #555 !default;
 
-$--color-primary: #409EFF !default;
-$--color-success: #2ecc66 !default;
-$--color-warning: #f4d03d !default;
-$--color-danger: #f56c6c !default;
-$--color-cyan: #17a2b8 !default;
-$--color-info: #3498db !default;
-$--color-inverse: #34495e !default;
+$--color-primary: #44A9FF !default;
+$--color-success: #2ed573 !default;
+$--color-warning: #FFDC23 !default;
+$--color-danger: #FF5500 !default;
+$--color-info: #34495e !default;
 
 $--color-primary-light: mix($--color-white, $--color-primary, 80%) !default;
 $--color-success-light: mix($--color-white, $--color-success, 80%) !default;
 $--color-warning-light: mix($--color-white, $--color-warning, 80%) !default;
 $--color-danger-light: mix($--color-white, $--color-danger, 80%) !default;
 $--color-info-light: mix($--color-white, $--color-info, 80%) !default;
-$--color-cyan-light: mix($--color-white, $--color-cyan, 80%) !default;
-$--color-inverse-light: mix($--color-white, $--color-cyan, 80%) !default;
 
 $--color-primary-lighter: mix($--color-white, $--color-primary, 90%) !default;
 $--color-success-lighter: mix($--color-white, $--color-success, 90%) !default;
 $--color-warning-lighter: mix($--color-white, $--color-warning, 90%) !default;
 $--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
 $--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;
-$--color-cyan-lighter: mix($--color-white, $--color-cyan, 90%) !default;
-$--color-inverse-lighter: mix($--color-white, $--color-inverse, 90%) !default;
 
 $--color-text-primary: #303133 !default;
 $--color-text-regular: #606266 !default;
@@ -141,14 +135,6 @@ $--button-danger-border: $--color-danger !default;
 $--button-danger-color: $--color-white !default;
 $--button-danger-fill: $--color-danger !default;
 
-$--button-cyan-border: $--color-cyan !default;
-$--button-cyan-color: $--color-white !default;
-$--button-cyan-fill: $--color-cyan !default;
-
-$--button-inverse-border: $--color-inverse !default;
-$--button-inverse-color: $--color-white !default;
-$--button-inverse-fill: $--color-inverse !default;
-
 $--button-info-border: $--color-info !default;
 $--button-info-color: $--color-white !default;
 $--button-info-fill: $--color-info !default;
@@ -163,7 +149,7 @@ $--button-outline-hover-shade-percent: 95% !default;
 /**
  * ------------------------- Button Group --------------------------
  */
-$--button-group-border-radius: 23px !default;
+$--button-group-border-radius: $--border-radius-base !default;
 
 /**
  * ------------------------- Button Group --------------------------
@@ -209,10 +195,6 @@ $--tag-border: rgba($--color-primary, 0.20) !default;
 $--tag-font-size: 12px !default;
 $--tag-border-radius: 4px !default;
 
-$--tag-inverse-fill: rgba($--color-inverse, 0.05) !default;
-$--tag-inverse-border: rgba($--color-inverse, 0.10) !default;
-$--tag-inverse-color: $--color-inverse !default;
-
 $--tag-primary-fill: rgba($--color-primary, 0.10) !default;
 $--tag-primary-border: rgba($--color-primary, 0.20) !default;
 $--tag-primary-color: $--color-primary !default;
@@ -220,6 +202,10 @@ $--tag-primary-color: $--color-primary !default;
 $--tag-success-fill: rgba($--color-success, 0.10) !default;
 $--tag-success-border: rgba($--color-success, 0.20) !default;
 $--tag-success-color: $--color-success !default;
+
+$--tag-info-fill: rgba($--color-info, 0.10) !default;
+$--tag-info-border: rgba($--color-info, 0.20) !default;
+$--tag-info-color: $--color-info !default;
 
 $--tag-warning-fill: rgba($--color-warning, 0.10) !default;
 $--tag-warning-border: rgba($--color-warning, 0.20) !default;

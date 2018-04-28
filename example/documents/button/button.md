@@ -1,7 +1,6 @@
 ::: demo
 ```html
 <t-button type="primary" size="lg" :disabled="true">primary</t-button>
-<t-button type="cyan" size="lg">cyan</t-button>
 <t-button type="warning" size="lg">warning</t-button>
 <t-button type="danger">danger</t-button>
 <t-button type="success">success</t-button>

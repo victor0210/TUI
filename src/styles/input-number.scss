@@ -82,12 +82,6 @@ $p: 't-input-number';
     }
   }
 
-  @include m(cyan) {
-    border-color: $--color-cyan;
-    &:hover {
-      border-color: $--color-cyan;
-    }
-  }
   @include m(success) {
     border-color: $--color-success;
     &:hover {
@@ -104,12 +98,6 @@ $p: 't-input-number';
     border-color: $--color-danger;
     &:hover {
       border-color: $--color-danger;
-    }
-  }
-  @include m(inverse) {
-    border-color: $--color-inverse;
-    &:hover {
-      border-color: $--color-inverse;
     }
   }
   @include m(info) {

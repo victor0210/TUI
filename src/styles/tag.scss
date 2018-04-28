@@ -38,21 +38,21 @@
     }
   }
 
-  @include m(inverse) {
-    background-color: $--tag-inverse-fill;
-    border-color: $--tag-inverse-border;
-    color: $--tag-inverse-color;
+  @include m(info) {
+    background-color: $--tag-info-fill;
+    border-color: $--tag-info-border;
+    color: $--tag-info-color;
 
     @include when(hit) {
-      border-color: $--tag-inverse-color;
+      border-color: $--tag-info-color;
     }
 
     .t-tag__close {
-      color: $--tag-inverse-color;
+      color: $--tag-info-color;
     }
 
     .t-tag__close:hover {
-      background-color: $--tag-inverse-color;
+      background-color: $--tag-info-color;
       color: $--color-white;
     }
   }

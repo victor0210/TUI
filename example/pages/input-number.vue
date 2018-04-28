@@ -10,7 +10,6 @@
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="warning"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="danger"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="info"/></t-col></t-row>
-          <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="cyan"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="inverse"/></t-col></t-row>
         </div>
         <normal-md/>
