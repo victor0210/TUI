@@ -60,6 +60,27 @@
       </div>
       <cascader-searchable/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">普通复选框</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-cascader :options="option" v-model="op1" size="lg"/>
+          </t-col>
+          <t-col :span="6">
+            <t-cascader :options="option" v-model="op1"/>
+          </t-col>
+          <t-col :span="6">
+            <t-cascader :options="option" v-model="op1" size="sm" :width="150"/>
+          </t-col>
+          <t-col :span="6">
+            <t-cascader :options="option" v-model="op1" size="mini" :width="120"/>
+          </t-col>
+        </t-row>
+      </div>
+      <cascader-normal/>
+    </div>
   </div>
 </template>
 

@@ -2,6 +2,7 @@
 @import "mixins/mixins";
 @import "mixins/select";
 @import "mixins/drop";
+@import "mixins/input";
 
 @include b(cascader) {
   @include select-input-variant();
@@ -15,19 +16,30 @@
     outline: none;
   }
 
+  @include m(lg) {
+    @include input-size($--input-height-lg, $--input-font-size-lg)
+  }
+
+  @include m(sm) {
+    @include input-size($--input-height-sm, $--input-font-size-base)
+  }
+
+  @include m(mini) {
+    @include input-size($--input-height-mini, $--input-font-size-mini)
+  }
+
   @include e(inner) {
     position: relative;
     border: none;
     box-sizing: border-box;
-    min-height: $--select-input-line-height;
-    line-height: $--select-input-line-height;
+    height: 100%;
     padding: $--select-input-wrapper-padding;
     cursor: pointer;
     width: 100%;
     margin: 0;
     display: inline-block;
+    float: left;
     -webkit-box-sizing: border-box;
-    vertical-align: middle;
   }
 
   @include e(input-icon) {

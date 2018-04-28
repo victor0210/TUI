@@ -1,12 +1,18 @@
 <template>
-  <div class="t-cascader" :class="{
-      'is-focus': isFocus,
-      'is-disabled': disabled,
-      'is-clearable': clearable && label.length > 0,
-      'is-searchable': searchable
+  <div class="t-cascader" :class="[
+      isFocus ? 'is-focus': '',
+      disabled ? 'is-disabled': '',
+      clearable && label.length > 0 ? 'is-clearable': '',
+      searchable ? 'is-searchable': '',
+      size ? `t-cascader--${size}` : ''
+    ]" :style="{
+      height: height ? `${height}px` : '',
+      width: width ? `${width}px` : ''
     }">
     <div class="t-cascader__input" @click.prevent="checkout">
-      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner" :placeholder="placeholder">
+      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner" :placeholder="placeholder" :style="{
+       lineHeight: height ? `${height}px` : '',
+      }">
       <i class="t-cascader__input-icon t-cascader__drop-icon fa fa-caret-down" :class="{
         't-cascader__input-icon--open': isFocus
       }" ref="drop_icon"></i>
@@ -96,7 +102,10 @@ export default {
     options: {},
     value: Array,
     searchable: Boolean,
-    onlyLast: Boolean
+    onlyLast: Boolean,
+    width: Number,
+    height: Number,
+    size: String
   },
 
   created () {

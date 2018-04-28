@@ -92,7 +92,8 @@
   height: $height;
   min-height: $height;
   & .t-input__wrapper .t-input__inner,
-  & .t-select__input {
+  & .t-select__input,
+  & .t-cascader__input {
     font-size: $fontSize;
     line-height: $height - 2;
   }
