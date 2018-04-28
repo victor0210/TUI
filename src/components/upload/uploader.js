@@ -2,11 +2,12 @@ import Ajax from './ajax'
 let ajax = new Ajax()
 
 export default class Uploader {
-  constructor (uploadUrl, method, name, headers) {
+  constructor (uploadUrl, method, name, headers, withCredentials) {
     this.uploadUrl = uploadUrl
     this.method = method
     this.name = name
     this.headers = headers
+    this.withCredentials = withCredentials
   }
 
   upload (tfile, handleProgressChange) {
@@ -14,7 +15,7 @@ export default class Uploader {
       let fd = new FormData()
       fd.append(this.name, tfile.file)
 
-      ajax.send(this.uploadUrl, this.method, fd, this.headers, handleProgressChange, tfile)
+      ajax.send(this.uploadUrl, this.method, fd, this.headers, this.withCredentials, handleProgressChange, tfile)
         .then(resp => {
           resolve(resp)
         })

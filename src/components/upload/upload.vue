@@ -46,7 +46,6 @@
             <i class="fa fa-check-circle" v-show="f.uploadSuccess"/>
             <t-tooltip
               content="重新上传"
-              ref="reupload"
               theme="dark"
               position="right"
             >
@@ -139,14 +138,14 @@ export default {
   data () {
     return {
       fileList: [],
-      uploadPercentage: 50,
       isPreview: false,
       previewUri: '',
       uploader: new Uploader(
         this.action,
         this.method,
         this.name,
-        this.header
+        this.header,
+        this.withCredentials
       ),
       uploadQueue: []
     }
@@ -171,6 +170,7 @@ export default {
       type: Object
     },
 
+    withCredentials: Boolean,
     autoUpload: {
       type: Boolean,
       default: true
