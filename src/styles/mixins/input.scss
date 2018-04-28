@@ -87,3 +87,10 @@
     line-height: $--input-height-base;
   }
 }
+
+@mixin input-size($height, $fontSize) {
+  height: $height;
+  & .t-input__wrapper .t-input__inner {
+    font-size: $fontSize;
+  }
+}
