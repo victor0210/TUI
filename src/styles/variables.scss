@@ -178,6 +178,14 @@ $--input-icon-width: 30px;
 $--input-number-border-hover-color: $--color-gray;
 
 /**
+ * --------------------------- Checkbox ---------------------------
+ */
+$--checkbox-height-base: 24px;
+$--checkbox-outbox-padding: 6px 20px 6px 10px;
+$--checkbox-label-padding: 0 10px;
+$--checkbox-label-font-size: 15px;
+
+/**
  * ------------------------- Select Group --------------------------
  */
 $--select-inner-height: 36px !default;
