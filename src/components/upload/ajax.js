@@ -1,7 +1,9 @@
 export default class TAjax {
-  send (url, method, data, headers, handleProgressChange, tfile) {
+  send (url, method, data, headers, withCredentials, handleProgressChange, tfile) {
     return new Promise((resolve, reject) => {
       let xhr = new XMLHttpRequest()
+
+      xhr.withCredentials = withCredentials
 
       xhr.upload.onprogress = function (e) {
         if (e.lengthComputable) {

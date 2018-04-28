@@ -19,6 +19,6 @@ export default class TFile {
       this.uri = reader.result;
     }, false);
 
-    reader.readAsDataURL(this.file);
+    this.file && reader.readAsDataURL(this.file);
   }
 }

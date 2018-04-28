@@ -14,8 +14,11 @@
               :on-upload-error="uploadError"
               :before-remove="beforeRemove"
               :on-remove="onRemove"
+              drag
               multiple
-              draggable
+              :limit="2"
+              :on-exceed="onExceed"
+              webkitdirectory
               list-type="pic"
             >
               <template slot="tip">
@@ -58,6 +61,9 @@ export default {
     },
     onRemove (fileList, file) {
       console.log('on remove', fileList, file)
+    },
+    onExceed (file) {
+      console.log('exceed', file)
     }
   }
 }
