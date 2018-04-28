@@ -4,7 +4,7 @@ export default class TAjax {
       let xhr = new XMLHttpRequest()
 
       xhr.withCredentials = withCredentials
-      
+
       xhr.upload.onprogress = function (e) {
         if (e.lengthComputable) {
           handleProgressChange(e, tfile)

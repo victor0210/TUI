@@ -3,7 +3,6 @@
 
 @include b(upload) {
   @include e(tip) {
-    height: 24px;
     line-height: 24px;
     color: $--color-text-regular;
     margin-top: 5px;

@@ -15,7 +15,8 @@
               :before-remove="beforeRemove"
               :on-remove="onRemove"
               multiple
-              draggable
+              drag
+              disabled
               list-type="pic"
             >
               <template slot="tip">

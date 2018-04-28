@@ -1,22 +1,18 @@
 <template>
-  <div
-    class="t-upload"
-  >
+  <div class="t-upload">
     <div
       v-if="$slots.default"
       class="t-upload__trigger"
-      @click="() => {$refs.upload.click()}"
-      ref="trigger"
-    >
+      @click="fireUpload"
+      ref="trigger">
       <slot/>
     </div>
 
     <div
-      v-if="!$slots.default && draggable"
+      v-if="!$slots.default && drag"
       class="t-upload__trigger"
-      @click="() => {$refs.upload.click()}"
-      ref="trigger"
-    >
+      @click="fireUpload"
+      ref="trigger">
       <div class="t-upload__drop-area">
         <i class="fa fa-cloud-upload-alt"></i>
         <p>拖进文件 或 <span>点击上传</span></p>
@@ -24,19 +20,16 @@
     </div>
     <div
       class="t-upload__tip"
-      v-if="$slots.tip"
-    >
+      v-if="$slots.tip">
       <slot name="tip"/>
     </div>
     <div
       class="t-upload__file-list"
-      v-if="showFileList && !listType"
-    >
+      v-if="showFileList && !listType">
       <div
         class="t-upload__file-info"
         v-for="(f, idx) in fileList"
-        :key="idx"
-      >
+        :key="idx">
         <div class="t-upload__file-name">
           <span class="t-upload__name">
             <i class="fa fa-file-alt"></i>
@@ -47,8 +40,7 @@
             <t-tooltip
               content="重新上传"
               theme="dark"
-              position="right"
-            >
+              position="right">
               <i class="fa fa-exclamation-circle" v-show="f.uploadError" @click="uploadFile(f)"/>
             </t-tooltip>
             <i class="fa fa-arrow-alt-circle-up" v-show="f.prepearUpload" @click="uploadFile(f)"/>
@@ -58,8 +50,7 @@
         <transition name="fly-top">
           <div
             class="t-upload__file-progress"
-            v-if="f.loading"
-          >
+            v-if="f.loading">
             <t-progress
               :percentage="f.percent"
               v-if="f.loading"/>
@@ -69,13 +60,11 @@
     </div>
     <div
       class="t-upload__file-list t-upload__file-list--pic"
-      v-if="showFileList && listType === 'pic' && fileList.length > 0"
-    >
+      v-if="showFileList && listType === 'pic' && fileList.length > 0">
       <div
         class="t-upload__file-info"
         v-for="(f, idx) in fileList"
-        :key="idx"
-      >
+        :key="idx">
         <div class="t-upload__pic" @click="preview(f.uri)">
           <img :src="f.uri">
         </div>
@@ -90,8 +79,7 @@
               content="重新上传"
               ref="reupload"
               theme="dark"
-              position="right"
-            >
+              position="right">
               <i class="fa fa-exclamation-circle" v-show="f.uploadError" @click="uploadFile(f)"/>
             </t-tooltip>
             <i class="fa fa-arrow-alt-circle-up" v-show="f.prepearUpload" @click="uploadFile(f)"/>
@@ -101,8 +89,7 @@
         <transition name="fly-top">
           <div
             class="t-upload__file-progress"
-            v-if="f.loading"
-          >
+            v-if="f.loading">
             <t-progress
               :percentage="f.percent"
               v-if="f.loading"/>
@@ -118,8 +105,7 @@
       @change="onFileLoad"
       :multiple="multiple"
       :webkitdirectory="webkitdirectory"
-      :accept="accept"
-    >
+      :accept="accept">
 
     <t-modal :show-close="false" :show.sync="isPreview" hide-on-click style="text-align: center">
       <template slot="body">
@@ -177,9 +163,10 @@ export default {
     },
 
     multiple: Boolean,
-    draggable: Boolean,
+    drag: Boolean,
     webkitdirectory: Boolean,
     accept: String,
+    disabled: Boolean,
 
     beforeUpload: Function,
     onUploadSuccess: Function,
@@ -191,11 +178,14 @@ export default {
   },
 
   mounted () {
-    this.draggable && this.bindDragTrigger()
+    this.drag && this.bindDragTrigger()
   },
 
   //  TODO: 2.validate; => default config params
   methods: {
+    fireUpload () {
+      !this.disabled && this.$refs.upload.click()
+    },
     bindDragTrigger () {
       this.$refs.trigger.addEventListener('dragover', this.onDragOver)
       this.$refs.trigger.addEventListener('drop', this.onDrop)
@@ -207,6 +197,7 @@ export default {
     preview (uri) {
       this.previewUri = uri
       this.isPreview = true
+      this.$emit('on-preview')
     },
     onDragOver (e) {
       e.preventDefault()
@@ -270,7 +261,6 @@ export default {
     run (file) {
       let tfile = new TFile(file)
 
-      console.log(tfile)
       this.validate(tfile)
         .then(tfile => {
           this.fileList.push(tfile)
