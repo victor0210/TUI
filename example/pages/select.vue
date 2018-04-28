@@ -20,7 +20,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-select label="请选择" v-model="val_2" multiple>
+            <t-select label="请选择" v-model="val_2" multiple :height="30">
               <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val" :disabled="o.disabled"/>
             </t-select>
           </t-col>
@@ -153,6 +153,35 @@
         </t-row>
       </div>
       <select-searchable/>
+    </div>
+
+    <div class="demo-block">
+      <div class="subtitle">不同尺寸</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6">
+            <t-select label="请选择" v-model="val_3" size="lg">
+              <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
+            </t-select>
+          </t-col>
+          <t-col :span="6">
+            <t-select label="请选择" v-model="val_3">
+              <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
+            </t-select>
+          </t-col>
+          <t-col :span="6">
+            <t-select label="请选择" v-model="val_3" size="sm">
+              <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
+            </t-select>
+          </t-col>
+          <t-col :span="6">
+            <t-select label="请选择" v-model="val_3" size="mini">
+              <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
+            </t-select>
+          </t-col>
+        </t-row>
+      </div>
+      <select-normal/>
     </div>
 
     <!--<div class="subtitle">远程搜索</div>-->
