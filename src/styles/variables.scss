@@ -152,7 +152,7 @@ $--button-outline-hover-shade-percent: 95% !default;
 $--button-group-border-radius: $--border-radius-base !default;
 
 /**
- * ------------------------- Button Group --------------------------
+ * ----------------------------- Input -----------------------------
  */
 $--input-height-base: 40px !default;
 $--input-height-lg: 50px !default;
@@ -171,6 +171,11 @@ $--input-padding: 4px 11px;
 $--input-addon-color: rgba(0, 0, 0, 0.45);
 $--input-addon-padding: 0 10px;
 $--input-icon-width: 30px;
+
+/**
+ * -------------------------- Input Number --------------------------
+ */
+$--input-number-border-hover-color: $--color-gray;
 
 /**
  * ------------------------- Select Group --------------------------

@@ -4,13 +4,12 @@
       <div class="demo-block">
         <div class="subtitle">普通计数器</div>
         <div class="source">
-          <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" /></t-col></t-row>
+          <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="primary"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="success"/></t-col></t-row>
+          <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="info"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="warning"/></t-col></t-row>
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="danger"/></t-col></t-row>
-          <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="info"/></t-col></t-row>
-          <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="inverse"/></t-col></t-row>
         </div>
         <normal-md/>
       </div>
@@ -36,6 +35,19 @@
         <div class="subtitle">规定范围</div>
         <div class="source">
           <t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n41" :max="10" :min="-1"/></t-col></t-row>
+        </div>
+        <limit-md/>
+      </div>
+
+      <div class="demo-block">
+        <div class="subtitle">尺寸</div>
+        <div class="source">
+          <t-row :gutter="20">
+            <t-col :span="5"><t-input-number  v-model="n" size="lg"/></t-col>
+            <t-col :span="5"><t-input-number  v-model="n"/></t-col>
+            <t-col :span="5"><t-input-number  v-model="n" size="sm" style="width: 150px"/></t-col>
+            <t-col :span="5"><t-input-number  v-model="n" size="mini" style="width: 120px"/></t-col>
+          </t-row>
         </div>
         <limit-md/>
       </div>

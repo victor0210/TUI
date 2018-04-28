@@ -94,3 +94,14 @@
     font-size: $fontSize;
   }
 }
+
+@mixin input-number-border ($border-color) {
+  border-color: $border-color;
+  &:hover {
+    border-color: $border-color;
+  }
+
+  &.is-focused {
+    border-color: $border-color;
+  }
+}
