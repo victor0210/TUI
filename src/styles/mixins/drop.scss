@@ -29,7 +29,7 @@
     transform: rotate(-45deg);
     -webkit-box-shadow: 1px -1px 1px #ccc;
     box-shadow: 1px -1px 1px #ccc;
-    top: -4px;
+    top: -3px;
     left: 25px;
     z-index: $--select-list-index + 1;
     transition: opacity .2s;
@@ -41,7 +41,7 @@
 
     @include m(top) {
       top: auto;
-      bottom: -3px;
+      bottom: -4px;
       transform: rotate(135deg);
     }
   }

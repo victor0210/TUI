@@ -4,6 +4,7 @@
     `${disabled ? 'is-disabled' : ''}`,
     `${focused ? 'is-focused' : ''}`,
     `${sideFocused ? 'is-side-focused' : ''}`,
+    `${size ? 't-input-number--' + size : ''}`
   ]">
     <div class="t-input-number__cover"></div>
     <div class="t-input-number__prefix" v-if="!sideControl">
@@ -63,7 +64,8 @@ export default {
       default: 'default'
     },
     sideControl: Boolean,
-    value: {}
+    value: {},
+    size: String
   },
   mounted () {
     this.val = parseFloat(this.value) || ''

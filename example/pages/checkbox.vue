@@ -81,7 +81,7 @@
           <checkbox-limit></checkbox-limit>
         </div>
         <div class="demo-block">
-          <div class="subtitle">checkbox border</div>
+          <div class="subtitle">checkbox button</div>
           <div class="source">
             <t-row :gutter="20">
               <t-col :span="24">

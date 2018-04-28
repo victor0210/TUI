@@ -2,7 +2,6 @@
 @import "mixins/mixins";
 @import "mixins/input";
 
-$p: 't-input-number';
 @include b(input-number) {
   display: table;
   border: $--input-border;
@@ -13,7 +12,11 @@ $p: 't-input-number';
   transition: .2s;
 
   &:hover {
-    border-color: #777777;
+    border-color: $--color-gray;
+  }
+
+  @include when(focused) {
+    border-color: $--color-primary;
   }
 
   @include e(side-control) {
@@ -76,47 +79,32 @@ $p: 't-input-number';
   }
 
   @include m(primary) {
-    border-color: $--color-primary;
-    &:hover {
-      border-color: $--color-primary;
-    }
+    @include input-number-border($--color-primary)
   }
 
-  @include m(cyan) {
-    border-color: $--color-cyan;
-    &:hover {
-      border-color: $--color-cyan;
-    }
-  }
   @include m(success) {
-    border-color: $--color-success;
-    &:hover {
-      border-color: $--color-success;
-    }
+    @include input-number-border($--color-success)
   }
   @include m(warning) {
-    border-color: $--color-warning;
-    &:hover {
-      border-color: $--color-warning;
-    }
+    @include input-number-border($--color-warning)
   }
   @include m(danger) {
-    border-color: $--color-danger;
-    &:hover {
-      border-color: $--color-danger;
-    }
-  }
-  @include m(inverse) {
-    border-color: $--color-inverse;
-    &:hover {
-      border-color: $--color-inverse;
-    }
+    @include input-number-border($--color-danger)
   }
   @include m(info) {
-    border-color: $--color-info;
-    &:hover {
-      border-color: $--color-info;
-    }
+    @include input-number-border($--color-info)
+  }
+
+  @include m(lg) {
+    @include input-size($--input-height-lg, $--input-font-size-lg)
+  }
+
+  @include m(sm) {
+    @include input-size($--input-height-sm, $--input-font-size-base)
+  }
+
+  @include m(mini) {
+    @include input-size($--input-height-mini, $--input-font-size-mini)
   }
 
   @include e(wrapper) {
@@ -193,6 +181,7 @@ $p: 't-input-number';
 
   @include when(disabled) {
     & {
+      border-color: $--border-color-base;
       &:hover {
         border-color: $--border-color-base;
       }
@@ -207,10 +196,6 @@ $p: 't-input-number';
         color: #c0c4cc;
       }
     }
-  }
-
-  @include when(focused) {
-    border-color: $--color-primary;
   }
 
   @include when(side-focused) {

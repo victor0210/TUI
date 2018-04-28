@@ -17,10 +17,4 @@
   @include m(danger){
     color: $--color-danger;
   }
-  @include m(cyan){
-    color: $--color-cyan;
-  }
-  @include m(inverse){
-    color: $--color-inverse;
-  }
 }

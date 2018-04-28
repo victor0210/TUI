@@ -10,6 +10,18 @@
   overflow: hidden;
   position: relative;
 
+  @include m(lg) {
+    @include input-size($--input-height-lg, $--input-font-size-lg)
+  }
+
+  @include m(sm) {
+    @include input-size($--input-height-sm, $--input-font-size-base)
+  }
+
+  @include m(mini) {
+    @include input-size($--input-height-mini, $--input-font-size-mini)
+  }
+
   @include e(wrapper) {
     height: 100%;
 
@@ -25,6 +37,7 @@
       transition: border .3s linear;
       color: $--color-text-primary;
       display: table-cell;
+      font-size: $--input-font-size-base;
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {

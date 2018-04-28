@@ -48,8 +48,8 @@
   }
 
   @include m(info) {
-    background-color: $--color-inverse-lighter;
-    color: $--color-inverse;
+    background-color: $--color-info-lighter;
+    color: $--color-info;
   }
 
   @include m(warning) {

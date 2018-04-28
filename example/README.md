@@ -2,7 +2,6 @@
 
 <div class="demo-block">
 <t-button type="primary" size="lg">primary</t-button>
-<t-button type="cyan" size="lg">cyan</t-button>
 <t-button type="warning" size="lg">warning</t-button>
 <t-button type="danger">danger</t-button>
 <t-button type="success">success</t-button>
@@ -15,7 +14,6 @@
 ::: demo
 ```html
 <t-button type="primary" size="lg" :disabled="true">primary</t-button>
-<t-button type="cyan" size="lg">cyan</t-button>
 <t-button type="warning" size="lg">warning</t-button>
 <t-button type="danger">danger</t-button>
 <t-button type="success">success</t-button>
@@ -29,21 +27,18 @@
 ## 按钮 - round, disabled(正常样式和outline下的disabled样式一样), outline
 <div class="demo-block">
 <t-button type="primary" size="lg" round>primary</t-button>
-<t-button type="cyan" size="lg" round>cyan</t-button>
 <t-button type="warning" size="lg" round>warning</t-button>
 <t-button type="danger" round>danger</t-button>
 <t-button type="inverse" round>inverse</t-button>
 <br>
 <br>
 <t-button type="primary" size="lg" round disabled>primary</t-button>
-<t-button type="cyan" size="lg" round disabled>cyan</t-button>
 <t-button type="warning" size="lg" round disabled>warning</t-button>
 <t-button type="danger" round disabled>danger</t-button>
 <t-button type="inverse" round disabled>inverse</t-button>
 <br>
 <br>
 <t-button type="primary" size="lg" round outline>primary</t-button>
-<t-button type="cyan" size="lg" round outline>cyan</t-button>
 <t-button type="warning" size="lg" round outline>warning</t-button>
 <t-button type="danger" round outline>danger</t-button>
 <t-button type="inverse" round outline>inverse</t-button>
@@ -52,19 +47,16 @@
 ::: demo
 ```html
 <t-button type="primary" size="lg" round>primary</t-button>
-<t-button type="cyan" size="lg" round>cyan</t-button>
 <t-button type="warning" size="lg" round>warning</t-button>
 <t-button type="danger" round>danger</t-button>
 <t-button type="inverse" round>inverse</t-button>
 
 <t-button type="primary" size="lg" round disabled>primary</t-button>
-<t-button type="cyan" size="lg" round disabled>cyan</t-button>
 <t-button type="warning" size="lg" round disabled>warning</t-button>
 <t-button type="danger" round disabled>danger</t-button>
 <t-button type="inverse" round disabled>inverse</t-button>
 
 <t-button type="primary" size="lg" round outline>primary</t-button>
-<t-button type="cyan" size="lg" round outline>cyan</t-button>
 <t-button type="warning" size="lg" round outline>warning</t-button>
 <t-button type="danger" round outline>danger</t-button>
 <t-button type="inverse" round outline>inverse</t-button>
@@ -75,7 +67,6 @@
 <div class="demo-block">
 <t-button-group>
 <t-button type="primary" outline size="lg">btn1</t-button>
-<t-button type="cyan" size="lg">btn2</t-button>
 <t-button type="danger" size="lg">btn3</t-button>
 </t-button-group>
 <t-button-group>
@@ -88,7 +79,6 @@
 ```html
 <t-button-group>
 <t-button type="primary">btn1</t-button>
-<t-button type="cyan">btn2</t-button>
 <t-button type="danger">btn3</t-button>
 </t-button-group>
 <t-button-group>
@@ -101,7 +91,6 @@
 ## 图标按钮
 <div class="demo-block">
 <t-button type="primary" icon="fa fa-spinner fa-pulse">spinner</t-button>
-<t-button type="cyan" icon="fa fa-asterisk fa-spin">asterisk</t-button>
 <t-button type="warning" icon="fa fa-circle-notch fa-spin">circle-notch</t-button>
 <t-button type="danger" icon="fa fa-sync fa-spin">sync</t-button>
 </div>
@@ -109,7 +98,6 @@
 :::demo
 ```html
 <t-button type="primary" icon="fa fa-spinner fa-pulse">spinner</t-button>
-<t-button type="cyan" icon="fa fa-asterisk fa-spin">asterisk</t-button>
 <t-button type="warning" icon="fa fa-circle-notch fa-spin">circle-notch</t-button>
 <t-button type="danger" icon="fa fa-sync fa-spin">sync</t-button>
 ```

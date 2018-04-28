@@ -81,12 +81,6 @@
   @include m(danger) {
     @include button-variant($--button-danger-color, $--button-danger-fill, $--button-danger-border);
   }
-  @include m(cyan) {
-    @include button-variant($--button-cyan-color, $--button-cyan-fill, $--button-cyan-border);
-  }
-  @include m(inverse) {
-    @include button-variant($--button-inverse-color, $--button-inverse-fill, $--button-inverse-border);
-  }
   @include m(info) {
     @include button-variant($--button-info-color, $--button-info-fill, $--button-info-border);
   }

@@ -2,15 +2,20 @@
 @import "mixins/mixins";
 @import "mixins/select";
 @import "mixins/drop";
+@import "mixins/input";
 
 @include b(select) {
   @include select-input-variant();
+  height: $--input-height-base;
 
   @include e(input) {
     display: block;
     height: 100%;
     width: 100%;
     position: relative;
+    box-sizing: border-box;
+    padding: $--select-input-wrapper-padding;
+    line-height: $--input-height-base - 2;
   }
 
   @include e(placeholder) {
@@ -18,23 +23,32 @@
   }
 
   @include e(inner) {
-    position: relative;
-    border: none;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    line-height: $--select-input-line-height;
-    padding: $--select-input-wrapper-padding;
-    cursor: pointer;
-    width: 100%;
-    margin: 0;
-    display: block;
-    overflow: hidden;
-    vertical-align: middle;
-    font-size: 12px;
+    position: absolute;
+    line-height: normal;
+    white-space: normal;
+    z-index: 1;
+    top: 50%;
+    padding-right: 25px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
-    @include m(placeholder) {
-      color: #777777;
-    }
+  @include m(lg) {
+    @include input-size($--input-height-lg, $--input-font-size-lg)
+  }
+
+  @include m(sm) {
+    @include input-size($--input-height-sm, $--input-font-size-base)
+  }
+
+  @include m(mini) {
+    @include input-size($--input-height-mini, $--input-font-size-mini)
+  }
+
+  @include m(placeholder) {
+    color: #777777;
   }
 
   @include e(list) {
@@ -45,6 +59,7 @@
     border-radius: 4px;
     box-shadow: 1px 1px 10px 1px #eee;
     transition: transform .2s ease-in, opacity .2s ease-in;
+    border: $--border-base;
   }
 
   @include e(drop-menu) {
@@ -58,8 +73,10 @@
     height: auto;
     overflow-y: scroll;
     max-height: 200px;
-    border-radius: 4px;
-    //border: $--border-base;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     @include m(none) {
       text-align: center;
@@ -79,7 +96,7 @@
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     border-bottom: none;
-    padding: 3px 40px;
+    padding: 6px 15px;
     position: relative;
     box-sizing: border-box;
 
@@ -142,13 +159,13 @@
   @include e(tag) {
     display: inline-block;
     box-sizing: border-box;
-    margin-top: 1px;
-    margin-right: 4px;
-    margin-bottom: 1px;
-    background-color: #f0f1f2;
-    height: 30px;
+    margin-top: 7px;
+    margin-right: 6px;
+    margin-bottom: 7px;
+    background-color: $--color-info-lighter;
+    height: 24px;
     padding: 0 8px;
-    line-height: 30px;
+    line-height: 24px;
     font-size: 14px;
     color: $--color-text-regular;
     border-radius: 4px;

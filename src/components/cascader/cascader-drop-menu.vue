@@ -26,6 +26,7 @@ export default {
 
   updated () {
     DropMenu.$forceUpdate()
+    this.setListPosition()
   },
 
   watch: {

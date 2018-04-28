@@ -21,9 +21,13 @@
     //background-color: #fafafa;
   }
 
+  @include e(check) {
+    transition: all .2s;
+  }
   @include when(focus) {
     background-color: #f5f7fa;
     color: $--color-primary;
+    box-shadow: $--box-shadow-base;
   }
 
   @include when(disabled) {

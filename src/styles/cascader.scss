@@ -2,34 +2,44 @@
 @import "mixins/mixins";
 @import "mixins/select";
 @import "mixins/drop";
+@import "mixins/input";
 
 @include b(cascader) {
   @include select-input-variant();
+  height: $--select-input-min-height;
 
   @include e(input) {
     display: inline-block;
     height: 100%;
     width: 100%;
     position: relative;
+    outline: none;
   }
 
-  input {
-    height: 38px;
+  @include m(lg) {
+    @include input-size($--input-height-lg, $--input-font-size-lg)
+  }
+
+  @include m(sm) {
+    @include input-size($--input-height-sm, $--input-font-size-base)
+  }
+
+  @include m(mini) {
+    @include input-size($--input-height-mini, $--input-font-size-mini)
   }
 
   @include e(inner) {
     position: relative;
     border: none;
     box-sizing: border-box;
-    min-height: $--select-input-line-height;
-    line-height: $--select-input-line-height;
+    height: 100%;
     padding: $--select-input-wrapper-padding;
     cursor: pointer;
     width: 100%;
     margin: 0;
     display: inline-block;
+    float: left;
     -webkit-box-sizing: border-box;
-    vertical-align: middle;
   }
 
   @include e(input-icon) {
@@ -59,9 +69,13 @@
     display: inline-block;
     background-color: #fff;
     z-index: $--select-list-index;
-    border-radius: 4px;
     box-shadow: 1px 1px 10px 1px #eee;
     transition: transform .2s ease-out, opacity .2s ease-out;
+    border: $--border-base;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   @include e(list-sub-container) {
@@ -79,7 +93,7 @@
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     border-bottom: none;
-    padding: 4px 12px;
+    padding: 6px 15px;
     position: relative;
     box-sizing: border-box;
 
@@ -105,6 +119,9 @@
 
   @include e(list-sub) {
     @include drop-variant();
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     & + .t-cascader__list-sub {
       border-left: 1px solid #f4f5f6;

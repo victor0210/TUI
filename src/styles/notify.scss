@@ -58,7 +58,7 @@
       color: $--color-warning;
     }
     @include m(info) {
-      color: $--color-inverse;
+      color: $--color-info;
     }
     @include m(danger) {
       color: $--color-danger;

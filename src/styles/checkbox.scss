@@ -2,10 +2,10 @@
 @import "mixins/mixins";
 
 @include b(checkbox) {
-  color: #606266;
-  font-weight: 400;
-  font-size: 14px;
-  height: 24px;
+  color: $--color-text-regular;
+  font-weight: $--font-weight-primary;
+  font-size: $--font-size-base;
+  height: $--checkbox-height-base;
   position: relative;
   cursor: pointer;
   display: inline-block;
@@ -32,7 +32,7 @@
     transition: all .2s;
 
     &:hover {
-      border-color: #409EFF;
+      border-color: $--color-primary;
     }
 
     i {
@@ -43,9 +43,11 @@
       line-height: 16px;
       height: 14px;
       width: 14px;
-      color: #fff;
+      color: $--color-white;
       opacity: 0;
       background-color: rgba(0, 0, 0, 0);
+      transition: .2s .1s;
+      transform: scale(0);
     }
   }
 
@@ -53,31 +55,36 @@
     user-select: none;
     cursor: pointer;
     display: inline-block;
-    padding: 0 10px;
+    padding: $--checkbox-label-padding;
     position: relative;
     float: left;
-    height: 24px;
-    line-height: 24px;
-    font-size: 15px;
+    height: $--checkbox-height-base;
+    line-height: $--checkbox-height-base;
+    font-size: $--checkbox-label-font-size;
     box-sizing: border-box;
     transition: all .2s;
   }
   @include when(checked) {
     > .t-checkbox__inner {
-      background: #409EFF;
-      border-color: #409EFF;
+      background: $--color-primary;
+      border-color: $--color-primary;
 
       i {
         opacity: 1;
+        transform: scale(.8);
       }
     }
 
     > .t-checkbox__label {
-      color: #409EFF;
+      color: $--color-primary;
     }
 
     @include when(outbox) {
-      border-color: #409EFF;
+      .t-checkbox__inner {
+        :hover {
+          border-color: $--color-white;
+        }
+      }
     }
   }
 
@@ -108,8 +115,16 @@
   }
 
   @include when(outbox) {
-    border: $--border-base;
-    padding: 9px 20px 9px 10px;
-    border-radius: 4px;
+    padding: $--checkbox-outbox-padding;
+    border-radius: $--border-radius-base;
+    background-color: $--color-primary;
+
+    .t-checkbox__inner {
+      border-radius: 50%;
+    }
+
+    .t-checkbox__label {
+      color: white;
+    }
   }
 }

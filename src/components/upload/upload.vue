@@ -199,7 +199,7 @@ export default {
       this.$refs.trigger.removeEventListener('drop', this.onDrop)
     },
     preview (tfile) {
-      this.previewUri = file.uri
+      this.previewUri = tfile.uri
       this.isPreview = true
       this.onPreview && this.onPreview(tfile)
     },
@@ -208,7 +208,7 @@ export default {
     },
     onDrop (e) {
       // Prevent default behavior (Prevent file from being opened)
-      e.preventDefault();
+      e.preventDefault()
 
       if (e.dataTransfer.items) {
         // Use DataTransferItemList interface to access the file(s)
@@ -216,7 +216,7 @@ export default {
           let entry = e.dataTransfer.items[i].webkitGetAsEntry()
           // If dropped items aren't files, reject them
           if (entry.isFile) {
-            let file = e.dataTransfer.items[i].getAsFile();
+            let file = e.dataTransfer.items[i].getAsFile()
             this.loadFile(file)
           } else if (entry.isDirectory) {
             this.readDirectoryFiles(entry)
@@ -248,10 +248,10 @@ export default {
     removeDragData (e) {
       if (e.dataTransfer.items) {
         // Use DataTransferItemList interface to remove the drag data
-        e.dataTransfer.items.clear();
+        e.dataTransfer.items.clear()
       } else {
         // Use DataTransfer interface to remove the drag data
-        e.dataTransfer.clearData();
+        e.dataTransfer.clearData()
       }
     },
     onFileLoad (e) {
@@ -281,11 +281,10 @@ export default {
 
     validate (file) {
       return new Promise((resolve, reject) => {
-
         //  component validator
         if (this.limit === this.fileList.length) {
           this.onExceed && this.onExceed(file)
-          reject('list size exceed !')
+          reject(new Error('list size exceed !'))
         }
 
         //  user validator

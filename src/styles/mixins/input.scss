@@ -87,3 +87,25 @@
     line-height: $--input-height-base;
   }
 }
+
+@mixin input-size($height, $fontSize) {
+  height: $height;
+  min-height: $height;
+  & .t-input__wrapper .t-input__inner,
+  & .t-select__input,
+  & .t-cascader__input {
+    font-size: $fontSize;
+    line-height: $height - 2;
+  }
+}
+
+@mixin input-number-border ($border-color) {
+  border-color: $border-color;
+  &:hover {
+    border-color: $border-color;
+  }
+
+  &.is-focused {
+    border-color: $border-color;
+  }
+}

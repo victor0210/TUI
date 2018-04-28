@@ -13,12 +13,12 @@ export default class TFile {
   }
 
   setFileUrl () {
-    let reader  = new FileReader();
+    let reader = new FileReader()
 
-    reader.addEventListener("load", () => {
-      this.uri = reader.result;
-    }, false);
+    reader.addEventListener('load', () => {
+      this.uri = reader.result
+    }, false)
 
-    this.file && reader.readAsDataURL(this.file);
+    this.file && reader.readAsDataURL(this.file)
   }
 }

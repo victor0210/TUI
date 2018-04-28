@@ -1,10 +1,11 @@
 <template>
-  <div class="t-input" :class="{
-    'is-prefix' : $slots.prefix,
-    'is-suffix' : $slots.suffix,
-    'is-input-prefix' : prefixIcon,
-    'is-input-suffix' : prependIcon
-  }
+  <div class="t-input" :class="[
+    $slots.prefix ? 'is-prefix' : '',
+    $slots.suffix ? 'is-suffix' : '',
+    prefixIcon ? 'is-input-prefix' : '',
+    prependIcon ? 'is-input-suffix' : '',
+    size ? `t-input--${size}` : ''
+  ]
 ">
     <template v-if="type !== 'textarea'">
       <div class="t-input__prefix" v-if="$slots.prefix">
@@ -68,7 +69,8 @@ export default {
     width: Number,
     prefixIcon: String,
     prependIcon: String,
-    readonly: Boolean
+    readonly: Boolean,
+    size: String
   },
 
   mounted () {

@@ -3,19 +3,23 @@
     isFocus ? 'is-focus' : '',
     disabled ? 'is-disabled' : '',
     clearable && !isEmpty ? 'is-clearable' : '',
-    size ? `t-select--${size}` : ''
+    size ? `t-select--${size}` : '',
+    multiple ? 'is-multiple' : ''
   ]" :style="{
     width: width ? `${width}px` : 'auto',
-    height: height ? `${height}px` : 'auto',
-  }">
-    <div class="t-select__input" ref="input">
-      <i class="t-select__input-icon t-select__drop-icon fa fa-chevron-down" :class="{
+    minHeight: height ? `${height}px` : '',
+    height: height ? `${height}px` : ''
+  }" ref="box">
+    <div class="t-select__input" ref="input" :style="{
+      lineHeight: height ? `${height}px` : ''
+    }">
+      <i class="t-select__input-icon t-select__drop-icon fa fa-caret-down" :class="{
         't-select__input-icon--open': isFocus
       }" ref="drop_icon"></i>
       <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput" ref="clear_icon"></i>
 
       <div v-if="multiple" class="t-select__inner" ref="multi_inner" :style="{
-        lineHeight: height ? `${height - 8}px` : 'auto',
+        minHeight: height ? `${height - 2}px` : '38px'
       }">
         <template v-if="value.length === 0">
           <span class="t-select__placeholder" ref="placeholder">{{ placeholder }}</span>
@@ -29,16 +33,17 @@
         </template>
       </div>
 
-      <span class="t-select__inner" v-if="!multiple" ref="input_inner" :style="{
-        lineHeight: height ? `${height - 8}px` : 'auto',
-      }">
+      <!--<span class="t-select__inner" v-if="!multiple" ref="input_inner" :style="{-->
+        <!--lineHeight: height ? `${height - 8}px` : 'auto',-->
+      <!--}">-->
+      <template v-else>
         <template v-if="inputLabel">
           {{ inputLabel }}
         </template>
         <template v-else>
           {{ placeholder }}
         </template>
-      </span>
+      </template>
       <!--<input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner" :placeholder="placeholder"/>-->
     </div>
 
@@ -56,7 +61,6 @@ import TSelectDropMenu from './select-drop-menu'
 import Emitter from '../../mixins/emitter'
 import ArrayHelper from '../../mixins/arrayHelper'
 
-//  TODO: fix: options change emit label init
 export default {
   components: {
     TSelectDropMenu
@@ -141,7 +145,9 @@ export default {
   },
 
   updated () {
-    if (this.inputHeight !== this.$refs.input.offsetHeight) this.setInputHeight(this.$refs.input.offsetHeight)
+    if (this.multiple && this.$refs.multi_inner && (this.inputHeight !== this.$refs.multi_inner.offsetHeight)) {
+      this.inputHeight = this.$refs.multi_inner.offsetHeight
+    }
   },
 
   methods: {
@@ -359,12 +365,6 @@ export default {
       })
     },
 
-    //  list position
-    setInputHeight (h) {
-      //  emit list position change
-      this.inputHeight = h
-    },
-
     //  add close list event listener && list keyboard listener
     addListener () {
       document.addEventListener('keydown', this.keyDownHandler)
@@ -384,6 +384,7 @@ export default {
     checkBlurEl (el) {
       const ref = this.$refs
       let clickCancelEl = [
+        ref.input,
         ref.input_inner,
         ref.multi_inner,
         ref.drop_icon,
@@ -637,6 +638,11 @@ export default {
         }
         this.fixScrollTop()
       }
+    },
+    inputHeight (val) {
+      console.log('inputHieght change', val)
+      this.$refs.box.style.height = val + 2 + 'px'
+      console.log(val + 2 + 'px')
     }
   },
 

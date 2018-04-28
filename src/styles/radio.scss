@@ -1,16 +1,18 @@
 @import "variables";
 @import "mixins/mixins";
+@import "utils/utils";
 
 @include b(radio) {
-  color: #606266;
-  font-weight: 400;
-  font-size: 14px;
+  color: $--color-text-regular;
+  font-weight: $--font-weight-primary;
+  font-size: $--font-size-base;
+  height: $--checkbox-height-base;
   position: relative;
   cursor: pointer;
   display: inline-block;
   white-space: nowrap;
   user-select: none;
-  line-height: 100%;
+  line-height: $--checkbox-height-base;
 
   input[type=radio] {
     display: none;
@@ -22,7 +24,7 @@
     display: inline-block;
     position: relative;
     float: left;
-    margin-top: 1px;
+    margin: 3px 0 5px;
     width: 15px;
     height: 15px;
     border: 1px solid $--border-color-base;
@@ -31,23 +33,20 @@
     transition: all .4s;
 
     &:hover {
-      border-color: #409EFF;
+      border-color: $--color-primary;
     }
 
     .t-radio__circle {
       transition: all .2s;
       transition-delay: .1s;
-      width: 0;
-      height: 0;
+      transform: scale(0);
+      box-sizing: border-box;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      display: block;
-      background-color: #fff;
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
+      display: inline-block;
+      background-color: $--color-white;
+      @include utils-position-center(a)
     }
   }
 
@@ -55,31 +54,41 @@
     user-select: none;
     cursor: pointer;
     display: inline-block;
-    padding: 0 10px;
+    padding: $--checkbox-label-padding;
     position: relative;
     float: left;
-    line-height: 18px;
-    font-size: 15px;
+    height: $--checkbox-height-base;
+    line-height: $--checkbox-height-base;
+    font-size: $--checkbox-label-font-size;
     box-sizing: border-box;
     transition: all .2s;
   }
   @include when(checked) {
     > .t-radio__inner {
-      background: #409EFF;
-      border-color: #409EFF;
+      background: $--color-primary;
+      border-color: $--color-primary;
 
       .t-radio__circle {
-        width: 5px;
-        height: 5px;
+        transform: scale(1);
       }
     }
 
     > .t-radio__label {
-      color: #409EFF;
+      color: $--color-primary;
     }
 
     @include when(outbox) {
-      border-color: #409EFF;
+      > .t-radio__label {
+        color: $--color-white;
+      }
+
+      > .t-radio__inner {
+        :hover {
+          border-color: $--color-white;
+        }
+
+        border-color: $--color-white;
+      }
     }
   }
 
@@ -110,8 +119,12 @@
   }
 
   @include when(outbox) {
-    border: $--border-base;
-    padding: 9px 20px 9px 10px;
-    border-radius: 4px;
+    padding: $--checkbox-outbox-padding;
+    border-radius: $--border-radius-base;
+    background-color: $--color-primary;
+
+    .t-radio__label {
+      color: $--color-white;
+    }
   }
 }
