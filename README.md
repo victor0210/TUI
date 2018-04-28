@@ -51,6 +51,7 @@ Radio <br>
 Switch <br>
 RadioGroup <br>
 Select <br>
+Upload <br>
 OptionGroup <br>
 Option <br>
 InputNumber <br>
