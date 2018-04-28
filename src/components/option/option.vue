@@ -5,7 +5,6 @@
     'is-disabled' : disabled
   }" ref="option">{{ label }}
     <i class="t-option__check fa fa-check" v-if="isSelected"></i>
-    <!--<i class="t-option__check fa fa-circle-notch fa-spin"></i>-->
   </li>
 </template>
 
@@ -40,11 +39,8 @@ export default {
   mounted () {
     this.isMultiple = this.parent.multiple
     this.dispatchRegister()
-    // this.dispatch('t-select-bak', 'init-focus-index', this.val)
-    // this.action(this.parent, 'init-focus-index', this.val)
     this.$on('blur', this.blurSelect)
     this.$on('focus', this.focusSelect)
-    // this.$on('register', this.dispatchRegister)
   },
 
   methods: {
@@ -64,22 +60,6 @@ export default {
         this.action(this.parent, 'option-register', this)
       }
     },
-    // checkShow () {
-    //   const p = this.parent
-    //   if (p.editable || p.searchable) {
-    //     if (!this.editablePanel) {
-    //       if (p.searchable) {
-    //         return (this.label.indexOf(p.editContent) !== -1)
-    //       } else {
-    //         return ((this.label.indexOf(p.editContent) !== -1) && (this.label !== p.editContent))
-    //       }
-    //     } else {
-    //       return true
-    //     }
-    //   } else {
-    //     return true
-    //   }
-    // },
     getParent () {
       this.$parent.$options.name === 't-option-group' ? (this.parent = this.$parent.$parent.parent) : (this.parent = this.$parent.parent)
     }
@@ -89,12 +69,6 @@ export default {
     isSelected () {
       return this.isMultiple ? (this.parent.value.indexOf(this.val) !== -1) : (this.val === this.parent.value)
     }
-    // isShow () {
-    //   return this.checkShow()
-    // },
-    // focusIndex () {
-    //   return this.parent.focusIndex
-    // }
   },
 
   beforeDestroy () {

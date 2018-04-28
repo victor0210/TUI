@@ -9,7 +9,7 @@
     height: height ? `${height}px` : 'auto',
   }">
     <div class="t-select__input" ref="input">
-      <i class="t-select__input-icon t-select__drop-icon fa fa-chevron-down" :class="{
+      <i class="t-select__input-icon t-select__drop-icon fa fa-caret-down" :class="{
         't-select__input-icon--open': isFocus
       }" ref="drop_icon"></i>
       <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput" ref="clear_icon"></i>
