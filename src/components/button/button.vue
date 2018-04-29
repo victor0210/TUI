@@ -3,14 +3,13 @@
     class="t-btn"
     :icon="icon"
     :disabled="disabled"
-    :autofocus="autofocus"
-    :type="nativeType"
     :class="[
       type ? `${classPrefix+type}` : '',
       size ? `${classPrefix+size}` : '',
       disabled ? 'is-disabled' : '',
       round ? 'is-round' : '',
-      outline ? 'is-outline' : ''
+      outline ? 'is-outline' : '',
+      circle ? 'is-circle' : ''
     ]"
     @click="handleClick"
     @mouseenter="mouseEnterHandler"
@@ -18,10 +17,10 @@
     @mouseover="mouseOverHandler"
     @mouseout="mouseOutHandler"
   >
-    <i class="t-icon fa fa-circle-notch fa-spin" v-if="loading"></i>
-    <i :class="['t-icon',icon]" v-if="icon && !loading && !iconRight"></i>
-    <span v-if="$slots.default"><slot></slot></span>
-    <i :class="['t-icon',icon]" v-if="icon && !loading && iconRight"></i>
+    <i class="t-btn__icon t-btn__icon--left fa fa-circle-notch fa-spin" v-if="loading"></i>
+    <i :class="['t-btn__icon', 't-btn__icon--left', icon]" v-if="icon && !loading && !iconRight"></i>
+    <span v-if="$slots.default" class="t-btn__content"><slot></slot></span>
+    <i :class="['t-btn__icon', 't-btn__icon--right', icon]" v-if="icon && !loading && iconRight"></i>
   </button>
 </template>
 
@@ -34,25 +33,15 @@ export default {
     }
   },
   props: {
-    type: {
-      type: String,
-      default: 'default'
-    },
+    type: String,
     size: String,
-    icon: {
-      type: String,
-      default: ''
-    },
-    nativeType: {
-      type: String,
-      default: 'button'
-    },
+    icon: String,
     loading: Boolean,
     disabled: Boolean,
     outline: Boolean,
-    autofocus: Boolean,
     round: Boolean,
-    iconRight: Boolean
+    iconRight: Boolean,
+    circle: Boolean
   },
   methods: {
     handleClick (e) {

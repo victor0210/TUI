@@ -6,7 +6,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24">
-            <t-table :data="data" :loading="true">
+            <t-table :data="data">
               <t-table-column label="姓名" prop="name"/>
               <t-table-column label="年龄" prop="age" />
               <t-table-column label="身份" prop="role"/>

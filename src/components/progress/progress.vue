@@ -26,7 +26,7 @@
           }"
         >
           <span
-            v-if="textInside"
+            v-if="textInside && !hidePercentage"
             class="t-progress__inner-text"
             :style="{
               color: percentageColor
@@ -36,7 +36,7 @@
       </div>
 
       <div
-        v-if="!textInside"
+        v-if="!textInside && !hidePercentage"
         class="t-progress__text"
         :style="{
           color: percentageColor
@@ -127,7 +127,8 @@ export default {
     round: {
       type: Boolean,
       default: true
-    }
+    },
+    hidePercentage: Boolean
   },
 
   computed: {

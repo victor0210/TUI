@@ -9,7 +9,7 @@
 ">
     <template v-if="type !== 'textarea'">
       <div class="t-input__prefix" v-if="$slots.prefix">
-          <slot name="prefix"/>
+        <slot name="prefix"/>
       </div>
       <div class="t-input__wrapper">
         <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" ref="input"/>

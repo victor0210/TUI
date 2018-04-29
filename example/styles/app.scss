@@ -33,12 +33,46 @@
     font-weight: 400;
     font-size: 30px;
     line-height: 45px;
-    color: #333;
+    color: #69baff;
+    text-shadow: 6px 6px 1px #eee;
   }
   .des {
     font-weight: 400;
     font-size: 18px;
     line-height: 45px;
     color: #666;
+  }
+}
+
+.api-docs {
+  float: left;
+  width: 100%;
+  display: inline-block;
+  .title {
+    text-align: center;
+    margin: 50px 0 30px;
+    font-size: 20px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 30px;
+    color: #333;
+
+    &:before,
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 300px;
+      height: 1px;
+      background-color: #e5e9f2;
+      vertical-align: middle;
+    }
+
+    &:before {
+      margin-right: 50px;
+    }
+
+    &:after {
+      margin-left: 50px;
+    }
   }
 }

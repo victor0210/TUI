@@ -1,9 +1,10 @@
 @mixin select-input-variant{
-  display: block;
+  display: table;
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
   overflow: hidden;
+  width: 100%;
   background-color: $--select-fill-color;
   border-radius: $--select-input-radius;
   border: $--border-base;

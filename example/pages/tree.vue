@@ -74,7 +74,7 @@
     <div class="demo-block">
       <div class="subtitle">自定义节点</div>
       <div class="source">
-        <t-tree show-checkbox :data="data2" ref="tree2">
+        <t-tree :data="data2" ref="tree2">
           <template slot-scope="{node}">
             <t-button type="text" size="sm" @click="append(node)">append</t-button>
             <t-button type="text" size="sm" @click="remove(node)">remove</t-button>
@@ -172,7 +172,6 @@ export default {
           }]
         }, {
           label: '二级 2-2',
-          disabled: true,
           children: [{
             label: '三级 2-2-1'
           }]

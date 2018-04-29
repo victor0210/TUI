@@ -111,6 +111,12 @@ $--button-small-round-border-radius: #{$--border-radius-base + 13} !default;
 $--button-small-padding-vertical: 9px !default;
 $--button-small-padding-horizontal: 15px !default;
 
+$--button-mini-font-size: 12px !default;
+$--button-mini-border-radius: #{$--border-radius-base - 1} !default;
+$--button-mini-round-border-radius: #{$--border-radius-base + 10} !default;
+$--button-mini-padding-vertical: 6px !default;
+$--button-mini-padding-horizontal: 10px !default;
+
 $--button-default-color: $--color-text-regular !default;
 $--button-default-fill: $--color-white !default;
 $--button-default-border: $--border-color-base !default;
@@ -167,7 +173,7 @@ $--input-min-width: 150px !default;
 $--input-border: $--border-base;
 $--input-border-radius: $--border-radius-base !default;
 $--input-disable-color: lighten($--button-disabled-color, 15%) !default;
-$--input-padding: 4px 11px;
+$--input-padding: 0px 11px;
 $--input-addon-color: rgba(0, 0, 0, 0.45);
 $--input-addon-padding: 0 10px;
 $--input-icon-width: 30px;

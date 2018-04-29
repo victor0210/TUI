@@ -6,7 +6,7 @@
     size ? `t-select--${size}` : '',
     multiple ? 'is-multiple' : ''
   ]" :style="{
-    width: width ? `${width}px` : 'auto',
+    width: width ? `${width}px` : '',
     minHeight: height ? `${height}px` : '',
     height: height ? `${height}px` : ''
   }" ref="box">
@@ -33,18 +33,14 @@
         </template>
       </div>
 
-      <!--<span class="t-select__inner" v-if="!multiple" ref="input_inner" :style="{-->
-        <!--lineHeight: height ? `${height - 8}px` : 'auto',-->
-      <!--}">-->
       <template v-else>
-        <template v-if="inputLabel">
+        <span v-if="inputLabel">
           {{ inputLabel }}
-        </template>
-        <template v-else>
+        </span>
+        <span class="t-select__placeholder" v-else>
           {{ placeholder }}
-        </template>
+        </span>
       </template>
-      <!--<input type="text" class="t-select__inner" v-model="inputLabel" readonly v-if="!multiple" ref="input_inner" :placeholder="placeholder"/>-->
     </div>
 
     <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
@@ -190,7 +186,7 @@ export default {
     optionRegister (option) {
       this.options.push(option)
 
-      if (this.value === option.val || this.value.indexOf(option.val) !== -1) {
+      if (this.value && (this.value === option.val || this.value.indexOf(option.val) !== -1)) {
         this.setValueIndex('', this.options.length - 1)
         this.focusDirection = 'none'
       }

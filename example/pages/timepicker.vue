@@ -24,6 +24,19 @@
       </div>
       <time-md/>
     </div>
+
+    <div class="demo-block">
+      <div class="subtitle">不同尺寸</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="6"><t-time-picker v-model="dp1" placeholder="选择时间" size="lg"/></t-col>
+          <t-col :span="6"><t-time-picker v-model="dp1" placeholder="选择时间"/></t-col>
+          <t-col :span="6"><t-time-picker v-model="dp1" placeholder="选择时间" size="sm"/></t-col>
+          <t-col :span="6"><t-time-picker v-model="dp1" placeholder="选择时间" size="mini"/></t-col>
+        </t-row>
+      </div>
+      <time-md/>
+    </div>
   </div>
 </template>
 

@@ -6,8 +6,8 @@
       }">
       <span class="t-checkbox__label" v-if="labelLeft && !!label">{{ label }}</span>
       <span class="t-checkbox__inner">
-        <i class="fa fa-check" v-if="!indeterminate"></i>
-        <i class="fa fa-minus" v-else></i>
+        <i class="fa fa-check" v-show="!indeterminate"></i>
+        <i class="fa fa-minus" v-show="indeterminate"></i>
       </span>
       <span class="t-checkbox__label" v-if="!labelLeft && !!label">{{ label }}</span>
       <input type="checkbox" v-model="isChecked" :disabled="disabled" @change="onChange" :value="val">

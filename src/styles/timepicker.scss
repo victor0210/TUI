@@ -1,20 +1,23 @@
 @import "variables";
 @import "mixins/mixins";
 @import "mixins/drop";
+@import "mixins/input";
 
 @include b(timepicker) {
-  display: block;
+  display: table;
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
+  width: 100%;
+  height: $--input-height-base;
 
   input {
     cursor: pointer;
   }
 
   @include e(icon) {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -172,13 +175,13 @@
 
   @include e(input) {
     position: relative;
-    padding: 4px 11px;
+    padding: 0 11px;
     border-radius: $--border-radius-base;
-    min-height: $--input-height-base - 10;
     overflow: hidden;
     border: $--border-base;
     transition: all .3s linear;
     display: block;
+    height: $--input-height-base - 2;
 
     &:hover {
       border-color: mix($--color-white, $--color-gray, 20%);
@@ -189,6 +192,7 @@
     }
 
     input {
+      height: 100%;
       -webkit-appearance: none;
       background-color: #fff;
       border-radius: 4px;
@@ -196,9 +200,7 @@
       box-sizing: border-box;
       color: #606266;
       display: inline-block;
-      font-size: 12px;
-      height: 30px;
-      line-height: 1;
+      font-size: 13px;
       outline: none;
       padding: 0;
       transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
@@ -209,22 +211,6 @@
       }
       &:hover {
         border-color: mix($--color-white, $--color-gray, 20%);
-      }
-    }
-
-    @include m(range) {
-      width: 350px;
-      input {
-        text-align: center;
-        width: 46%;
-        &:last-child {
-          padding: 0;
-        }
-      }
-      .t-timepicker__addon {
-        display: inline-block;
-        text-align: center;
-        width: 20px;
       }
     }
   }
@@ -271,5 +257,17 @@
         }
       }
     }
+  }
+
+  @include m(lg) {
+    @include input-size($--input-height-lg, $--input-font-size-lg)
+  }
+
+  @include m(sm) {
+    @include input-size($--input-height-sm, $--input-font-size-base)
+  }
+
+  @include m(mini) {
+    @include input-size($--input-height-mini, $--input-font-size-mini)
   }
 }
