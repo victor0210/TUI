@@ -119,6 +119,7 @@ export default {
     checkChangeHandler (val, init = false) {
       if (!init && this.checkDisabled) return
 
+      console.log(this.label, 'change', val)
       if (this.hasChildren) {
         this.broadcast('t-tree-item', 'node-item-echo', !this.childCheckableCheckAll())
       } else {
@@ -137,13 +138,25 @@ export default {
     },
     childCheckAll () {
       let checkCount = 0
-      let indeterminateCount = 0
+      let checkableUnCheckCount = 0
+      let hasIndeterminate = false
       this.childrenNode.forEach(function (el) {
+        el.indeterminate && (hasIndeterminate = true)
         el.isChecked && checkCount++
-        el.indeterminate && indeterminateCount++
+        !el.checkDisabled && !el.isChecked && checkableUnCheckCount++
       })
 
-      return [checkCount === this.childLen, (checkCount > 0 && checkCount < this.childLen) || indeterminateCount > 0]
+      if (checkCount === this.childLen) {
+        return [true, hasIndeterminate]
+      } else if (checkCount > 0 && checkCount < this.childLen) {
+        if (checkableUnCheckCount > 0) {
+          return [false, true]
+        } else {
+          return [true, true]
+        }
+      } else {
+        return [false, false]
+      }
     },
     childCheckableCheckAll (parent) {
       let checked = true

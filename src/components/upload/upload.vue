@@ -53,6 +53,7 @@
             v-if="f.loading">
             <t-progress
               :percentage="f.percent"
+              hide-percentage
               v-if="f.loading"/>
          </div>
         </transition>
