@@ -31,6 +31,9 @@
       border-top-right-radius: $--button-group-border-radius;
       border-bottom-right-radius: $--button-group-border-radius;
     }
+    &:not(:last-child) {
+      border-right: $--border-base;
+    }
   }
 }
 

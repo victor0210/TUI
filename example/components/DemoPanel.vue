@@ -34,26 +34,35 @@ export default {
     margin: auto;
   }
   .demo-block {
-    margin-top: 20px;
+    margin-top: 50px;
     margin-bottom: 20px;
     float: left;
     width: 100%;
-    border-radius: 3px;
     transition: .2s;
-    box-shadow: 0 0 6px 1px #ebebeb;
   }
 
-  .demo-block .subtitle {
+  .demo-block .title {
+    font-size: 20px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 30px;
+    color: #333;
+  }
+
+  .demo-block .sub-title {
     line-height: 45px;
-    font-weight: 500;
-    font-size: 18px;
-    padding-left: 25px;
-    border-bottom: 1px solid #ebebeb;
+    font-size: 14px;
+    color: #666;
   }
 
   .demo-block .source {
+    border: 1px solid #f0f1f2;
+    border-bottom: none;
     padding: 25px;
+    width: 100%;
+    box-sizing: border-box;
   }
+
   .demo-container {
     transition: all .3s ease;
     overflow: hidden;
@@ -64,7 +73,7 @@ export default {
     height: auto;
     box-sizing: border-box;
     font-size: 13px;
-    background-color: #fafafa;
+    background-color: #f5f7fa;
     border-top: none;
   }
 
@@ -81,8 +90,32 @@ export default {
 
   .docs-demo-wrapper {
     transition: all .3s;
+    border: 1px solid #f0f1f2;
+    border-top: none;
     float: left;
+    display: block;
     width: 100%;
+    box-sizing: border-box;
+  }
+
+  .docs-demo-wrapper blockquote{
+    background-color: #70a1ff;
+    padding: 10px;
+    color: white;
+    margin-top: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .docs-demo-wrapper blockquote p{
+    margin: 0;
+  }
+
+  .docs-demo-wrapper blockquote p code{
+    background-color: #34495e;
+    border-radius: 3px;
+    padding: 4px 6px;
+    box-shadow: 0 2px 4px 1px rgba(0,0,0,0.2);
   }
 
   .docs-trans {

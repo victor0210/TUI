@@ -23,12 +23,6 @@
     margin-left: $--button-margin-horizontal;
   }
 
-  & .t-icon {
-    & + span {
-      margin-left: 5px;
-    }
-  }
-
   @include button-size($--button-padding-vertical, $--button-padding-horizontal, $--button-font-size, $--button-border-radius, $--button-round-border-radius);
 
   &:hover,
@@ -51,6 +45,25 @@
   @include when(round) {
     border-radius: 20px;
     padding: 12px 23px;
+  }
+
+  @include e(icon) {
+    @include m(left) {
+      margin-right: 5px;
+    }
+    @include m(right) {
+      margin-left: 5px;
+    }
+  }
+
+  @include when(circle) {
+    border-radius: 50%;
+    padding: 12px 12px;
+
+    .t-btn__icon {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   @include when(disabled) {
@@ -91,12 +104,16 @@
   @include m(sm) {
     @include button-size($--button-small-padding-vertical, $--button-small-padding-horizontal, $--button-small-font-size, $--button-small-border-radius, $--button-small-round-border-radius);
   }
+  @include m(mini) {
+    @include button-size($--button-mini-padding-vertical, $--button-mini-padding-horizontal, $--button-mini-font-size, $--button-mini-border-radius, $--button-mini-round-border-radius);
+  }
   @include m(text) {
     border-color: transparent;
     color: $--color-primary;
     background: transparent;
     padding-left: 0;
     padding-right: 0;
+    border: none;
 
     &:hover,
     &:focus {
