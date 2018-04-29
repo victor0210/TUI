@@ -4,10 +4,11 @@
 @import "mixins/input";
 
 @include b(timepicker) {
-  display: block;
+  display: table;
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
+  width: 100%;
   height: $--input-height-base;
 
   input {
@@ -199,7 +200,7 @@
       box-sizing: border-box;
       color: #606266;
       display: inline-block;
-      font-size: 12px;
+      font-size: 13px;
       outline: none;
       padding: 0;
       transition: border-color .2s cubic-bezier(.645, .045, .355, 1);

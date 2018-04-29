@@ -96,6 +96,7 @@
   & .t-cascader__input {
     font-size: $fontSize;
     line-height: $height - 2;
+    height: $height - 2;
   }
   & .t-datepicker__input {
     height: $height - 2;
