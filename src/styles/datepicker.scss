@@ -14,12 +14,11 @@
   height: $--input-height-base;
 
   input {
-    height: $--input-height-base - 2;
     cursor: pointer;
   }
 
   @include e(inner) {
-    height: $--input-height-base - 2;
+    height: 100%;
   }
 
   @include e(wrapper) {
