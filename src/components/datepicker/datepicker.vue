@@ -5,20 +5,20 @@
       clearable && value !== '' ? 'is-clearable': '',
       size ? `t-datepicker--${size}` : ''
     ]" :style="{
-      width: width ? `${width}px` : '',
+      width: width ? `${width}px` : (type === 'daterange' ? 'auto' : ''),
       height: height ? `${height}px` : ''
     }">
-    <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'" :style="{height: height ? `${height}px` : ''}">
+    <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'" :style="{height: height ? `${height - 2}px` : ''}">
       <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
-      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model" :style="{height: height ? `${height}px` : ''}">
+      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model" :style="{height: height ? `${height - 2}px` : ''}">
       <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
     </div>
-    <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else :style="{height: height ? `${height}px` : ''}">
+    <div class="t-datepicker__input t-datepicker__input--range" ref="box" @click.prevent="checkout" v-else :style="{height: height ? `${height - 2}px` : ''}">
       <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
       <i class="t-datepicker__icon t-datepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
-      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderStart" :value="rangeLeftInput" :style="{height: height ? `${height}px` : ''}">
-      <span class="t-datepicker__addon"> 至 </span>
-      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput" :style="{height: height ? `${height}px` : ''}">
+      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderStart" :value="rangeLeftInput" :style="{height: height ? `${height - 2}px` : ''}">
+      <span class="t-datepicker__addon" :style="{height: height ? `${height - 2}px` : '', lineHeight: height ? `${height - 2}px` : ''}"> 至 </span>
+      <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput" :style="{height: height ? `${height - 2}px` : ''}">
     </div>
     <datepicker-drop-menu :select="self" :is-focus="isFocus" v-if="isFocus">
       <transition name="fade">
