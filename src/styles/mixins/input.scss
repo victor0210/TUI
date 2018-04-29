@@ -99,9 +99,10 @@
   }
   & .t-datepicker__input {
     height: $height - 2;
-    input {
-      height: $height - 2;
-    }
+  }
+
+  & .t-timepicker__input {
+    height: $height - 2;
   }
 }
 

@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <label class="t-timepicker" :class="{
-      'is-focus': isFocus,
-      'is-disabled': disabled,
-      'is-clearable': clearable && value !== '',
+  <div class="t-timepicker" :class="[
+      isFocus ? 'is-focus' : '',
+      disabled ? 'is-disabled' : '',
+      clearable && value !== '' ? 'is-clearable': '',
+      size ? `t-timepicker--${size}` : ''
+    ]" :style="{
+      width: width ? `${width}px` : '',
+      height: height ? `${height}px` : '',
     }">
-      <div class="t-timepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'timerange'">
+      <div class="t-timepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'timerange'" :style="{height: height ? `${height - 2}px` : '',}">
         <i class="t-timepicker__icon t-timepicker__icon--calender fa fa-clock" ref="clock_icon"></i>
         <input type="text" readonly class="t-timepicker__inner" ref="inner" :placeholder="placeholder" :value="label">
         <i class="t-timepicker__icon t-timepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
       </div>
-    </label>
     <transition name="fade">
       <time-picker-drop-menu :is-focus="isFocus" :select="self" v-if="isFocus">
         <div class="t-timepicker__select-panel" v-show="isFocus && type !== 'timerange'">
@@ -132,7 +134,10 @@ export default {
     },
     max: {
       default: ''
-    }
+    },
+    size: String,
+    width: Number,
+    height: Number
   },
 
   mounted () {
