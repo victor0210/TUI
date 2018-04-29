@@ -186,7 +186,7 @@ export default {
     optionRegister (option) {
       this.options.push(option)
 
-      if (this.value === option.val || this.value.indexOf(option.val) !== -1) {
+      if (this.value && (this.value === option.val || this.value.indexOf(option.val) !== -1)) {
         this.setValueIndex('', this.options.length - 1)
         this.focusDirection = 'none'
       }
