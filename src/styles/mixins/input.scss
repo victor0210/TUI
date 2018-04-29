@@ -97,6 +97,12 @@
     font-size: $fontSize;
     line-height: $height - 2;
   }
+  & .t-datepicker__input {
+    height: $height - 2;
+    input {
+      height: $height - 2;
+    }
+  }
 }
 
 @mixin input-number-border ($border-color) {

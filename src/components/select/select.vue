@@ -6,7 +6,7 @@
     size ? `t-select--${size}` : '',
     multiple ? 'is-multiple' : ''
   ]" :style="{
-    width: width ? `${width}px` : 'auto',
+    width: width ? `${width}px` : '',
     minHeight: height ? `${height}px` : '',
     height: height ? `${height}px` : ''
   }" ref="box">
