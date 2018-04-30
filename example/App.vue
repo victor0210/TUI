@@ -1,5 +1,6 @@
 <template>
   <div id='app'>
+    <t-back-top/>
     <t-layout flex-direction="vertical" class="frame">
       <t-row>
         <t-col :span="22" :offset="1">
