@@ -175,6 +175,11 @@ export default new Router({
       path: '/upload',
       name: 'upload',
       component: r => require.ensure([], () => r(require('../pages/upload.vue')))
+    },
+    {
+      path: '/backtop',
+      name: 'backtop',
+      component: r => require.ensure([], () => r(require('../pages/backtop.vue')))
     }
   ]
 })

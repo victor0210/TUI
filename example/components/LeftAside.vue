@@ -294,6 +294,11 @@ export default {
           route: '/collsape',
           name: 'Collsape',
           chinese: '折叠面板'
+        },
+        {
+          route: '/backtop',
+          name: 'BackTop',
+          chinese: '返回顶部'
         }
       ]
     }
