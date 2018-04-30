@@ -52,7 +52,7 @@ export default {
               left: _this.left ? `${_this.left}px` : '',
               right: _this.right ? `${_this.right}px` : '',
               top: _this.top ? `${_this.top}px` : '',
-              bottom: _this.bottom ? `${_this.bottom}px` : '',
+              bottom: _this.bottom ? `${_this.bottom}px` : ''
             },
             on: {
               click: () => {
