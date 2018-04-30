@@ -180,6 +180,11 @@ export default new Router({
       path: '/backtop',
       name: 'backtop',
       component: r => require.ensure([], () => r(require('../pages/backtop.vue')))
+    },
+    {
+      path: '/divider',
+      name: 'divider',
+      component: r => require.ensure([], () => r(require('../pages/divider.vue')))
     }
   ]
 })

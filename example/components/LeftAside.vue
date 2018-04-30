@@ -299,6 +299,11 @@ export default {
           route: '/backtop',
           name: 'BackTop',
           chinese: '返回顶部'
+        },
+        {
+          route: '/divider',
+          name: 'Divider',
+          chinese: '分割线'
         }
       ]
     }

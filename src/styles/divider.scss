@@ -1,0 +1,70 @@
+@import "variables";
+@import "mixins/mixins";
+@import "mixins/divider";
+@import "utils/utils";
+
+@include b(divider) {
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin: 24px 0;
+  clear: both;
+  font-weight: 500;
+  font-size: 16px;
+  color: $--color-text-primary;
+  box-sizing: border-box;
+  padding: 0;
+  border-top: 1px solid $--color-text-placeholder;
+  position: relative;
+
+  @include when(text) {
+    display: table;
+    background-color: transparent;
+    white-space: nowrap;
+    margin: 20px 0;
+    border-top-width: 0;
+
+    &:before,
+    &:after {
+      content: "";
+      display: table-cell;
+      position: relative;
+      width: 50%;
+      border-top: 1px solid $--color-text-placeholder;
+      transform: translateY(50%);
+    }
+
+    .t-divider__text {
+      padding: 0 18px;
+      background-color: transparent;
+      display: inline-block;
+    }
+  }
+
+  @include when(left) {
+    &:before {
+      width: 10%;
+    }
+
+    &:after {
+      width: 90%;
+    }
+  }
+
+  @include when(right) {
+    &:before {
+      width: 90%;
+    }
+
+    &:after {
+      width: 10%;
+    }
+  }
+
+  @include m(dotted){
+    @include divider-border-style(dotted)
+  }
+  @include m(dashed){
+    @include divider-border-style(dashed)
+  }
+}

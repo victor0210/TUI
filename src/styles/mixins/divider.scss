@@ -1,0 +1,7 @@
+@mixin divider-border-style($style) {
+  &,
+  &:before,
+  &:after {
+    border-top-style: $style !important;
+  }
+}
