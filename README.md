@@ -78,6 +78,7 @@ Modal <br>
 Popover <br>
 Collsape <br>
 BackTop <br>
+Divider <br>
 
 
 ## Todo
