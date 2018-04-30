@@ -6,17 +6,35 @@ export default {
 
   render (h) {
     this.createInstance()
-    console.log('render')
 
     return h()
   },
 
+  data () {
+    return {
+      show: false
+    }
+  },
+
   props: {
-    position: String,
+    left: Number,
+    top: Number,
+    right: Number,
+    bottom: Number,
     icon: {
       type: String,
       default: 'fa fa-chevron-up'
+    },
+    size: {
+      type: Number,
+      default: 50
     }
+  },
+
+  mounted () {
+    setTimeout(() => {
+      this.checkScrollTop(document.body.scrollTop || document.documentElement.scrollTop, true)
+    }, 500)
   },
 
   methods: {
@@ -27,7 +45,20 @@ export default {
       let backTopComponent = new Vue({
         render (h) {
           return h('div', {
-            class: 't-back-top'
+            class: 't-back-top',
+            style: {
+              width: _this.size ? `${_this.size}px` : '',
+              height: _this.size ? `${_this.size}px` : '',
+              left: _this.left ? `${_this.left}px` : '',
+              right: _this.right ? `${_this.right}px` : '',
+              top: _this.top ? `${_this.top}px` : '',
+              bottom: _this.bottom ? `${_this.bottom}px` : '',
+            },
+            on: {
+              click: () => {
+                document.documentElement.scrollTop = document.body.scrollTop = -100
+              }
+            }
           }, [h('i', {
             class: _this.icon
           })])
@@ -35,16 +66,15 @@ export default {
 
         methods: {
           show () {
+            this.$el.style.transform = 'scale(1)'
             this.$el.style.opacity = 1
-            this.$el.style.animation = 't-top-to-center-in .2s linear'
           },
           hide () {
-            this.$el.style.animation = 't-top-to-center-out .2s linear'
+            this.$el.style.transform = 'scale(0)'
             this.$el.style.opacity = 0
           },
           remove () {
             this.$destroy()
-            BackTop = null
             document.body.removeChild(this.$el)
           }
         }
@@ -54,17 +84,28 @@ export default {
 
       document.body.appendChild(BackTop.$el)
 
-      document.addEventListener('scroll', this.switchVisible)
+      window.addEventListener('scroll', this.switchVisible)
 
       return backTopComponent
     },
     switchVisible (e) {
-      console.log(document.body.scrollHeight)
+      let scrollTop = e.target.scrollingElement.scrollTop
+      this.checkScrollTop(scrollTop)
+    },
+
+    checkScrollTop (scrollTop, init) {
+      if (scrollTop > 50 && (!this.show || init)) {
+        BackTop.show()
+        this.show = true
+      } else if (scrollTop < 50 && (this.show || init)) {
+        BackTop.hide()
+        this.show = false
+      }
     }
   },
 
   beforeDestroy () {
-    BackTop.remove()
+    BackTop && BackTop.remove()
   }
 }
 </script>

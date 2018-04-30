@@ -153,7 +153,7 @@ export default {
         {name: 'outline', desc: '边框按钮', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'circle', desc: '圆形按钮', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'icon-right', desc: '图标位于右侧', type: 'Boolean', choice: '—', default: 'false'}
-      ],
+      ]
     }
   }
 }
