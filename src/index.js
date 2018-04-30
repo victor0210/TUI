@@ -46,6 +46,7 @@ import Popover from './components/popover/index'
 import Tooltip from './components/tooltip/index'
 import Collsape from './components/collsape/index'
 import CollsapeItem from './components/collsapeItem/index'
+import BackTop from './components/backtop/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -107,7 +108,8 @@ const Tui = {
   Popover,
   Tooltip,
   Collsape,
-  CollsapeItem
+  CollsapeItem,
+  BackTop
 }
 
 const install = function (Vue, opts = {}) {
