@@ -121,6 +121,11 @@ export default {
     return {
       basicList: [
         {
+          route: '/color',
+          name: 'Color',
+          chinese: '色彩'
+        },
+        {
           route: '/button',
           name: 'Button',
           chinese: '按钮'

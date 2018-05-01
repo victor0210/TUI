@@ -7,10 +7,10 @@ $--color-white: #fff !default;
 $--color-black: #000 !default;
 $--color-gray: #555 !default;
 
-$--color-primary: #44A9FF !default;
+$--color-primary: #44a9ff !default;
 $--color-success: #2ed573 !default;
-$--color-warning: #FFDC23 !default;
-$--color-danger: #FF5500 !default;
+$--color-warning: #fccc23 !default;
+$--color-danger: #ff5500 !default;
 $--color-info: #34495e !default;
 
 $--color-primary-light: mix($--color-white, $--color-primary, 80%) !default;
@@ -25,10 +25,15 @@ $--color-warning-lighter: mix($--color-white, $--color-warning, 90%) !default;
 $--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
 $--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;
 
-$--color-text-primary: #303133 !default;
-$--color-text-regular: #606266 !default;
-$--color-text-secondary: #909399 !default;
-$--color-text-placeholder: #c0c4cc !default;
+$--color-text-primary: #303030 !default;
+$--color-text-regular: #606060 !default;
+$--color-text-secondary: #909090 !default;
+$--color-text-placeholder: #c0c0c0 !default;
+
+$--border-color-text-primary: #dfdfdf !default;
+$--border-color-text-regular: #e3e3e3 !default;
+$--border-color-text-secondary: #e6e6e6 !default;
+$--border-color-text-placeholder: #f5f6f6 !default;
 
 /**
  * --------------------------- Font ---------------------------
