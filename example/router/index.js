@@ -7,9 +7,9 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'document',
-      component: r => require.ensure([], () => r(require('../pages/layout.vue')))
+      path: '/color',
+      name: 'color',
+      component: r => require.ensure([], () => r(require('../pages/color.vue')))
     },
     {
       path: '/layout',
