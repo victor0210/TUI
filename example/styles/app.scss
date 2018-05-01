@@ -295,6 +295,17 @@ pre {
   width: 100%;
 }
 
+#font-docs pre {
+  margin: 0;
+  overflow: scroll;
+  background-color: #f5f6f6;
+  padding: 15px;
+  border-radius: 4px;
+}
+#font-docs .language-css {
+
+}
+
 .docs-demo__code__mobi__header .url-box {
   height: 28px;
   line-height: 28px;

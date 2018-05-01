@@ -12,6 +12,11 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/color.vue')))
     },
     {
+      path: '/font',
+      name: 'font',
+      component: r => require.ensure([], () => r(require('../pages/font.vue')))
+    },
+    {
       path: '/layout',
       name: 'layout',
       component: r => require.ensure([], () => r(require('../pages/layout.vue')))

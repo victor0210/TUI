@@ -38,13 +38,13 @@
           <t-col :span="6"><div class="color-panel" style="background-color: #303030"><div class="main">一级文本</div><div class="sub">#303030</div></div></t-col>
           <t-col :span="6"><div class="color-panel" style="background-color: #606060"><div class="main">二级文本</div><div class="sub">#606060</div></div></t-col>
           <t-col :span="6"><div class="color-panel" style="background-color: #909090"><div class="main">三级文本</div><div class="sub">#909090</div></div></t-col>
-          <t-col :span="6"><div class="color-panel" style="background-color: #c0c0c0"><div class="main">四级文本</div><div class="sub">#c0c0c0</div></div></t-col>
+          <t-col :span="6"><div class="color-panel" style="background-color: #c0c0c0"><div class="main">四级文本</div><div class="sub">#C0C0C0</div></div></t-col>
         </t-row>
         <t-row :gutter="20">
-          <t-col :span="6"><div class="color-panel info" style="background-color: #dfdfdf"><div class="main">一级边框</div><div class="sub">#303030</div></div></t-col>
-          <t-col :span="6"><div class="color-panel info" style="background-color: #e3e3e3"><div class="main">二级边框</div><div class="sub">#606060</div></div></t-col>
-          <t-col :span="6"><div class="color-panel info" style="background-color: #e6e6e6"><div class="main">三级边框</div><div class="sub">#909090</div></div></t-col>
-          <t-col :span="6"><div class="color-panel info" style="background-color: #f4f5f6"><div class="main">四级边框</div><div class="sub">#c0c0c0</div></div></t-col>
+          <t-col :span="6"><div class="color-panel info" style="background-color: #dfdfdf"><div class="main">一级边框</div><div class="sub">#DFDFDF</div></div></t-col>
+          <t-col :span="6"><div class="color-panel info" style="background-color: #e3e3e3"><div class="main">二级边框</div><div class="sub">#E3E3E3</div></div></t-col>
+          <t-col :span="6"><div class="color-panel info" style="background-color: #e6e6e6"><div class="main">三级边框</div><div class="sub">#E6E6E6</div></div></t-col>
+          <t-col :span="6"><div class="color-panel info" style="background-color: #f4f5f6"><div class="main">四级边框</div><div class="sub">#F4F5F6</div></div></t-col>
         </t-row>
       </div>
     </div>
@@ -52,12 +52,7 @@
 </template>
 
 <script>
-import ButtonMd from '../documents/button/button.md'
-
 export default {
-  components: {
-    ButtonMd
-  }
 }
 </script>
 
