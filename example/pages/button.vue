@@ -109,7 +109,7 @@
     </div>
 
     <div class="api-docs">
-      <t-divider content="API Documents" class="document-divider"/>
+      <t-divider content="Attributes" class="document-divider"/>
       <div class="source">
         <t-table :data="apis">
           <t-table-column label="属性" prop="name" :width="120"/>

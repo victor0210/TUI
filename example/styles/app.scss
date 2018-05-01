@@ -345,18 +345,40 @@ pre {
 .grid-content {
   height: 40px;
 }
+
+.flex-content {
+  padding: 20px;
+  font-weight: 300;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: auto;
+}
+
+.router-link-active span,
+.router-link-active .chinese {
+  color: #44a9ff !important;
+}
+
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
 }
 
 .bg-primary {
-  background: mix(#fff, #44a9ff, 50%);
+  background: #44a9ff;
 }
 .bg-primary-light {
-  background: mix(#fff, #44a9ff, 80%);
+  background: mix(#fff, #44a9ff, 40%);
 }
 .bg-primary-lighter {
+  background: mix(#fff, #44a9ff, 70%);
+}
+.bg-primary-big-lighter {
   background: mix(#fff, #44a9ff, 90%);
 }
 

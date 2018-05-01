@@ -151,7 +151,7 @@
     </div>
 
     <div class="api-docs">
-      <t-divider content="Row Documents" class="document-divider"/>
+      <t-divider content="Row Attributes" class="document-divider"/>
       <div class="source">
         <t-table :data="rowApis">
           <t-table-column label="属性" prop="name" :width="80"/>
@@ -164,7 +164,7 @@
     </div>
 
     <div class="api-docs">
-      <t-divider content="Col Documents" class="document-divider"/>
+      <t-divider content="Col Attributes" class="document-divider"/>
       <div class="source">
         <t-table :data="colApis">
           <t-table-column label="属性" prop="name" :width="80"/>
