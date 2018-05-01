@@ -126,6 +126,11 @@ export default {
           chinese: '色彩'
         },
         {
+          route: '/font',
+          name: 'Font',
+          chinese: '字体'
+        },
+        {
           route: '/button',
           name: 'Button',
           chinese: '按钮'
