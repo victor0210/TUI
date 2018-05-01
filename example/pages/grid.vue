@@ -191,7 +191,7 @@ export default {
     GridMix,
     GridOffset,
     GridFlex,
-    GridResponsive,
+    GridResponsive
   },
 
   data () {
@@ -213,7 +213,7 @@ export default {
         {name: 'md', desc: '≥992px 响应式栅格数', type: 'Number/Object (例： {span: 4, offset: 4})', choice: '—', default: '—'},
         {name: 'lg', desc: '≥1200px 响应式栅格数', type: 'Number/Object (例： {span: 4, offset: 4})', choice: '—', default: '—'},
         {name: 'xl', desc: '≥1920px 响应式栅格数', type: 'Number/Object (例： {span: 4, offset: 4})', choice: '—', default: '—'},
-        {name: 'tag', desc: '自定义元素标签', type: 'String', choice: '*', default: 'div'},
+        {name: 'tag', desc: '自定义元素标签', type: 'String', choice: '*', default: 'div'}
       ]
     }
   }

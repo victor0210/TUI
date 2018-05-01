@@ -158,7 +158,6 @@
 import LayoutNormal from '../documents/layout/layoutNormal.md'
 import LayoutMix from '../documents/layout/layoutMix.md'
 import LayoutDemo from '../documents/layout/layoutDemo.md'
-import TMenu from "../../src/components/menu/menu";
 
 export default {
   components: {
@@ -171,19 +170,19 @@ export default {
     return {
       c: false,
       layoutApis: [
-        {name: 'flex-direction', desc: 'flex布局方向', type: 'String', choice: 'row/column', default: '—'},
+        {name: 'flex-direction', desc: 'flex布局方向', type: 'String', choice: 'row/column', default: '—'}
       ],
       headerApis: [
-        {name: 'height', desc: '高度', type: 'String', choice: '—', default: '60px'},
+        {name: 'height', desc: '高度', type: 'String', choice: '—', default: '60px'}
       ],
       footerApis: [
-        {name: 'height', desc: '高度', type: 'String', choice: '—', default: '—'},
+        {name: 'height', desc: '高度', type: 'String', choice: '—', default: '—'}
       ],
       asideApis: [
-        {name: 'width', desc: '宽度', type: 'String', choice: '—', default: 'auto'},
+        {name: 'width', desc: '宽度', type: 'String', choice: '—', default: 'auto'}
       ],
       contentApis: [
-        {name: '—', desc: '—', type: '—', choice: '—', default: '—'},
+        {name: '—', desc: '—', type: '—', choice: '—', default: '—'}
       ],
       menu: [
         {

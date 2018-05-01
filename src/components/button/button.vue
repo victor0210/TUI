@@ -9,7 +9,8 @@
       disabled ? 'is-disabled' : '',
       round ? 'is-round' : '',
       outline ? 'is-outline' : '',
-      circle ? 'is-circle' : ''
+      circle ? 'is-circle' : '',
+      !$slots.default ? 't-btn--without-slot' : ''
     ]"
     @click="handleClick"
     @mouseenter="mouseEnterHandler"
@@ -33,7 +34,10 @@ export default {
     }
   },
   props: {
-    type: String,
+    type: {
+      type: String,
+      default: 'default'
+    },
     size: String,
     icon: String,
     loading: Boolean,

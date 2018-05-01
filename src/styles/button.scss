@@ -9,7 +9,6 @@
   cursor: pointer;
   background: $--button-default-fill;
   border: $--border-base;
-  border-color: $--button-default-border;
   color: $--button-default-color;
   -webkit-appearance: none;
   text-align: center;
@@ -60,6 +59,13 @@
     border-radius: 50%;
     padding: 12px 12px;
 
+    .t-btn__icon {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  @include m(without-slot) {
     .t-btn__icon {
       margin-left: 0;
       margin-right: 0;
