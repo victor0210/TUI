@@ -13,7 +13,6 @@
   .t-btn--default {
     background-color: #eee;
     color: $--input-addon-color;
-    border: none;
 
     &:hover {
       background-color: lighten($--border-color-base, 2%);
@@ -76,22 +75,23 @@
 }
 
 @mixin inputIcon() {
-  height: $--input-height-base;
+  height: 100%;
   position: absolute;
   width: $--input-icon-width;
   top: 0;
   text-align: center;
   i {
     color: $--color-text-placeholder;
-    height: $--input-height-base;
-    line-height: $--input-height-base;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
 @mixin input-size($height, $fontSize) {
   height: $height;
   min-height: $height;
-  & .t-input__wrapper .t-input__inner,
   & .t-select__input,
   & .t-cascader__input {
     font-size: $fontSize;

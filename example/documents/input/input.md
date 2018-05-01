@@ -1,7 +1,6 @@
 :::demo
+> 可以通过 `width` 属性设置组件宽度，类型为 `String` ，默认为 100%
 ```html
-<t-row :gutter="20">
-  <t-col :span="5"><t-input placeholder="请输入"/></t-col>
-</t-row>
+<t-input placeholder="请输入" width="150px"/>
 ```
 :::
