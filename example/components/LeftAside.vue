@@ -136,9 +136,14 @@ export default {
           chinese: '按钮'
         },
         {
+          route: '/grid',
+          name: 'Grid',
+          chinese: '栅格'
+        },
+        {
           route: '/layout',
           name: 'Layout',
-          chinese: '栅格'
+          chinese: '布局'
         }
       ],
       formList: [

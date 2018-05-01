@@ -1,7 +1,7 @@
 <template>
-    <div class="t-content">
-      <slot></slot>
-    </div>
+  <div class="t-content">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

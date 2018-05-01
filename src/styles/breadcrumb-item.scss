@@ -6,6 +6,8 @@
   display: inline-block;
   float: left;
   font-size: 14px;
+  height: 20px;
+  line-height: 20px;
   color: $--color-text-secondary;
   font-weight: 400;
 
@@ -16,7 +18,7 @@
   @include e(router) {
     a {
       transition: color .2s;
-      font-weight: 700;
+      font-weight: 500;
       color: $--color-text-primary;
       &:hover {
         color: $--color-primary;

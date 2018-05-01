@@ -66,7 +66,7 @@
     </div>
 
     <div class="api-docs">
-      <div class="title">字体使用规范</div>
+      <t-divider content="字体使用规范" class="document-divider"/>
       <div class="source">
         <t-table :data="apis">
           <t-table-column label="字体展示">

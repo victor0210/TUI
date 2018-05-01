@@ -1,7 +1,7 @@
 <template>
-    <div class="t-layout" :style="{ flexDirection }">
-      <slot></slot>
-    </div>
+  <div class="t-layout" :style="{ flexDirection }">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
