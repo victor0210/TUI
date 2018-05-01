@@ -17,9 +17,9 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/font.vue')))
     },
     {
-      path: '/layout',
-      name: 'layout',
-      component: r => require.ensure([], () => r(require('../pages/layout.vue')))
+      path: '/grid',
+      name: 'grid',
+      component: r => require.ensure([], () => r(require('../pages/grid.vue')))
     },
     {
       path: '/button',

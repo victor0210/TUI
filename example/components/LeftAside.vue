@@ -136,8 +136,8 @@ export default {
           chinese: '按钮'
         },
         {
-          route: '/layout',
-          name: 'Layout',
+          route: '/grid',
+          name: 'Grid',
           chinese: '栅格'
         }
       ],
