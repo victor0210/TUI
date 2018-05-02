@@ -10,6 +10,7 @@
   height: $--input-height-base;
   overflow: hidden;
   transition: .2s;
+  box-sizing: border-box;
 
   &:hover {
     border-color: $--color-gray;
@@ -187,8 +188,9 @@
       }
       .t-btn {
         cursor: not-allowed;
-        background-color: #f5f7fa;
+        background-color: #f5f7fa !important;
         color: #c0c4cc;
+        border: none;
       }
       input {
         cursor: not-allowed;

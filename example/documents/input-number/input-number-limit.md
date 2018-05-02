@@ -1,10 +1,7 @@
 ::: demo
+> `max` 为最大值，`min` 为最小值，类型都为 `Number`
 ```html
-<t-row :gutter="20">
-  <t-col :span="5">
-    <t-input-number  v-model="n" :max="10" :min="-1"/>
-  </t-col>
-</t-row>
+<t-input-number v-model="n" :max="10" :min="0"/>
 
 <script>
 export default {

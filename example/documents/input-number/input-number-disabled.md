@@ -1,10 +1,7 @@
 ::: demo
+> 设置 `disabled` 为 `true` 即可
 ```html
-<t-row :gutter="20">
-  <t-col :span="5">
-    <t-input-number  v-model="n" disabled/>
-  </t-col>
-</t-row>
+<t-input-number  v-model="n" disabled/>
 
 <script>
 export default {

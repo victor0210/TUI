@@ -1,10 +1,7 @@
 ::: demo
+> 设置 `side-control` 属性为 `true`
 ```html
-<t-row :gutter="20">
-  <t-col :span="5">
-    <t-input-number  v-model="n" side-control/>
-  </t-col>
-</t-row>
+<t-input-number v-model="n" side-control/>
 
 <script>
 export default {

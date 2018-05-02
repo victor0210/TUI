@@ -1,15 +1,8 @@
 ::: demo
+> 设置 `range` 属性即可，类型为 `Number` 
 ```html
-<t-row :gutter="20">
-  <t-col :span="5">
-    <t-input-number  v-model="n1" :range="10"/>
-  </t-col>
-</t-row>
-<t-row :gutter="20">
-  <t-col :span="5">
-    <t-input-number  v-model="n2" :range="20"/>
-  </t-col>
-</t-row>
+<t-input-number v-model="n1" :range="10"/>
+<t-input-number v-model="n2" :range="20"/>
 
 <script>
 export default {
