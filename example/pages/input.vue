@@ -134,13 +134,16 @@ export default {
         {name: 'size', desc: '尺寸', type: 'String', choice: 'lg/sm/mini', default: '—'},
         {name: 'prefix-icon', desc: '头部图标', type: 'String', choice: '—', default: '—'},
         {name: 'prepend-icon', desc: '尾部图标', type: 'String', choice: '—', default: '—'},
+        {name: 'namae', desc: '原生属性', type: 'String', choice: '—', default: '—'},
         {name: 'placeholder', desc: '占位文本', type: 'String', choice: '—', default: '—'},
         {name: 'max', desc: '设置最大值', type: 'Number', choice: '—', default: '—'},
         {name: 'min', desc: '设置最小值', type: 'Number', choice: '—', default: '—'},
         {name: 'rows', desc: 'textarea行数', type: 'Number', choice: '—', default: '3'},
         {name: 'resize', desc: 'textarea可否调节尺寸', type: 'String', choice: 'none/both/horizontal/vertical', default: 'vertical'},
         {name: 'readonly', desc: '是否只读', type: 'Boolean', choice: '—', default: 'false'},
-        {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'}
+        {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'autocomplete', desc: '自动填充', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'aotufocus', desc: '自动聚焦', type: 'Boolean', choice: '—', default: 'false'}
       ],
       slots: [
         {name: 'prefix', desc: '头部内容，可添加按钮，文本等'},
