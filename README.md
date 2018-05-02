@@ -1,4 +1,4 @@
-# ![TUI](https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/TV.jpg)
+<div style="text-align: center"><img src="https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/TV.jpg" width="300"></div>
 
 A High Quanlity UI Toolkit By VUE.
 
