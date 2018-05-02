@@ -37,7 +37,7 @@
             </ul>
         </t-col>
         <t-col :span="5" :offset="1" class="t-col-last">
-            <img src="../assets/logo.png" alt="">
+            <img src="../assets/TV.jpg" alt="">
             <p>当前呈现版本：</p>
             <p>Vue.js 2.5.13, T-UI 1.1.0</p>
         </t-col>

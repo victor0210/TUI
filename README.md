@@ -1,4 +1,4 @@
-# ![TUI](https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/logo.png)
+# ![TUI](https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/TV.jpg)
 
 A High Quanlity UI Toolkit By VUE.
 

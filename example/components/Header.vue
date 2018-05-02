@@ -1,7 +1,8 @@
 <template>
     <t-row>
         <t-col :span="10" class="logoCol">
-          <a href="/#"><img src="../assets/logo.png" alt="" class="logo-img"></a>
+          <a href="/#"><img src="../assets/TV.jpg" alt="" class="logo-img"></a>
+          <span style="font-size: 20px; color: #606060; font-family: 'Apple Chancery'">Think-UI</span>
         </t-col>
         <t-col :span="5">
             <div class="search">
