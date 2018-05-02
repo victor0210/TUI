@@ -46,7 +46,7 @@ export default {
   props: {
     placeholder: String,
     autocomplete: Boolean,
-    autofocus: Boolean
+    autofocus: Boolean,
     readonly: Boolean,
     disabled: Boolean,
     name: String,
@@ -66,7 +66,7 @@ export default {
     sideControl: Boolean,
     value: {},
     size: String,
-    width: String,
+    width: String
   },
   mounted () {
     this.val = parseFloat(this.value) || ''

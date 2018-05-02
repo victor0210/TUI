@@ -126,6 +126,20 @@ section {
   padding: 25px;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.demo-block .source .half{
+  border: 1px solid #f0f1f2;
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+  padding: 25px 25px 100px;
+  transition: .2s;
+
+  &:hover {
+    box-shadow: 0 2px 12px 4px #eee;
+  }
 }
 
 .demo-block.without-code .source {

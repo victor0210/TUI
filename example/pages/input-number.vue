@@ -129,7 +129,7 @@ export default {
         {name: 'autofocus', desc: '自动聚焦', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'readonly', desc: '是否只读', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'},
-        {name: 'side-control', desc: '右边控制', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'side-control', desc: '右边控制', type: 'Boolean', choice: '—', default: 'false'}
       ],
       methods: [
         {name: 'focus', desc: '在输入框获得焦点时触发', params: 'event（事件对象）'},
@@ -139,23 +139,4 @@ export default {
     }
   }
 }
-//
-// disabled: Boolean,
-//   name: String,
-//   min: Number,
-//   max: Number,
-//   range: {
-//   type: Number,
-// default: 1,
-//     validator: function (v) {
-//     return v > 0
-//   }
-// },
-// type: {
-//   type: String,
-// default: 'default'
-// },
-// sideControl: Boolean,
-//   value: {},
-// size: String
 </script>

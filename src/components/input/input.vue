@@ -13,7 +13,7 @@
         <slot name="prefix"/>
       </div>
       <div class="t-input__wrapper">
-        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" ref="input" :disabled="disabled" :name="name" :autocomplete="autocomplete" :autofocus="autofocus"/>
+        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" ref="input" :disabled="disabled" :name="name" :autofocus="autofocus" :autocomplete="autocomplete"/>
         <span v-if="prefixIcon" class="t-input__prefix-inner">
           <i :class="prefixIcon"></i>
         </span>
