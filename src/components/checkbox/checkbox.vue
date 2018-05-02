@@ -1,17 +1,17 @@
 <template>
-    <label class="t-checkbox"  :class="{
-        'is-checked': isChecked || indeterminate,
-        'is-disabled': disabled,
-        'is-outbox': outbox,
-      }">
-      <span class="t-checkbox__label" v-if="labelLeft && !!label">{{ label }}</span>
-      <span class="t-checkbox__inner">
-        <i class="fa fa-check" v-show="!indeterminate"></i>
-        <i class="fa fa-minus" v-show="indeterminate"></i>
-      </span>
-      <span class="t-checkbox__label" v-if="!labelLeft && !!label">{{ label }}</span>
-      <input type="checkbox" v-model="isChecked" :disabled="disabled" @change="onChange" :value="val">
-    </label>
+  <label class="t-checkbox"  :class="{
+      'is-checked': isChecked || indeterminate,
+      'is-disabled': disabled,
+      'is-outbox': outbox,
+    }">
+    <span class="t-checkbox__label" v-if="labelLeft && !!label">{{ label }}</span>
+    <span class="t-checkbox__inner">
+      <i class="fa fa-check" v-show="!indeterminate"></i>
+      <i class="fa fa-minus" v-show="indeterminate"></i>
+    </span>
+    <span class="t-checkbox__label" v-if="!labelLeft && !!label">{{ label }}</span>
+    <input type="checkbox" v-model="isChecked" :disabled="disabled" @change="onChange" :value="val" :name="name" :checked="checked">
+  </label>
 </template>
 
 <script>
@@ -42,7 +42,8 @@ export default {
     checked: Boolean,
     value: {},
     trueValue: Boolean,
-    indeterminate: Boolean
+    indeterminate: Boolean,
+    name: String
   },
   beforeMount () {
     this.$on('reset', this.reset)
@@ -50,6 +51,10 @@ export default {
     this.$on('group-change', this.groupChange)
   },
   mounted () {
+    this._isGroup()
+    this.initValue()
+  },
+  updated () {
     this._isGroup()
     this.initValue()
   },
@@ -105,6 +110,10 @@ export default {
     },
     onChange (e) {
       const val = e.target.checked
+      this.onCheckedChange(val)
+    },
+
+    onCheckedChange (val) {
       if (this.isGroup) {
         this._checkSize(val)
       } else {
@@ -119,7 +128,7 @@ export default {
             }
           } else {
             if (this.trueValue) {
-              this.$emit('input', val ? this.val : '')
+              this.$emit('input', val ? this.val : false)
             } else {
               this.$emit('input', val)
             }
@@ -138,6 +147,9 @@ export default {
       } else {
         this.isChecked = val
       }
+    },
+    isChecked (val) {
+      this.onCheckedChange(val)
     }
   }
 }

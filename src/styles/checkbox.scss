@@ -41,7 +41,7 @@
       top: 0;
       margin: auto;
       line-height: 16px;
-      height: 14px;
+      height: 12px;
       width: 14px;
       color: $--color-white;
       opacity: 0;
@@ -120,7 +120,8 @@
     background-color: $--color-primary;
 
     .t-checkbox__inner {
-      border-radius: 50%;
+      background-color: $--color-primary;
+      border-radius: 30%;
     }
 
     .t-checkbox__label {
