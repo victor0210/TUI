@@ -5,21 +5,19 @@
     `${focused ? 'is-focused' : ''}`,
     `${sideFocused ? 'is-side-focused' : ''}`,
     `${size ? 't-input-number--' + size : ''}`
-  ]">
-    <div class="t-input-number__cover"></div>
+  ]" :style="{
+    width: width || ''
+  }">
     <div class="t-input-number__prefix" v-if="!sideControl">
-     <t-button :type="type" @click="decrement" :disabled="disabled || min >= val" @mouseover="moFocus" @mouseout="moBlur">
-       <i class="fa fa-minus"></i>
-     </t-button>
+      <t-button :type="type" @click="decrement" :disabled="disabled || min >= val" @mouseover="moFocus" @mouseout="moBlur" icon="fa fa-minus"/>
     </div>
+
     <div class="t-input-number__wrapper">
-      <input class="t-input-number__inner" type="text" :name="name" :min="min" :max="max" autocomplete="off" v-model="val" @focus="focusHandler" @blur="blurHandler" :disabled="disabled"/>
+      <input class="t-input-number__inner" type="text" :name="name" :min="min" :max="max" :autocomplete="autocomplete" v-model="val" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :placeholder="placeholder" :readonly="readonly"/>
     </div>
 
     <div class="t-input-number__suffix" v-if="!sideControl">
-      <t-button :type="type" @click="increment" :disabled="disabled || max <= val" @mouseover="moFocus" @mouseout="moBlur">
-        <i class="fa fa-plus"></i>
-      </t-button>
+      <t-button :type="type" @click="increment" :disabled="disabled || max <= val" @mouseover="moFocus" @mouseout="moBlur" icon="fa fa-plus"/>
     </div>
 
     <div class="t-input-number__side-control" @mouseout="resetPosition" v-else>
@@ -46,9 +44,10 @@ export default {
     }
   },
   props: {
+    placeholder: String,
+    autocomplete: Boolean,
+    readonly: Boolean,
     disabled: Boolean,
-    prefixIcon: {},
-    prependIcon: {},
     name: String,
     min: Number,
     max: Number,
@@ -65,7 +64,8 @@ export default {
     },
     sideControl: Boolean,
     value: {},
-    size: String
+    size: String,
+    width: String
   },
   mounted () {
     this.val = parseFloat(this.value) || ''
@@ -101,14 +101,19 @@ export default {
     moBlur () {
       this.type === 'default' && (this.sideFocused = false)
     },
-    focusHandler () {
+    focusHandler (e) {
       document.addEventListener('keydown', this.keyDownHandler)
       this.focused = true
+      this.$emit('focus', e)
     },
-    blurHandler () {
+    blurHandler (e) {
       document.removeEventListener('keydown', this.keyDownHandler)
       this.focused = false
       this.val !== '' && (this.val = isNaN(parseFloat(this.val)) ? '' : parseFloat(this.val))
+      this.$emit('blur', e)
+    },
+    changeHandler (e) {
+      this.$emit('change', e.target.value)
     },
     keyDownHandler (e) {
       const code = e.keyCode

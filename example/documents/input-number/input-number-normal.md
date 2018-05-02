@@ -1,12 +1,12 @@
 ::: demo
+> 绑定value值即可，类型为 `Number` 或 `String`
 ```html
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" /></t-col></t-row>
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="primary"/></t-col></t-row>
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="success"/></t-col></t-row>
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="warning"/></t-col></t-row>
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="danger"/></t-col></t-row>
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="info"/></t-col></t-row>
-<t-row :gutter="20"><t-col :span="5"><t-input-number  v-model="n" type="inverse"/></t-col></t-row>
+<t-input-number v-model="n" />
+<t-input-number v-model="n" type="primary"/>
+<t-input-number v-model="n" type="success"/>
+<t-input-number v-model="n" type="warning"/>
+<t-input-number v-model="n" type="danger"/>
+<t-input-number v-model="n" type="info"/>
 
 <script>
 export default {

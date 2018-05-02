@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="Grid 栅格布局" des="使用Grid可以快速构建响应式栅格系统，进行页面的快速布局"/>
+    <guide title="Grid 栅格" des="使用Grid可以快速构建响应式栅格系统，进行页面的快速布局"/>
     <div class="demo-block">
       <div class="title">基本用法</div>
       <div class="sub-title">使用同样占比均分行布局</div>
