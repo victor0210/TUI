@@ -9,7 +9,7 @@
         <span class="t-radio__circle"></span>
     </span>
     <span class="t-radio__label" v-if="!labelLeft && !!label">{{ label }}</span>
-    <input type="radio" :disabled="disabled" :value="val" v-model="model">
+    <input type="radio" :disabled="disabled" :value="val" v-model="model" :name="name">
     <br>
   </label>
 </template>
@@ -34,10 +34,11 @@ export default {
     disabled: Boolean,
     outbox: Boolean,
     val: {
-      type: String,
+      type: [String, Number],
       required: true
     },
-    value: {}
+    value: {},
+    name: String
   },
   mounted () {
     this.$on('reset', this.reset)

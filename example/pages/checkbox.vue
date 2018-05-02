@@ -7,7 +7,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="8">
-            <t-checkbox label="label在右边" checked/>
+            <t-checkbox label="label在右边"/>
             <t-checkbox label="label在左边" label-left/>
           </t-col>
         </t-row>
@@ -217,10 +217,10 @@ export default {
         {name: 'max', desc: '最大选中个数', type: 'Number', choice: '—', default: '—'}
       ],
       checkboxMethods: [
-        {name: 'change', desc: '在输入框值变化时触发', params: 'value（当前是否选中）'}
+        {name: 'change', desc: '触发选项值变化时触发', params: 'value（当前是否选中）'}
       ],
       checkboxGroupMethods: [
-        {name: 'change', desc: '在输入框值变化时触发', params: 'value（当前选中的结果集）'}
+        {name: 'change', desc: '触发选项结果集变化时触发', params: 'value（当前选中的结果集）'}
       ]
     }
   },

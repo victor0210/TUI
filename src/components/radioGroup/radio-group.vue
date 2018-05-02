@@ -18,14 +18,13 @@ export default {
   },
 
   props: {
-    value: {
-      type: String
-    }
+    value: {}
   },
 
   mounted () {
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+    this.$on('input', this.inputHandler)
   },
 
   methods: {
@@ -36,6 +35,10 @@ export default {
     },
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+
+    inputHandler (val) {
+      this.$emit('change', val)
     }
   },
   watch: {
