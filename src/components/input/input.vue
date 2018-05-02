@@ -4,7 +4,8 @@
     $slots.suffix ? 'is-suffix' : '',
     prefixIcon ? 'is-input-prefix' : '',
     prependIcon ? 'is-input-suffix' : '',
-    size ? `t-input--${size}` : ''
+    size ? `t-input--${size}` : '',
+    disabled ? 'is-disabled' : ''
   ]
 ">
     <template v-if="type !== 'textarea'">
@@ -12,7 +13,7 @@
         <slot name="prefix"/>
       </div>
       <div class="t-input__wrapper">
-        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" ref="input"/>
+        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" ref="input" :disabled="disabled"/>
         <span v-if="prefixIcon" class="t-input__prefix-inner">
           <i :class="prefixIcon"></i>
         </span>
@@ -24,7 +25,7 @@
         <slot name="suffix"/>
       </div>
     </template>
-    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize" v-model="val" :placeholder="placeholder"></textarea>
+    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize" v-model="val" :placeholder="placeholder" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled"></textarea>
   </div>
 </template>
 
@@ -69,7 +70,8 @@ export default {
     prefixIcon: String,
     prependIcon: String,
     readonly: Boolean,
-    size: String
+    size: String,
+    disabled: Boolean
   },
 
   mounted () {
