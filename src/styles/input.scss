@@ -98,4 +98,24 @@
       padding-right: $--input-icon-width;
     }
   }
+
+  @include when(disabled) {
+    & * {
+      user-select: none;
+      cursor: not-allowed;
+    }
+
+    &, .t-input__inner {
+      background-color: #f5f7fa;
+      color: #c0c4cc;
+
+      &::placeholder {
+        color: #c0c4cc;
+      }
+
+      &:hover {
+        border-color: $--border-color-base;
+      }
+    }
+  }
 }

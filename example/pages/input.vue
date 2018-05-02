@@ -13,6 +13,17 @@
     </div>
 
     <div class="demo-block">
+      <div class="title">禁用状态</div>
+      <div class="sub-title">禁用状态的输入框不可操作</div>
+      <div class="source">
+        <t-row :gutter="20">
+          <t-col :span="24"><t-input placeholder="请输入" width="150px" disabled/></t-col>
+        </t-row>
+      </div>
+      <input-md/>
+    </div>
+
+    <div class="demo-block">
       <div class="title">组合按钮</div>
       <div class="sub-title">配合按钮组成更针对业务需求的输入框，如：搜索</div>
       <div class="source">
@@ -128,7 +139,8 @@ export default {
         {name: 'min', desc: '设置最小值', type: 'Number', choice: '—', default: '—'},
         {name: 'rows', desc: 'textarea行数', type: 'Number', choice: '—', default: '3'},
         {name: 'resize', desc: 'textarea可否调节尺寸', type: 'String', choice: 'none/both/horizontal/vertical', default: 'vertical'},
-        {name: 'readonly', desc: '是否只读', type: 'Boolean', choice: '—', default: 'false'}
+        {name: 'readonly', desc: '是否只读', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'}
       ],
       slots: [
         {name: 'prefix', desc: '头部内容，可添加按钮，文本等'},
