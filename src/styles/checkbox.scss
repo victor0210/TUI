@@ -67,11 +67,11 @@
   @include when(checked) {
     > .t-checkbox__inner {
       background: $--color-primary;
-      border-color: $--color-primary;
+      border-color: $--color-white;
 
       i {
         opacity: 1;
-        transform: scale(.8);
+        transform: scale(.6);
       }
     }
 
@@ -121,7 +121,11 @@
 
     .t-checkbox__inner {
       background-color: $--color-primary;
-      border-radius: 30%;
+      border-radius: 50%;
+
+      &:hover {
+        border-color: $--color-white;
+      }
     }
 
     .t-checkbox__label {

@@ -123,6 +123,12 @@
     border-radius: $--border-radius-base;
     background-color: $--color-primary;
 
+    .t-radio__inner {
+      &:hover {
+        border-color: $--color-white;
+      }
+    }
+
     .t-radio__label {
       color: $--color-white;
     }
