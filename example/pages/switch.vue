@@ -42,7 +42,7 @@
           <span style="display: inline-block; line-height: 24px; float: left">当前值: {{ s7 }}</span>
         </div>
       </div>
-      <radio-group/>
+      <switch-trueval/>
     </div>
 
     <div class="demo-block">
@@ -101,6 +101,7 @@
 import RadioGroup from '../documents/radio/radioGroup.md'
 import SwitchNormal from '../documents/switch/switchNormal.md'
 import SwitchText from '../documents/switch/switchText.md'
+import SwitchTrueval from '../documents/switch/switchTrueval.md'
 import SwitchSize from '../documents/switch/switchSize.md'
 import SwitchColor from '../documents/switch/switchColor.md'
 import TDivider from "../../src/components/divider/divider";
@@ -112,7 +113,8 @@ export default {
     SwitchNormal,
     SwitchText,
     SwitchSize,
-    SwitchColor
+    SwitchColor,
+    SwitchTrueval
   },
 
   data () {
