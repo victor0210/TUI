@@ -126,6 +126,7 @@ export default {
         {name: 'min', desc: '设置最小值', type: 'Number', choice: '—', default: '—'},
         {name: 'range', desc: '变化步数（大于0）', type: 'Number', choice: '—', default: '1'},
         {name: 'autocomplete', desc: '自动填充', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'autofocus', desc: '自动聚焦', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'readonly', desc: '是否只读', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'side-control', desc: '右边控制', type: 'Boolean', choice: '—', default: 'false'},

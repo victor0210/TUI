@@ -13,7 +13,7 @@
     </div>
 
     <div class="t-input-number__wrapper">
-      <input class="t-input-number__inner" type="text" :name="name" :min="min" :max="max" :autocomplete="autocomplete" v-model="val" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :placeholder="placeholder" :readonly="readonly"/>
+      <input class="t-input-number__inner" type="text" :name="name" :min="min" :max="max" :autocomplete="autocomplete" v-model="val" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :placeholder="placeholder" :readonly="readonly" :autofocus="autofocus"/>
     </div>
 
     <div class="t-input-number__suffix" v-if="!sideControl">
@@ -46,6 +46,7 @@ export default {
   props: {
     placeholder: String,
     autocomplete: Boolean,
+    autofocus: Boolean
     readonly: Boolean,
     disabled: Boolean,
     name: String,
@@ -65,7 +66,7 @@ export default {
     sideControl: Boolean,
     value: {},
     size: String,
-    width: String
+    width: String,
   },
   mounted () {
     this.val = parseFloat(this.value) || ''
