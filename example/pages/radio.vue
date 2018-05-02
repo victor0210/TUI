@@ -77,8 +77,8 @@
       <div class="source">
         <t-table :data="radioApis">
           <t-table-column label="属性" prop="name" :width="150"/>
-          <t-table-column label="描述" prop="desc" :width="300"/>
-          <t-table-column label="类型" prop="type" :width="150"/>
+          <t-table-column label="描述" prop="desc" :width="150"/>
+          <t-table-column label="类型" prop="type" :width="200"/>
           <t-table-column label="可选值" prop="choice" :width="150"/>
           <t-table-column label="默认值" prop="default"/>
         </t-table>
@@ -90,8 +90,8 @@
       <div class="source">
         <t-table :data="radioGroupApis">
           <t-table-column label="属性" prop="name" :width="150"/>
-          <t-table-column label="描述" prop="desc" :width="300"/>
-          <t-table-column label="类型" prop="type" :width="150"/>
+          <t-table-column label="描述" prop="desc" :width="150"/>
+          <t-table-column label="类型" prop="type" :width="200"/>
           <t-table-column label="可选值" prop="choice" :width="150"/>
           <t-table-column label="默认值" prop="default"/>
         </t-table>
