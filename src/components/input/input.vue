@@ -13,7 +13,7 @@
         <slot name="prefix"/>
       </div>
       <div class="t-input__wrapper">
-        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" ref="input" :disabled="disabled"/>
+        <input class="t-input__inner" :type="type" :placeholder="placeholder" :min="min" :max="max" autocomplete="off" v-model="val" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" ref="input" :disabled="disabled" :name="name" :autocomplete="autocomplete" :autofocus="autofocus"/>
         <span v-if="prefixIcon" class="t-input__prefix-inner">
           <i :class="prefixIcon"></i>
         </span>
@@ -25,7 +25,7 @@
         <slot name="suffix"/>
       </div>
     </template>
-    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize" v-model="val" :placeholder="placeholder" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled"></textarea>
+    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize" v-model="val" :placeholder="placeholder" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :name="name" :autocomplete="autocomplete" :autofocus="autofocus"></textarea>
   </div>
 </template>
 
@@ -71,7 +71,10 @@ export default {
     prependIcon: String,
     readonly: Boolean,
     size: String,
-    disabled: Boolean
+    disabled: Boolean,
+    name: String,
+    autocomplete: Boolean,
+    autofocus: Boolean
   },
 
   mounted () {
