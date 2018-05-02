@@ -1,10 +1,12 @@
 @import "variables";
 @import "mixins/mixins";
-
-$--switch-base-fill: #d4d6d6;
-$--switch-base-border-radius: 100px;
+@import "utils/utils";
 
 @include b(switch) {
+  display: inline-block;
+  position: relative;
+  float: left;
+
   @include e(text) {
     display: inline-block;
     float: left;
@@ -26,13 +28,13 @@ $--switch-base-border-radius: 100px;
     user-select: none;
     float: left;
     margin: 0 5px;
-    box-shadow: 0 2px 6px 0 #eee;
+    box-shadow: $--box-shadow-base;
 
     @include e(inner) {
       display: inline-block;
       background-color: white;
       border-radius: $--switch-base-border-radius;
-      transition: all .3s;
+      transition: transform .3s;
       transform: translate(0);
     }
   }

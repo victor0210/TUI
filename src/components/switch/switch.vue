@@ -5,7 +5,7 @@
       status ? 'is-open' : ''
     ]"
     :style="{
-      lineHeight: `${height}px`
+      lineHeight: height
     }"
   >
     <span
@@ -19,20 +19,22 @@
       @click="checkout"
       :style="{
         backgroundColor: status ? activeColor : inactiveColor,
-        width: width ? `${width}px` : '',
-        height: height ? `${height}px` : ''
+        width: width,
+        height: height
       }"
+      ref="wrapper"
     >
       <span
         class="t-switch__inner"
         :style="{
-          transform: status ? `translate(${width - height}px)` : '',
-          height: height ? `${height - 2}px` : '',
-          width: height ? `${height - 2}px` : ''
+          transform: status ? `translate(${innerTranslate})` : '',
+          height: innerHeight,
+          width: innerWidth
         }">
       </span>
     </div>
     <span class="t-switch__text t-switch__text--active"  v-if="activeText">{{ activeText }}</span>
+    <input type="hidden" :value="value" :name="name">
   </div>
 </template>
 
@@ -43,7 +45,10 @@ export default {
 
   data () {
     return {
-      status: null
+      status: null,
+      innerWidth: 0,
+      innerHeight: 0,
+      innerTranslate: 0,
     }
   },
 
@@ -54,32 +59,34 @@ export default {
     inactiveColor: String,
     activeValue: {},
     inactiveValue: {},
+    name: String,
     width: {
-      type: Number,
-      default: 40
+      type: String,
+      default: '48px'
     },
     height: {
-      type: Number,
-      default: 20
+      type: String,
+      default: '24px'
     },
     value: {}
   },
 
   mounted () {
     this.initStatus()
+    this.setInnerSize()
   },
 
   methods: {
     checkout () {
       this.status = !this.status
     },
+    setInnerSize () {
+      this.innerWidth = this.innerHeight = `${this.$refs.wrapper.offsetHeight - 2}px`
+      this.innerTranslate = `${this.$refs.wrapper.offsetWidth - this.$refs.wrapper.offsetHeight}px`
+    },
     initStatus () {
       if (this.activeValue !== undefined) {
-        if (this.value === this.activeValue) {
-          this.status = true
-        } else {
-          this.status = false
-        }
+        this.status = this.value === this.activeValue;
       } else {
         this.status = !!this.value
       }
@@ -88,12 +95,16 @@ export default {
 
   watch: {
     status (val, old) {
+      let currentVal
       if (old !== null) {
         if (val) {
-          this.$emit('input', this.activeValue !== undefined ? this.activeValue : true)
+          currentVal = this.activeValue || true
+          this.$emit('input', currentVal)
         } else {
-          this.$emit('input', this.inactiveValue !== undefined ? this.inactiveValue : false)
+          currentVal = this.inactiveValue || false
+          this.$emit('input', currentVal)
         }
+        this.$emit('change', currentVal)
       }
     }
   }

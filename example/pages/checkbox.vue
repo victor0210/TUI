@@ -19,8 +19,14 @@
       <div class="title">TrueValue</div>
       <div class="sub-title">选中时返回 val 值而不是 true</div>
       <div class="source">
-        <div class="half"><t-checkbox label="默认使用" val="TrueValue" v-model="v21"/> 当前值: {{ v21 }}</div>
-        <div class="half"><t-checkbox label="TrueValue" val="TrueValue" true-value v-model="v22"/> 当前值: {{ v22 }}</div>
+        <div class="half">
+          <t-divider content="默认" content-align="left"/>
+          <t-checkbox label="默认使用" val="TrueValue" v-model="v21"/> 当前值: {{ v21 }}
+        </div>
+        <div class="half">
+          <t-divider content="TrueValue" content-align="left"/>
+          <t-checkbox label="TrueValue" val="TrueValue" true-value v-model="v22"/> 当前值: {{ v22 }}
+        </div>
       </div>
       <checkbox-trueval/>
     </div>
