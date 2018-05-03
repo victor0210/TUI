@@ -1,11 +1,19 @@
 ::: demo
-> 使用 `multiple` 开启多选传入value为 `Array` 类型，使用 `collapse-tags` 可收起选项只展示数字
+> 设置 `size` 属性快速使用TUI为您提供的预设尺寸
 ```html
-<t-select label="请选择" v-model="v" multiple>
+<t-select placeholder="Select" v-model="v" size="lg">
   <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val"/>
 </t-select>
 
-<t-select label="请选择" v-model="v" multiple collapse-tags>
+<t-select placeholder="Select" v-model="v">
+  <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val"/>
+</t-select>
+
+<t-select placeholder="Select" v-model="v" size="sm">
+  <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val"/>
+</t-select>
+
+<t-select placeholder="Select" v-model="v" size="mini">
   <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val"/>
 </t-select>
 
@@ -13,7 +21,7 @@
 export default {
   data () {
     return {
-      v: ['2'],
+      v1: '1',
       options: [
         {label: '北京烤鸭', val: '1'},
         {label: '冷吃牛肉', val: '2'},

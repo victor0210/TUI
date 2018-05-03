@@ -9,7 +9,10 @@
 export default {
   name: 't-option-group',
   props: {
-    label: String
+    label: {
+      type: String,
+      required: true
+    }
   }
 }
 

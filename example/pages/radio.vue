@@ -39,7 +39,6 @@
           <t-radio label="北京" val="Beijing" v-model="val_4"/>
           <t-radio label="上海" val="Shanghai" v-model="val_4"/>
           <t-radio label="成都" val="Chengdu" v-model="val_4"/>
-          {{ val_4 }}
         </div>
 
         <div class="half">

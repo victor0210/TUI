@@ -107,10 +107,10 @@
 
     &, .t-input__inner {
       background-color: #f5f7fa;
-      color: #c0c4cc;
+      color: $--color-text-placeholder;
 
       &::placeholder {
-        color: #c0c4cc;
+        color: $--color-text-placeholder;
       }
 
       &:hover {

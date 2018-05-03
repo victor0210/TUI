@@ -45,7 +45,7 @@
 
     <div class="demo-block">
       <div class="title">不同尺寸</div>
-      <div class="sub-title">除默认尺寸外，TUI还为您提供了另外三种预设尺寸</div>
+      <div class="sub-title">TUI一共为您提供了四种按钮尺寸，分别是 <code>lg</code> 、<code>default</code> 、<code>sm</code> 、<code>mini</code></div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="5"><t-input-number v-model="n" size="lg"/></t-col>

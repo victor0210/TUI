@@ -1,3 +1,9 @@
+$--color-primary: #44a9ff !default;
+$--color-success: #2ed573 !default;
+$--color-warning: #fccc23 !default;
+$--color-danger: #ff5500 !default;
+$--color-info: #34495e !default;
+
 .frame {
   .header {
     position: fixed;
@@ -120,6 +126,15 @@ section {
   color: #666;
 }
 
+.demo-block .sub-title code{
+  background-color: $--color-info;
+  padding: 2px 7px;
+  box-shadow: 0 2px 6px 0 #000;
+  margin: 0 5px;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #fff;
+}
 .demo-block .source {
   border: 1px solid #f0f1f2;
   border-bottom: none;

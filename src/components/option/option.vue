@@ -26,10 +26,12 @@ export default {
   props: {
     label: {},
     disabled: Boolean,
-    val: {},
-    editablePanel: Boolean,
-    loading: Boolean,
-    search: Boolean
+    val: {}
+
+    // for remote select
+    // editablePanel: Boolean,
+    // loading: Boolean,
+    // search: Boolean
   },
 
   beforeMount () {

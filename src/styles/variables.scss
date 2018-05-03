@@ -92,7 +92,7 @@ $--dialog-mask-index: 1000 !default;
 /**
  * -------------------------- BoxShadow --------------------------
  */
-$--box-shadow-base: 0 1px 4px 0 rgba(34, 25, 25, 0.1) !default;
+$--box-shadow-base: 0 2px 6px 0 rgba(34, 25, 25, 0.1) !default;
 
 /**
  * -------------------------- Button -------------------------
@@ -221,7 +221,7 @@ $--select-input-sm-line-height: 16px !default;
 
 $--select-input-wrapper-padding: 0 25px 0 10px !default;
 $--select-input-padding: 3px 10px !default;
-$--select-input-hover-border-color: mix($--color-white, $--color-gray, 20%) !default;
+$--select-input-hover-border-color: mix($--color-white, $--color-gray, 30%) !default;
 
 
 /**

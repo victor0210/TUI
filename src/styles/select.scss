@@ -157,6 +157,7 @@
   }
 
   @include e(tag) {
+    white-space: nowrap;
     display: inline-block;
     box-sizing: border-box;
     margin-top: 7px;
@@ -186,6 +187,7 @@
     & * {
       user-select: none;
       cursor: not-allowed;
+      color: $--color-text-placeholder;
     }
 
     &:hover {
@@ -193,7 +195,7 @@
     }
 
     ::placeholder {
-      color: #c0c4cc;
+      color: $--color-text-placeholder;
     }
 
     .t-select__icon {
@@ -202,7 +204,7 @@
 
     &, .t-select__input, input {
       background-color: #f5f7fa;
-      color: #c0c4cc;
+      color: $--color-text-placeholder;
     }
 
     .t-select__tag {

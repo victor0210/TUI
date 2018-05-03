@@ -17,7 +17,7 @@
 
     <div class="demo-block">
       <div class="title">TrueValue</div>
-      <div class="sub-title">选中时返回 val 值而不是 true</div>
+      <div class="sub-title">选中时返回 <code>用户值</code> 值而不是 <code>布尔值</code></div>
       <div class="source">
         <div class="half">
           <t-divider content="默认" content-align="left"/>

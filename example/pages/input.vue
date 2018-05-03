@@ -3,7 +3,7 @@
     <guide title="Input 输入框" des="用于用户输入的组件"/>
     <div class="demo-block">
       <div class="title">基本用法</div>
-      <div class="sub-title">基本的input组件</div>
+      <div class="sub-title">基本的输入组件</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24"><t-input placeholder="请输入" width="150px"/></t-col>
@@ -64,7 +64,7 @@
 
     <div class="demo-block">
       <div class="title">不同尺寸</div>
-      <div class="sub-title">TUI一共为您提供了四种按钮尺寸，分别是 lg 、default 、sm 、mini</div>
+      <div class="sub-title">TUI一共为您提供了四种按钮尺寸，分别是 <code>lg</code> 、<code>default</code> 、<code>sm</code> 、<code>mini</code></div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6"><t-input placeholder="lg" size="lg"/></t-col>

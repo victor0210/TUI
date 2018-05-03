@@ -8,10 +8,12 @@
   background-color: $--select-fill-color;
   border-radius: $--select-input-radius;
   border: $--border-base;
-  transition: .1s;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
 
   &:hover {
     border-color: $--select-input-hover-border-color;
+    //box-shadow: $--box-shadow-base;
+    //transform: translateY(-2px);
   }
 
   @include when(focus) {

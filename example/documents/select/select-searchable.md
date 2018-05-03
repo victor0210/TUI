@@ -1,40 +1,23 @@
 ::: demo
+> 使用 `seachable` 开启本地搜做功能，远程搜索功能近期将会与您见面，敬请期待！
 ```html
-<t-row :gutter="20">
-  <t-col :span="6">
-    <t-select label="请选择" v-model="v" searchable>
-      <t-option :key="1" label="v1" val="v1"/>
-      <t-option :key="2" label="v2" val="v2"/>
-      <t-option :key="3" label="v3" val="v3"/>
-      <t-option :key="4" label="v4" val="v4"/>
-      <t-option :key="5" label="v5" val="v5"/>
-      <t-option :key="6" label="v6" val="v6"/>
-      <t-option :key="7" label="v7" val="v7"/>
-      <t-option :key="8" label="v8" val="v8"/>
-      <t-option :key="9" label="v9" val="v9"/>
-    </t-select>
-  </t-col>
-   <t-col :span="6">
-    <t-select label="请选择" v-model="v2" searchable multiple>
-      <t-option :key="1" label="v1" val="v1"/>
-      <t-option :key="2" label="v2" val="v2"/>
-      <t-option :key="3" label="v3" val="v3"/>
-      <t-option :key="4" label="v4" val="v4"/>
-      <t-option :key="5" label="v5" val="v5"/>
-      <t-option :key="6" label="v6" val="v6"/>
-      <t-option :key="7" label="v7" val="v7"/>
-      <t-option :key="8" label="v8" val="v8"/>
-      <t-option :key="9" label="v9" val="v9"/>
-    </t-select>
-  </t-col>
-</t-row>
+<t-select label="请选择" disabled multiple v-model="v2" searchable>
+  <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val" :disabled="o.disabled"/>
+</t-select>
 
 <script>
 export default {
   data () {
     return {
-      v: 'v1',
-      v2: ['v1']
+      v1: '1',
+      v2: ['1'],
+      options: [
+        {label: '北京烤鸭', val: '1'},
+        {label: '冷吃牛肉', val: '2'},
+        {label: '驴肉火烧', val: '3'},
+        {label: '宫保鸡丁', val: '4'},
+        {label: '黄焖鸡米饭', val: '5'}
+      ]
     }
   }
 }
