@@ -48,7 +48,7 @@ export default {
       status: null,
       innerWidth: 0,
       innerHeight: 0,
-      innerTranslate: 0,
+      innerTranslate: 0
     }
   },
 
@@ -86,7 +86,7 @@ export default {
     },
     initStatus () {
       if (this.activeValue !== undefined) {
-        this.status = this.value === this.activeValue;
+        this.status = this.value === this.activeValue
       } else {
         this.status = !!this.value
       }

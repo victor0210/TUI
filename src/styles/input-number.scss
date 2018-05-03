@@ -189,13 +189,13 @@
       .t-btn {
         cursor: not-allowed;
         background-color: #f5f7fa !important;
-        color: #c0c4cc;
+        color: $--color-text-placeholder;
         border: none;
       }
       input {
         cursor: not-allowed;
         background-color: #f5f7fa;
-        color: #c0c4cc;
+        color: $--color-text-placeholder;
       }
     }
   }

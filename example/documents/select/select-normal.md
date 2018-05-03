@@ -1,22 +1,22 @@
 ::: demo
+> 在 `t-option` 中需要传入两个重要参数 `val` 和 `label`
 ```html
-<t-select label="请选择" v-model="val_1">
-  <t-option :key="1" label="v1" val="v1" :disabled="true"/>
-  <t-option :key="2" label="v2" val="v2"/>
-  <t-option :key="3" label="v3" val="v3"/>
-  <t-option :key="4" label="v4" val="v4"/>
-  <t-option :key="5" label="v5" val="v5"/>
-  <t-option :key="6" label="v6" val="v6"/>
-  <t-option :key="7" label="v7" val="v7"/>
-  <t-option :key="8" label="v8" val="v8"/>
-  <t-option :key="9" label="v9" val="v9"/>
+<t-select placeholder="select" v-model="v">
+  <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val"/>
 </t-select>
 
 <script>
 export default {
   data () {
     return {
-      val_1: 'v1'
+      v: '2',
+      options: [
+        {label: '北京烤鸭', val: '1'},
+        {label: '冷吃牛肉', val: '2'},
+        {label: '驴肉火烧', val: '3'},
+        {label: '宫保鸡丁', val: '4'},
+        {label: '黄焖鸡米饭', val: '5'}
+      ]
     }
   }
 }

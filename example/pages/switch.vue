@@ -29,7 +29,7 @@
 
     <div class="demo-block">
       <div class="title">TrueValue</div>
-      <div class="sub-title">返回用户值而不是布尔值</div>
+      <div class="sub-title">回传 <code>用户值</code> 值而不是 <code>布尔值</code></div>
       <div class="source">
         <div class="half">
           <t-divider content="默认" content-align="left"/>
@@ -47,7 +47,7 @@
 
     <div class="demo-block">
       <div class="title">自定义尺寸</div>
-      <div class="sub-title">TUI为您提供了 width 和 height 属性自定义您想要的尺寸</div>
+      <div class="sub-title">TUI为您提供了自定义尺寸的接口</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="12">
@@ -104,11 +104,9 @@ import SwitchText from '../documents/switch/switchText.md'
 import SwitchTrueval from '../documents/switch/switchTrueval.md'
 import SwitchSize from '../documents/switch/switchSize.md'
 import SwitchColor from '../documents/switch/switchColor.md'
-import TDivider from "../../src/components/divider/divider";
 
 export default {
   components: {
-    TDivider,
     RadioGroup,
     SwitchNormal,
     SwitchText,
@@ -138,7 +136,7 @@ export default {
       ],
       switchMethods: [
         {name: 'change', desc: '触发选项值变化时触发', params: 'value（当前值）'}
-      ],
+      ]
     }
   },
 

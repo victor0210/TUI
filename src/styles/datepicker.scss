@@ -390,12 +390,12 @@
     }
 
     ::placeholder {
-      color: #c0c4cc;
+      color: $--color-text-placeholder;
     }
 
     .t-datepicker__input, input {
       background-color: #f5f7fa;
-      color: #c0c4cc;
+      color: $--color-text-placeholder;
       &:hover {
         border-color: $--border-color-base;
       }

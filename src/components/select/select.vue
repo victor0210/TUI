@@ -11,7 +11,7 @@
     height: height ? `${height}px` : ''
   }" ref="box">
     <div class="t-select__input" ref="input" :style="{
-      lineHeight: height ? `${height}px` : ''
+      lineHeight: height ? `${height - 2}px` : ''
     }">
       <i class="t-select__input-icon t-select__drop-icon fa fa-caret-down" :class="{
         't-select__input-icon--open': isFocus
@@ -43,6 +43,7 @@
       </template>
     </div>
 
+    <input type="hidden" :value="value" :name="name">
     <t-select-drop-menu :initialized="initialized" :select="select" :is-focus="isFocus" :searchText="searchText" :input-height="inputHeight">
       <slot></slot>
       <template slot="search">
@@ -113,7 +114,8 @@ export default {
     value: {},
     width: Number,
     height: Number,
-    size: String
+    size: String,
+    name: String
   },
 
   created () {
@@ -636,9 +638,7 @@ export default {
       }
     },
     inputHeight (val) {
-      console.log('inputHieght change', val)
       this.$refs.box.style.height = val + 2 + 'px'
-      console.log(val + 2 + 'px')
     }
   },
 
