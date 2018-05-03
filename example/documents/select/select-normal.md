@@ -1,7 +1,7 @@
 ::: demo
 > 在 `t-option` 中需要传入两个重要参数 `val` 和 `label`
 ```html
-<t-select placeholder="select" v-model="v">
+<t-select placeholder="select" v-model="v" @change="changeHandler">
   <t-option v-for="o in options" :key="o.val" :label="o.label" :val="o.val"/>
 </t-select>
 
@@ -17,6 +17,15 @@ export default {
         {label: '宫保鸡丁', val: '4'},
         {label: '黄焖鸡米饭', val: '5'}
       ]
+    }
+  },
+  methods: {
+    changeHandler (val) {
+      this.$TMessage.show({
+        title: '选中值：' + val,
+        type: 'info',
+        duration: 1000
+      })
     }
   }
 }

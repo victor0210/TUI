@@ -217,6 +217,7 @@ export default {
         this.hide()
       }
       this.setValueIndex(val)
+      this.$emit('change', val)
     },
     clearInput (e) {
       e.cancelBubble = true

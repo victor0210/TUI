@@ -3,11 +3,11 @@
     <guide title="下拉框" des="用于输入的表单下拉组件"/>
     <div class="demo-block">
       <div class="title">普通用法</div>
-      <div class="sub-title">所有下拉组件支持键盘事件，打开下拉列表试试 <code>↑</code> 、 <code>↓</code> 、<code>enter</code></div>
+      <div class="sub-title">组件支持键盘事件，打开下拉列表试试 <code>↑</code> 、 <code>↓</code> 、<code>enter</code></div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <t-select placeholder="Select" v-model="val_1">
+            <t-select placeholder="Select" v-model="val_1" @change="changeHandler">
               <t-option v-for="o in options2" :key="o.val" :label="o.label" :val="o.val"/>
             </t-select>
           </t-col>
@@ -189,6 +189,17 @@
     </div>
 
     <div class="api-docs">
+      <t-divider content="Select Attributes" class="document-divider"/>
+      <div class="source">
+        <t-table :data="selectMethods">
+          <t-table-column label="事件" prop="name" :width="150"/>
+          <t-table-column label="描述" prop="desc" :width="300"/>
+          <t-table-column label="类型" prop="params"/>
+        </t-table>
+      </div>
+    </div>
+
+    <div class="api-docs">
       <t-divider content="Option Attributes" class="document-divider"/>
       <div class="source">
         <t-table :data="optionApis">
@@ -237,6 +248,15 @@ export default {
     selectSearchable,
     selectSize
   },
+  methods: {
+    changeHandler (val) {
+      this.$TMessage.show({
+        title: '选中值：' + val,
+        type: 'info',
+        duration: 1000
+      })
+    }
+  },
   data () {
     return {
       val_1: '',
@@ -279,6 +299,9 @@ export default {
         {name: 'editable', desc: '能否编辑', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'searchable', desc: '能否搜索', type: 'Boolean', choice: '—', default: 'false'}
       ],
+      selectMethods: [
+        {name: 'change', desc: '选项值变化时触发', params: 'value（当前值）'}
+      ],
       optionApis: [
         {name: 'val', desc: '选项值', type: 'String/Number', choice: '—', default: '—'},
         {name: 'label', desc: '标题', type: 'String', choice: '—', default: '—'},
@@ -288,7 +311,7 @@ export default {
         {name: 'label', desc: '标题', type: 'String（必填）', choice: '—', default: '—'}
       ],
       checkboxMethods: [
-        {name: 'change', desc: '触发选项值变化时触发', params: 'value（当前是否选中）'}
+        {name: 'change', desc: '选项值变化时触发', params: 'value（当前是否选中）'}
       ]
     }
   }

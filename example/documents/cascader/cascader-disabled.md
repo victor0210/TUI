@@ -1,10 +1,7 @@
 ::: demo
+> 使用 `disabled` 属性开启禁用状态
 ```html
-<t-row :gutter="20">
-  <t-col :span="6">
-    <t-cascader v-model="opt" disabled/>
-  </t-col>
-</t-row>
+<t-cascader v-model="opt" disabled/>
 
 <script>
 export default {

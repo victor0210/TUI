@@ -9,9 +9,11 @@
       height: height ? `${height}px` : '',
       width: width ? `${width}px` : ''
     }">
-    <div class="t-cascader__input" @click.prevent="checkout">
-      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner" :placeholder="placeholder" :style="{
-       lineHeight: height ? `${height}px` : '',
+    <div class="t-cascader__input" @click.prevent="checkout" :style="{
+      height: height ? `${height}px` : ''
+    }">
+      <input type="text" readonly class="t-cascader__inner" :value="label" ref="inner" :placeholder="placeholder" :name="name" :style="{
+       lineHeight: height ? `${height}px` : ''
       }">
       <i class="t-cascader__input-icon t-cascader__drop-icon fa fa-caret-down" :class="{
         't-cascader__input-icon--open': isFocus
@@ -97,6 +99,7 @@ export default {
     placeholder: {
       default: '请选择'
     },
+    name: String,
     disabled: Boolean,
     clearable: Boolean,
     options: {},
@@ -457,6 +460,19 @@ export default {
       })
     },
 
+    //  format helper
+    findLabel (options) {
+      const _this = this
+
+      options.forEach(function (el) {
+        if (el.children !== undefined) {
+          _this.findLabel(el.children)
+        } else if (el.vIndex === _this.value.join(_this.indexSplit)) {
+          _this.setLabel(el.lIndex)
+        }
+      })
+    },
+
     //  handlers
     selectHandler (optionComponent) {
       if (!optionComponent.children) {
@@ -494,8 +510,10 @@ export default {
     }
   },
   watch: {
-    value () {
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+    value (val) {
+      this.$emit('change', val)
+      this.findLabel(this.options)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     },
     isFocus (focus) {
       if (focus) {

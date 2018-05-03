@@ -3,7 +3,6 @@
     <div class="t-cascader-option" :class="{
       'is-selected': isSelect,
       'is-focus' : isFocus,
-      // 'is-choosing': isChoosing,
       'is-disabled' : disabled
     }" @click="handleClick"><span v-html="label" class="t-cascader-option__keyword"></span><i class="t-cascader-option__check fa fa-chevron-right" v-if="!!children"></i>
     </div>
@@ -28,6 +27,8 @@ export default {
     disabled: Boolean,
     val: {},
     children: {},
+
+    // 不对外开放的api
     pIndex: String, //  position index
     vIndex: String, //  value index
     lIndex: String, //  label index
@@ -53,7 +54,6 @@ export default {
     },
     handleClick (e) {
       if (!this.disabled) {
-        // this.search ? this.dispatch('t-cascader', 'select-bak-search', {e, val: this.idx.split('-')}) : this.dispatch('t-cascader', 'select', {e, val: this.val, pos: this.pos, hasChildren: !!this.children})
         this.action(this.parent, 'select', this)
       }
     },

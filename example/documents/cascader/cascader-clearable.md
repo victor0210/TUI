@@ -1,10 +1,7 @@
 ::: demo
+> 使用 `clearable` 开启清除功能
 ```html
-<t-row :gutter="20">
-  <t-col :span="6">
-    <t-cascader :option="option" v-model="opt" clearable/>
-  </t-col>
-</t-row>
+<t-cascader :option="option" v-model="opt" clearable/>
 
 <script>
 export default {
