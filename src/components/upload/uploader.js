@@ -16,11 +16,11 @@ export default class Uploader {
       fd.append(this.name, tfile.file)
 
       ajax.send(this.uploadUrl, this.method, fd, this.headers, this.withCredentials, handleProgressChange, tfile)
-        .then(resp => {
-          resolve(resp)
+        .then((resp, xhr) => {
+          resolve(resp, xhr)
         })
-        .catch(err => {
-          reject(err)
+        .catch((err, xhr) => {
+          reject(err, xhr)
         })
     })
   }

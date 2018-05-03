@@ -29,10 +29,10 @@ export default class TAjax {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             handleProgressChange(e, tfile, 'success')
-            resolve(new AjaxResponse(xhr))
+            resolve(new AjaxResponse(xhr), xhr)
           } else {
             handleProgressChange(e, tfile, 'error')
-            reject(new AjaxError(xhr))
+            reject(new AjaxError(xhr), xhr)
           }
         }
       }
