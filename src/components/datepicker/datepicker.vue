@@ -20,6 +20,7 @@
       <span class="t-datepicker__addon" :style="{height: height ? `${height - 2}px` : '', lineHeight: height ? `${height - 2}px` : ''}"> 至 </span>
       <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholderEnd" :value="rangeRightInput">
     </div>
+    <input type="hidden" :value="model" :name="name">
     <datepicker-drop-menu :select="self" :is-focus="isFocus" v-if="isFocus">
       <transition name="fade">
       <template>
@@ -236,6 +237,7 @@ export default {
     placeholderEnd: {
       default: '请选择'
     },
+    name: String,
     disabled: Boolean,
     clearable: Boolean,
     value: {},
@@ -255,7 +257,6 @@ export default {
   mounted () {
     if (new Date(this.value).toString() !== 'Invalid Date') {
       const d = new Date(this.value)
-      this.store = new Date(this.value)
       this.setDateIndex(d.getFullYear(), d.getMonth())
       this.trueValue = d
     } else {
@@ -281,6 +282,7 @@ export default {
       }
     },
     checkout (e) {
+      if (this.disabled) return
       this.isFocus = !this.isFocus
       this.isFocus ? this.addListener() : this.removeListener()
       if (this.isFocus) {
@@ -592,12 +594,22 @@ export default {
   },
   watch: {
     value (val) {
+      this.type !== 'daterange' && (this.trueValue = val)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     },
     trueValue (val) {
       if (val !== '') {
-        const v = !this.valueFormat ? val : DateHelper.format(val, this.valueFormat)
+        let v
+        if (!this.valueFormat) {
+          v = val
+        } else {
+          if (this.valueFormat === 'timestamp') {
+            v = val.getTime()
+          } else {
+            v = DateHelper.format(val, this.valueFormat)
+          }
+        }
         this.store = new Date(val)
         this.dateIndex = {
           year: val.getFullYear(),
@@ -615,7 +627,15 @@ export default {
         const _this = this
         let bar = []
         val.forEach(function (value, idx) {
-          bar[idx] = !_this.valueFormat ? value : DateHelper.format(value, _this.valueFormat)
+          if (!this.valueFormat) {
+            bar[idx] = value
+          } else {
+            if (this.valueFormat === 'timestamp') {
+              bar[idx]  = val.getTime()
+            } else {
+              bar[idx]  = DateHelper.format(value, _this.valueFormat)
+            }
+          }
         })
         this.dateIndex = {
           year: val[0].getFullYear(),
