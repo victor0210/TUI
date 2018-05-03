@@ -1,10 +1,7 @@
 ::: demo
+> 使用 `searchable` 开启只选项搜索
 ```html
-<t-row :gutter="20">
-  <t-col :span="6">
-    <t-cascader :option="option" v-model="opt" searchable/>
-  </t-col>
-</t-row>
+<t-cascader :option="option" v-model="opt" searchable/>
 
 <script>
 export default {

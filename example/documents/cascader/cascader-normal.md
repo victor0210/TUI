@@ -1,10 +1,7 @@
 ::: demo
+> 下拉组件列表参数为 `option`，相比 `t-option` 组件参数大致相同，可填 `label` 、 `val` 、 `disabled` 、 `children`
 ```html
-<t-row :gutter="20">
-  <t-col :span="6">
-    <t-cascader :option="option" v-model="opt"/>
-  </t-col>
-</t-row>
+<t-cascader :option="option" v-model="opt"/>
 
 <script>
 export default {

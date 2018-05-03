@@ -5,7 +5,8 @@
     prefixIcon ? 'is-input-prefix' : '',
     prependIcon ? 'is-input-suffix' : '',
     size ? `t-input--${size}` : '',
-    disabled ? 'is-disabled' : ''
+    disabled ? 'is-disabled' : '',
+    isFocus ? 'is-focus' : ''
   ]
 ">
     <template v-if="type !== 'textarea'">
@@ -45,7 +46,8 @@ export default {
 
   data () {
     return {
-      val: ''
+      val: '',
+      isFocus: false
     }
   },
 
@@ -115,10 +117,12 @@ export default {
       textareaDom.style.width = this.width
     },
     blurHandler (e) {
+      this.isFocus = false
       this.$emit('blur', e)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
     },
     focusHandler (e) {
+      this.isFocus = true
       this.$emit('focus', e)
     },
     changeHandler (e) {

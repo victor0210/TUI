@@ -4,8 +4,9 @@
     <t-layout flex-direction="vertical" class="frame">
       <t-row>
         <t-col :span="22" :offset="1">
-          <t-header height="80px" class="header">
+          <t-header class="header" style="height: 53px;">
             <t-head></t-head>
+            <div class="bottom-line"></div>
           </t-header>
           <t-layout flex-direction="row" class="container">
             <t-aside class="left-aside" width="250px">

@@ -223,7 +223,7 @@ export default {
         {name: 'max', desc: '最大选中个数', type: 'Number', choice: '—', default: '—'}
       ],
       checkboxMethods: [
-        {name: 'change', desc: '触发选项值变化时触发', params: 'value（当前是否选中）'}
+        {name: 'change', desc: '选项值变化时触发', params: 'value（当前是否选中）'}
       ],
       checkboxGroupMethods: [
         {name: 'change', desc: '触发选项结果集变化时触发', params: 'value（当前选中的结果集）'}

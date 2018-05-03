@@ -135,7 +135,7 @@ export default {
         {name: 'inactive-value', desc: '关闭状态的值', type: '*', choice: '—', default: '—'}
       ],
       switchMethods: [
-        {name: 'change', desc: '触发选项值变化时触发', params: 'value（当前值）'}
+        {name: 'change', desc: '选项值变化时触发', params: 'value（当前值）'}
       ]
     }
   },

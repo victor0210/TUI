@@ -121,202 +121,202 @@ export default {
     return {
       basicList: [
         {
-          route: '/color',
+          route: '/components/color',
           name: 'Color',
           chinese: '色彩'
         },
         {
-          route: '/font',
+          route: '/components/font',
           name: 'Font',
           chinese: '字体'
         },
         {
-          route: '/button',
+          route: '/components/button',
           name: 'Button',
           chinese: '按钮'
         },
         {
-          route: '/grid',
+          route: '/components/grid',
           name: 'Grid',
           chinese: '栅格'
         },
         {
-          route: '/layout',
+          route: '/components/layout',
           name: 'Layout',
           chinese: '布局'
         }
       ],
       formList: [
         {
-          route: '/input',
+          route: '/components/input',
           name: 'Input',
           chinese: '输入框'
         },
         {
-          route: '/input-number',
+          route: '/components/input-number',
           name: 'InputNumber',
           chinese: '计数器'
         },
         {
-          route: '/checkbox',
+          route: '/components/checkbox',
           name: 'CheckBox',
           chinese: '多选框'
         },
         {
-          route: '/radio',
+          route: '/components/radio',
           name: 'Radio',
           chinese: '单选框'
         },
         {
-          route: '/switch',
+          route: '/components/switch',
           name: 'Switch',
           chinese: '开关'
         },
         {
-          route: '/select',
+          route: '/components/select',
           name: 'Select',
           chinese: '下拉框'
         },
         {
-          route: '/cascader',
+          route: '/components/cascader',
           name: 'Cascader',
           chinese: '级联'
         },
         {
-          route: '/upload',
+          route: '/components/upload',
           name: 'Upload',
           chinese: '文件上传'
         },
         {
-          route: '/datepicker',
+          route: '/components/datepicker',
           name: 'Datepicker',
           chinese: '日期选择器'
         },
         {
-          route: '/timepicker',
+          route: '/components/timepicker',
           name: 'Timepicker',
           chinese: '时间选择器'
         },
         {
-          route: '/form',
+          route: '/components/form',
           name: 'Form',
           chinese: '表单'
         }
       ],
       dataList: [
         {
-          route: '/table',
+          route: '/components/table',
           name: 'Table',
           chinese: '表格'
         },
         {
-          route: '/tag',
+          route: '/components/tag',
           name: 'Tag',
           chinese: '标签'
         },
         {
-          route: '/progress',
+          route: '/components/progress',
           name: 'Progress',
           chinese: '进度条'
         },
         {
-          route: '/tree',
+          route: '/components/tree',
           name: 'Tree',
           chinese: '树型控件'
         },
         {
-          route: '/pagination',
+          route: '/components/pagination',
           name: 'Pagination',
           chinese: '分页组件'
         },
         {
-          route: '/badge',
+          route: '/components/badge',
           name: 'Badge',
           chinese: '标记'
         }
       ],
       noticeList: [
         {
-          route: '/alert',
+          route: '/components/alert',
           name: 'Alert',
           chinese: '警告'
         },
         {
-          route: '/loading',
+          route: '/components/loading',
           name: 'Loading',
           chinese: '加载'
         },
         {
-          route: '/message',
+          route: '/components/message',
           name: 'Message',
           chinese: '消息'
         },
         {
-          route: '/notify',
+          route: '/components/notify',
           name: 'Notify',
           chinese: '通知'
         }
       ],
       menuList: [
         {
-          route: '/menu',
+          route: '/components/menu',
           name: 'Menu',
           chinese: '导航菜单'
         },
         {
-          route: '/dropdown',
+          route: '/components/dropdown',
           name: 'Dropdown',
           chinese: '下拉菜单'
         },
         {
-          route: '/tabs',
+          route: '/components/tabs',
           name: 'Tabs',
           chinese: '标签页'
         },
         {
-          route: '/breadcrumb',
+          route: '/components/breadcrumb',
           name: 'Breadcrumb',
           chinese: '面包屑'
         },
         {
-          route: '/step',
+          route: '/components/step',
           name: 'Step',
           chinese: '步骤条'
         }
       ],
       otherList: [
         {
-          route: '/dialog',
+          route: '/components/dialog',
           name: 'Dialog',
           chinese: '提示框'
         },
         {
-          route: '/modal',
+          route: '/components/modal',
           name: 'Modal',
           chinese: '模态框'
         },
         {
-          route: '/popover',
+          route: '/components/popover',
           name: 'Popover',
           chinese: '弹出层'
         },
         {
-          route: '/tooltip',
+          route: '/components/tooltip',
           name: 'Tooltip',
           chinese: '文字提示'
         },
         {
-          route: '/collsape',
+          route: '/components/collsape',
           name: 'Collsape',
           chinese: '折叠面板'
         },
         {
-          route: '/backtop',
+          route: '/components/backtop',
           name: 'BackTop',
           chinese: '返回顶部'
         },
         {
-          route: '/divider',
+          route: '/components/divider',
           name: 'Divider',
           chinese: '分割线'
         }

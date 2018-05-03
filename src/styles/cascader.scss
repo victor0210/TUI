@@ -49,9 +49,10 @@
     top: 0;
     bottom: 0;
     right: 8px;
-    margin: auto auto;
     width: 14px;
     height: 14px;
+    display: inline-block;
+    margin: auto;
     color: $--color-text-placeholder;
     text-align: center;
     transition: .3s;

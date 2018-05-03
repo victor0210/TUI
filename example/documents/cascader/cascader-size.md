@@ -1,13 +1,19 @@
 ::: demo
-> 使用 `only-last` 开启只展示最后一级
+> 设置 `size` 属性快速使用TUI为您提供的预设尺寸
 ```html
-<t-cascader :option="option" v-model="opt" only-last/>
+<t-cascader :options="option" v-model="op1" size="lg"/>
+
+<t-cascader :options="option" v-model="op1"/>
+
+<t-cascader :options="option" v-model="op1" size="sm"/>
+
+<t-cascader :options="option" v-model="op1" size="mini"/>
 
 <script>
 export default {
   data () {
     return {
-      opt: '',
+      opt: ['hp', '1000000', '1000000'],
       option: [
         {
           label: '高价',
@@ -23,7 +29,7 @@ export default {
                 },
                 {
                   label: '2000000',
-                  val: '2000000',
+                  val: '2000000'
                 },
                 {
                   label: '3000000',

@@ -10,192 +10,192 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/color',
+      path: '/components/color',
       name: 'color',
       component: r => require.ensure([], () => r(require('../pages/color.vue')))
     },
     {
-      path: '/font',
+      path: '/components/font',
       name: 'font',
       component: r => require.ensure([], () => r(require('../pages/font.vue')))
     },
     {
-      path: '/grid',
+      path: '/components/grid',
       name: 'grid',
       component: r => require.ensure([], () => r(require('../pages/grid.vue')))
     },
     {
-      path: '/layout',
+      path: '/components/layout',
       name: 'layout',
       component: r => require.ensure([], () => r(require('../pages/layout.vue')))
     },
     {
-      path: '/button',
+      path: '/components/button',
       name: 'button',
       component: r => require.ensure([], () => r(require('../pages/button.vue')))
     },
     {
-      path: '/dialog',
+      path: '/components/dialog',
       name: 'dialog',
       component: r => require.ensure([], () => r(require('../pages/dialog.vue')))
     },
     {
-      path: '/input',
+      path: '/components/input',
       name: 'input',
       component: r => require.ensure([], () => r(require('../pages/input.vue')))
     },
     {
-      path: '/input-number',
+      path: '/components/input-number',
       name: 'input-number',
       component: r => require.ensure([], () => r(require('../pages/input-number.vue')))
     },
     {
-      path: '/checkbox',
+      path: '/components/checkbox',
       name: 'checkbox',
       component: r => require.ensure([], () => r(require('../pages/checkbox.vue')))
     },
     {
-      path: '/radio',
+      path: '/components/radio',
       name: 'radio',
       component: r => require.ensure([], () => r(require('../pages/radio.vue')))
     },
     {
-      path: '/switch',
+      path: '/components/switch',
       name: 'switch',
       component: r => require.ensure([], () => r(require('../pages/switch.vue')))
     },
     {
-      path: '/select',
+      path: '/components/select',
       name: 'select',
       component: r => require.ensure([], () => r(require('../pages/select.vue')))
     },
     {
-      path: '/cascader',
+      path: '/components/cascader',
       name: 'cascader',
       component: r => require.ensure([], () => r(require('../pages/cascader.vue')))
     },
     {
-      path: '/datepicker',
+      path: '/components/datepicker',
       name: 'datepicker',
       component: r => require.ensure([], () => r(require('../pages/datepicker.vue')))
     },
     {
-      path: '/timepicker',
+      path: '/components/timepicker',
       name: 'timepicker',
       component: r => require.ensure([], () => r(require('../pages/timepicker.vue')))
     },
     {
-      path: '/form',
+      path: '/components/form',
       name: 'form',
       component: r => require.ensure([], () => r(require('../pages/form.vue')))
     },
     {
-      path: '/table',
+      path: '/components/table',
       name: 'table',
       component: r => require.ensure([], () => r(require('../pages/table.vue')))
     },
     {
-      path: '/tag',
+      path: '/components/tag',
       name: 'tag',
       component: r => require.ensure([], () => r(require('../pages/tag.vue')))
     },
     {
-      path: '/progress',
+      path: '/components/progress',
       name: 'progress',
       component: r => require.ensure([], () => r(require('../pages/progress.vue')))
     },
     {
-      path: '/tree',
+      path: '/components/tree',
       name: 'tree',
       component: r => require.ensure([], () => r(require('../pages/tree.vue')))
     },
     {
-      path: '/pagination',
+      path: '/components/pagination',
       name: 'pagination',
       component: r => require.ensure([], () => r(require('../pages/pagination.vue')))
     },
     {
-      path: '/badge',
+      path: '/components/badge',
       name: 'badge',
       component: r => require.ensure([], () => r(require('../pages/badge.vue')))
     },
     {
-      path: '/alert',
+      path: '/components/alert',
       name: 'Alert',
       component: r => require.ensure([], () => r(require('../pages/alert.vue')))
     },
     {
-      path: '/loading',
+      path: '/components/loading',
       name: 'Loading',
       component: r => require.ensure([], () => r(require('../pages/loading.vue')))
     },
     {
-      path: '/message',
+      path: '/components/message',
       name: 'message',
       component: r => require.ensure([], () => r(require('../pages/message.vue')))
     },
     {
-      path: '/notify',
+      path: '/components/notify',
       name: 'notify',
       component: r => require.ensure([], () => r(require('../pages/notify.vue')))
     },
     {
-      path: '/menu',
+      path: '/components/menu',
       name: 'menu',
       component: r => require.ensure([], () => r(require('../pages/menu.vue')))
     },
     {
-      path: '/dropdown',
+      path: '/components/dropdown',
       name: 'dropdown',
       component: r => require.ensure([], () => r(require('../pages/dropdown.vue')))
     },
     {
-      path: '/tabs',
+      path: '/components/tabs',
       name: 'tabs',
       component: r => require.ensure([], () => r(require('../pages/tabs.vue')))
     },
     {
-      path: '/breadcrumb',
+      path: '/components/breadcrumb',
       name: 'breadcrumb',
       component: r => require.ensure([], () => r(require('../pages/breadcrumb.vue')))
     },
     {
-      path: '/step',
+      path: '/components/step',
       name: 'step',
       component: r => require.ensure([], () => r(require('../pages/step.vue')))
     },
     {
-      path: '/modal',
+      path: '/components/modal',
       name: 'modal',
       component: r => require.ensure([], () => r(require('../pages/modal.vue')))
     },
     {
-      path: '/popover',
+      path: '/components/popover',
       name: 'popover',
       component: r => require.ensure([], () => r(require('../pages/popover.vue')))
     },
     {
-      path: '/tooltip',
+      path: '/components/tooltip',
       name: 'tooltip',
       component: r => require.ensure([], () => r(require('../pages/tooltip.vue')))
     },
     {
-      path: '/collsape',
+      path: '/components/collsape',
       name: 'collsape',
       component: r => require.ensure([], () => r(require('../pages/collsape.vue')))
     },
     {
-      path: '/upload',
+      path: '/components/upload',
       name: 'upload',
       component: r => require.ensure([], () => r(require('../pages/upload.vue')))
     },
     {
-      path: '/backtop',
+      path: '/components/backtop',
       name: 'backtop',
       component: r => require.ensure([], () => r(require('../pages/backtop.vue')))
     },
     {
-      path: '/divider',
+      path: '/components/divider',
       name: 'divider',
       component: r => require.ensure([], () => r(require('../pages/divider.vue')))
     }
