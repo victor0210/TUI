@@ -631,9 +631,9 @@ export default {
             bar[idx] = value
           } else {
             if (this.valueFormat === 'timestamp') {
-              bar[idx]  = val.getTime()
+              bar[idx] = val.getTime()
             } else {
-              bar[idx]  = DateHelper.format(value, _this.valueFormat)
+              bar[idx] = DateHelper.format(value, _this.valueFormat)
             }
           }
         })
