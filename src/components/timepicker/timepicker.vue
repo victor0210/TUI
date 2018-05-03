@@ -13,6 +13,7 @@
         <input type="text" readonly class="t-timepicker__inner" ref="inner" :placeholder="placeholder" :value="label">
         <i class="t-timepicker__icon t-timepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
       </div>
+    <input type="hidden" :value="value" :name="name">
     <transition name="fade">
       <time-picker-drop-menu :is-focus="isFocus" :select="self" v-if="isFocus">
         <div class="t-timepicker__select-panel" v-show="isFocus && type !== 'timerange'">
@@ -108,13 +109,15 @@ export default {
         s: null
       },
       minTime: null,
-      maxTime: null
+      maxTime: null,
+      trueValue: ''
     }
   },
   props: {
     type: {
       default: 'date'
     },
+    name: String,
     placeholder: {
       default: '请选择'
     },
@@ -188,6 +191,8 @@ export default {
       }
     },
     checkout (e) {
+      if (this.disabled) return
+
       this.isFocus = !this.isFocus
       this.isFocus ? this.addListener() : this.removeListener()
       if (this.isFocus) {
@@ -305,6 +310,13 @@ export default {
   },
   watch: {
     value (val) {
+      let d = new Date(val)
+      this.store = {
+        h: d.getHours(),
+        m: d.getMinutes(),
+        s: d.getSeconds()
+      }
+
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
     },
@@ -314,16 +326,20 @@ export default {
       d.setMinutes(m)
       d.setSeconds(s)
 
-      if (this.valueFormat !== 'timestamp') {
-        this.$emit('input', DateHelper.format(d, this.valueFormat))
-      } else {
-        this.$emit('input', d.getTime())
-      }
+      // if (this.valueFormat !== 'timestamp') {
+      //   let v = DateHelper.format(d, this.valueFormat)
+      //   this.$emit('input', v)
+      //   this.trueValue = v
+      // } else {
+      let v = d.getTime()
+      this.$emit('input', v)
+      this.trueValue = v
+      // }
     }
   },
   computed: {
     label () {
-      if (!this.value) return ''
+      if (!this.trueValue) return ''
       let d = new Date()
       d.setHours(this.store.h)
       d.setMinutes(this.store.m)
