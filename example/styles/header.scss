@@ -1,19 +1,31 @@
 .logoCol{
   .logo-img{
-    height: 60px;
+    height: 50px;
     vertical-align: middle;
     margin-right: 5px;
   }
 }
 .search{
-  height: 40px;
-  margin-top: 10px;
+  margin-top: 5px;
+  float: right;
+
+  .t-input {
+    transition: all .3s;
+    width: 100px;
+
+    .t-input__inner {
+      border: none;
+    }
+  }
+  .t-input.is-focus {
+    width: 200px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
 }
 .navCol{
-  float: right;
   ul{
-    height: 60px;
-    line-height: 60px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
     li{
       float: left;
@@ -26,7 +38,6 @@
         color: #333;
         transition:all .1s;
         &:hover{
-          border-bottom: 2px solid #409EFF;
           color: #409EFF;
         }
       }
