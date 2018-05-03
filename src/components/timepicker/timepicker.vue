@@ -310,12 +310,7 @@ export default {
   },
   watch: {
     value (val) {
-      let d = new Date(val)
-      this.store = {
-        h: d.getHours(),
-        m: d.getMinutes(),
-        s: d.getSeconds()
-      }
+      this.trueValue = val
 
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', val)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', val)
@@ -340,10 +335,10 @@ export default {
   computed: {
     label () {
       if (!this.trueValue) return ''
-      let d = new Date()
-      d.setHours(this.store.h)
-      d.setMinutes(this.store.m)
-      d.setSeconds(this.store.s)
+      let d = new Date(this.trueValue)
+      // d.setHours(this.store.m)
+      // d.setMinutes(this.store.m)
+      // d.setSeconds(this.store.s)
       if (this.format !== 'timestamp') {
         return DateHelper.format(d, this.format)
       } else {
