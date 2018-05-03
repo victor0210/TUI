@@ -106,7 +106,9 @@
       @change="onFileLoad"
       :multiple="multiple"
       :webkitdirectory="webkitdirectory"
-      :accept="accept">
+      :accept="accept"
+      :disaebled="disabled"
+    >
 
     <t-modal :show-close="false" :show.sync="isPreview" hide-on-click style="text-align: center">
       <template slot="body">
@@ -143,7 +145,10 @@ export default {
       type: Boolean,
       default: true
     },
-    action: String,
+    action: {
+      type: String,
+      required: true
+    },
     method: {
       type: String,
       default: 'post'
@@ -174,6 +179,7 @@ export default {
     onUploadError: Function,
     beforeRemove: Function,
     onRemove: Function,
+    onFileListChange: Function,
     onPreview: Function,
     onExceed: Function,
 
@@ -299,11 +305,11 @@ export default {
 
     uploadFile (tfile) {
       this.uploader.upload(tfile, this.handleProgressChange)
-        .then(resp => {
-          this.onUploadSuccess && this.onUploadSuccess(resp, tfile)
+        .then((resp, xhr) => {
+          this.onUploadSuccess && this.onUploadSuccess(resp, tfile, xhr)
         })
-        .catch(err => {
-          this.onUploadError && this.onUploadError(err, tfile)
+        .catch((err, xhr) => {
+          this.onUploadError && this.onUploadError(err, tfile, xhr)
         })
     },
 
@@ -347,6 +353,9 @@ export default {
           this.run(q.pop())
         }, 50)
       }
+    },
+    fileList (list) {
+      this.onFileListChange && this.onFileListChange(list)
     }
   },
 

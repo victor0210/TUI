@@ -158,7 +158,6 @@ export default {
 
               parent = parent.offsetParent
             }
-            console.log(parent, isInbox)
 
             if (!isInbox) {
               this.hideModal()
@@ -173,7 +172,6 @@ export default {
 
   watch: {
     show (val, pre) {
-      console.log(val, pre)
       val ? this.instance.showModal() : this.instance.hideModal()
     }
   },
