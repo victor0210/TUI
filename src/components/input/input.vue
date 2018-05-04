@@ -21,12 +21,13 @@
         <span v-if="prependIcon" class="t-input__prepend-inner">
           <i :class="prependIcon"></i>
         </span>
+        <t-validate-icon :validate-success="validateSuccess" v-if="validated"/>
       </div>
       <div class="t-input__suffix" v-if="$slots.suffix">
         <slot name="suffix"/>
       </div>
     </template>
-    <textarea class="t-input__inner" v-else :rows="rows" :resize="resize" v-model="val" :placeholder="placeholder" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :name="name" :autocomplete="autocomplete" :autofocus="autofocus"></textarea>
+    <textarea class="t-input__inner" v-else :rows="rows" v-model="val" :placeholder="placeholder" :readonly="readonly" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :name="name" :autocomplete="autocomplete" :autofocus="autofocus" :style="{resize: resize}"></textarea>
   </div>
 </template>
 
@@ -47,7 +48,9 @@ export default {
   data () {
     return {
       val: '',
-      isFocus: false
+      isFocus: false,
+      validated: false,
+      validateSuccess: false
     }
   },
 
@@ -82,6 +85,7 @@ export default {
   mounted () {
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+    this.$on('validated', this.validateHandler)
     this.val = this.value
     if (this.checkInputType() === 'textarea') {
       this.textareaResize()
@@ -99,6 +103,10 @@ export default {
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+    },
+    validateHandler (val) {
+      this.validated = true
+      this.validateSuccess = val
     },
     checkInputType () {
       const type = this.type

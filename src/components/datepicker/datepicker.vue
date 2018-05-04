@@ -8,6 +8,7 @@
       width: width ? `${width}px` : (type === 'daterange' ? 'auto' : ''),
       height: height ? `${height}px` : ''
     }">
+    <t-validate-icon :validate-success="validateSuccess" v-if="validated"/>
     <div class="t-datepicker__input" ref="box" @click.prevent="checkout" v-if="type !== 'daterange'" :style="{height: height ? `${height - 2}px` : ''}">
       <i class="t-datepicker__icon t-datepicker__icon--calender fa fa-calendar-alt"></i>
       <input type="text" readonly class="t-datepicker__inner" ref="inner" :placeholder="placeholder" :value="model">
@@ -221,7 +222,9 @@ export default {
         year: null,
         month: null,
         date: null
-      }
+      },
+      validated: false,
+      validateSuccess: false
     }
   },
   props: {
@@ -253,6 +256,7 @@ export default {
     this.$on('hide', this.hideHandler)
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+    this.$on('validated', this.validateHandler)
   },
   mounted () {
     if (new Date(this.value).toString() !== 'Invalid Date') {
@@ -274,6 +278,10 @@ export default {
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+    },
+    validateHandler (val) {
+      this.validated = true
+      this.validateSuccess = val
     },
     setDateIndex (year = (new Date()).getFullYear(), month = (new Date()).getMonth()) {
       this.dateIndex = {

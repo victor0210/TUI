@@ -7,6 +7,7 @@
 @include b(cascader) {
   @include select-input-variant();
   height: $--select-input-min-height;
+  width: 100%;
 
   @include e(input) {
     display: inline-block;
@@ -48,7 +49,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 8px;
+    right: 10px;
     width: 14px;
     height: 14px;
     display: inline-block;

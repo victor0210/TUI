@@ -19,6 +19,7 @@
         't-cascader__input-icon--open': isFocus
       }" ref="drop_icon"></i>
       <i class="t-cascader__input-icon t-cascader__clear-icon fa fa-times-circle" v-if="clearable && label !== ''" ref="clear_icon" @click.prevent="clearInput"></i>
+      <t-validate-icon :validate-success="validateSuccess" v-if="validated"/>
     </div>
     <t-cascader-drop-menu :options="formatOptions" :select="select" :isFocus="isFocus" :selectIndex="selectIndex" :isSearching="isSearching" :searchText="searchText" v-if="initialized">
       <template>
@@ -49,12 +50,14 @@ import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
 import TCascaderOption from './cascader-option'
 import TCascaderDropMenu from './cascader-drop-menu'
+import TValidateIcon from "../input/validate-icon";
 
 //  TODO 1.position 2.cancelBlur 3.focusIndex change 4.keyboard(doing) 5.clearable
 export default {
   name: 't-cascader',
 
   components: {
+    TValidateIcon,
     TCascaderOption,
     TCascaderDropMenu
   },
@@ -92,7 +95,9 @@ export default {
       focusDirection: '',
       searchMenu: null,
       optionMenu: [],
-      searchInput: null
+      searchInput: null,
+      validated: false,
+      validateSuccess: false
     }
   },
   props: {
@@ -124,6 +129,7 @@ export default {
 
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+    this.$on('validated', this.validateHandler)
   },
 
   mounted () {
@@ -139,6 +145,10 @@ export default {
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    validateHandler (val) {
+      this.validated = true
+      this.validateSuccess = val
     },
     optionRegister (child) {
       const pos = child.lIndex.split(this.indexSplit).length - 1

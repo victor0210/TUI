@@ -1,0 +1,26 @@
+@import "variables";
+@import "mixins/mixins";
+
+@include b(validate-icon) {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 9px;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  background-color: $--color-white;
+  text-align: center;
+  -webkit-transition: .3s;
+  transition: .3s;
+
+  @include m(success) {
+    color: $--color-success;
+  }
+
+  @include m(error) {
+    color: $--color-danger;
+  }
+}

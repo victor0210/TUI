@@ -29,12 +29,13 @@ export default {
   },
 
   props: {
-    trigger: String,
-    rules: {}
+    rules: {},
+    layout: String
   },
 
   mounted () {
-    this.broadcast('t-form-item', 'set-form-item-rule', this.rules)
+    this.rules && this.broadcast('t-form-item', 'set-form-item-rule', this.rules)
+    this.layout && this.broadcast('t-form-item', 'set-form-item-layout', this.layout)
     this.$on('form-set-model', this.setModel)
     this.$on('form-validate', this.validate)
     this.$on('form-reset', this.reset)
@@ -47,7 +48,7 @@ export default {
     },
     validator () {
       this.broadcastAllInput('submit')
-      return new AsyncValidator(this.rules)
+      return this.rules ? new AsyncValidator(this.rules) : false
     },
     reset () {
       this.broadcastAllInput('reset')
@@ -62,6 +63,11 @@ export default {
       this.broadcast('t-radio-group', type)
       this.broadcast('t-date-picker', type)
       this.broadcast('t-time-picker', type)
+    }
+  },
+  watch: {
+    layout (val) {
+      this.broadcast('t-form-item', 'set-form-item-layout', val)
     }
   }
 }

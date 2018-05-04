@@ -3,6 +3,7 @@ import ButtonGroup from './components/buttonGroup/index'
 import Row from './components/row/index'
 import Col from './components/col/index'
 import Input from './components/input/index'
+import ValidateIcon from './components/input/validateIcon'
 import CheckBox from './components/checkbox/index'
 import CheckBoxGroup from './components/checkboxGroup/index'
 import Layout from './components/layout/index'
@@ -67,6 +68,7 @@ const Tui = {
   Row,
   Col,
   Input,
+  ValidateIcon,
   CheckBox,
   CheckBoxGroup,
   Layout,
