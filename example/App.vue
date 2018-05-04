@@ -1,8 +1,8 @@
 <template>
   <div id='app'>
     <t-back-top/>
-    <a href="https://github.com/Bennnis/TUI" target="_blank" style="position: absolute; right: 60px; top: 100px; z-index: 10"><img
-      src="https://img.shields.io/github/stars/Bennnis/TUI.svg?style=social&label=Star&maxAge=2592000" alt=""></a>
+    <!--<a href="https://github.com/Bennnis/TUI" target="_blank" style="position: absolute; right: 60px; top: 100px; z-index: 10"><img-->
+      <!--src="https://img.shields.io/github/stars/Bennnis/TUI.svg?style=social&label=Star&maxAge=2592000" alt=""></a>-->
     <t-layout flex-direction="vertical" class="frame">
       <t-row>
         <t-col :span="22" :offset="1">
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../src/vendor/css/fontawesome.css";
+  @import "../src/vendor/css/fontawesome.min.css";
   @import "../src/styles/index.scss";
 </style>
 
