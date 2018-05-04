@@ -240,6 +240,12 @@ section {
   box-shadow: 0 2px 4px 1px rgba(0,0,0,0.2);
 }
 
+.docs-demo-wrapper blockquote p a{
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 4px 6px;
+}
+
 .docs-trans {
   width: 100%;
   text-align: center;

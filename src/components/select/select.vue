@@ -17,6 +17,7 @@
         't-select__input-icon--open': isFocus
       }" ref="drop_icon"></i>
       <i class="t-select__input-icon t-select__clear-icon fa fa-times-circle" @click.prevent="clearInput" ref="clear_icon"></i>
+      <t-validate-icon :validate-success="validateSuccess" v-if="validated"/>
 
       <div v-if="multiple" class="t-select__inner" ref="multi_inner" :style="{
         minHeight: height ? `${height - 2}px` : '38px'
@@ -57,9 +58,11 @@
 import TSelectDropMenu from './select-drop-menu'
 import Emitter from '../../mixins/emitter'
 import ArrayHelper from '../../mixins/arrayHelper'
+import TValidateIcon from "../input/validate-icon";
 
 export default {
   components: {
+    TValidateIcon,
     TSelectDropMenu
   },
 
@@ -97,7 +100,9 @@ export default {
       focusDirection: '',
       slotsCache: null,
       //  list positon datas
-      inputHeight: 0
+      inputHeight: 0,
+      validated: false,
+      validateSuccess: false
     }
   },
 
@@ -134,6 +139,7 @@ export default {
 
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+    this.$on('validated', this.validateHandler)
   },
 
   mounted () {
@@ -158,6 +164,10 @@ export default {
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+    },
+    validateHandler (val) {
+      this.validated = true
+      this.validateSuccess = val
     },
 
     validatorInput () {

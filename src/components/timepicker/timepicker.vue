@@ -14,6 +14,7 @@
         <i class="t-timepicker__icon t-timepicker__icon--clear fa fa-times-circle" @click="clearInput"></i>
       </div>
     <input type="hidden" :value="value" :name="name">
+    <t-validate-icon :validate-success="validateSuccess" v-if="validated"/>
     <transition name="fade">
       <time-picker-drop-menu :is-focus="isFocus" :select="self" v-if="isFocus">
         <div class="t-timepicker__select-panel" v-show="isFocus && type !== 'timerange'">
@@ -110,7 +111,9 @@ export default {
       },
       minTime: null,
       maxTime: null,
-      trueValue: ''
+      trueValue: '',
+      validated: false,
+      validateSuccess: false
     }
   },
   props: {
@@ -151,6 +154,7 @@ export default {
     this.$on('hide', this.hideHandler)
     this.$on('reset', this.reset)
     this.$on('submit', this.submit)
+    this.$on('validated', this.validateHandler)
   },
   methods: {
     reset () {
@@ -161,6 +165,10 @@ export default {
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+    },
+    validateHandler (val) {
+      this.validated = true
+      this.validateSuccess = val
     },
     initTimes () {
       for (let i = 0; i <= 60; i++) {

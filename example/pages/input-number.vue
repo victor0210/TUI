@@ -48,10 +48,10 @@
       <div class="sub-title">TUI一共为您提供了四种按钮尺寸，分别是 <code>lg</code> 、<code>default</code> 、<code>sm</code> 、<code>mini</code></div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="5"><t-input-number v-model="n" size="lg"/></t-col>
-          <t-col :span="5"><t-input-number v-model="n"/></t-col>
-          <t-col :span="5"><t-input-number v-model="n" size="sm" width="150px"/></t-col>
-          <t-col :span="5"><t-input-number v-model="n" size="mini" width="120px"/></t-col>
+          <t-col :span="6"><t-input-number v-model="n" size="lg"/></t-col>
+          <t-col :span="6"><t-input-number v-model="n"/></t-col>
+          <t-col :span="6"><t-input-number v-model="n" size="sm" width="150px"/></t-col>
+          <t-col :span="6"><t-input-number v-model="n" size="mini" width="120px"/></t-col>
         </t-row>
       </div>
       <input-number-size/>

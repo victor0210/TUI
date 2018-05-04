@@ -1,9 +1,6 @@
 <template>
   <div class='t-form-item' :class="[
-    vertical ? 'is-vertical' : '',
-    oneline ? 'is-oneline' : '',
-    inline ? 'is-inline' : '',
-    labelRight ? 'is-right' : '',
+    layout ? `is-${layout}` : (formLayout ? `is-${formLayout}` : ''),
     required ? 'is-required' : '',
     showValidateError ? 'is-error' : '',
     validatePass ? 'is-validated' : ''
@@ -34,31 +31,29 @@ export default {
   },
 
   props: {
-    label: {},
+    label: String,
     name: String,
     trigger: {
       type: String,
       default: 'blur'
     },
-    vertical: Boolean,
-    oneline: Boolean,
-    inline: Boolean,
-    labelRight: Boolean,
-    errorIcon: String
+    layout: String  // 'inline-right' 'oneline' 'vertical'
   },
 
   data () {
     return {
-      showValidateError: false,
-      validatePass: false,
+      showValidateError: null,
+      validatePass: null,
       errorMessage: '',
       rule: {},
-      required: false
+      required: false,
+      formLayout: ''
     }
   },
 
   mounted () {
     this.$on('set-form-item-rule', this.setRule)
+    this.$on('set-form-item-layout', this.setLayout)
     this.$on('form-item-change', this.validateChange)
     this.$on('form-item-blur', this.validateBlur)
   },
@@ -85,9 +80,11 @@ export default {
         this.showValidateError = true
         this.validatePass = false
         this.errorMessage = errors[0].message
+        this.broadcastAllInput('validated', false)
       } else {
         this.showValidateError = false
         this.validatePass = true
+        this.broadcastAllInput('validated', true)
       }
     },
     setRule (rules) {
@@ -95,6 +92,20 @@ export default {
         this.rule[this.name] = rules[this.name]
         this.required = rules[this.name].required
       }
+    },
+    setLayout (layout) {
+      this.formLayout = layout
+    },
+    broadcastAllInput (type, p) {
+      this.broadcast('t-input', type, p)
+      this.broadcast('t-select', type, p)
+      this.broadcast('t-cascader', type, p)
+      this.broadcast('t-checkbox', type, p)
+      this.broadcast('t-checkbox-group', type, p)
+      this.broadcast('t-radio', type, p)
+      this.broadcast('t-radio-group', type, p)
+      this.broadcast('t-date-picker', type, p)
+      this.broadcast('t-time-picker', type, p)
     }
   }
 }

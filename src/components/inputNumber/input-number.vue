@@ -14,6 +14,7 @@
 
     <div class="t-input-number__wrapper">
       <input class="t-input-number__inner" type="text" :name="name" :min="min" :max="max" :autocomplete="autocomplete" v-model="val" @focus="focusHandler" @blur="blurHandler" @change="changeHandler" :disabled="disabled" :placeholder="placeholder" :readonly="readonly" :autofocus="autofocus"/>
+      <t-validate-icon :validate-success="validateSuccess" v-if="validated"/>
     </div>
 
     <div class="t-input-number__suffix" v-if="!sideControl">
@@ -40,7 +41,9 @@ export default {
     return {
       val: '',
       focused: false,
-      sideFocused: false
+      sideFocused: false,
+      validateSuccess: false,
+      validated: false
     }
   },
   props: {
@@ -68,10 +71,31 @@ export default {
     size: String,
     width: String
   },
+
+  created () {
+    this.$on('reset', this.reset)
+    this.$on('submit', this.submit)
+    this.$on('validated', this.validateHandler)
+  },
+
   mounted () {
     this.val = parseFloat(this.value) || ''
   },
+
   methods: {
+    reset () {
+      this.$emit('input', '')
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', '')
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', '')
+    },
+    submit () {
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+    },
+    validateHandler (val) {
+      this.validated = true
+      this.validateSuccess = val
+    },
     changePosition (isTop) {
       let sideTop = this.$refs.side_top.$el
       let sideBottom = this.$refs.side_bottom.$el
