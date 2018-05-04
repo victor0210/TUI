@@ -17,6 +17,7 @@
     @mouseleave="mouseLeaveHandler"
     @mouseover="mouseOverHandler"
     @mouseout="mouseOutHandler"
+    :type="nativeType"
   >
     <i class="t-btn__icon t-btn__icon--left fa fa-circle-notch fa-spin" v-if="loading"></i>
     <i :class="['t-btn__icon', 't-btn__icon--left', icon]" v-if="icon && !loading && !iconRight"></i>
@@ -45,7 +46,11 @@ export default {
     outline: Boolean,
     round: Boolean,
     iconRight: Boolean,
-    circle: Boolean
+    circle: Boolean,
+    nativeType: {
+      type: String,
+      default: 'button'
+    }
   },
   methods: {
     handleClick (e) {

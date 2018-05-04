@@ -147,6 +147,7 @@ export default {
         {name: 'type', desc: '按钮类型', type: 'String', choice: 'default/primary/success/warning/danger/info/text', default: 'default'},
         {name: 'size', desc: '按钮尺寸', type: 'String', choice: 'lg/sm/mini', default: '—'},
         {name: 'icon', desc: '图标类名', type: 'String', choice: '—', default: '—'},
+        {name: 'native-type', desc: '原生type', type: 'String', choice: 'button/submit/reset', default: 'button'},
         {name: 'round', desc: '弧形按钮', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'loading', desc: '加载状态', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'disabled', desc: '禁用状态', type: 'Boolean', choice: '—', default: 'false'},
