@@ -1,12 +1,12 @@
 <template>
   <div class="t-notify" :class="[
     `t-notify--${position}`,
-    iconClass ? `is-withicon`: '',
+    icon ? `is-withicon`: '',
   ]">
     <i class="t-notify__icon" :class="[
       type ? `t-notify__icon--${type}` : '',
-      iconClass
-    ]" v-if="iconClass" :style="{
+      icon
+    ]" v-if="icon" :style="{
       color: iconColor
     }"></i>
     <i class="t-notify__close fa fa-times" @click="$emit('close')" v-if="closable"></i>
@@ -31,7 +31,7 @@ export default {
     closable: Boolean,
     title: String,
     sub: String,
-    iconClass: String,
+    icon: String,
     iconColor: String,
     titleColor: String,
     subColor: String,

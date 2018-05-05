@@ -51,6 +51,8 @@
   }
 
   @include e(icon) {
+    color: $--color-primary;
+
     @include m(success) {
       color: $--color-success;
     }
