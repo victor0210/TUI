@@ -40,11 +40,12 @@ export default {
     },
     showCheckbox: Boolean,
     nodeClick: Function,
+    nodeToggle: Function,
     checkChange: Function,
     load: Function,
     lazy: Boolean,
     nodeKey: String,
-    expandNode: Array,
+    expandNodes: Array,
     filterText: String,
 
     //  for check switch
@@ -53,6 +54,7 @@ export default {
 
   created () {
     this.$on('node-click', this.handleNodeClick)
+    this.$on('node-toggle', this.handleNodeToggle)
     this.$on('check-change', this.handleCheckChange)
     this.$on('lazy-load', this.lazyLoad)
     this.$on('catch-checked-node', this.catchCheckedNode)
@@ -84,12 +86,13 @@ export default {
             initChecked: el.initChecked,
             initExpand: el.initExpand,
             checkDisabled: el.disabled,
-            nodeKeyValue: el[_this.nodeKey]
+            nodeKeyValue: el[_this.nodeKey],
+            node: el
           },
           scopedSlots: {
             user: () => h('div', {
               class: 't-tree-item__suffix'
-            }, _this.$scopedSlots.default({
+            }, _this.$scopedSlots.default && _this.$scopedSlots.default({
               node: el
             }))
           }
@@ -127,12 +130,12 @@ export default {
         if (parent && parent.initChecked) {
           checked = parent.initChecked
         } else {
-          checked = !!(_this.nodeKey && _this.checkedNode && _this.checkedNode.indexOf(el[_this.nodeKey]) !== -1)
+          checked = !!(_this.nodeKey && _this.checkedNodes && _this.checkedNodes.indexOf(el[_this.nodeKey]) !== -1)
         }
 
         el.nodeIndex = `${indexPrefix}${idx + 1}`
         el.initChecked = checked
-        if (_this.nodeKey && _this.expandNode && _this.expandNode.indexOf(el[_this.nodeKey]) !== -1) {
+        if (_this.nodeKey && _this.expandNodes && _this.expandNodes.indexOf(el[_this.nodeKey]) !== -1) {
           el.initExpand = true
         }
         if (el.children) _this.formatData(el)
@@ -209,6 +212,10 @@ export default {
       })
 
       return arr
+    },
+
+    handleNodeToggle (data) {
+      this.nodeToggle && this.nodeToggle(data)
     },
 
     handleNodeClick (data) {

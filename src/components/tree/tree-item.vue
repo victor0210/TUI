@@ -2,7 +2,9 @@
   <div class="t-tree-item" v-show="isMatchKey">
     <div
       class="t-tree-item__label"
-      :style="{paddingLeft: indent}">
+      :style="{paddingLeft: indent}"
+      @click="nodeClickHandler"
+    >
       <div class="t-tree-item__main">
         <i
           class="fa fa-caret-right t-tree-item__drop-icon"
@@ -73,7 +75,8 @@ export default {
     initChecked: Boolean,
     initExpand: Boolean,
     checkDisabled: Boolean,
-    nodeKeyValue: {}
+    nodeKeyValue: {},
+    node: {}
   },
 
   created () {
@@ -97,6 +100,9 @@ export default {
   },
 
   methods: {
+    nodeClickHandler (node) {
+      this.dispatch('t-tree', 'node-click', this.node)
+    },
     registerHandler (node) {
       this.childrenNode.push(node)
     },
@@ -119,7 +125,6 @@ export default {
     checkChangeHandler (val, init = false) {
       if (!init && this.checkDisabled) return
 
-      console.log(this.label, 'change', val)
       if (this.hasChildren) {
         this.broadcast('t-tree-item', 'node-item-echo', !this.childCheckableCheckAll())
       } else {
@@ -133,7 +138,9 @@ export default {
         indeterminate: this.indeterminate
       })
     },
-    checkout () {
+    checkout (e) {
+      e.preventDefault()
+      e.cancelBubble = true
       this.expand = !this.expand
     },
     childCheckAll () {
@@ -225,9 +232,7 @@ export default {
 
   watch: {
     expand (val) {
-      this.dispatch('t-tree', 'node-click', {
-        label: this.label
-      })
+      this.dispatch('t-tree', 'node-toggle', this.node)
       if (this.lazy && !this.loaded && !this.loading) {
         this.loading = true
         this.dispatch('t-tree', 'lazy-load', this)
