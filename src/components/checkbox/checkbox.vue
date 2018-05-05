@@ -147,10 +147,10 @@ export default {
       } else {
         this.isChecked = val
       }
-    },
-    isChecked (val) {
-      this.onCheckedChange(val)
     }
+    // isChecked (val) {
+    //   this.onCheckedChange(val)
+    // }
   }
 }
 </script>

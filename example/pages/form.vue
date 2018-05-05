@@ -382,14 +382,14 @@ export default {
       layout: String,
       formApis: [
         {name: 'rules', desc: '验证规则', type: 'Object', choice: '—', default: '—'},
-        {name: 'layout', desc: '表单排列方式', type: 'String', choice: 'right/oneline/vertical', default: '—'},
+        {name: 'layout', desc: '表单排列方式', type: 'String', choice: 'right/oneline/vertical', default: '—'}
       ],
       formItemApis: [
         {name: 'label', desc: 'item标题', type: 'String', choice: '—', default: '—'},
         {name: 'name', desc: '验证所需rules对象的key', type: 'String', choice: '—', default: '—'},
         {name: 'layout', desc: '表单排列方式（会覆盖form的layout）', type: 'String', choice: 'right/oneline/vertical', default: '—'},
-        {name: 'trigger', desc: '验证触发方式', type: 'String', choice: 'blur/change', default: 'blur'},
-      ],
+        {name: 'trigger', desc: '验证触发方式', type: 'String', choice: 'blur/change', default: 'blur'}
+      ]
     }
   },
   methods: {

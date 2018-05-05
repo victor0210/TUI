@@ -58,11 +58,9 @@
 import TSelectDropMenu from './select-drop-menu'
 import Emitter from '../../mixins/emitter'
 import ArrayHelper from '../../mixins/arrayHelper'
-import TValidateIcon from "../input/validate-icon";
 
 export default {
   components: {
-    TValidateIcon,
     TSelectDropMenu
   },
 

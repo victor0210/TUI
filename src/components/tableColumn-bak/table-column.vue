@@ -13,16 +13,16 @@ export default {
       type: String,
       default: ''
     },
-    width: {},
+    width: Number,
     fixed: Boolean,
     fixedRight: Boolean,
-    data: {},
+    // data: {},
     sortMethod: Function,
     type: String
   },
 
   created () {
-    this.$on('table-resize', this.registerColumn)
+    this.$on('table-resize',this.registerColumn)
   },
 
   mounted () {
