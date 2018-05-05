@@ -5,8 +5,8 @@
   padding: 10px 16px;
   position: relative;
   display: block;
-  background-color: $--color-success-lighter;
-  color: $--color-success;
+  background-color: $--color-primary-lighter;
+  color: $--color-primary;
   border-radius: 4px;
   font-weight: 400;
   transition: all .3s;
@@ -24,7 +24,7 @@
 
   @include e(sub) {
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 300;
   }
 
@@ -45,6 +45,11 @@
     @include m(icon) {
       width: 14px;
     }
+  }
+
+  @include m(success) {
+    background-color: $--color-success-lighter;
+    color: $--color-success;
   }
 
   @include m(info) {

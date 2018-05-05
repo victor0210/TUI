@@ -6,8 +6,8 @@
       <div class="t-alert__title" :class="[
         textCenter ? 't-alert__title--center' : ''
       ]">
-        <i v-if="showIcon" class="t-alert__title-icon" :class="iconClasses[type]"></i>
-        {{ title }}
+        <i v-if="showIcon" class="t-alert__title-icon" :class="icon || iconClasses[type]"></i>
+        {{ content }}
       </div>
       <div class="t-alert__sub" v-if="sub">
         {{ sub }}
@@ -37,19 +37,17 @@ export default {
   },
 
   props: {
-    title: String,
+    content: String,
     sub: String,
-    type: {
-      type: String,
-      default: 'success'
-    },
+    type: String,
     closable: {
       type: Boolean,
       default: true
     },
     closeText: String,
     showIcon: Boolean,
-    textCenter: Boolean
+    textCenter: Boolean,
+    icon: String
   },
 
   created () {
