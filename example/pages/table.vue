@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="Table" des="用于数据展示的表格组件"/>
+    <guide title="Table 表格" des="用于数据展示的表格组件"/>
     <div class="demo-block">
       <div class="title">普通表格</div>
       <div class="sub-title">表格的基本用法，所有可以给column设置宽度，若不设置则均分</div>

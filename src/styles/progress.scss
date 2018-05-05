@@ -83,8 +83,12 @@
     stroke: #ebeef5;
   }
 
-  @include e(circle-text) {
-    stroke: $--color-text-regular;
+  @include e(circle-content) {
+    width: 50%;
+    height: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    @include utils-position-center(a)
   }
 
   @include when(circle) {
