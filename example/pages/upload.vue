@@ -154,7 +154,7 @@
       <t-divider content="Attributes" class="document-divider"/>
       <div class="source">
         <t-table :data="uploadApis">
-          <t-table-column label="属性" prop="name" :width="150"/>
+          <t-table-column label="属性" prop="name" :width="200"/>
           <t-table-column label="描述" prop="desc" :width="180"/>
           <t-table-column label="类型" prop="type" :width="140"/>
           <t-table-column label="可选值" prop="choice" :width="100"/>

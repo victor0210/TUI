@@ -1,12 +1,10 @@
 <template>
-  <!--<transition name="t-zoom-in-center">-->
-    <div class="t-tag" :class="[
-      type ? `t-tag--${type}` : ''
-    ]">
-      <slot></slot>
-      <i class="fa fa-times t-tag__close" v-if="closable" @click="closeHandler"></i>
-    </div>
-  <!--</transition>-->
+  <div class="t-tag" :class="[
+    type ? `t-tag--${type}` : ''
+  ]">
+    <slot></slot>
+    <i class="fa fa-times t-tag__close" v-if="closable" @click="closeHandler"></i>
+  </div>
 </template>
 
 <script>
