@@ -156,6 +156,7 @@ section {
   overflow: hidden;
 }
 
+.demo-block .source .panel,
 .demo-block .source .half,
 .demo-block .source .third {
   border: 1px solid #f0f1f2;
@@ -168,6 +169,10 @@ section {
   &:hover {
     box-shadow: 0 2px 12px 4px #eee;
   }
+}
+
+.demo-block .source .panel {
+  width: 100%;
 }
 
 .demo-block .source .third {

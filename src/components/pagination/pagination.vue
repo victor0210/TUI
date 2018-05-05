@@ -9,18 +9,21 @@ export default {
 
   data () {
     return {
-      current: 1,
+      current: null,
       size: 10
     }
   },
   props: {
     perPage: {
+      type: Number,
       default: 10
     },
     total: {
+      type: Number,
       required: true
     },
     currentPage: {
+      type: Number,
       default: 1
     },
     sizes: Array,
@@ -126,8 +129,8 @@ export default {
   },
 
   watch: {
-    current (c) {
-      !!this.currentChange && this.currentChange(c)
+    current (c, old) {
+      old && !!this.currentChange && this.currentChange(c)
     }
   },
 
