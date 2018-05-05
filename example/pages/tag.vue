@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="标签" des="用于展示标志性数据"/>
+    <guide title="Tag 标签" des="用于展示标志性数据"/>
     <div class="demo-block">
       <div class="title">普通标签</div>
       <div class="sub-title">标签的基本使用</div>
@@ -52,6 +52,19 @@
         </t-table>
       </div>
     </div>
+
+    <div class="api-docs">
+      <t-divider content="Attributes" class="document-divider"/>
+      <div class="source">
+        <t-table :data="tagApis">
+          <t-table-column label="属性" prop="name" :width="150"/>
+          <t-table-column label="描述" prop="desc" :width="200"/>
+          <t-table-column label="类型" prop="type" :width="200"/>
+          <t-table-column label="可选值" prop="choice" :width="200"/>
+          <t-table-column label="默认值" prop="default"/>
+        </t-table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,8 +99,7 @@ export default {
       ],
       tagMethods: [
         {name: 'close', desc: '标签关闭时触发', params: 'tag（触发关闭的tag值）'}
-      ],
-
+      ]
     }
   },
   methods: {

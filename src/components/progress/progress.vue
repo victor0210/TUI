@@ -73,25 +73,40 @@
             stroke: barFill
           }"
         ></circle>
-        <text
-          class="t-progress__circle-text"
-          x="50%"
-          y="50%"
-          text-anchor="middle"
-          stroke-width="2px"
-          dy=".3em"
-          :style="{
-            stroke: percentageColor
-          }"
-        >
-          <template v-if="$scopedSlots.default">
-            <slot :percentage="percentage"></slot>
-          </template>
-          <template v-else>
-            {{ `${percentage}%` }}
-          </template>
-        </text>
+        <!--<text-->
+          <!--class="t-progress__circle-text"-->
+          <!--x="50%"-->
+          <!--y="50%"-->
+          <!--text-anchor="middle"-->
+          <!--stroke-width="2px"-->
+          <!--dy=".3em"-->
+          <!--:style="{-->
+            <!--stroke: percentageColor-->
+          <!--}"-->
+        <!--&gt;-->
+          <!--<template v-if="$scopedSlots.default">-->
+            <!--<slot :percentage="percentage"></slot>-->
+          <!--</template>-->
+          <!--<template v-else>-->
+            <!--{{ `${percentage}%` }}-->
+          <!--</template>-->
+        <!--</text>-->
       </svg>
+      <div class="t-progress__circle-content">
+        <template v-if="$scopedSlots.default">
+          <slot :percentage="percentage"></slot>
+        </template>
+        <template v-else>
+          <div :style="{
+            height: '100%',
+            textAlign: 'center',
+            fontSize: `${circleSize/10}px`,
+            lineHeight: `${circleSize/2}px`
+          }">
+            {{ `${percentage}%` }}
+          </div>
+        </template>
+      </div>
     </template>
   </div>
 </template>
