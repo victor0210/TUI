@@ -22,5 +22,8 @@ const message = (props) => {
 export default {
   show (props) {
     return message(props)
+  },
+  hide () {
+    message().remove()
   }
 }

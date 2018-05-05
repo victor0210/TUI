@@ -5,8 +5,8 @@
     <div class="t-message__title" :class="[
       textCenter ? 't-message__title--center' : ''
     ]">
-      <i v-if="showIcon" class="t-message__title-icon" :class="iconClasses[type]"></i>
-      {{ title }}
+      <i v-if="showIcon" class="t-message__title-icon" :class="icon || iconClasses[type]"></i>
+      {{ content }}
     </div>
     <div class="t-message__sub" v-if="sub" :class="[
       textCenter ? 't-message__sub--center' : ''
@@ -37,14 +37,14 @@ export default {
   },
 
   props: {
-    title: {
+    content: {
       type: [String, Number],
       default: 'Edit Message Here !!'
     },
-    sub: String,
+    sub: [String, Number],
     type: {
       type: String,
-      default: 'success'
+      default: ''
     },
     closable: {
       type: Boolean,
@@ -56,7 +56,8 @@ export default {
     duration: {
       type: Number,
       default: 3000
-    }
+    },
+    icon: String
   },
 
   created () {

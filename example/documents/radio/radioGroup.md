@@ -21,7 +21,7 @@ export default {
   methods: {
     handleChange (val) {
       this.$TMessage.show({
-        title: 'choose "' + val + '" !',
+        content: 'choose "' + val + '" !',
         type: 'info',
         duration: 1000
       })

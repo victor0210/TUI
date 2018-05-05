@@ -163,7 +163,7 @@ export default {
       setTimeout(() => {
         this.loading = false
         this.$TMessage.show({
-          'title': 'Search Complete!!'
+          'content': 'Search Complete!!'
         })
       }, 3000)
     }

@@ -152,7 +152,7 @@ export default {
   methods: {
     handleChange (val) {
       this.$TMessage.show({
-        title: 'group change event："' + val + '" !',
+        content: 'group change event："' + val + '" !',
         type: 'info',
         duration: 1000
       })

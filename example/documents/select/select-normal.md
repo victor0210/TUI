@@ -22,7 +22,7 @@ export default {
   methods: {
     changeHandler (val) {
       this.$TMessage.show({
-        title: '选中值：' + val,
+        content: '选中值：' + val,
         type: 'info',
         duration: 1000
       })
