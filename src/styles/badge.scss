@@ -7,14 +7,15 @@
 
   @include e(content) {
     display: inline-block;
+    box-shadow: $--box-shadow-base;
     padding: 3px 6px;
     font-size: 12px;
     line-height: 12px;
-    border: 2px solid #fff;
+    border: 2px solid #fafafa;
     background-color: $--color-danger;
     color: white;
     border-radius: 100px;
-    font-weight: 400;
+    font-weight: 300;
 
     @include m(dot) {
       width: 8px;
