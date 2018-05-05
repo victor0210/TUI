@@ -28,5 +28,10 @@ export default {
 
   hide () {
     loading('hide')
+  },
+
+  remove () {
+    this.hide()
+    loadingInstance = null
   }
 }

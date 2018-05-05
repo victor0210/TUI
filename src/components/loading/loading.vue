@@ -47,7 +47,6 @@ export default {
   name: 't-loading',
 
   props: {
-    isShow: false,
     maskBgColor: String,
     contentBgColor: String,
     iconColor: String,
@@ -64,6 +63,9 @@ export default {
     },
     iconSize: String,
     textSize: String,
+
+    //  not user api
+    isShow: false,
     type: String
   }
 }
