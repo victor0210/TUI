@@ -8,6 +8,7 @@ const notify = (props, type) => {
   }, 50)
 }
 
+//  TODO: get notify instance / add remove methods
 export default {
   show (props) {
     notify(props)

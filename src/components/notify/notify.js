@@ -45,7 +45,7 @@ Notify.initial = (_props, _type) => {
     closable: true,
     title: 'Please Edit Title',
     type: _type,
-    iconClass: iconClasses[_type]
+    icon: iconClasses[_type]
   }
 
   let props = Object.assign({}, _defaults, _props)
