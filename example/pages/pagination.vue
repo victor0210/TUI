@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="分页组件" des="用于分页展示数据"/>
+    <guide title="Pagination 分页组件" des="用于分页展示数据"/>
     <div class="demo-block">
       <div class="title">基本用法</div>
       <div class="sub-title">分页组件的最基本用法</div>
