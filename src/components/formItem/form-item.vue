@@ -37,7 +37,7 @@ export default {
       type: String,
       default: 'blur'
     },
-    layout: String  // 'inline-right' 'oneline' 'vertical'
+    layout: String
   },
 
   data () {

@@ -67,11 +67,18 @@
     }
   }
 
+  @include e(expand) {
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+  }
+
   @include e(cell) {
     text-overflow: ellipsis;
     word-break: break-all;
     box-sizing: border-box;
     position: relative;
+    padding: 12px 10px;
 
     i {
       transition: .2s;
@@ -109,11 +116,11 @@
     transition: all .2s;
 
     @include when(hover) {
-      background-color: lighten(#e5e9f2, 5%) !important;
+      background-color: $--color-primary-lighter !important;
     }
 
     @include when(select) {
-      background-color: lighten(#e5e9f2, 2%) !important;
+      background-color: $--color-primary-lighter !important;
     }
   }
 
@@ -145,7 +152,6 @@
 
       &:hover {
         color: $--color-primary;
-        font-size: 1.1em;
       }
       &:first-child {
         top: 1px;
@@ -163,7 +169,6 @@
     font-size: 13px;
     line-height: 25px;
     height: auto;
-    padding: 12px 10px;
     color: $--color-text-regular;
     box-sizing: border-box;
     display: table-cell;
@@ -189,18 +194,18 @@
   }
 
   .row-primary {
-    background-color: $--color-primary-lighter;
+    background-color: $--color-primary-light;
   }
   .row-warning {
-    background-color: $--color-warning-lighter;
+    background-color: $--color-warning-light;
   }
   .row-danger {
-    background-color: $--color-danger-lighter;
+    background-color: $--color-danger-light;
   }
   .row-info {
-    background-color: $--color-info-lighter;
+    background-color: $--color-info-light;
   }
   .row-success {
-    background-color: $--color-success-lighter;
+    background-color: $--color-success-light;
   }
 }

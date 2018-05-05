@@ -50,14 +50,12 @@ import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
 import TCascaderOption from './cascader-option'
 import TCascaderDropMenu from './cascader-drop-menu'
-import TValidateIcon from "../input/validate-icon";
 
 //  TODO 1.position 2.cancelBlur 3.focusIndex change 4.keyboard(doing) 5.clearable
 export default {
   name: 't-cascader',
 
   components: {
-    TValidateIcon,
     TCascaderOption,
     TCascaderDropMenu
   },

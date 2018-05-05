@@ -16,10 +16,10 @@
             width: c.width ? `${c.width}px` : `${averageWidth}px`
           }">
             <div class="t-table__cell" :style="{
-              width: c.width ? `${c.width}px` : `${averageWidth}px`
+              width: c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`
             }">
               <template v-if="c.type === 'selection'">
-                <t-checkbox :indeterminate="isIndeterminate" v-model="selectionAll" @change="selectionAllChange"/>
+                <t-checkbox v-model="selectionAll" :indeterminate="isIndeterminate" @change="selectionAllChange"/>
               </template>
               <template v-else>
                 {{ c.type === 'index' ? '#' : c.label }}
@@ -34,6 +34,7 @@
     <div class="t-table__body-wrapper" :style="{
       height: bodyHeight ? `${bodyHeight}px` : 'auto',
       maxHeight: bodyMaxHeight ? `${bodyMaxHeight}px` : '',
+      minHeight: bodyMinHeight ? `${bodyMinHeight}px` : '',
       overflowX: !isBeyondWidth ? 'hidden' : ''
     }" ref="table_body" @scroll="tableScrollHandler('body')" @mouseleave="rowMouseLeave">
       <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
@@ -54,21 +55,21 @@
                 </div>
               </template>
               <template v-else>
-                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width}px` : `${averageWidth}px`"
-                              :class="[expandIdx === idx ? 'is-expand' : '']"
+                <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"
+                  :class="[expandIdx === idx ? 'is-expand' : '']"
                 />
               </template>
             </td>
           </tr>
-          <!--<transition name="fade" :key="idx">-->
+          <transition name="expand" :key="idx">
             <tr class="t-table__body-row" :key="-idx-1" v-if="expandColumn && expandIdx === idx">
               <td :style="{
                 display: 'inline-table'
               }">
-                <t-table-expand :row="d" :col="expandColumn" :width="(width) + 'px'"/>
+                <t-table-expand :row="d" :col="expandColumn" :width="(width - 20) + 'px'"/>
               </td>
             </tr>
-          <!--</transition>-->
+          </transition>
         </template>
       </table>
     </div>
@@ -92,15 +93,9 @@
               !c.fixed ? 'is-hidden' : ''
             ]">
               <div class="t-table__cell" :style="{
-                width: c.width ? `${c.width}px` : `${averageWidth}px`
+                width: c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`
               }">
-                <template v-if="c.type === 'selection'">
-                  <t-checkbox v-model="selectionAll" :indeterminate="isIndeterminate" @change="selectionAllChange"/>
-                </template>
-                <template v-else>
-                  {{ c.type === 'index' ? '#' : c.label }}
-                </template>
-                <span v-if="c.sortMethod" class="t-table__sort"><i class="fa fa-caret-up" @click="sortColumn(c.sortMethod)"></i><i class="fa fa-caret-down" @click="sortColumn(c.sortMethod, 'desc')"></i></span>
+                {{ c.label }}
               </div>
             </th>
           </tr>
@@ -110,6 +105,7 @@
       <div class="t-table__fixed-body" :style="{
         height: bodyHeight ? `${bodyHeight}px` : 'auto',
         maxHeight: bodyMaxHeight ? `${bodyMaxHeight}px` : '',
+        minHeight: bodyMinHeight ? `${bodyMinHeight}px` : '',
         overflowX: 'hidden'
       }" ref="table_fixed_body" @scroll="tableScrollHandler('fixed-body')" @mouseleave="rowMouseLeave">
         <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
@@ -132,21 +128,21 @@
                   </div>
                 </template>
                 <template v-else>
-                  <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width}px` : `${averageWidth}px`"
+                  <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"
                                 :class="[expandIdx === idx ? 'is-expand' : '']"
                   />
                 </template>
               </td>
             </tr>
-            <!--<transition name="fade" :key="idx">-->
+            <transition name="expand" :key="idx">
               <tr class="t-table__body-row" :key="-idx-1" v-if="expandColumn && expandIdx === idx">
                 <td :style="{
                 display: 'inline-table'
               }">
-                  <t-table-expand :row="d" :col="expandColumn" :width="(width) + 'px'"/>
+                  <t-table-expand :row="d" :col="expandColumn" :width="(width - 20) + 'px'"/>
                 </td>
               </tr>
-            <!--</transition>-->
+            </transition>
           </template>
         </table>
       </div>
@@ -172,15 +168,9 @@
               !c.fixedRight ? 'is-hidden' : ''
             ]">
               <div class="t-table__cell" :style="{
-                width: c.width ? `${c.width}px` : `${averageWidth}px`
+                width: c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`
               }">
-                <template v-if="c.type === 'selection'">
-                  <t-checkbox v-model="selectionAll" :indeterminate="isIndeterminate" @change="selectionAllChange"/>
-                </template>
-                <template v-else>
-                  {{ c.type === 'index' ? '#' : c.label }}
-                </template>
-                <span v-if="c.sortMethod" class="t-table__sort"><i class="fa fa-caret-up" @click="sortColumn(c.sortMethod)"></i><i class="fa fa-caret-down" @click="sortColumn(c.sortMethod, 'desc')"></i></span>
+                {{ c.label }}
               </div>
             </th>
           </tr>
@@ -190,6 +180,7 @@
       <div class="t-table__fixed-body" :style="{
         height: bodyHeight ? `${bodyHeight}px` : 'auto',
         maxHeight: bodyMaxHeight ? `${bodyMaxHeight}px` : '',
+        minHeight: bodyMinHeight ? `${bodyMinHeight}px` : '',
         overflowX: 'hidden'
       }" ref="table_fixed_right_body" @scroll="tableScrollHandler('fixed-right-body')" @mouseleave="rowMouseLeave">
         <table cellspacing="0" cellpadding="0" border="0" class="t-table__body" :style="{
@@ -213,21 +204,21 @@
                   </div>
                 </template>
                 <template v-else>
-                  <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width}px` : `${averageWidth}px`"
+                  <t-table-cell :row="d" :col="c" :idx="idx" :width="c.width ? `${c.width - 20}px` : `${averageWidth - 20}px`"
                                 :class="[expandIdx === idx ? 'is-expand' : '']"
                   />
                 </template>
               </td>
             </tr>
-            <!--<transition name="fade" :key="idx">-->
+            <transition name="expand" :key="idx">
               <tr class="t-table__body-row" :key="-idx-1" v-if="expandColumn && expandIdx === idx">
                 <td :style="{
                 display: 'inline-table'
               }">
-                  <t-table-expand :row="d" :col="expandColumn" :width="(width) + 'px'"/>
+                  <t-table-expand :row="d" :col="expandColumn" :width="(width - 20) + 'px'"/>
                 </td>
               </tr>
-            <!--</transition>-->
+            </transition>
           </template>
         </table>
       </div>
@@ -241,7 +232,7 @@ import TTableExpand from './table-expand.vue'
 import TCheckbox from '../checkbox/checkbox'
 import ArrayHelper from '../../mixins/arrayHelper'
 import Emitter from '../../mixins/emitter'
-let selectionMap = {}
+let selectionMap
 
 export default {
   components: {
@@ -256,7 +247,6 @@ export default {
 
   data () {
     return {
-      tableId: ~~(Math.random() * 1000000),
       dataProps: [],
       width: 0,
       height: 0,
@@ -273,7 +263,7 @@ export default {
       scrollTop: 0,
       rowClasses: {},
       hoverRowIdx: null,
-      cellMinWidth: 80,
+      cellMinWidth: 120,
       currentRow: null,
       selectionAll: false,
       selectionRows: [],
@@ -288,8 +278,10 @@ export default {
     data: {},
     stripe: Boolean,
     border: Boolean,
+    fixHeader: Boolean,
     bodyHeight: Number,
     bodyMaxHeight: Number,
+    bodyMinHeight: Number,
     rowClassName: Function,
     highlightCurrentRow: Boolean,
     currentChange: Function,
@@ -297,6 +289,7 @@ export default {
     selectionChange: Function,
     loading: Boolean
   },
+
 
   created () {
     this.$on('table-column-register', this.columnRegister)
@@ -315,7 +308,7 @@ export default {
       this.expandIdx = this.expandIdx === idx ? null : idx
     },
     setSelectionRowsIdx () {
-      selectionMap[this.tableId] = ArrayHelper.clone(this.data)
+      selectionMap = ArrayHelper.clone(this.data)
     },
     columnRegister (column) {
       this.addColumn(column)
@@ -414,32 +407,30 @@ export default {
         row = [row]
         console.warn('method toggleRowSelection Except "Array" But String Got')
       }
-
       row.forEach(el => {
-        let idx = this.selectionRows.indexOf(el)
-        if (idx === -1) {
+        if (this.selectionRows.indexOf(el) === -1) {
           this.selectionRows = ArrayHelper.addToStore(this.selectionRows, el)
         } else {
           this.selectionRows = ArrayHelper.removeFromStore(this.selectionRows, el)
         }
       })
-
       this.selectionRowChange()
     },
     selectionRowChange () {
-      let checkedCount = this.selectionRows.length
-      this.selectionAll = checkedCount === selectionMap[this.tableId].length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < selectionMap[this.tableId].length
+      const val = this.selectionRows
+      let checkedCount = val.length
+      this.selectionAll = checkedCount === selectionMap.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.data.length
     },
     selectionAllChange (val) {
-      this.selectionRows = val ? selectionMap[this.tableId] : []
+      this.selectionRows = val ? ArrayHelper.clone(selectionMap) : []
       this.isIndeterminate = false
-    },
-    getSelectionRows () {
-      return ArrayHelper.clone(this.selectionRows)
     }
   },
   watch: {
+    width (val) {
+      console.log(this.isBeyondWidth, this.averageWidth, this.rowWidth, this.settedWidth, this.noWidthColumn)
+    },
     scrollLeft (val) {
       this.$refs.table_header.scrollLeft = val
       this.$refs.table_body.scrollLeft = val

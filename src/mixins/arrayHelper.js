@@ -31,7 +31,7 @@ export default {
     arr.push(val)
     return arr
   },
-  mapValue (arr) {
+  clone (arr) {
     let dist = []
     for (let i = arr.length - 1; i >= 0; i--) {
       dist[i] = arr[i]
