@@ -107,7 +107,7 @@
         <t-table :data="cascaderMethods">
           <t-table-column label="事件" prop="name" :width="150"/>
           <t-table-column label="描述" prop="desc" :width="300"/>
-          <t-table-column label="类型" prop="params"/>
+          <t-table-column label="参数" prop="params"/>
         </t-table>
       </div>
     </div>

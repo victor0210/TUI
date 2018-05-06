@@ -41,7 +41,7 @@ export default {
 
   data () {
     return {
-      activeIndex: '0'
+      activeIndex: ''
     }
   },
 
@@ -49,12 +49,20 @@ export default {
     data: Array,
     type: String,
     vertical: Boolean,
-    collsape: Boolean
+    collsape: Boolean,
+    defaultActiveIndex: {
+      type: String,
+      default: ''
+    }
   },
 
   created () {
     this.formatData()
     this.$on('item-checkout', this.checkoutHandler)
+  },
+
+  mounted () {
+    this.activeIndex = this.defaultActiveIndex
   },
 
   methods: {
@@ -75,7 +83,9 @@ export default {
       delete i['command']
       i['hasSub'] = !!i['subMenu']
       delete i['subMenu']
-      this.$emit('handleClick', i)
+
+      if (i.path) this.$router.push(i.path)
+      this.$emit('click', i)
     }
   },
 

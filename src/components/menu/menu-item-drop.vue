@@ -24,7 +24,12 @@
           :subMenu="sm.subMenu"
           :command="sm.command"
         >
-        {{ sm.name }}
+          <template v-if="sm.link">
+            <a :href="sm.link" :target="sm.target" class="t-menu__link">{{ sm.name }}</a>
+          </template>
+          <template v-else>
+            {{ sm.name }}
+          </template>
         </t-dropdown-item>
       </template>
     </t-dropdown>

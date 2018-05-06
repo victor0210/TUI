@@ -124,7 +124,7 @@ export default {
         {name: 'success', desc: '打开成功状态通知', args: 'config', returnArgs: '—'},
         {name: 'info', desc: '打开成功状态通知', args: 'config', returnArgs: '—'},
         {name: 'warning', desc: '打开成功状态通知', args: 'config', returnArgs: '—'},
-        {name: 'danger', desc: '打开成功状态通知', args: 'config', returnArgs: '—'},
+        {name: 'danger', desc: '打开成功状态通知', args: 'config', returnArgs: '—'}
       ],
       configApis: [
         {name: 'duration', desc: '显示时间（0为永久显示）', type: 'Number', choice: '—', default: '3000（ms）'},
@@ -136,7 +136,7 @@ export default {
         {name: 'iconColor', desc: '图标颜色', type: 'String', choice: '—', default: '#44a9ff'},
         {name: 'titleColor', desc: '标题颜色', type: 'String', choice: '—', default: '—'},
         {name: 'subColor', desc: '主要内容颜色', type: 'String', choice: '—', default: '—'},
-        {name: 'closable', desc: '是否可关闭', type: 'Boolean', choice: '—', default: 'true'},
+        {name: 'closable', desc: '是否可关闭', type: 'Boolean', choice: '—', default: 'true'}
       ],
       c1: {
         title: '维护通知'
