@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="导航菜单" des="用于显示网站菜单的导航组件"/>
+    <guide title="Menu 导航菜单" des="用于显示网站菜单的导航组件"/>
     <div class="demo-block">
       <div class="title">Horizon水平菜单</div>
       <div class="sub-title">水平布局的menu组件</div>
