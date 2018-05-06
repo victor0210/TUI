@@ -58,7 +58,6 @@ export default {
       type: String,
       default: 'hover'
     },
-    value: {},
     side: Boolean,
     hasParentMenu: Boolean,
     sub: Boolean

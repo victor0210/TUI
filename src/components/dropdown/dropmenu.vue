@@ -148,11 +148,16 @@ export default {
         if (!this.side) {
           if (listWidth + parentViewLeft >= document.body.offsetWidth) {
             listLeft -= listWidth - parentOffsetWidth
+            this.arrowRight = true
+          } else {
+            this.arrowRight = false
           }
 
           if (parentViewTop + listHeight + parentOffsetHeight + 5 > windowViewHeight) {
+            this.arrowTop = true
             listTop = parentViewTop - listHeight - 5
           } else {
+            this.arrowTop = false
             listTop = parentViewTop + parentOffsetHeight + 5
           }
         } else {
