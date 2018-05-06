@@ -105,7 +105,7 @@ export default {
     return {
       messageMethods: [
         {name: 'show', desc: '打开消息', args: 'config（见下面参数表）', returnArgs: '—'},
-        {name: 'hide', desc: '关闭消息', args: '—', returnArgs: '—'},
+        {name: 'hide', desc: '关闭消息', args: '—', returnArgs: '—'}
       ],
       configApis: [
         {name: 'duration', desc: '显示时间（0为永久显示）', type: 'Number', choice: '—', default: '3000（ms）'},

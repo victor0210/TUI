@@ -2,7 +2,12 @@
   <span class="t-menu__item-content">
     <i v-if="data.icon" :class="['t-menu__icon', data.icon]"></i>
     <template v-if="!isCollsape">
-      {{ data.name }}
+      <template v-if="data.link">
+        <a :href="data.link" :target="data.target" class="t-menu__link">{{ data.name }}</a>
+      </template>
+      <template v-else>
+        {{ data.name }}
+      </template>
       <i v-if="data.subMenu" class="fa fa-caret-down"></i>
     </template>
   </span>

@@ -137,7 +137,7 @@
         <t-table :data="checkboxMethods">
           <t-table-column label="事件" prop="name" :width="120"/>
           <t-table-column label="描述" prop="desc" :width="300"/>
-          <t-table-column label="类型" prop="params"/>
+          <t-table-column label="参数" prop="params"/>
         </t-table>
       </div>
     </div>
@@ -161,7 +161,7 @@
         <t-table :data="checkboxGroupMethods">
           <t-table-column label="事件" prop="name" :width="120"/>
           <t-table-column label="描述" prop="desc" :width="300"/>
-          <t-table-column label="类型" prop="params"/>
+          <t-table-column label="参数" prop="params"/>
         </t-table>
       </div>
     </div>
