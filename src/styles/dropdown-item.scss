@@ -23,6 +23,7 @@
 
   &:hover {
     color: $--color-primary;
+    background-color: $--color-primary-lighter;
   }
 
   @include e(icon) {
@@ -37,6 +38,10 @@
   @include when(disabled) {
     cursor: not-allowed;
     color: $--color-text-placeholder;
+
+    &:hover {
+      background-color: inherit;
+    }
   }
 
   @include m(divided) {
