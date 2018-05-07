@@ -21,8 +21,10 @@
       .t-tabs__active-line-horizon {
         bottom: 0;
       }
+    }
 
-      :nth-child(2) {
+    .t-tabs__nav {
+      :nth-child(1) {
         padding-left: 0;
       }
       :last-child {
@@ -51,8 +53,10 @@
       .t-tabs__active-line-horizon {
         top: 0;
       }
+    }
 
-      :nth-child(2) {
+    .t-tabs__nav {
+      :nth-child(1) {
         padding-left: 0;
       }
       :last-child {
@@ -100,87 +104,12 @@
     }
   }
 
-  @include m(card) {
-    @include header-horizon-variant();
-
-    .t-tabs__header {
-
-      .t-tabs__header-item {
-        padding: 0 20px !important;
-        transition: all .2s;
-      }
-
-      .t-tabs__header-item.is-active {
-        background-color: $--color-primary;
-      }
-
-      &:after {
-        display: none;
-      }
-    }
-
+  @include m(pipe) {
     @include when(top) {
-      .t-tabs__header {
-        border-bottom: $--border-base;
-
-        .t-tabs__header-item.is-active {
-          color: $--color-white;
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        }
-
-        .t-tabs__active-line-horizon {
-          display: none;
-        }
-      }
+      @include pipe-header-horizon-variant();
     }
-
     @include when(bottom) {
-      .t-tabs__header {
-        border-top: $--border-base;
-
-        .t-tabs__header-item.is-active {
-          color: $--color-white;
-          border-bottom-left-radius: 4px;
-          border-bottom-right-radius: 4px;
-        }
-
-        .t-tabs__active-line-horizon {
-          display: none;
-        }
-      }
-    }
-
-    @include when(left) {
-      .t-tabs__header {
-        border-right: $--border-base;
-
-        .t-tabs__header-item.is-active {
-          color: $--color-white;
-          border-top-left-radius: 4px;
-          border-bottom-left-radius: 4px;
-        }
-
-        .t-tabs__active-line-vertical {
-          display: none;
-        }
-      }
-    }
-
-    @include when(right) {
-      .t-tabs__header {
-        border-left: $--border-base;
-
-        .t-tabs__header-item.is-active {
-          color: $--color-white;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-        }
-
-        .t-tabs__active-line-vertical {
-          display: none;
-        }
-      }
+      @include pipe-header-horizon-variant();
     }
   }
 

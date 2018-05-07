@@ -1,3 +1,82 @@
+@mixin pipe-header-horizon-variant() {
+  .t-tabs__header {
+    border-top: $--border-base;
+    border-bottom: $--border-base;
+    padding: 0;
+    height: 40px;
+    display: block;
+    overflow-x: scroll;
+    box-sizing: border-box;
+    background-color: #fafafa;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .t-tabs__header-item.is-editable {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .t-tabs__header-item.is-editable.is-hover {
+      padding-left: 10px;
+      padding-right: 30px;
+    }
+
+    .t-tabs__header-item {
+      display: inline-block;
+      border: $--border-base;
+      border-radius: 4px;
+      margin: 0 5px;
+      float: none;
+      line-height: 30px;
+      height: 30px;
+      box-sizing: border-box;
+      background-color: #fff;
+      color: $--color-text-secondary;
+      transition: all .2s;
+
+      @include when(active) {
+        box-shadow: 0 0 12px 0 $--border-color-base;
+      }
+
+      .t-tabs__item-close {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 7px;
+        width: 14px;
+        height: 14px;
+        padding: 0;
+        border-radius: 50%;
+        text-align: center;
+        transition: all .2s;
+      }
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .t-tabs__nav {
+    padding: 5px;
+    position: relative;
+    float: left;
+    height: 30px;
+    display: block;
+    width: auto;
+    white-space: nowrap;
+    transition: all .2s;
+
+    :nth-child(1) {
+      padding-left: 20px;
+    }
+    :last-child {
+      padding-right: 20px;
+    }
+  }
+}
 @mixin header-horizon-variant() {
   .t-tabs__header {
     position: relative;
@@ -43,20 +122,6 @@
 
       @include when(active) {
         color: $--color-primary;
-      }
-
-      .t-tabs__item-close {
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 2px;
-        margin: auto;
-        height: 40px;
-        line-height: 40px;
-        width: 20px;
-        border-radius: 50%;
-        text-align: center;
       }
     }
   }
