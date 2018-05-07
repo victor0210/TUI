@@ -7,6 +7,10 @@
     display: flex;
   }
 
+  @include m(info) {
+    @include step-type-variant($--color-info)
+  }
+
   @include m(success) {
     @include step-type-variant($--color-success)
   }

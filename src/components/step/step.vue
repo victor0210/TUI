@@ -1,6 +1,6 @@
 <template>
   <div class="t-step" :class="[
-    vertical ? 'is-vertical' : 'is-horizon',
+    'is-horizon',
     status ? `t-step--${status}` : ''
   ]">
     <t-step-item
@@ -30,7 +30,6 @@ export default {
 
   props: {
     steps: Array,
-    vertical: Boolean,
     active: Number,
     textCenter: Boolean,
     flexBasis: String,
