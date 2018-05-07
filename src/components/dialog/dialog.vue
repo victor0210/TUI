@@ -8,12 +8,12 @@
             {{ title }}
             <span v-on:click="$emit('close')" v-if="closable"><i class="icon fa fa-times"></i></span>
           </div>
-          <div :class="[dialogContentClass,dialogContentFooter]">
-            <p><i :class="['icon', iconColor, icon]" v-if="icon"></i>{{ msg }}</p>
+          <div :class="[dialogContentClass,dialogContentIcon,dialogContentFooter]">
+            <p><i :class="['icon', iconColor, icon]" v-if="icon"></i>{{ content }}</p>
           </div>
           <div :class="dialogFooterClass" v-if="showFooter">
-            <t-button :type="type" v-on:click="$emit('ok')">{{ okText }}</t-button>
-            <t-button class="is-outline" :type="type" v-on:click="$emit('close')" v-if="closable">{{ cancelText }}</t-button>
+            <t-button type="default" @click="$emit('ok')">{{ okText }}</t-button>
+            <t-button class="is-outline" type="default" @click="$emit('close')" v-if="closable">{{ cancelText }}</t-button>
           </div>
         </div>
       </div>
@@ -33,10 +33,7 @@ export default {
     document.removeEventListener('keydown', this.keyDown)
   },
   props: {
-    icon: {
-      type: String,
-      default: ''
-    },
+    icon: String,
     showFooter: {
       type: Boolean,
       default: false
@@ -46,7 +43,7 @@ export default {
       default: true
     },
     title: String,
-    msg: String,
+    content: String,
     okText: String,
     cancelText: String,
     iconColor: String,
@@ -73,6 +70,9 @@ export default {
   computed: {
     dialogContentFooter () {
       return this.showFooter ? '' : `${this.dialogContentClass}--footer`
+    },
+    dialogContentIcon () {
+      return this.icon || this.type ? `${this.dialogContentClass}--icon` : ''
     },
     dialogHeaderTypeClass () {
       return `${this.dialogHeaderClass}--${this.type}`

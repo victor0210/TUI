@@ -1,11 +1,10 @@
 :::demo
+> 调用状态方法 `success`、`info`、`warning`、`danger` 显示状态图标 
 ```html
-<div class="demo-block">
-    <t-button type="success" v-on:click="showSuccess()">success</t-button>
-    <t-button type="info" @click="showInfo()">info</t-button>
-    <t-button type="warning" @click="showWarning()">warning</t-button>
-    <t-button type="danger" @click="showDanger()">danger</t-button>
-</div>
+<t-button type="success" @click="showSuccess">成功</t-button>
+<t-button type="info" @click="showInfo">信息</t-button>
+<t-button type="warning" @click="showWarning">警告</t-button>
+<t-button type="danger" @click="showDanger">危险</t-button>
 
 <script>
 export default {
