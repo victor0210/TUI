@@ -201,7 +201,7 @@ export default {
         {name: 'v-model', desc: '选中的tab下标', type: 'Number', choice: '—', default: '0'},
         {name: 'type', desc: '选项卡样式', type: 'String', choice: 'box/pipe', default: '—'},
         {name: 'position', desc: '选项卡布局', type: 'String', choice: 'top/right/bottom/left', default: 'top'},
-        {name: 'editable', desc: '标签能否被编辑', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'editable', desc: '标签能否被编辑', type: 'Boolean', choice: '—', default: 'false'}
         // {name: 'show-close', desc: '一直显示标签关闭按钮', type: 'Boolean', choice: '—', default: 'false'},
       ],
       tabPanelApis: [
@@ -247,7 +247,7 @@ export default {
         {title: '种豆得豆'},
         {title: '豆蔻年华'},
         {title: '华冠丽服'},
-        {title: '服服贴贴'},
+        {title: '服服贴贴'}
       ],
       tabPanelsPipe: [
         {title: '精忠报国'},
