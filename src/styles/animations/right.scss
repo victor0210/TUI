@@ -1,0 +1,35 @@
+@keyframes t-go-right-in {
+  0% {
+    transform: translateX($--animation-offset-base);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes t-go-right-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX($--animation-offset-base);
+  }
+}
+
+@keyframes t-go-right-big-in {
+  0% {
+    transform: translateX($--animation-offset-big);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes t-go-right-big-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX($--animation-offset-big);
+  }
+}
