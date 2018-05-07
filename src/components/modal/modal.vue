@@ -8,7 +8,12 @@ export default {
   data () {
     return {
       initial: false,
-      instance: null
+      instance: null,
+      sideAnimation: {
+        sideIn: '',
+        sideOut: ''
+      },
+      modalProps: {}
     }
   },
 
@@ -18,29 +23,37 @@ export default {
       type: Boolean,
       default: true
     },
-    width: {
-      type: Number,
-      default: 0
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
+    width: String,
+    height: String,
     top: {
-      type: Number,
-      default: 0
+      type: String,
+      default: '100px'
+    },
+    bottom: {
+      type: String,
+      default: 'auto'
+    },
+    left: {
+      type: String,
+      default: 'auto'
+    },
+    right: {
+      type: String,
+      default: 'auto'
     },
     noAnimation: Boolean,
-    animation: {
+    // animationTimingFunction: {
+    //   type: String,
+    //   default: 'ease-in-out'
+    // },
+    animationIn: {
       type: String,
-      default: 't-top-to-center'
+      default: 't-go-down-in'
     },
-    animationTimingFunction: {
+    animationOut: {
       type: String,
-      default: 'ease-in-out'
+      default: 't-go-down-out'
     },
-    animationIn: String,
-    animationOut: String,
     animationDuration: {
       type: Number,
       default: 300
@@ -48,11 +61,69 @@ export default {
     size: String,
     hideOnClick: {
       type: Boolean,
-      default: false
-    }
+      default: true
+    },
+    side: String
   },
 
   render (h) {
+    let width
+    let height
+    let top
+    let bottom
+    let left
+    let right
+
+    if (this.side === 'top' || this.side === 'bottom') {
+      width = '100%'
+      left = '0px'
+      right = '0px'
+      if (this.side === 'top') {
+        top = '0px'
+        bottom = 'auto'
+        this.sideAnimation.sideIn = 't-side-top-in'
+        this.sideAnimation.sideOut = 't-side-top-out'
+      }
+      if (this.side === 'bottom') {
+        top = 'auto'
+        bottom = '0px'
+        this.sideAnimation.sideIn = 't-side-bottom-in'
+        this.sideAnimation.sideOut = 't-side-bottom-out'
+      }
+    } else if (this.side === 'left' || this.side === 'right') {
+      height = '100%'
+      top = '0px'
+      bottom = '0px'
+      if (this.side === 'left') {
+        left = '0px'
+        right = 'auto'
+        this.sideAnimation.sideIn = 't-side-left-in'
+        this.sideAnimation.sideOut = 't-side-left-out'
+      }
+      if (this.side === 'right') {
+        left = 'auto'
+        right = '0px'
+        this.sideAnimation.sideIn = 't-side-right-in'
+        this.sideAnimation.sideOut = 't-side-right-out'
+      }
+    } else {
+      this.sideAnimation.sideIn = this.animationIn
+      this.sideAnimation.sideOut = this.animationOut
+    }
+
+    this.modalProps = {
+      top: top || (!this.side && this.top),
+      left: left || (!this.side && this.left),
+      right: right || (!this.side && this.right),
+      bottom: bottom || (!this.side && this.bottom),
+      width: width || this.width,
+      height: height || this.height,
+      borderRadius: this.side ? 0 : '',
+      showClose: this.showClose,
+      size: this.size,
+      side: !!this.side
+    }
+
     if (!this.initial) {
       this.createInstance()
       this.initial = true
@@ -64,16 +135,11 @@ export default {
   methods: {
     createInstance () {
       const _this = this._self
+
       let Modal = new Vue({
         render (h) {
           return h(TModalTemp, {
-            props: {
-              top: _this.top ? `${_this.top}px` : '',
-              width: _this.width ? `${_this.width}px` : '',
-              height: _this.height ? `${_this.height}px` : '',
-              showClose: _this.showClose,
-              size: _this.size
-            },
+            props: _this.modalProps,
             on: {
               close: () => {
                 //  emit close from in to out && change props outbox
@@ -121,19 +187,24 @@ export default {
             setTimeout(() => {
               this.$el.children[0].style.opacity = 1
               this.$el.children[1].style.opacity = 1
-              !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn || _this.animation}-in ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
+              // !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationIn} ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
+              !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.sideAnimation.sideIn} ${_this.animationDuration}ms`)
             }, 100)
 
-            _this.hideOnClick && document.addEventListener('click', this.handleExtraClick, false)
+            document.addEventListener('click', this.handleExtraClick, false)
+            document.addEventListener('keydown', this.keyDownHandler)
             _this.$emit('modal-open')
             _this.$emit('update:show', true)
           },
           hideModal () {
-            !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut || _this.animation}-out ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
+            // !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.animationOut} ${_this.animationDuration}ms ${_this.animationTimingFunction}`)
+            !_this.noAnimation && (this.$el.children[1].style.animation = `${_this.sideAnimation.sideOut} ${_this.animationDuration}ms`)
             this.$el.children[0].style.opacity = 0
             this.$el.children[1].style.opacity = 0
 
-            _this.hideOnClick && document.removeEventListener('click', this.handleExtraClick, false)
+            document.removeEventListener('click', this.handleExtraClick, false)
+            document.removeEventListener('keydown', this.keyDownHandler)
+
             setTimeout(() => {
               this.show && document.body.removeChild(this.$el)
               this.show = false
@@ -146,7 +217,14 @@ export default {
             this.show && document.body.removeChild(this.$el)
             this.$destroy()
           },
+          keyDownHandler (e) {
+            if (e.keyCode === 27 && _this.hideOnClick) {
+              _this.$emit('modal-close')
+              _this.$emit('update:show', false)
+            }
+          },
           handleExtraClick (e) {
+            if (!_this.hideOnClick) return false
             let isInbox = false
             let parent = e.target.offsetParent
 

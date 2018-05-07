@@ -1,0 +1,17 @@
+@keyframes t-side-right-in {
+  0% {
+    right: -1000px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes t-side-right-out {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: -1000px;
+  }
+}

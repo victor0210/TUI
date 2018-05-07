@@ -35,6 +35,13 @@
     border-radius: $--modal-border-radius;
     width: $--modal-width-base;
   }
+
+  @include m(side) {
+    .t-modal__container {
+      position: absolute;
+    }
+  }
+
   @include e(header) {
     @include dialog-size($--modal-content-padding-vertical, $--modal-content-padding-horizontal, $--modal-font-size-base);
     overflow: hidden;
@@ -66,15 +73,16 @@
     color: $--color-gray;
   }
 
-  @include m(sm) {
-    .t-modal__container {
-      width: $--modal-width-sm;
-    }
-  }
 
   @include m(xs) {
     .t-modal__container {
       width: $--modal-width-xs;
+    }
+  }
+
+  @include m(sm) {
+    .t-modal__container {
+      width: $--modal-width-sm;
     }
   }
 
