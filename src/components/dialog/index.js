@@ -22,7 +22,7 @@ const dialog = function (type, props = {}) {
     okText: 'ok',
     cancelText: 'cancel',
     title: 'Title',
-    msg: 'content',
+    content: 'content',
     icon: _icons[type],
     iconColor: props.iconColor || `t-text--${type}`,
     onRemove () {
@@ -38,6 +38,9 @@ const dialog = function (type, props = {}) {
 }
 
 export default {
+  show (opts) {
+    return dialog('', opts)
+  },
   success (opts) {
     return dialog('success', opts)
   },

@@ -23,23 +23,24 @@
     border-radius: $--dialog-border-radius;
   }
   @include e(header) {
-    color: #fff;
+    //color: #fff;
+    color: $--color-text-regular;
     height: $--dialog-header-height;
     font-weight: 700;
     @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
 
-    @include m(success){
-      background-color: $--color-success;
-    }
-    @include m(warning){
-      background-color: $--color-warning;
-    }
-    @include m(info){
-      background-color: $--color-info;
-    }
-    @include m(danger){
-      background-color: $--color-danger;
-    }
+    //@include m(success){
+    //  //background-color: $--color-success;
+    //}
+    //@include m(warning){
+    //  background-color: $--color-warning;
+    //}
+    //@include m(info){
+    //  background-color: $--color-info;
+    //}
+    //@include m(danger){
+    //  background-color: $--color-danger;
+    //}
 
     & span {
       float: right;
@@ -77,7 +78,8 @@
     }
 
     @include m(footer) {
-      @include dialog-size($--dialog-content-padding-vertical * 2, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
+      @include dialog-size($--dialog-content-padding-vertical, $--dialog-content-padding-horizontal, $--dialog-font-size-base);
+      padding-bottom: $--dialog-content-padding-vertical * 2;
     }
 
     & p {
@@ -85,13 +87,18 @@
       word-break: break-all;
       margin: 0;
       position: relative;
-      padding-left: 50px;
       color: $--color-text-primary;
       i {
         position: absolute;
         left: 0;
         top: 0;
         font-size: 32px;
+      }
+    }
+
+    @include m(icon) {
+      & p {
+        padding-left: 50px;
       }
     }
   }

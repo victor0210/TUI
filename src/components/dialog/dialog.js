@@ -16,15 +16,13 @@ Dialog.initial = properties => {
     },
     methods: {
       closeHandler () {
-        this.onClose()
+        this.onClose && this.onClose()
         this.remove()
       },
       okHandler () {
-        this.onOk()
+        this.onOk && this.onOk()
         this.remove()
       },
-      onClose () {},
-      onOk () {},
       remove () {
         domOutTransition()
         setTimeout(() => {
