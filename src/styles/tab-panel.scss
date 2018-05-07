@@ -2,6 +2,9 @@
 @import "mixins/mixins";
 
 @include b(tab-panel) {
-  display: block;
+  @include utils-clearfix();
   width: 100%;
+  height: auto;
+  display: inline-block;
+  box-sizing: border-box;
 }

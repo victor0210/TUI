@@ -1,8 +1,10 @@
 <template>
-  <span
+  <div
     class='t-tabs__header-item'
     :class="[
-      isActive ? 'is-active' : ''
+      isActive ? 'is-active' : '',
+      isHover ? 'is-hover' : '',
+      editable ? 'is-editable' : ''
     ]"
     @click="changeActive"
     @mouseenter="onMouseEnter"
@@ -19,7 +21,7 @@
       @mouseenter="onMouseEnterClose"
       @mouseleave="onMouseLeaveClose"
     ></i>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -50,6 +52,7 @@ export default {
     this.$on('get-width', this.reportWidth)
     this.$on('get-idx-width', this.reportIdxWidth)
     this.$on('get-item-length', this.reportItemLength)
+    this.$on('switch-item', this.switchItem)
   },
 
   mounted () {
@@ -71,6 +74,9 @@ export default {
     },
     reportItemLength () {
       this.dispatch('t-tabs', 'report-item')
+    },
+    switchItem (focusIndex) {
+      this.$idx === focusIndex && this.change
     },
     changeActive () {
       this.dispatch('t-tabs', 'init-active-line', {

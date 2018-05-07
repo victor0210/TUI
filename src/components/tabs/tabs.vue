@@ -9,31 +9,35 @@ export default {
 
   data () {
     return {
-      tabPanels: [],
+      // tabPanels: [],
       tabItemWidth: 0,
       tabItemOffsetX: 0,
       tabItemHeight: 0,
       tabItemOffsetY: 0,
-      sourceTabPanels: [],
+      // sourceTabPanels: [],
       focusIndex: 0,
       maxHeaderItemWidth: 0,
       itemLength: 0,
-      tDrags: {
-        startX: 0,
-        startY: 0,
-        currentX: 0,
-        currentY: 0,
-        index: -1,
-        targetIndex: 0,
-        elWidth: 0,
-        isDragging: false
-      }
+      panelLength: 0
+      // tDrags: {
+      //   startX: 0,
+      //   startY: 0,
+      //   currentX: 0,
+      //   currentY: 0,
+      //   index: -1,
+      //   targetIndex: 0,
+      //   elWidth: 0,
+      //   isDragging: false
+      // }
     }
   },
 
   props: {
-    value: {},
-    tabDraggable: Boolean,
+    value: {
+      type: Number,
+      default: 0
+    },
+    // tabDraggable: Boolean,
     type: String,
     position: {
       type: String,
@@ -41,7 +45,7 @@ export default {
     },
     editable: Boolean,
     showClose: Boolean,
-    inlineFlex: Boolean
+    // inlineFlex: Boolean
   },
 
   render (h) {
@@ -53,6 +57,8 @@ export default {
         panels.push(el)
       }
     })
+
+    _this.panelLength = panels.length
 
     let tabHeaderItems = () => {
       let tabHeaderItems = []
@@ -66,15 +72,15 @@ export default {
         tabHeaderItems.push(
           h(THeaderItem, {
             key: idx,
-            domProps: {
-              draggable: _this.tabDraggable
-            },
+            // domProps: {
+            //   draggable: _this.tabDraggable
+            // },
             props: {
               $idx: idx,
               isActive: _this.focusIndex === idx,
               itemLength: panels.length,
               position: _this.position,
-              editable: _this.editable,
+              editable: _this.editable && _this.type === 'pipe',
               showClose: _this.showClose
             },
             on: {
@@ -120,6 +126,20 @@ export default {
         ],
         style: {
           width: _this.isVertical && _this.maxHeaderItemWidth > 0 ? `${_this.maxHeaderItemWidth}px` : ''
+        },
+        on: {
+          mousewheel: (e) => {
+            if (_this.type === 'pipe') {
+              let offs
+              if (e.deltaY > 0) {
+                offs = 30
+              } else if (e.deltaY < 0) {
+                offs = -30
+              }
+              this.$el.children[0].scrollLeft += offs
+              e.preventDefault()
+            }
+          }
         }
       }, [
         h('span', {
@@ -133,14 +153,19 @@ export default {
           }
         }),
         //  filter tab-panel
-        tabHeaderItems()
+        h('div', {
+          class: [
+            't-tabs__nav'
+          ],
+          ref: 'nav'
+        }, [tabHeaderItems()])
       ])
     }
 
     return h('div', {
       class: [
         't-tabs',
-        this.tabDraggable ? 'is-draggable' : '',
+        // this.tabDraggable ? 'is-draggable' : '',
         _this.type ? `t-tabs--${_this.type}` : '',
         `is-${_this.position}`
       ]
@@ -155,6 +180,7 @@ export default {
   },
 
   created () {
+    this.focusIndex = this.value
     this.$on('init-active-line', this.renderActiveLine)
     this.$on('report-width', this.reportWidthHandler)
     this.$on('report-item', this.reportLengthHandler)
@@ -200,53 +226,68 @@ export default {
     reportWidthHandler (w) {
       if (this.maxHeaderItemWidth < w) this.maxHeaderItemWidth = w
     },
-
-    onDragStart (e) {
-      this.tDrags.index = ~~e.target.attributes.tTabKey.value
-      this.tDrags.startX = e.x
-      this.tDrags.startY = e.y
-      this.tDrags.elWidth = e.target.offsetWidth
-      this.tDrags.isDragging = true
+    //  for drag
+    // onDragStart (e) {
+    //   this.tDrags.index = ~~e.target.attributes.tTabKey.value
+    //   this.tDrags.startX = e.x
+    //   this.tDrags.startY = e.y
+    //   this.tDrags.elWidth = e.target.offsetWidth
+    //   this.tDrags.isDragging = true
+    // },
+    // onDrag (e) {
+    //   this.tDrags.currentX = e.x
+    //   this.tDrags.currentY = e.y
+    //   if (!!e.x && !!e.y) this.switchTabItem()
+    // },
+    // onDragEnd (e) {
+    //   this.tDrags.isDragging = false
+    //   this.sourceTabPanels = this.tabPanels
+    //   // this.val = this.tabPanels[this.tDrags.targetIndex].val //  auto focus target on drag end
+    // },
+    // switchTabItem () {
+    //   const offsetPatch = this.tDrags.currentX > this.tDrags.startX ? this.tDrags.elWidth / 2 : -this.tDrags.elWidth / 2
+    //   const targetIndex = this.tDrags.targetIndex
+    //   this.tDrags.targetIndex = this.tDrags.index + ~~((this.dragOffset + offsetPatch) / this.tDrags.elWidth)
+    //   if (targetIndex !== this.tDrags.targetIndex && !!this.sourceTabPanels[this.tDrags.targetIndex]) this.formatDraggedTabs(this.tDrags.index, this.tDrags.targetIndex)
+    // },
+    // formatDraggedTabs (sourceIndex, targetIndex) {
+    //   const arr = this.sourceTabPanels.concat([])
+    //   if (sourceIndex > targetIndex) {
+    //     let foo = arr[sourceIndex]
+    //     for (let i = sourceIndex; i > targetIndex; i--) {
+    //       arr[i] = arr[i - 1]
+    //     }
+    //     arr[targetIndex] = foo
+    //   } else {
+    //     let foo = arr[sourceIndex]
+    //     for (let i = sourceIndex; i < targetIndex; i++) {
+    //       arr[i] = arr[i + 1]
+    //     }
+    //     arr[targetIndex] = foo
+    //   }
+    //
+    //   this.tabPanels = arr
+    // }
+  },
+  watch: {
+    focusIndex (val) {
+      this.$emit('input', val)
     },
-    onDrag (e) {
-      this.tDrags.currentX = e.x
-      this.tDrags.currentY = e.y
-      if (!!e.x && !!e.y) this.switchTabItem()
+    value (val) {
+      this.broadcast('t-tab-header-item', 'switch-item', val)
     },
-    onDragEnd (e) {
-      this.tDrags.isDragging = false
-      this.sourceTabPanels = this.tabPanels
-      // this.val = this.tabPanels[this.tDrags.targetIndex].val //  auto focus target on drag end
-    },
-    switchTabItem () {
-      const offsetPatch = this.tDrags.currentX > this.tDrags.startX ? this.tDrags.elWidth / 2 : -this.tDrags.elWidth / 2
-      const targetIndex = this.tDrags.targetIndex
-      this.tDrags.targetIndex = this.tDrags.index + ~~((this.dragOffset + offsetPatch) / this.tDrags.elWidth)
-      if (targetIndex !== this.tDrags.targetIndex && !!this.sourceTabPanels[this.tDrags.targetIndex]) this.formatDraggedTabs(this.tDrags.index, this.tDrags.targetIndex)
-    },
-    formatDraggedTabs (sourceIndex, targetIndex) {
-      const arr = this.sourceTabPanels.concat([])
-      if (sourceIndex > targetIndex) {
-        let foo = arr[sourceIndex]
-        for (let i = sourceIndex; i > targetIndex; i--) {
-          arr[i] = arr[i - 1]
-        }
-        arr[targetIndex] = foo
-      } else {
-        let foo = arr[sourceIndex]
-        for (let i = sourceIndex; i < targetIndex; i++) {
-          arr[i] = arr[i + 1]
-        }
-        arr[targetIndex] = foo
+    panelLength (val, old) {
+      if (val > old && old > 0) {
+        console.log(this.$el.children)
+        this.$el.children[0].scrollLeft = 100000
+        this.focusIndex = val - 1
       }
-
-      this.tabPanels = arr
     }
   },
   computed: {
-    dragOffset () {
-      return this.tDrags.currentX - this.tDrags.startX
-    },
+    // dragOffset () {
+    //   return this.tDrags.currentX - this.tDrags.startX
+    // },
     isVertical () {
       return this.position === 'left' || this.position === 'right'
     }
