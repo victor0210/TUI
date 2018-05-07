@@ -9,16 +9,16 @@ export default {
 
   data () {
     return {
-      // tabPanels: [],
       tabItemWidth: 0,
       tabItemOffsetX: 0,
       tabItemHeight: 0,
       tabItemOffsetY: 0,
-      // sourceTabPanels: [],
       focusIndex: 0,
       maxHeaderItemWidth: 0,
       itemLength: 0,
       panelLength: 0
+      // sourceTabPanels: [],
+      // tabPanels: [],
       // tDrags: {
       //   startX: 0,
       //   startY: 0,
@@ -43,8 +43,8 @@ export default {
       type: String,
       default: 'top'
     },
-    editable: Boolean,
-    showClose: Boolean,
+    editable: Boolean
+    // showClose: Boolean
     // inlineFlex: Boolean
   },
 
@@ -225,7 +225,7 @@ export default {
 
     reportWidthHandler (w) {
       if (this.maxHeaderItemWidth < w) this.maxHeaderItemWidth = w
-    },
+    }
     //  for drag
     // onDragStart (e) {
     //   this.tDrags.index = ~~e.target.attributes.tTabKey.value

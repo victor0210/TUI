@@ -17,7 +17,7 @@ export default {
       type: [String, Number],
       default: 'title'
     },
-    $idx: 0
+    $idx: Number
   },
 
   computed: {

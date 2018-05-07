@@ -12,7 +12,7 @@
   >
     <slot></slot>
     <i
-      v-if="editable && (showClose || isHover)"
+      v-if="editable && isHover"
       class="t-tabs__item-close fa"
       :class="[
         isHoverClose ? 'fa-times-circle' : 'fa-times'
@@ -44,8 +44,8 @@ export default {
     isActive: Boolean,
     itemLength: Number,
     position: String,
-    editable: Boolean,
-    showClose: Boolean
+    editable: Boolean
+    // showClose: Boolean
   },
 
   created () {
@@ -76,7 +76,7 @@ export default {
       this.dispatch('t-tabs', 'report-item')
     },
     switchItem (focusIndex) {
-      this.$idx === focusIndex && this.change
+      this.$idx === focusIndex && this.changeActive()
     },
     changeActive () {
       this.dispatch('t-tabs', 'init-active-line', {
