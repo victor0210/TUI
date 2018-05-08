@@ -141,11 +141,15 @@ const TD = {
   TTooltip
 }
 
+const INFO = {
+  version: process.env.version
+}
+
 const Component = {
-  version: process.env.version,
   install,
-  ...TD,
-  ...Tui
+  INFO,
+  TD,
+  Tui
 }
 
 export default Component
