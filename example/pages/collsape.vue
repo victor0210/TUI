@@ -1,8 +1,9 @@
 <template>
   <div>
-    <guide title="折叠面板" des="通过折叠隐藏或显示主要内容"/>
+    <guide title="Collsape 折叠面板" des="通过折叠隐藏或显示主要内容"/>
     <div class="demo-block">
-      <div class="subtitle">基本用法</div>
+      <div class="title">基本用法</div>
+      <div class="sub-title">通过控制绑定值类改变每个折叠面板的显示或者隐藏</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24" style="margin-bottom: 50px">
@@ -41,11 +42,12 @@
           </t-col>
         </t-row>
       </div>
-      <radio-group/>
+      <collsape-normal/>
     </div>
 
     <div class="demo-block">
-      <div class="subtitle">手风琴模式</div>
+      <div class="title">手风琴模式</div>
+      <div class="sub-title">只能同时展开一个面板</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24" style="margin-bottom: 50px">
@@ -84,11 +86,12 @@
           </t-col>
         </t-row>
       </div>
-      <radio-group/>
+      <collsape-accordion/>
     </div>
 
     <div class="demo-block">
-      <div class="subtitle">内嵌面板</div>
+      <div class="title">内嵌面板</div>
+      <div class="sub-title">可以在面板内部嵌套面板</div>
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="24" style="margin-bottom: 50px">
@@ -105,7 +108,7 @@
               <t-collsape-item :name="2">
                 2、内嵌面板
                 <template slot="content">
-                  <t-collsape v-model="val1">
+                  <t-collsape v-model="val4">
                     <t-collsape-item :name="1">
                       1、写作主体
                       <template slot="content">
@@ -143,25 +146,62 @@
           </t-col>
         </t-row>
       </div>
-      <radio-group/>
+      <collsape-contain/>
     </div>
 
+    <div class="api-docs">
+      <t-divider content="Collsape Attributes" class="document-divider"/>
+      <div class="source">
+        <t-table :data="collsapeApis">
+          <t-table-column label="属性" prop="name"/>
+          <t-table-column label="描述" prop="desc"/>
+          <t-table-column label="类型" prop="type"/>
+          <t-table-column label="可选值" prop="choice"/>
+          <t-table-column label="默认值" prop="default"/>
+        </t-table>
+      </div>
+    </div>
+
+    <div class="api-docs">
+      <t-divider content="Collsape Item Attributes" class="document-divider"/>
+      <div class="source">
+        <t-table :data="collsapeItemApis">
+          <t-table-column label="属性" prop="name"/>
+          <t-table-column label="描述" prop="desc"/>
+          <t-table-column label="类型" prop="type"/>
+          <t-table-column label="可选值" prop="choice"/>
+          <t-table-column label="默认值" prop="default"/>
+        </t-table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import RadioGroup from '../documents/radio/radioGroup.md'
+import CollsapeNormal from '../documents/collsape/collsape-normal.md'
+import CollsapeAccordion from '../documents/collsape/collsape-accordion.md'
+import CollsapeContain from '../documents/collsape/collsape-contain.md'
 
 export default {
   components: {
-    RadioGroup
+    CollsapeNormal,
+    CollsapeContain,
+    CollsapeAccordion
   },
 
   data () {
     return {
+      collsapeApis: [
+        {name: 'v-model', desc: '绑定展开值', type: '*', choice: '—', default: '—'},
+        {name: 'accordion', desc: '开启手风琴模式', type: 'Boolean', choice: '—', default: 'true'}
+      ],
+      collsapeItemApis: [
+        {name: 'name', desc: '当前面板Item唯一key值', type: '*（必填）', choice: '—', default: '—'}
+      ],
       val1: [1],
-      val2: 5,
-      val3: [1]
+      val2: 1,
+      val3: [1],
+      val4: []
     }
   }
 }
