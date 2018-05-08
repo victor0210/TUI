@@ -27,7 +27,9 @@ export default {
   },
 
   props: {
-    name: {}
+    name: {
+      required: true
+    }
   },
 
   created () {
