@@ -1,7 +1,7 @@
 <template>
   <t-popover
     :position="position"
-    :popoverOffset="popoverOffset"
+    :popoverOffset="tooltipOffset"
     :bgColor="bgColor"
     :borderColor="borderColor"
     :textColor="textColor"
@@ -24,7 +24,7 @@ export default {
   props: {
     //  tooltip props
     content: {
-      type: String,
+      type: [String, Number],
       required: true
     },
     theme: String,
@@ -34,7 +34,7 @@ export default {
       type: String,
       default: 'top'
     },
-    popoverOffset: {
+    tooltipOffset: {
       type: Number,
       default: 10
     },

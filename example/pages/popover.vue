@@ -279,6 +279,7 @@ export default {
         {name: 'hide-on-click', desc: '点击弹出层外部关闭/ESC可关闭', type: 'Boolean', choice: '—', default: 'true'},
         {name: 'position', desc: '弹出层位置', type: 'String', choice: 'top / top-left / top-right / bottom / bottom-left / bottom-right / left / left-top / left-bottom / right / right-top / right-bottom', default: 'top'},
         {name: 'trigger', desc: '触发显示弹出层方式', type: 'String', choice: 'hover/click/focus', default: 'hover'},
+        {name: 'theme', desc: '弹出层主题', type: 'String', choice: 'light / dark / dark-gold / success / info / warning / danger', default: '—'},
         {name: 'bg-color', desc: '弹出层背景色', type: 'String', choice: '—', default: '#fff'},
         {name: 'border-color', desc: '弹出层边框颜色', type: 'String', choice: '—', default: 'rgba(0,0,0,0.3)'},
         {name: 'text-color', desc: '弹出层内文本颜色', type: 'String', choice: '—', default: '—'},
