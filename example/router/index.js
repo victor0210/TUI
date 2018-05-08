@@ -10,6 +10,21 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/guide',
+      name: 'introduce',
+      component: r => require.ensure([], () => r(require('../pages/intro.vue')))
+    },
+    {
+      path: '/guide/install',
+      name: 'install',
+      component: r => require.ensure([], () => r(require('../pages/install.vue')))
+    },
+    {
+      path: '/guide/usage',
+      name: 'usage',
+      component: r => require.ensure([], () => r(require('../pages/usage.vue')))
+    },
+    {
       path: '/components/color',
       name: 'color',
       component: r => require.ensure([], () => r(require('../pages/color.vue')))

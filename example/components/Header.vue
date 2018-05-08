@@ -7,17 +7,10 @@
       <t-col :span="12" class="navCol">
         <ul>
           <li>
-            <a href="#">
-              <span>指南</span>
-            </a>
+            <router-link to="/guide" class="header-link">指南</router-link>
           </li>
           <li>
             <router-link to="/components" class="header-link">组件</router-link>
-          </li>
-          <li>
-            <a href="#">
-              <span>教程</span>
-            </a>
           </li>
           <li>
             <a href="https://github.com/Bennnis/TUI" target="_blank">

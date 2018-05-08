@@ -3,30 +3,19 @@
     <ul class="aside-item">
       <div class="navigate-group">开发指南</div>
       <li class="t-menu-item">
-        <a href="#">
-          <span>安装</span>
-        </a>
+        <router-link to="/guide/introduce">概览</router-link>
       </li>
       <li class="t-menu-item">
-        <a href="#">
-          <span>快速上手</span>
-        </a>
+        <router-link to="/guide/install">安装</router-link>
       </li>
       <li class="t-menu-item">
-        <a href="#">
-          <span>概览</span>
-        </a>
+        <router-link to="/guide/usage">快速上手</router-link>
       </li>
-      <li class="t-menu-item">
-        <a href="#">
-          <span>定制主题</span>
-        </a>
-      </li>
-      <li class="t-menu-item">
-        <a href="#">
-          <span>更新日志</span>
-        </a>
-      </li>
+      <!--<li class="t-menu-item">-->
+        <!--<a href="#">-->
+          <!--<span>更新日志</span>-->
+        <!--</a>-->
+      <!--</li>-->
       <div class="navigate-group">组件</div>
       <!--基础组件-->
       <li class="t-menu-item-group">
