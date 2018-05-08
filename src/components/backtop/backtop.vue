@@ -19,8 +19,14 @@ export default {
   props: {
     left: Number,
     top: Number,
-    right: Number,
-    bottom: Number,
+    right: {
+      type: Number,
+      default: 60
+    },
+    bottom: {
+      type: Number,
+      default: 60
+    },
     icon: {
       type: String,
       default: 'fa fa-chevron-up'
@@ -39,7 +45,7 @@ export default {
 
   methods: {
     createInstance () {
-      if (BackTop) return BackTop
+      if (BackTop) return
       const _this = this
 
       let backTopComponent = new Vue({
