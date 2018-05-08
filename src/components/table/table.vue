@@ -305,9 +305,11 @@ export default {
   },
 
   mounted () {
-    this.initWidth()
-    this.rowClassName && this.setRowClassName()
-    window.addEventListener('resize', this.initWidth)
+    this.$nextTick(() => {
+      this.initWidth()
+      this.rowClassName && this.setRowClassName()
+      window.addEventListener('resize', this.initWidth)
+    })
   },
 
   methods: {
