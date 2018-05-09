@@ -5,8 +5,8 @@ import App from './App'
 import router from './router'
 
 // import full tui
-import Tui from 'vuetui'
-import 'vuetui/dist/style.min.css'
+import Tui from '@bennnis/tui'
+import '@bennnis/tui/dist/css/tui.min.css'
 
 // mount
 Vue.use(Tui)

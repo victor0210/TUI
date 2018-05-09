@@ -45,10 +45,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../src/vendor/css/fontawesome.min.css";
-  @import "../src/styles/index.scss";
-</style>
-
-<style lang="scss">
   @import "styles/app";
 </style>

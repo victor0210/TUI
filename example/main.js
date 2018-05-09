@@ -10,7 +10,8 @@ import Guide from './components/Guide'
 // Vue.use(Button)
 
 // import the whole tui toolkit
-import Tui from '../src'
+import Tui from '@bennnis/tui'
+import '@bennnis/tui/dist/css/tui.min.css'
 Vue.use(Tui)
 
 // code highlight transform to vue directive
