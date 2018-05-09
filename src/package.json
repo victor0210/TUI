@@ -1,12 +1,9 @@
 {
-  "name": "t-ui",
-  "version": "1.0.0",
-  "description": "A high quantity ui component library",
-  "author": "Deris",
-  "private": true,
-  "bin": {
-    "tui": "./tui-cli"
-  },
+  "name": "@bennnis/tui",
+  "version": "0.0.8",
+  "description": "A high quantity ui component library for Vue.js 2.x",
+  "author": "Bennnis",
+  "private": false,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
@@ -16,11 +13,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "async-validator": "^1.8.2"
   },
   "devDependencies": {
-    "async-validator": "^1.8.2",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.22.1",
