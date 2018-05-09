@@ -4,7 +4,6 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const mc = require('./markdown-compile')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -24,9 +23,7 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './example/main.js',
-    tui: './src/index.js',
-    style: './src/styles/index.scss'
+    app: './example/main.js'
   },
   output: {
     path: config.build.assetsRoot,

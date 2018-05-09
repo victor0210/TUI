@@ -2,27 +2,23 @@
 
 A High Quanlity UI Toolkit By VUE.
 
-## usage 
+## Usage 
 ```$bash
 #not suuported npm yet, just foking and expanding first
 #it will be
-npm install tui --save
+npm install @bennnis/tui --save
 ```
 
-### import full TUI
+### Import Full TUI
 ```javascript
 import Vue from 'vue';
-import TUI from 'tui';
+import TUI from '@bennnis/tui';
+import '@bennnis/tui/dist/css/tui.min.css'
+
 Vue.use(TUI);
 ```
 
-### import part of TUI
-```javascript
-import Vue from 'vue';
-import {Button} from 'tui';
-Vue.use(Button);
-```
-## installation
+## Run Demo
 
 ``` bash
 # install dependencies
@@ -80,13 +76,9 @@ Collsape <br>
 BackTop <br>
 Divider <br>
 
-
-## Todo
-1. Continue to add new component
-2. Github-CI and Issue-Solution
-3. Unit test
-4. Special component design
-5. Github-Bot
+## Join us
+I'll build a community when the version 1.0.0 complete.
+To Be Expected !!
 
 ## pull-request-rules
 * feat - new feature
@@ -100,7 +92,3 @@ Divider <br>
 * release - publish new release
 
 example:(feat: add XXX component)
-
-## Join us
-I'll build a community when the version 1.0.0 complete.
-To Be Expected !!
