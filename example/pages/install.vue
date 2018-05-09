@@ -1,47 +1,23 @@
 <template>
   <div>
-    <guide title="Install 安装"/>
-    <install-docs/>
-    <div class="demo-block">
-      <div class="title">npm 安装</div>
-      <div class="code">
-        npm install @bennnis/tui
-      </div>
+    <guide title="Install 安装" des="目前只支持npm安装和标签引入，cdn在后续会加入"/>
+    <div class="demo-block without-code">
+      <div class="title">NPM 安装</div>
+      <div class="sub-title"><code>npm install @bennnis/tui</code></div>
     </div>
 
-    <div class="demo-block">
+    <div class="demo-block without-code">
       <div class="title">标签引入</div>
-      <div class="code">
-        引入标签
-      </div>
-    </div>
-
-    <div class="demo-block">
-      <div class="title">版本</div>
-      <div class="code">
-        引入版本
-      </div>
-    </div>
-
-    <div class="demo-block">
-      <div class="title">兼容性</div>
-      <div class="code">
-        引入版本
+      <div class="sub-title">
+        <code>&lt;script src="tui.min.js" type="javascript">&lt;/script></code>
+        <br>
+        <code>&lt;link src="tui.min.css" ref="stylesheet"></code>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import InstallDocs from '../documents/install/install-docs.md'
 export default {
-  components: {
-    InstallDocs
-  },
-  data () {
-    return {}
-  }
 }
 </script>
-
-<style></style>

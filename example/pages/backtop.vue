@@ -1,7 +1,7 @@
 <template>
   <div>
     <guide title="BackTop 返回顶部" des="用于页面从当前位置快速返回到页面顶部"/>
-    <div class="demo-block">
+    <div class="demo-block with-code">
       <div class="title">基本用法</div>
       <div class="sub-title">同本站右下方的返回顶部组件</div>
       <backtop-normal/>

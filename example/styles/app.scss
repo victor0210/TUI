@@ -25,7 +25,7 @@ $--color-info: #34495e !default;
     }
   }
   .container {
-    margin-top: 80px;
+    margin-top: 70px;
   }
   .left-aside {
     position: fixed;
@@ -189,6 +189,21 @@ section {
   display: none;
 }
 
+.demo-block.with-code .docs-trans {
+  display: none;
+}
+
+.demo-block.with-code .docs-demo-wrapper {
+  border: none;
+}
+.demo-block.with-code .docs-demo.docs-demo--expand .highlight-wrapper {
+  height: auto;
+}
+.demo-block.with-code .container {
+  height: auto;
+  border: none;
+}
+
 .demo-container {
   transition: all .3s ease;
   overflow: hidden;
@@ -224,7 +239,8 @@ section {
   box-sizing: border-box;
 }
 
-.docs-demo-wrapper blockquote{
+.docs-demo-wrapper blockquote,
+.demo-block blockquote{
   background-color: #70a1ff;
   padding: 10px;
   color: white;
@@ -233,12 +249,14 @@ section {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
-.docs-demo-wrapper blockquote p{
+.docs-demo-wrapper blockquote p,
+.demo-block  blockquote p{
   margin: 0;
   line-height: 26px;
 }
 
-.docs-demo-wrapper blockquote p code{
+.docs-demo-wrapper blockquote p code,
+.demo-block  blockquote p code{
   background-color: #34495e;
   border-radius: 3px;
   padding: 4px 6px;
@@ -370,15 +388,13 @@ pre {
   width: 100%;
 }
 
-#font-docs pre {
+#font-docs pre,
+.codepanel pre {
   margin: 0;
   overflow: scroll;
   background-color: #f5f6f6;
   padding: 15px;
   border-radius: 4px;
-}
-#font-docs .language-css {
-
 }
 
 .docs-demo__code__mobi__header .url-box {
