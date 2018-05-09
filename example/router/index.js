@@ -11,6 +11,14 @@ export default new Router({
   routes: [
     {
       path: '/guide',
+      redirect: '/guide/intro'
+    },
+    {
+      path: '/components',
+      redirect: '/components/color'
+    },
+    {
+      path: '/guide/intro',
       name: 'introduce',
       component: r => require.ensure([], () => r(require('../pages/intro.vue')))
     },

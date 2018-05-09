@@ -3,7 +3,7 @@
     <ul class="aside-item">
       <div class="navigate-group">开发指南</div>
       <li class="t-menu-item">
-        <router-link to="/guide/introduce">概览</router-link>
+        <router-link to="/guide/intro">概览</router-link>
       </li>
       <li class="t-menu-item">
         <router-link to="/guide/install">安装</router-link>

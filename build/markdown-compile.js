@@ -37,6 +37,21 @@ const vueMarkdown = {
         }
         return '</div></demo-panel>\n';
       }
+    }],
+    [mic, 'mk', {
+      validate: params => params.trim().match(/^mk\s*(.*)$/),
+      render: function (tokens, idx) {
+
+        if (tokens[idx].nesting === 1) {
+          const html = utils.convertHtml(tokens[idx + 1].content)
+          tokens[idx + 2].children = [];
+
+          return `<markdown>
+                        <div slot="desc">${html}</div>
+                        <div slot="highlight">`;
+        }
+        return '</div></markdown>\n';
+      }
     }]
   ]
 }
