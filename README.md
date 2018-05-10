@@ -2,12 +2,16 @@
 
 A High Quanlity UI Toolkit By VUE.
 
+## [TUI-CLI](https://github.com/Bennnis/tui-cli)
+Using cli tool in a simple and fast way to build project contains vue, vue-router, webpack and tui.
+
+
 ## Usage 
 ```$bash
 npm install vtui --save
 ```
 
-### Import Full TUI
+## Import Full TUI
 ```javascript
 import Vue from 'vue';
 import TUI from 'vtui';
