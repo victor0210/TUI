@@ -1,6 +1,6 @@
 {
-  "name": "@bennnis/tui",
-  "version": "1.0.0",
+  "name": "tui",
+  "version": "0.0.11",
   "description": "A high quantity ui component library",
   "author": "Bennnis",
   "private": true,
@@ -16,7 +16,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@bennnis/tui": "0.0.9",
+    "@bennnis/tui": "0.0.11",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
