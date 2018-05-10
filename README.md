@@ -4,16 +4,14 @@ A High Quanlity UI Toolkit By VUE.
 
 ## Usage 
 ```$bash
-#not suuported npm yet, just foking and expanding first
-#it will be
-npm install @bennnis/tui --save
+npm install vtui --save
 ```
 
 ### Import Full TUI
 ```javascript
 import Vue from 'vue';
-import TUI from '@bennnis/tui';
-import '@bennnis/tui/dist/css/tui.min.css'
+import TUI from 'vtui';
+import 'vtui/dist/css/tui.min.css'
 
 Vue.use(TUI);
 ```

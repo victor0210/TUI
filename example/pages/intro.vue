@@ -14,7 +14,7 @@
 
     <div class="demo-block without-code">
       <div class="title">NPM 安装</div>
-      <div class="sub-title"><code>npm install @bennnis/tui</code></div>
+      <div class="sub-title"><code>npm install vtui</code></div>
     </div>
 
     <div class="demo-block without-code">
