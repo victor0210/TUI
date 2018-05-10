@@ -5,13 +5,10 @@ import markdown from './components/Markdown'
 import router from './router'
 import highlight from 'highlightjs'
 import Guide from './components/Guide'
-// import part of tui
-// import Button from '../src/components/button'
-// Vue.use(Button)
 
 // import the whole tui toolkit
-import Tui from '@bennnis/tui'
-import '@bennnis/tui/dist/css/tui.min.css'
+import Tui from 'vtui'
+import 'vtui/dist/css/tui.min.css'
 Vue.use(Tui)
 
 // code highlight transform to vue directive
