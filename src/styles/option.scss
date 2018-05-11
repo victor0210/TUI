@@ -8,7 +8,7 @@
 
   @include e(check) {
     float: right;
-    line-height: 40px;
+    line-height: 40px !important;
   }
 
   &:hover {

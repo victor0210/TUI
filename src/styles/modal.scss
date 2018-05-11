@@ -25,7 +25,7 @@
   }
 
   @include e(container) {
-    overflow: hidden;
+    overflow: scroll;
     display: inline-block;
     vertical-align: middle;
     margin: auto;

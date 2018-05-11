@@ -7,8 +7,9 @@ import highlight from 'highlightjs'
 import Guide from './components/Guide'
 
 // import the whole tui toolkit
-import Tui from 'vtui'
-import 'vtui/dist/css/tui.min.css'
+// import Tui from 'vtui'
+// import 'vtui/dist/css/tui.min.css'
+import Tui from '../src/index.js'
 Vue.use(Tui)
 
 // code highlight transform to vue directive

@@ -105,9 +105,7 @@ export default {
   },
 
   props: {
-    placeholder: {
-      default: '清选择'
-    },
+    placeholder: String,
     multiple: Boolean,
     collapseTags: Boolean,
     disabled: Boolean,
@@ -156,8 +154,10 @@ export default {
     //  form validate
     reset () {
       this.clearInput(window.event)
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
-      this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      setTimeout(() => {
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
+        this.TFormItem && this.dispatch('t-form-item', 'form-item-blur', this.value)
+      })
     },
     submit () {
       this.TFormItem && this.dispatch('t-form-item', 'form-item-change', this.value)
