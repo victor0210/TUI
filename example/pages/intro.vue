@@ -4,36 +4,42 @@
     <div class="demo-block">
       <div class="title">特性</div>
       <div class="sub-title">
-        <code>功能丰富</code>
-        <code>外观精致</code>
-        <code>文档全面</code>
-        <code>接口友好</code>
-        <code>主题可定</code>
+        <p>功能丰富</p>
+        <p>外观精致</p>
+        <p>文档全面</p>
+        <p>接口友好</p>
+        <p>主题可定</p>
       </div>
     </div>
 
-    <div class="demo-block without-code">
+    <div class="demo-block with-code">
       <div class="title">NPM 安装</div>
-      <div class="sub-title"><code>npm install vtui</code></div>
+      <div class="sub-title">
+        npm install vtui
+      </div>
     </div>
 
-    <div class="demo-block without-code">
+    <div class="demo-block with-code">
       <div class="title">标签引入</div>
       <div class="sub-title">
-        <code>&lt;script src="tui.min.js" type="javascript">&lt;/script></code>
-        <br>
-        <code>&lt;link src="tui.min.css" ref="stylesheet"></code>
+        <p>&lt;script src="tui.min.js" type="javascript">&lt;/script></p>
+        <p>&lt;link src="tui.min.css" ref="stylesheet"></p>
       </div>
     </div>
 
-    <div class="demo-block without-code">
+    <div class="demo-block with-code">
       <div class="title">版本</div>
-      <div class="sub-title"><code>v1.0.0</code></div>
+      <div class="sub-title">
+        v1.0.0
+      </div>
     </div>
 
     <div class="demo-block">
       <div class="title">兼容性</div>
-      <div class="sub-title"><code>Vue.js 2.x</code> <code>浏览器: IE >= 9</code></div>
+      <div class="sub-title">
+        <p>Vue.js 2.x</p>
+        <p>浏览器: IE >= 9</p>
+      </div>
     </div>
   </div>
 </template>
@@ -42,3 +48,12 @@
 export default {
 }
 </script>
+
+<style>
+.with-code .sub-title{
+  background-color: #f5f7fa;
+  padding: 10px;
+  line-height: 24px;
+  color: #303030;
+}
+</style>

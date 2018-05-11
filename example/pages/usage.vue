@@ -1,9 +1,12 @@
 <template>
   <div>
     <guide title="Usage 快读上手" des="下边将介绍如何在项目中快速使用TUI"/>
-    <div class="demo-block without-code">
-      <div class="title">1. NPM 安装</div>
-      <div class="sub-title"><code>npm install @bennnis/tui</code></div>
+
+    <div class="demo-block with-code">
+      <div class="title">NPM 安装</div>
+      <div class="sub-title">
+        npm install vtui
+      </div>
     </div>
 
     <div class="demo-block with-code">
