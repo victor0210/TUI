@@ -49,11 +49,4 @@ export default {
 }
 </script>
 
-<style>
-.with-code .sub-title{
-  background-color: #f5f7fa;
-  padding: 10px;
-  line-height: 24px;
-  color: #303030;
-}
-</style>
+<style></style>
