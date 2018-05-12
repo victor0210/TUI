@@ -2,11 +2,12 @@
 
 A High Quanlity UI Toolkit By VUE.
 
+## 欢迎加入TUI交流QQ群，群号码：246240090
+
 ## [TUI-CLI](https://github.com/Bennnis/tui-cli)
 Using cli tool in a simple and fast way to build project contains vue, vue-router, webpack and tui.
 
-
-## Usage 
+## Usage
 ```$bash
 npm install vtui --save
 ```
