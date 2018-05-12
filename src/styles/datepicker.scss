@@ -26,6 +26,9 @@
     display: inline-block;
     transition: transform .2s ease-in, opacity .2s ease-in;
     z-index: $--select-list-index;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   @include e(icon) {
@@ -58,9 +61,9 @@
     background-color: #fff;
     line-height: 40px;
     list-style: none;
-    overflow-y: scroll;
     border: $--border-base;
     display: block;
+    overflow: hidden;
 
     @include when(range) {
       width: 585px;
