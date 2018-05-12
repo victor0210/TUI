@@ -21,7 +21,7 @@
       </t-col>
       <t-col :span="6">
           <div class="search">
-              <t-input placeholder="搜索组件" prefix-icon="fa fa-search"></t-input>
+              <t-input placeholder="搜索组件" prepend-icon="fa fa-search"></t-input>
           </div>
       </t-col>
     </t-row>

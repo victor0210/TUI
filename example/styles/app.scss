@@ -7,7 +7,7 @@ $--color-info: #34495e !default;
 #toggle-issue-modal {
   position: fixed;
   border-radius: 50%;
-  background-color: $--color-warning;
+  background-color: $--color-info;
   text-align: center;
   right: 60px;
   bottom: 60px;
@@ -23,6 +23,14 @@ $--color-info: #34495e !default;
     color: #fff;
   }
 }
+
+.with-code .sub-title{
+  background-color: #f5f7fa;
+  padding: 10px;
+  line-height: 24px !important;
+  color: #303030;
+}
+
 .frame {
   .header {
     position: fixed;
@@ -71,7 +79,6 @@ $--color-info: #34495e !default;
     font-size: 30px;
     line-height: 45px;
     color: #69baff;
-    text-shadow: 6px 6px 1px #eee;
   }
   .des {
     font-weight: 400;

@@ -11,15 +11,20 @@
 
   .t-input {
     transition: all .3s;
-    width: 100px;
+    width: 120px;
 
     .t-input__inner {
-      border: none;
+      background-color: #eee;
+      transition: all .3s;
+      //border: none;
     }
   }
   .t-input.is-focus {
     width: 200px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    .t-input__inner {
+      background-color: #fff;
+    }
+    //box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
 }
 .navCol{
