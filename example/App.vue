@@ -1,8 +1,15 @@
 <template>
   <div id='app'>
     <t-back-top :bottom="120"/>
-    <div id="toggle-issue-modal" @click="showModal = !showModal">
-      <i class="fa fa-comment-alt"></i>
+    <div id="toggle-issue-modal" @click="showModal = !showModal" :class="[
+      showModal ? 'is-open' : ''
+    ]">
+      <template v-if="!showModal">
+        反馈问题 <i class="fa fa-comment-alt"></i>
+      </template>
+      <template v-else>
+        <i class="fa fa-times"></i>
+      </template>
     </div>
     <t-modal side="right" :show.sync="showModal" :hide-on-click="false">
       <template slot="header">
@@ -10,7 +17,7 @@
           <img src="./assets/TV.jpg" alt="" style="width: 200px">
         </div>
         <h1 style="text-align: center">快速提交问题</h1>
-        <p style="text-align: center; color: #ff5500">以下表单只帮助生成issue，请在跳转后的github页面点击提交</p>
+        <p style="text-align: center; color: #ea4335">以下表单只帮助生成issue，请在跳转后的github页面点击提交</p>
       </template>
       <template slot="body">
         <t-form :rules="rules">

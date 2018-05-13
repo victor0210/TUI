@@ -35,7 +35,7 @@
     li{
       float: left;
       height:100%;
-      min-width: 72px;
+      min-width: 90px;
       a{
         display: block;
         width: 100%;
@@ -43,7 +43,7 @@
         color: #333;
         transition:all .1s;
         &:hover{
-          color: #409EFF;
+          color: #4285f4;
         }
       }
     }
