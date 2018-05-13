@@ -10,6 +10,7 @@
           <img src="./assets/TV.jpg" alt="" style="width: 200px">
         </div>
         <h1 style="text-align: center">快速提交问题</h1>
+        <p style="text-align: center; color: #ff5500">以下表单只帮助生成issue，请在跳转后的github页面点击提交</p>
       </template>
       <template slot="body">
         <t-form :rules="rules">
