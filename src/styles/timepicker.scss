@@ -104,6 +104,9 @@
     position: fixed;
     display: inline-block;
     transition: transform .2s ease-in, opacity .2s ease-in;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   @include e(select-panel) {
@@ -118,7 +121,7 @@
     background-color: #fff;
     line-height: 40px;
     list-style: none;
-    overflow-y: scroll;
+    overflow-y: hidden;
     border: $--border-base;
     display: inline-block;
 
