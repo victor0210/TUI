@@ -1,14 +1,14 @@
 <template>
   <div>
-    <guide title="关于 TUI" des="TUI 是一套针对后台管理系统的UI设计方案"/>
+    <guide title="关于 ThinkUI（TUI）" des="TUI 是一套针对后台管理系统的UI设计方案"/>
     <div class="demo-block">
       <div class="title">特性</div>
       <div class="sub-title">
-        <p>功能丰富</p>
-        <p>外观精致</p>
-        <p>文档全面</p>
-        <p>接口友好</p>
-        <p>主题可定</p>
+        <p>* 功能丰富</p>
+        <p>* 外观精致</p>
+        <p>* 文档全面</p>
+        <p>* 接口友好</p>
+        <p>* 主题可定</p>
       </div>
     </div>
 

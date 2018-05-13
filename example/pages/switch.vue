@@ -64,7 +64,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="8">
-            <t-switch v-model="s4" inactive-color="#34495e" active-color="#2ed573"/>
+            <t-switch v-model="s4" inactive-color="#34495e" active-color="#34ab53"/>
           </t-col>
         </t-row>
       </div>

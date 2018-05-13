@@ -1,27 +1,34 @@
-$--color-primary: #44a9ff !default;
-$--color-success: #2ed573 !default;
-$--color-warning: #fccc23 !default;
-$--color-danger: #ff5500 !default;
+$--color-primary: #4285f4 !default;
+$--color-success: #34ab53 !default;
+$--color-warning: #fbbc05 !default;
+$--color-danger: #ea4335 !default;
 $--color-info: #34495e !default;
 
 #toggle-issue-modal {
   position: fixed;
-  border-radius: 50%;
-  background-color: $--color-info;
+  border-radius: 10px;
+  background-color: $--color-primary;
   text-align: center;
   right: 60px;
   bottom: 60px;
   transition: all .2s;
-  width: 50px;
+  padding: 0 10px;
+  color: #fff;
   height: 50px;
+  width: 100px;
   line-height: 50px;
-  box-shadow: 0 2px 6px 0 #e3e3e3;
   cursor: pointer;
   z-index: 2111;
 
   i {
     color: #fff;
   }
+}
+
+#toggle-issue-modal.is-open {
+  width: 50px;
+  border-radius: 50%;
+  padding: 0;
 }
 
 .with-code .sub-title{
@@ -78,7 +85,7 @@ $--color-info: #34495e !default;
     font-weight: 400;
     font-size: 30px;
     line-height: 45px;
-    color: #69baff;
+    color: #4285f4;
   }
   .des {
     font-weight: 400;
@@ -153,6 +160,7 @@ section {
 .demo-block .title {
   font-size: 20px;
   font-weight: 400;
+  margin-bottom: 10px;
   height: 30px;
   line-height: 30px;
   color: #333;
@@ -165,9 +173,9 @@ section {
 }
 
 .demo-block .sub-title code{
-  background-color: $--color-info;
+  background-color: $--color-primary;
   padding: 2px 7px;
-  box-shadow: 0 2px 6px 0 #000;
+  box-shadow: 0 2px 6px 0 #eee;
   margin: 0 5px;
   border-radius: 3px;
   font-size: 14px;
@@ -348,7 +356,7 @@ section {
 
 .demo-block:hover .docs-trans {
   background-color: #FAFBFC;
-  color: #409EFF;
+  color: #4285f4;
 }
 
 .demo-block:hover .docs-trans span {
@@ -461,11 +469,11 @@ pre {
 .router-link-active,
 .router-link-active span,
 .router-link-active .chinese {
-  color: #44a9ff !important;
+  color: #4285f4 !important;
 }
 
 .router-link-active.header-link {
-  background-color: #44a9ff !important;
+  background-color: #4285f4 !important;
   color: #fff !important;
   font-weight: 500;
 }
@@ -476,16 +484,16 @@ pre {
 }
 
 .bg-primary {
-  background: #44a9ff;
+  background: #4285f4;
 }
 .bg-primary-light {
-  background: mix(#fff, #44a9ff, 40%);
+  background: mix(#fff, #4285f4, 40%);
 }
 .bg-primary-lighter {
-  background: mix(#fff, #44a9ff, 70%);
+  background: mix(#fff, #4285f4, 70%);
 }
 .bg-primary-big-lighter {
-  background: mix(#fff, #44a9ff, 90%);
+  background: mix(#fff, #4285f4, 90%);
 }
 
 /*
