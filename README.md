@@ -1,6 +1,6 @@
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/TV.jpg" width="300"></div>
 
-A High Quanlity UI Toolkit By VUE.
+A High Quanlity UI Toolkit By Vue.js 2.x.
 
 ## 欢迎加入TUI交流QQ群，群号码：246240090
 
@@ -36,48 +36,6 @@ npm run dev
 2. Enjoy coding ...
 3. Push to your github and commit a pull request
 4. Come on ! I'm waiting for you
-
-## Component Support In v1.0.0
-Row <br>
-Col <br>
-Button <br>
-ButtonGroup <br>
-Dialog <br>
-Input <br>
-Checkbox <br>
-CheckboxGroup <br>
-Radio <br>
-Switch <br>
-RadioGroup <br>
-Select <br>
-Upload <br>
-OptionGroup <br>
-Option <br>
-InputNumber <br>
-Cascader <br>
-Datepicker <br>
-Timepicker <br>
-Form <br>
-Table <br>
-Tag <br>
-Progress <br>
-Tree <br>
-Pagination <br>
-Badge <br>
-Alert <br>
-Loading <br>
-Message <br>
-Notify <br>
-Menu <br>
-DropDown <br>
-Tabs <br>
-Step <br>
-Breadcrumb <br>
-Modal <br>
-Popover <br>
-Collsape <br>
-BackTop <br>
-Divider <br>
 
 ## Join us
 I'll build a community when the version 1.0.0 complete.
