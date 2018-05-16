@@ -456,7 +456,7 @@ export default {
         el.lIndex = (parentLabelIndex === undefined ? el.label : parentLabelIndex + _this.indexSplit + el.label).toString()
         el.parentPIndex = parentPositionIndex
         el.select = _this
-        _this.searchCollections.push(el)
+        _this.searchCollections.push(Object.assign({}, el))
         _this.formatOptions[levelIndex].push(el)
         if (el.children !== undefined) {
           _this.optionFormat(el.children, el.pIndex, el.vIndex, el.lIndex, levelIndex + 1)
