@@ -34,7 +34,7 @@ import 'vtui/dist/css/tui.min.css'
 Vue.use(TUI);
 ```
 
-### ps: 可使用 [TUI-CLI]() 快速构建项目
+### ps: 可使用 [TUI-CLI](https://github.com/Bennnis/tui-cli) 快速构建项目
 
 ## 仓库介绍
 仓库里包含了 TUI 组件库的所有源码，存在于 "/src" 目录下；也包含了文档网站的源码，存在于 "/example" 目录下，clone 或 直接下载 仓库到本地可直接运行
