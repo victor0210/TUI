@@ -17,14 +17,14 @@ TUI 是一套针对后台快速搭建而基于Vue.js 2.x开发的前端组件库
 
 最重要的是作者也是一个幽默风趣的人哦，欢迎来撩
 
-## 安装
-###1. npm 安装 tui 依赖 （注：包名为 "vtui"）
+## 安装和使用
+### 1. npm 安装 tui 依赖 （注：包名为 "vtui"）
 
 ```$bash
 npm install vtui --save
 ```
 
-###2. 在项目中引入 tui
+### 2. 在项目中引入 tui
 
 ```javascript
 import Vue from 'vue';
@@ -34,7 +34,7 @@ import 'vtui/dist/css/tui.min.css'
 Vue.use(TUI);
 ```
 
-###ps: 可使用 [TUI-CLI]() 快速构建项目
+### ps: 可使用 [TUI-CLI]() 快速构建项目
 
 ## 仓库介绍
 仓库里包含了 TUI 组件库的所有源码，存在于 "/src" 目录下；也包含了文档网站的源码，存在于 "/example" 目录下，clone 或 直接下载 仓库到本地可直接运行
