@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins/mixins";
+@import "utils/utils";
+
+@include b(range) {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  position: relative;
+
+  @include e(under-line) {
+    @include utils-position-center(a);
+    display: inline-block;
+    width: 100%;
+    height: 6px;
+    background-color: $--border-color-base;
+    border-radius: 20px;
+  }
+
+  @include e(cover-line) {
+    height: 100%;
+    display: inline-block;
+    background-color: $--color-primary;
+    float: left;
+  }
+
+  @include e(trigger) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: $--color-primary-light;
+    border-radius: 50%;
+  }
+}

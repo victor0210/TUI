@@ -49,6 +49,7 @@ import Collsape from './components/collsape/index'
 import CollsapeItem from './components/collsapeItem/index'
 import BackTop from './components/backtop/index'
 import Divider from './components/divider/index'
+import Range from './components/range/index'
 
 //  global
 import Dialog from './components/dialog/index'
@@ -113,7 +114,8 @@ const Tui = {
   Collsape,
   CollsapeItem,
   BackTop,
-  Divider
+  Divider,
+  Range
 }
 
 const install = function (Vue, opts = {}) {

@@ -162,6 +162,11 @@ export default {
           chinese: '开关'
         },
         {
+          route: '/components/range',
+          name: 'Range',
+          chinese: '滑条'
+        },
+        {
           route: '/components/select',
           name: 'Select',
           chinese: '下拉框'
