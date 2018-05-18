@@ -4,6 +4,7 @@
 
 @include b(range) {
   display: inline-block;
+  vertical-align: middle;
   width: 100%;
   height: 40px;
   position: relative;
@@ -28,12 +29,13 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    margin: auto;
     left: 0;
     display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
+    margin: auto auto auto -8px;
     background-color: $--color-primary-light;
     border-radius: 50%;
+    cursor: grab;
   }
 }
