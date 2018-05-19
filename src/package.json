@@ -1,6 +1,6 @@
 {
   "name": "vtui",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "A high quantity ui component library for Vue.js 2.x",
   "author": "Bennnis",
   "private": false,
