@@ -5,40 +5,88 @@
       <div class="title">基本用法</div>
       <div class="sub-title">不同状态的提示信息</div>
       <div class="source">
-        <t-row :gutter="20">
-          <t-col :span="8">
-            <t-slider v-model="v" :max="10" type="range" :unit="1"/>
-            {{ v }}
+        <div class="half">
+          <t-divider content="默认选择模式" content-align="left"/>
+          <t-slider v-model="v"/>
+        </div>
+        <div class="half">
+          <t-divider content="区间选择模式" content-align="left"/>
+          <t-slider v-model="vRange" type="range"/>
+        </div>
+      </div>
+      <slider-normal/>
+    </div>
+
+    <div class="demo-block">
+      <div class="title">选择范围</div>
+      <div class="sub-title">设置可选值的上下限值范围，可为负数</div>
+      <div class="source">
+        <t-row>
+          <t-col span="8">
+            <p>选择范围：-10 ~ 10，初始值：0</p>
+            <t-slider v-model="v2" :min="-10" :max="10"/>
           </t-col>
         </t-row>
       </div>
-      <alert-normal/>
+      <slider-normal/>
+    </div>
+
+    <div class="demo-block">
+      <div class="title">定义单位值</div>
+      <div class="sub-title">定义单位值的大小, 注意：如果当你定义的单位足够小，slider宽度也很小的时候，值无法精确取到，因为页面操作偏移是以像素为单位，可对比下列第二个和第三个demo</div>
+      <div class="source">
+        <div class="half">
+          <t-divider content="间隔为10" content-align="left"/>
+          <t-slider v-model="v31" :min="0" :max="100" :unit="10"/>
+        </div>
+        <div class="half">
+          <t-divider content="间隔为0.1（不精确）" content-align="left"/>
+          <t-slider v-model="v32" :min="0" :max="60" :unit="0.1"/>
+        </div>
+        <div class="panel">
+          <t-divider content="间隔为0.1（较精确）" content-align="left"/>
+          <t-slider v-model="v33" :min="0" :max="60" :unit="0.1"/>
+        </div>
+      </div>
+      <slider-normal/>
+    </div>
+
+    <div class="demo-block">
+      <div class="title">显示分割线</div>
+      <div class="sub-title">显示每个单位值的分割线</div>
+      <div class="source">
+        <t-row>
+          <t-col span="8">
+            <t-slider v-model="v4" :min="0" :max="10" divide-line/>
+          </t-col>
+        </t-row>
+      </div>
+      <slider-normal/>
     </div>
   </div>
 </template>
 <script>
-import AlertNormal from '../documents/alert/alert-normal.md'
-import AlertMore from '../documents/alert/alert-more.md'
-import AlertIcon from '../documents/alert/alert-icon.md'
-import AlertCenter from '../documents/alert/alert-center.md'
-import AlertSub from '../documents/alert/alert-sub.md'
+import SliderNormal from '../documents/slider/slider-normal.md'
+import SliderRange from '../documents/slider/slider-range.md'
+import SliderUnit from '../documents/slider/slider-unit.md'
+import SliderDivide from '../documents/slider/slider-divide.md'
 
 export default {
   components: {
-    AlertNormal,
-    AlertCenter,
-    AlertIcon,
-    AlertMore,
-    AlertSub
-  },
-  methods: {
-    closeHandler () {
-      console.log('警告框被关闭')
-    }
+    SliderNormal,
+    SliderRange,
+    SliderUnit,
+    SliderDivide
   },
   data () {
     return {
-      v: [1, 4],
+      v: 10,
+      vRange: [20, 70],
+      v2: 0,
+      v31: 10,
+      v32: 10,
+      v33: 0.5,
+      v4: 10,
       alertApis: [
         {name: 'content', desc: '提示主文本', type: 'String', choice: '—', default: '—'},
         {name: 'sub', desc: '辅助文本', type: 'String', choice: '—', default: '—'},

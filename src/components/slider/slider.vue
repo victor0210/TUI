@@ -1,22 +1,22 @@
 <template>
   <div class="t-slider">
-      <div class="t-slider__under-line"
-        @click="movingTrigger"
-      >
-        <div class="t-slider__cover-line"
+    <div class="t-slider__under-line"
+      @click="movingTrigger"
+    >
+      <div class="t-slider__cover-line"
+        :style="{
+          width: type === 'range' ? percentageRange :percentage,
+          marginLeft: type === 'range' ? percentageSmall : ''
+        }"
+      ></div>
+      <template v-if="divideLine">
+        <div class="t-slider__divide-block" v-for="i in unitCount - 1" :key="i"
           :style="{
-            width: type === 'range' ? percentageRange :percentage,
-            marginLeft: type === 'range' ? percentageSmall : ''
+            left: `${100 * i / unitCount}%`
           }"
         ></div>
-        <template v-if="divideLine">
-          <div class="t-slider__divide-block" v-for="i in unitCount - 1" :key="i"
-            :style="{
-              left: `${100 * i / unitCount}%`
-            }"
-          ></div>
-        </template>
-      </div>
+      </template>
+    </div>
 
     <template v-if="type !== 'range'">
       <t-tooltip :content="value.toFixed(degree)" theme="dark">
