@@ -6,8 +6,8 @@
       <div class="sub-title">不同状态的提示信息</div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="24">
-            <t-range v-model="v"/>
+          <t-col :span="8">
+            <t-range v-model="v" :max="10" type="range" :unit="1"/>
             {{ v }}
           </t-col>
         </t-row>
@@ -38,7 +38,7 @@ export default {
   },
   data () {
     return {
-      v: 0,
+      v: [1, 4],
       alertApis: [
         {name: 'content', desc: '提示主文本', type: 'String', choice: '—', default: '—'},
         {name: 'sub', desc: '辅助文本', type: 'String', choice: '—', default: '—'},

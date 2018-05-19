@@ -1,20 +1,52 @@
 <template>
   <div class="t-range">
-    <div class="t-range__under-line">
-      <div class="t-range__cover-line"
-        :style="{
-          width: percentage
+      <div class="t-range__under-line"
+        @click="movingTrigger"
+      >
+        <div class="t-range__cover-line"
+          :style="{
+            width: type === 'range' ? percentageRange :percentage,
+            marginLeft: type === 'range' ? percentageSmall : ''
+          }"
+        ></div>
+        <template v-if="divideLine">
+          <div class="t-range__divide-block" v-for="i in unitCount - 1" :key="i"
+            :style="{
+              left: `${100 * i / unitCount}%`
+            }"
+          ></div>
+        </template>
+      </div>
+
+    <template v-if="type !== 'range'">
+      <t-tooltip :content="value.toFixed(degree)" theme="dark">
+        <div class="t-range__trigger"
+         :style="{
+          left: percentage
         }"
-      ></div>
-    </div>
-    <t-tooltip :content="value" theme="dark">
-      <div class="t-range__trigger"
-       :style="{
-         left: percentage
-       }"
-       @mousedown="startMoving"
-      ></div>
-    </t-tooltip>
+         @mousedown="startMoving"
+        ></div>
+      </t-tooltip>
+    </template>
+
+    <template v-else-if="Array.isArray(value)">
+      <t-tooltip :content="value[0].toFixed(degree)" theme="dark">
+        <div class="t-range__trigger"
+          :style="{
+            left: percentageSmall
+          }"
+          @mousedown="startMovingSmall"
+        ></div>
+      </t-tooltip>
+      <t-tooltip :content="value[1].toFixed(degree)" theme="dark">
+        <div class="t-range__trigger"
+          :style="{
+            left: percentageBig
+          }"
+          @mousedown="startMovingBig"
+        ></div>
+      </t-tooltip>
+    </template>
   </div>
 </template>
 
@@ -24,7 +56,6 @@ export default {
 
   data () {
     return {
-      isMoving: false,
       startX: null,
       endX: null
     }
@@ -34,9 +65,10 @@ export default {
     width: String,
     fillColor: String,
     underColor: String,
+    divideLine: Boolean,
     max: {
       type: Number,
-      default: 2
+      default: 100
     },
     min: {
       type: Number,
@@ -46,41 +78,70 @@ export default {
       type: Number,
       default: 1
     },
+    type: String,
     value: {
-      type: Number,
-      default: 0
+      type: [Number, Array]
+    }
+  },
+
+  created () {
+    if (this.type === 'range' && !Array.isArray(this.value)) {
+      this.setRangeValue([this.min, this.max])
     }
   },
 
   methods: {
     setValue (val) {
-      //  do set new value
-      this.$emit('input', parseFloat(val.toFixed(this.degree)), this.degree)
+      this.$emit('input', parseFloat(val.toFixed(this.degree)))
     },
 
-    startMoving (e) {
-      this.isMoving = true
+    setRangeValue  (val) {
+      this.$emit('input', [parseFloat(val[0].toFixed(this.degree)), parseFloat(val[1].toFixed(this.degree))])
+    },
+
+    startMoving () {
       this.addMovingListener()
     },
 
+    startMovingBig () {
+      this.isBig = true
+      this.startMoving()
+    },
+    startMovingSmall () {
+      this.isSmall = true
+      this.startMoving()
+    },
+
     stopMoving () {
-      this.isMoving = false
+      this.isBig = false
+      this.isSmall = false
       this.removeMovingListener()
     },
 
     movingTrigger (e) {
-      if (!this.isMoving) return
       this.endX = e.x
       let percentage = (this.endX - this.$el.getBoundingClientRect().left) / this.$el.offsetWidth
-      let val = Math.floor((percentage + this.min / (this.max - this.min)) * (this.max - this.min) / this.unit) * this.unit
-      console.log(this.max - this.min, this.unit, percentage, val, Math.floor((percentage + this.min / (this.max - this.min)) * (this.max - this.min) / this.unit) )
+      let val = Math.floor((percentage + (this.min + this.unit / 2) / (this.max - this.min)) * (this.max - this.min) / this.unit) * this.unit
       if (val > this.max) {
         val = this.max
       } else if (val < this.min) {
         val = this.min
       }
 
-      this.setValue(val)
+      if (!this.isBig && !this.isSmall && this.type !== 'range') {
+        this.setValue(val)
+      } else if (this.isBig || this.isSmall) {
+        let range = this.isBig ? [this.value[0], val] : [val, this.value[1]]
+        if (range[1] < range[0]) {
+          range = this.isBig ? [range[1], range[1]] : [range[0], range[0]]
+        }
+
+        this.setRangeValue(range)
+      } else {
+        let range = val > this.value[1] ? [this.value[0], val] : [val, this.value[1]]
+
+        this.setRangeValue(range)
+      }
     },
 
     addMovingListener () {
@@ -96,6 +157,22 @@ export default {
   computed: {
     percentage () {
       return `${((this.value - this.min) / (this.max - this.min)) * 100}%`
+    },
+
+    percentageSmall () {
+      return `${((this.value[0] - this.min) / (this.max - this.min)) * 100}%`
+    },
+
+    percentageBig () {
+      return `${((this.value[1] - this.min) / (this.max - this.min)) * 100}%`
+    },
+
+    percentageRange () {
+      return `${((this.value[1] - this.value[0]) / (this.max - this.min)) * 100}%`
+    },
+
+    unitCount () {
+      return (this.max - this.min) / this.unit
     },
 
     degree () {

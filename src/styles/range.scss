@@ -16,6 +16,8 @@
     height: 6px;
     background-color: $--border-color-base;
     border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
   }
 
   @include e(cover-line) {
@@ -23,6 +25,7 @@
     display: inline-block;
     background-color: $--color-primary;
     float: left;
+    cursor: pointer;
   }
 
   @include e(trigger) {
@@ -37,5 +40,18 @@
     background-color: $--color-primary-light;
     border-radius: 50%;
     cursor: grab;
+    transition: box-shadow .2s;
+    &:hover {
+      box-shadow: 0 0 6px 0 #909090;
+    }
+  }
+
+  @include e(divide-block) {
+    position: absolute;
+    display: inline-block;
+    height: 6px;
+    width: 2px;
+    margin-left: -1px;
+    background-color: $--color-white;
   }
 }
