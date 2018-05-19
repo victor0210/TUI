@@ -11,11 +11,9 @@
       <li class="t-menu-item">
         <router-link to="/guide/usage">快速上手</router-link>
       </li>
-      <!--<li class="t-menu-item">-->
-        <!--<a href="#">-->
-          <!--<span>更新日志</span>-->
-        <!--</a>-->
-      <!--</li>-->
+      <li class="t-menu-item">
+        <router-link to="/guide/change-log">更新日志 <t-badge dot/></router-link>
+      </li>
       <div class="navigate-group">组件</div>
       <!--基础组件-->
       <li class="t-menu-item-group">
