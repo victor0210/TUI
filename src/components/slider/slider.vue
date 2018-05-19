@@ -1,16 +1,16 @@
 <template>
-  <div class="t-range">
-      <div class="t-range__under-line"
+  <div class="t-slider">
+      <div class="t-slider__under-line"
         @click="movingTrigger"
       >
-        <div class="t-range__cover-line"
+        <div class="t-slider__cover-line"
           :style="{
             width: type === 'range' ? percentageRange :percentage,
             marginLeft: type === 'range' ? percentageSmall : ''
           }"
         ></div>
         <template v-if="divideLine">
-          <div class="t-range__divide-block" v-for="i in unitCount - 1" :key="i"
+          <div class="t-slider__divide-block" v-for="i in unitCount - 1" :key="i"
             :style="{
               left: `${100 * i / unitCount}%`
             }"
@@ -20,7 +20,7 @@
 
     <template v-if="type !== 'range'">
       <t-tooltip :content="value.toFixed(degree)" theme="dark">
-        <div class="t-range__trigger"
+        <div class="t-slider__trigger"
          :style="{
           left: percentage
         }"
@@ -31,7 +31,7 @@
 
     <template v-else-if="Array.isArray(value)">
       <t-tooltip :content="value[0].toFixed(degree)" theme="dark">
-        <div class="t-range__trigger"
+        <div class="t-slider__trigger"
           :style="{
             left: percentageSmall
           }"
@@ -39,7 +39,7 @@
         ></div>
       </t-tooltip>
       <t-tooltip :content="value[1].toFixed(degree)" theme="dark">
-        <div class="t-range__trigger"
+        <div class="t-slider__trigger"
           :style="{
             left: percentageBig
           }"
@@ -52,7 +52,7 @@
 
 <script>
 export default {
-  name: 't-range',
+  name: 't-slider',
 
   data () {
     return {

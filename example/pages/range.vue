@@ -7,7 +7,7 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="8">
-            <t-range v-model="v" :max="10" type="range" :unit="1"/>
+            <t-slider v-model="v" :max="10" type="range" :unit="1"/>
             {{ v }}
           </t-col>
         </t-row>

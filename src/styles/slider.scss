@@ -2,7 +2,7 @@
 @import "mixins/mixins";
 @import "utils/utils";
 
-@include b(range) {
+@include b(slider) {
   display: inline-block;
   vertical-align: middle;
   width: 100%;
