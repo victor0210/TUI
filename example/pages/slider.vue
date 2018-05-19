@@ -1,6 +1,6 @@
 <template>
   <div>
-    <guide title="Range 滑条" des="用于可拖动值变化的输入组件"/>
+    <guide title="Slider 滑条" des="使用滑动操作的输入组件"/>
     <div class="demo-block">
       <div class="title">基本用法</div>
       <div class="sub-title">不同状态的提示信息</div>
@@ -128,9 +128,8 @@ export default {
         {name: 'under-color', desc: '打底背景色', type: 'String', choice: '—', default: '—'},
         {name: 'divide-line', desc: '显示分割线', type: 'Boolean', choice: '—', default: 'false'},
         {name: 'name', desc: '原生属性', type: 'String', choice: '—', default: '—'},
-        {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'},
-      ],
-      type: String,
+        {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'}
+      ]
     }
   }
 }

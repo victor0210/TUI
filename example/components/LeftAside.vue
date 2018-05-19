@@ -162,8 +162,8 @@ export default {
           chinese: '开关'
         },
         {
-          route: '/components/range',
-          name: 'Range',
+          route: '/components/slider',
+          name: 'Slider',
           chinese: '滑条'
         },
         {

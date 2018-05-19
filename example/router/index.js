@@ -227,9 +227,9 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/divider.vue')))
     },
     {
-      path: '/components/range',
-      name: 'range',
-      component: r => require.ensure([], () => r(require('../pages/range.vue')))
+      path: '/components/slider',
+      name: 'slider',
+      component: r => require.ensure([], () => r(require('../pages/slider.vue')))
     }
   ]
 })
