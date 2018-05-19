@@ -203,14 +203,14 @@ $--switch-base-fill: $--border-color-text-secondary;
 $--switch-base-border-radius: 100px;
 
 /**
- * ---------------------------- Range ----------------------------
+ * ---------------------------- Slider ----------------------------
  */
-$--range-wrapper-height-base: 40px !default;
-$--range-wrapper-border-radius-base: 20px !default;
-$--range-underline-height-base: 6px !default;
-$--range-trigger-size-base: 16px !default;
-$--range-trigger-hover-box-shadow-base: 0 0 6px 0 $--border-color-base !default;
-$--range-divide-width-base: 2px !default;
+$--slider-wrapper-height-base: 40px !default;
+$--slider-wrapper-border-radius-base: 20px !default;
+$--slider-underline-height-base: 6px !default;
+$--slider-trigger-size-base: 16px !default;
+$--slider-trigger-hover-box-shadow-base: 0 0 6px 0 $--border-color-base !default;
+$--slider-divide-width-base: 2px !default;
 
 /**
  * ------------------------- Select Group --------------------------
