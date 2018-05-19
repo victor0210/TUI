@@ -79,6 +79,19 @@
       </div>
       <slider-normal/>
     </div>
+
+    <div class="api-docs">
+      <t-divider content="Attributes" class="document-divider"/>
+      <div class="source">
+        <t-table :data="sliderApis">
+          <t-table-column label="属性" prop="name" :width="150"/>
+          <t-table-column label="描述" prop="desc" :width="150"/>
+          <t-table-column label="类型" prop="type" :width="150"/>
+          <t-table-column label="可选值" prop="choice" :width="250"/>
+          <t-table-column label="默认值" prop="default"/>
+        </t-table>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -96,7 +109,7 @@ export default {
   },
   data () {
     return {
-      v: 10,
+      v: 0,
       vRange: [20, 70],
       v2: 0,
       v31: 10,
@@ -105,16 +118,19 @@ export default {
       v4: 10,
       v5: 10,
       v5Range: [20, 70],
-      alertApis: [
-        {name: 'content', desc: '提示主文本', type: 'String', choice: '—', default: '—'},
-        {name: 'sub', desc: '辅助文本', type: 'String', choice: '—', default: '—'},
-        {name: 'type', desc: '提示框类型', type: 'String', choice: 'success/info/warning/danger', default: '—'},
-        {name: 'closeText', desc: '关闭文本', type: 'String', choice: '—', default: '—'},
-        {name: 'icon', desc: '自定义图标类名', type: 'String', choice: '—', default: '—'},
-        {name: 'closable', desc: '是否可关闭', type: 'Boolean', choice: '—', default: 'true'},
-        {name: 'showIcon', desc: '是否显示Icon', type: 'Boolean', choice: '—', default: 'false'},
-        {name: 'textCenter', desc: '文本居中', type: 'Boolean', choice: '—', default: 'false'}
-      ]
+      sliderApis: [
+        {name: 'v-model', desc: '绑定值', type: 'Number/Array', choice: '—', default: '—'},
+        {name: 'max', desc: '最大值', type: 'Number', choice: '—', default: '100'},
+        {name: 'min', desc: '最小值', type: 'Number', choice: '—', default: '0'},
+        {name: 'unit', desc: '单位值', type: 'Number', choice: '—', default: '1'},
+        {name: 'type', desc: '滑条类型', type: 'String', choice: 'range', default: '—'},
+        {name: 'fill-color', desc: '所选区域背景色', type: 'String', choice: '—', default: '—'},
+        {name: 'under-color', desc: '打底背景色', type: 'String', choice: '—', default: '—'},
+        {name: 'divide-line', desc: '显示分割线', type: 'Boolean', choice: '—', default: 'false'},
+        {name: 'name', desc: '原生属性', type: 'String', choice: '—', default: '—'},
+        {name: 'disabled', desc: '是否禁用', type: 'Boolean', choice: '—', default: 'false'},
+      ],
+      type: String,
     }
   }
 }

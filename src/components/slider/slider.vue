@@ -7,11 +7,15 @@
     <input type="hidden" :name="name" :value="value">
     <div class="t-slider__under-line"
       @click="movingTrigger"
+      :style="{
+        backgroundColor: underColor
+      }"
     >
       <div class="t-slider__cover-line"
         :style="{
           width: type === 'range' ? percentageRange :percentage,
-          marginLeft: type === 'range' ? percentageSmall : ''
+          marginLeft: type === 'range' ? percentageSmall : '',
+          backgroundColor: fillColor
         }"
       ></div>
       <template v-if="divideLine">
@@ -68,7 +72,6 @@ export default {
 
   props: {
     name: String,
-    width: String,
     fillColor: String,
     underColor: String,
     divideLine: Boolean,
