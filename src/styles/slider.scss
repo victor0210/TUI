@@ -1,0 +1,72 @@
+@import "variables";
+@import "mixins/mixins";
+@import "utils/utils";
+
+@include b(slider) {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: $--slider-wrapper-height-base;
+  position: relative;
+
+  @include e(under-line) {
+    @include utils-position-center(a);
+    display: inline-block;
+    width: 100%;
+    height: $--slider-underline-height-base;
+    background-color: $--slider-underline-fill-base;
+    border-radius: $--slider-wrapper-border-radius-base;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  @include e(cover-line) {
+    height: 100%;
+    display: inline-block;
+    background-color: $--slider-cover-fill-base;
+    float: left;
+    cursor: pointer;
+  }
+
+  @include e(trigger) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    width: $--slider-trigger-size-base;
+    height: $--slider-trigger-size-base;
+    margin: auto;
+    margin-left: -$--slider-trigger-size-base / 2 ;
+    background-color: $--slider-trigger-fill-base;
+    border-radius: 50%;
+    cursor: grab;
+    transition: box-shadow .2s;
+    &:hover {
+      box-shadow: $--slider-trigger-hover-box-shadow-base;
+    }
+  }
+
+  @include e(divide-block) {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    width: $--slider-divide-width-base;
+    margin-left: -$--slider-divide-width-base;
+    background-color: $--color-white;
+  }
+
+  @include when(disabled) {
+    * {
+      cursor: not-allowed;
+    }
+
+    .t-slider__cover-line {
+      background-color: $--slider-cover-fill-disabled;
+    }
+
+    .t-slider__trigger {
+      background-color: $--slider-trigger-fill-disabled;
+    }
+  }
+}
