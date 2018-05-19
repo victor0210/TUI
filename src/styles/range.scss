@@ -6,16 +6,16 @@
   display: inline-block;
   vertical-align: middle;
   width: 100%;
-  height: 40px;
+  height: $--range-wrapper-height-base;
   position: relative;
 
   @include e(under-line) {
     @include utils-position-center(a);
     display: inline-block;
     width: 100%;
-    height: 6px;
+    height: $--range-underline-height-base;
     background-color: $--border-color-base;
-    border-radius: 20px;
+    border-radius: $--range-wrapper-border-radius-base;
     cursor: pointer;
     overflow: hidden;
   }
@@ -34,24 +34,25 @@
     bottom: 0;
     left: 0;
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin: auto auto auto -8px;
+    width: $--range-trigger-size-base;
+    height: $--range-trigger-size-base;
+    margin: auto;
+    margin-left: -$--range-trigger-size-base / 2 ;
     background-color: $--color-primary-light;
     border-radius: 50%;
     cursor: grab;
     transition: box-shadow .2s;
     &:hover {
-      box-shadow: 0 0 6px 0 #909090;
+      box-shadow: $--range-trigger-hover-box-shadow-base;
     }
   }
 
   @include e(divide-block) {
     position: absolute;
     display: inline-block;
-    height: 6px;
-    width: 2px;
-    margin-left: -1px;
+    height: 100%;
+    width: $--range-divide-width-base;
+    margin-left: -$--range-divide-width-base;
     background-color: $--color-white;
   }
 }

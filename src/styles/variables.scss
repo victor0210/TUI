@@ -196,12 +196,21 @@ $--checkbox-outbox-padding: 6px 20px 6px 10px;
 $--checkbox-label-padding: 0 10px;
 $--checkbox-label-font-size: 15px;
 
-
 /**
  * ---------------------------- Switch ----------------------------
  */
 $--switch-base-fill: $--border-color-text-secondary;
 $--switch-base-border-radius: 100px;
+
+/**
+ * ---------------------------- Range ----------------------------
+ */
+$--range-wrapper-height-base: 40px !default;
+$--range-wrapper-border-radius-base: 20px !default;
+$--range-underline-height-base: 6px !default;
+$--range-trigger-size-base: 16px !default;
+$--range-trigger-hover-box-shadow-base: 0 0 6px 0 $--border-color-base !default;
+$--range-divide-width-base: 2px !default;
 
 /**
  * ------------------------- Select Group --------------------------
