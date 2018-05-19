@@ -18,6 +18,22 @@
     </div>
 
     <div class="demo-block">
+      <div class="title">禁用状态</div>
+      <div class="sub-title">禁用状态的滑条不可操作</div>
+      <div class="source">
+        <div class="half">
+          <t-divider content="默认选择模式" content-align="left"/>
+          <t-slider v-model="v5" disabled/>
+        </div>
+        <div class="half">
+          <t-divider content="区间选择模式" content-align="left"/>
+          <t-slider v-model="v5Range" type="range" disabled/>
+        </div>
+      </div>
+      <slider-normal/>
+    </div>
+
+    <div class="demo-block">
       <div class="title">选择范围</div>
       <div class="sub-title">设置可选值的上下限值范围，可为负数</div>
       <div class="source">
@@ -87,6 +103,8 @@ export default {
       v32: 10,
       v33: 0.5,
       v4: 10,
+      v5: 10,
+      v5Range: [20, 70],
       alertApis: [
         {name: 'content', desc: '提示主文本', type: 'String', choice: '—', default: '—'},
         {name: 'sub', desc: '辅助文本', type: 'String', choice: '—', default: '—'},

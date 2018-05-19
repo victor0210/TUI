@@ -1,5 +1,9 @@
 <template>
-  <div class="t-slider">
+  <div class="t-slider"
+    :class="[
+      disabled ? 'is-disabled' : ''
+    ]"
+  >
     <input type="hidden" :name="name" :value="value">
     <div class="t-slider__under-line"
       @click="movingTrigger"
@@ -68,6 +72,7 @@ export default {
     fillColor: String,
     underColor: String,
     divideLine: Boolean,
+    disabled: Boolean,
     max: {
       type: Number,
       default: 100
@@ -94,10 +99,12 @@ export default {
 
   methods: {
     setValue (val) {
+      if (this.disabled) return
       this.$emit('input', parseFloat(val.toFixed(this.degree)))
     },
 
     setRangeValue  (val) {
+      if (this.disabled) return
       this.$emit('input', [parseFloat(val[0].toFixed(this.degree)), parseFloat(val[1].toFixed(this.degree))])
     },
 

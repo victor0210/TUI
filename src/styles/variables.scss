@@ -208,7 +208,12 @@ $--switch-base-border-radius: 100px;
 $--slider-wrapper-height-base: 40px !default;
 $--slider-wrapper-border-radius-base: 20px !default;
 $--slider-underline-height-base: 6px !default;
+$--slider-underline-fill-base: $--border-color-base !default;
+$--slider-cover-fill-base: $--color-primary !default;
+$--slider-cover-fill-disabled: $--border-color-base !default;
 $--slider-trigger-size-base: 16px !default;
+$--slider-trigger-fill-base: $--color-primary-light !default;
+$--slider-trigger-fill-disabled: $--border-color-lighter !default;
 $--slider-trigger-hover-box-shadow-base: 0 0 6px 0 $--border-color-base !default;
 $--slider-divide-width-base: 2px !default;
 
