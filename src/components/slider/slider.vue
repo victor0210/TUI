@@ -1,5 +1,6 @@
 <template>
   <div class="t-slider">
+    <input type="hidden" :name="name" :value="value">
     <div class="t-slider__under-line"
       @click="movingTrigger"
     >
@@ -62,6 +63,7 @@ export default {
   },
 
   props: {
+    name: String,
     width: String,
     fillColor: String,
     underColor: String,
