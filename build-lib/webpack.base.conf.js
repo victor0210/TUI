@@ -3,7 +3,6 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const mc = require('./markdown-compile')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -23,10 +22,11 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './example/main.js'
+    tui: './src/index.js',
+    style: './src/styles/index.scss'
   },
   output: {
-    path: config.build.assetsRoot,
+    path: path.resolve(__dirname, '../lib'),
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
@@ -85,11 +85,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[ext]')
         }
-      },
-      {
-        test: /\.md$/,
-        loader: 'vue-markdown-loader',
-        options: mc
       }
     ]
   },
