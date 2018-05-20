@@ -32,7 +32,10 @@
         <div class="t-slider__trigger"
          :style="{
           left: percentage
-        }"
+         }"
+         :class="[
+           isMoving ? 'is-moving' : ''
+         ]"
          @mousedown="startMoving"
         ></div>
       </t-tooltip>
@@ -44,6 +47,9 @@
           :style="{
             left: percentageSmall
           }"
+          :class="[
+            isMovingSmall ? 'is-moving' : ''
+          ]"
           @mousedown="startMovingSmall"
         ></div>
       </t-tooltip>
@@ -52,6 +58,9 @@
           :style="{
             left: percentageBig
           }"
+          :class="[
+            isMovingBig ? 'is-moving' : ''
+          ]"
           @mousedown="startMovingBig"
         ></div>
       </t-tooltip>
@@ -66,7 +75,10 @@ export default {
   data () {
     return {
       startX: null,
-      endX: null
+      endX: null,
+      isMoving: false,
+      isMovingBig: false,
+      isMovingSmall: false
     }
   },
 
@@ -112,21 +124,23 @@ export default {
     },
 
     startMoving () {
+      this.isMoving = true
       this.addMovingListener()
     },
 
     startMovingBig () {
-      this.isBig = true
+      this.isMovingBig = true
       this.startMoving()
     },
     startMovingSmall () {
-      this.isSmall = true
+      this.isMovingSmall = true
       this.startMoving()
     },
 
     stopMoving () {
-      this.isBig = false
-      this.isSmall = false
+      this.isMovingBig = false
+      this.isMovingSmall = false
+      this.isMoving = false
       this.removeMovingListener()
     },
 
@@ -140,12 +154,12 @@ export default {
         val = this.min
       }
 
-      if (!this.isBig && !this.isSmall && this.type !== 'range') {
+      if (!this.isMovingBig && !this.isMovingSmall && this.type !== 'range') {
         this.setValue(val)
-      } else if (this.isBig || this.isSmall) {
-        let range = this.isBig ? [this.value[0], val] : [val, this.value[1]]
+      } else if (this.isMovingBig || this.isMovingSmall) {
+        let range = this.isMovingBig ? [this.value[0], val] : [val, this.value[1]]
         if (range[1] < range[0]) {
-          range = this.isBig ? [range[1], range[1]] : [range[0], range[0]]
+          range = this.isMovingBig ? [range[1], range[1]] : [range[0], range[0]]
         }
 
         this.setRangeValue(range)

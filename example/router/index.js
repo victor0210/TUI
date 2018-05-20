@@ -27,6 +27,11 @@ export default new Router({
       component: r => require.ensure([], () => r(require('../pages/intro.vue')))
     },
     {
+      path: '/guide/change-log',
+      name: 'change-log',
+      component: r => require.ensure([], () => r(require('../pages/log.vue')))
+    },
+    {
       path: '/guide/install',
       name: 'install',
       component: r => require.ensure([], () => r(require('../pages/install.vue')))

@@ -38,7 +38,7 @@
       <div class="sub-title">设置可选值的上下限值范围，可为负数</div>
       <div class="source">
         <t-row>
-          <t-col span="8">
+          <t-col :span="8">
             <p>选择范围：-10 ~ 10，初始值：0</p>
             <t-slider v-model="v2" :min="-10" :max="10"/>
           </t-col>
@@ -72,7 +72,7 @@
       <div class="sub-title">显示每个单位值的分割线</div>
       <div class="source">
         <t-row>
-          <t-col span="8">
+          <t-col :span="8">
             <t-slider v-model="v4" :min="0" :max="10" divide-line/>
           </t-col>
         </t-row>

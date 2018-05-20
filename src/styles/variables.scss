@@ -7,10 +7,10 @@ $--color-white: #fff !default;
 $--color-black: #000 !default;
 $--color-gray: #555 !default;
 
-$--color-primary: #4285f4 !default;
-$--color-success: #34ab53 !default;
-$--color-warning: #fbbc05 !default;
-$--color-danger: #ea4335 !default;
+$--color-primary: #5285f4 !default;
+$--color-success: #44c47d !default;
+$--color-warning: #fab526 !default;
+$--color-danger: #f33816 !default;
 $--color-info: #34495e !default;
 
 $--color-primary-light: mix($--color-white, $--color-primary, 80%) !default;
@@ -92,28 +92,29 @@ $--dialog-mask-index: 1000 !default;
 /**
  * -------------------------- BoxShadow --------------------------
  */
-$--box-shadow-base: 0 2px 6px 0 rgba(34, 25, 25, 0.1) !default;
+$--box-shadow-base: 0 4px 10px -2px rgba(10, 10, 10, 0.2) !default;
 
 /**
  * -------------------------- Button -------------------------
  */
-$--button-font-size: 14px !default;
+$--button-font-size: 13px !default;
 $--button-font-weight: $--font-weight-primary !default;
-$--button-border-radius: $--border-radius-base !default;
+$--button-border-radius: $--border-radius-base - 1 !default;
 $--button-round-border-radius: #{$--border-radius-base + 15} !default;
-$--button-padding-vertical: 12px !default;
-$--button-padding-horizontal: 20px !default;
+$--button-round-border: #{$--border-width-base + 1} $--border-style-base $--border-color-base  !default;
+$--button-padding-vertical: 10px !default;
+$--button-padding-horizontal: 18px !default;
 
 $--button-large-font-size: 17px !default;
 $--button-large-border-radius: #{$--border-radius-base + 1} !default;
 $--button-large-round-border-radius: #{$--border-radius-base + 25} !default;
-$--button-large-padding-vertical: 14px !default;
+$--button-large-padding-vertical: 11px !default;
 $--button-large-padding-horizontal: 28px !default;
 
 $--button-small-font-size: 12px !default;
 $--button-small-border-radius: #{$--border-radius-base - 1} !default;
 $--button-small-round-border-radius: #{$--border-radius-base + 13} !default;
-$--button-small-padding-vertical: 8px !default;
+$--button-small-padding-vertical: 7px !default;
 $--button-small-padding-horizontal: 15px !default;
 
 $--button-mini-font-size: 12px !default;
@@ -207,15 +208,17 @@ $--switch-base-border-radius: 100px;
  */
 $--slider-wrapper-height-base: 40px !default;
 $--slider-wrapper-border-radius-base: 20px !default;
-$--slider-underline-height-base: 6px !default;
+$--slider-underline-height-base: 2px !default;
 $--slider-underline-fill-base: $--border-color-base !default;
 $--slider-cover-fill-base: $--color-primary !default;
 $--slider-cover-fill-disabled: $--border-color-base !default;
-$--slider-trigger-size-base: 16px !default;
+$--slider-trigger-size-base: 12px !default;
 $--slider-trigger-fill-base: $--color-primary-light !default;
 $--slider-trigger-fill-disabled: $--border-color-lighter !default;
-$--slider-trigger-hover-box-shadow-base: 0 0 6px 0 $--border-color-base !default;
+$--slider-trigger-hover-box-shadow-base: 0 4px 12px 1px $--border-color-base !default;
 $--slider-divide-width-base: 2px !default;
+$--slider-zindex-base: 1 !default;
+$--slider-zindex-higher: 2 !default;
 
 /**
  * ------------------------- Select Group --------------------------
