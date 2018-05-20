@@ -3,11 +3,11 @@
         <t-col :span="6" class="logoCol">
           <a href="/#"><img src="../assets/TV.jpg" alt="" class="logo-img"></a>
           <span style="font-size: 20px; color: #606060; font-family: 'Apple LiGothic'">
-            <em style="color: #4285f4">T</em>
-            <em style="color: #34ab53">H</em>
+            <em style="color: #34b5b8">T</em>
+            <em style="color: #44c47d">H</em>
             <em style="color: #34495e">I</em>
-            <em style="color: #fbbc05">N</em>
-            <em style="color: #ea4335;">K</em>
+            <em style="color: #fab526">N</em>
+            <em style="color: #f33816;">K</em>
           </span>
         </t-col>
       <t-col :span="12" class="navCol">

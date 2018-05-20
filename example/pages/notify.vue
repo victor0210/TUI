@@ -133,7 +133,7 @@ export default {
         {name: 'type', desc: '提示框类型', type: 'String', choice: 'success / info / warning / danger', default: '—'},
         {name: 'position', desc: '通知出现位置', type: 'String', choice: 'top-right / top-left / bottom-right / bottom-left', default: 'top-right'},
         {name: 'icon', desc: '自定义图标类名', type: 'String', choice: '—', default: '—'},
-        {name: 'iconColor', desc: '图标颜色', type: 'String', choice: '—', default: '#4285f4'},
+        {name: 'iconColor', desc: '图标颜色', type: 'String', choice: '—', default: '#34b5b8'},
         {name: 'titleColor', desc: '标题颜色', type: 'String', choice: '—', default: '—'},
         {name: 'subColor', desc: '主要内容颜色', type: 'String', choice: '—', default: '—'},
         {name: 'closable', desc: '是否可关闭', type: 'Boolean', choice: '—', default: 'true'}
@@ -173,7 +173,7 @@ export default {
       c9: {
         title: '自定义图标',
         icon: 'fa fa-check',
-        iconColor: '#4285f4'
+        iconColor: '#34b5b8'
       }
     }
   },

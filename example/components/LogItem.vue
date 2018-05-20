@@ -28,10 +28,10 @@ export default {
   margin-top: 50px;
 }
 .fix {
-  color: #ea4335;
+  color: #f33816;
 }
 .feat {
-  color: #4285f4;
+  color: #34b5b8;
 }
 p {
   line-height: 30px;

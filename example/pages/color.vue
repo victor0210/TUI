@@ -8,9 +8,9 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <div class="color-panel" style="background-color: #4285f4">
+            <div class="color-panel" style="background-color: #34b5b8">
               <div class="main">主要 Primary</div>
-              <div class="sub">#4285f4</div>
+              <div class="sub">#34b5b8</div>
             </div>
           </t-col>
         </t-row>
@@ -22,10 +22,10 @@
       <div class="sub-title">除主色外的其他辅助配色，可根据不同的业务场景选择最恰当的颜色，如：成功（绿色）、信息（蓝灰色）、警告（黄色）、危险（红色）</div>
       <div class="source">
         <t-row :gutter="20">
-          <t-col :span="6"><div class="color-panel" style="background-color: #34ab53"><div class="main">成功 Success</div><div class="sub">#34ab53</div></div></t-col>
+          <t-col :span="6"><div class="color-panel" style="background-color: #44c47d"><div class="main">成功 Success</div><div class="sub">#44c47d</div></div></t-col>
           <t-col :span="6"><div class="color-panel" style="background-color: #34495e"><div class="main">信息 Info</div><div class="sub">#34495e</div></div></t-col>
-          <t-col :span="6"><div class="color-panel" style="background-color: #fbbc05"><div class="main">警告 Warning</div><div class="sub">#fbbc05</div></div></t-col>
-          <t-col :span="6"><div class="color-panel" style="background-color: #ea4335"><div class="main">危险 Danger</div><div class="sub">#ea4335</div></div></t-col>
+          <t-col :span="6"><div class="color-panel" style="background-color: #fab526"><div class="main">警告 Warning</div><div class="sub">#fab526</div></div></t-col>
+          <t-col :span="6"><div class="color-panel" style="background-color: #f33816"><div class="main">危险 Danger</div><div class="sub">#f33816</div></div></t-col>
         </t-row>
       </div>
     </div>

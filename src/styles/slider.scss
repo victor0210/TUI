@@ -41,9 +41,15 @@
     background-color: $--slider-trigger-fill-base;
     border-radius: 50%;
     cursor: grab;
-    transition: box-shadow .2s;
-    &:hover {
+    transition: all 0.2s, left 0ms;
+    z-index: $--slider-zindex-base;
+
+    @include when(moving) {
       box-shadow: $--slider-trigger-hover-box-shadow-base;
+      width: $--slider-trigger-size-base * 2;
+      height: $--slider-trigger-size-base * 2;
+      margin-left: -$--slider-trigger-size-base;
+      z-index: $--slider-zindex-higher;
     }
   }
 

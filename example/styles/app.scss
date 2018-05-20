@@ -1,7 +1,7 @@
-$--color-primary: #4285f4 !default;
-$--color-success: #34ab53 !default;
-$--color-warning: #fbbc05 !default;
-$--color-danger: #ea4335 !default;
+$--color-primary: #34b5b8 !default;
+$--color-success: #44c47d !default;
+$--color-warning: #fab526 !default;
+$--color-danger: #f33816 !default;
 $--color-info: #34495e !default;
 
 #toggle-issue-modal {
@@ -85,7 +85,7 @@ $--color-info: #34495e !default;
     font-weight: 400;
     font-size: 30px;
     line-height: 45px;
-    color: #4285f4;
+    color: #34b5b8;
   }
   .des {
     font-weight: 400;
@@ -356,7 +356,7 @@ section {
 
 .demo-block:hover .docs-trans {
   background-color: #FAFBFC;
-  color: #4285f4;
+  color: #34b5b8;
 }
 
 .demo-block:hover .docs-trans span {
@@ -469,11 +469,11 @@ pre {
 .router-link-active,
 .router-link-active span,
 .router-link-active .chinese {
-  color: #4285f4 !important;
+  color: #34b5b8 !important;
 }
 
 .router-link-active.header-link {
-  background-color: #4285f4 !important;
+  background-color: #34b5b8 !important;
   color: #fff !important;
   font-weight: 500;
 }
@@ -484,16 +484,16 @@ pre {
 }
 
 .bg-primary {
-  background: #4285f4;
+  background: #34b5b8;
 }
 .bg-primary-light {
-  background: mix(#fff, #4285f4, 40%);
+  background: mix(#fff, #34b5b8, 40%);
 }
 .bg-primary-lighter {
-  background: mix(#fff, #4285f4, 70%);
+  background: mix(#fff, #34b5b8, 70%);
 }
 .bg-primary-big-lighter {
-  background: mix(#fff, #4285f4, 90%);
+  background: mix(#fff, #34b5b8, 90%);
 }
 
 /*
