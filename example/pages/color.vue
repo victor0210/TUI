@@ -8,9 +8,9 @@
       <div class="source">
         <t-row :gutter="20">
           <t-col :span="6">
-            <div class="color-panel" style="background-color: #34b5b8">
+            <div class="color-panel" style="background-color: #5285f4">
               <div class="main">主要 Primary</div>
-              <div class="sub">#34b5b8</div>
+              <div class="sub">#5285f4</div>
             </div>
           </t-col>
         </t-row>

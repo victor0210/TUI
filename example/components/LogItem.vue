@@ -31,7 +31,7 @@ export default {
   color: #f33816;
 }
 .feat {
-  color: #34b5b8;
+  color: #5285f4;
 }
 p {
   line-height: 30px;

@@ -15,7 +15,7 @@
   box-sizing: border-box;
   outline: none;
   margin: 0;
-  transition: .1s;
+  transition: .2s;
   font-weight: $--button-font-weight;
   @include utils-user-select(none);
   & + .t-btn {
@@ -29,6 +29,7 @@
     color: $--color-primary;
     border-color: $--color-primary-light;
     background-color: $--color-primary-lighter;
+    box-shadow: $--box-shadow-base;
   }
 
   &:active {
@@ -42,8 +43,8 @@
   }
 
   @include when(round) {
-    border-radius: 20px;
-    padding: 12px 23px;
+    border-radius: $--button-round-border-radius;
+    padding: $--button-padding-vertical $--button-padding-horizontal;
   }
 
   @include e(icon) {
@@ -81,6 +82,7 @@
       background-image: none;
       background-color: $--button-disabled-fill;
       border-color: $--button-disabled-border;
+      box-shadow: none;
     }
 
     &.el-button--text {
@@ -126,6 +128,7 @@
       color: mix($--color-white, $--color-primary, $--button-hover-tint-percent);
       border-color: transparent;
       background-color: transparent;
+      box-shadow: none;
     }
     &:active {
       color: mix($--color-black, $--color-primary, $--button-active-shade-percent);

@@ -1,4 +1,4 @@
-$--color-primary: #34b5b8 !default;
+$--color-primary: #5285f4 !default;
 $--color-success: #44c47d !default;
 $--color-warning: #fab526 !default;
 $--color-danger: #f33816 !default;
@@ -85,7 +85,7 @@ $--color-info: #34495e !default;
     font-weight: 400;
     font-size: 30px;
     line-height: 45px;
-    color: #34b5b8;
+    color: #5285f4;
   }
   .des {
     font-weight: 400;
@@ -356,7 +356,7 @@ section {
 
 .demo-block:hover .docs-trans {
   background-color: #FAFBFC;
-  color: #34b5b8;
+  color: #5285f4;
 }
 
 .demo-block:hover .docs-trans span {
@@ -469,11 +469,11 @@ pre {
 .router-link-active,
 .router-link-active span,
 .router-link-active .chinese {
-  color: #34b5b8 !important;
+  color: #5285f4 !important;
 }
 
 .router-link-active.header-link {
-  background-color: #34b5b8 !important;
+  background-color: #5285f4 !important;
   color: #fff !important;
   font-weight: 500;
 }
@@ -484,16 +484,16 @@ pre {
 }
 
 .bg-primary {
-  background: #34b5b8;
+  background: #5285f4;
 }
 .bg-primary-light {
-  background: mix(#fff, #34b5b8, 40%);
+  background: mix(#fff, #5285f4, 40%);
 }
 .bg-primary-lighter {
-  background: mix(#fff, #34b5b8, 70%);
+  background: mix(#fff, #5285f4, 70%);
 }
 .bg-primary-big-lighter {
-  background: mix(#fff, #34b5b8, 90%);
+  background: mix(#fff, #5285f4, 90%);
 }
 
 /*

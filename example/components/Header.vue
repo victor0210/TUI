@@ -3,7 +3,7 @@
         <t-col :span="6" class="logoCol">
           <a href="/#"><img src="../assets/TV.jpg" alt="" class="logo-img"></a>
           <span style="font-size: 20px; color: #606060; font-family: 'Apple LiGothic'">
-            <em style="color: #34b5b8">T</em>
+            <em style="color: #5285f4">T</em>
             <em style="color: #44c47d">H</em>
             <em style="color: #34495e">I</em>
             <em style="color: #fab526">N</em>
