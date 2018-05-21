@@ -1,7 +1,8 @@
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/Bennnis/TUI/v1.0.0/example/assets/TV.jpg" width="300"></div>
 
 基于Vue.js 2.x 开发的针对后台管理系统的高质量前端组件库
-（有意向一起搞事的UI朋友可以私聊我）
+
+ps：有意向一起搞事的UI朋友可以私聊我
 
 ## 介绍
 TUI 是一套针对后台快速搭建而基于Vue.js 2.x开发的前端组件库，有以下优势
