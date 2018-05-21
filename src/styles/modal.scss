@@ -25,7 +25,7 @@
   }
 
   @include e(container) {
-    overflow: scroll;
+    overflow: auto;
     display: inline-block;
     vertical-align: middle;
     margin: auto;
@@ -34,6 +34,10 @@
     background-color: $--modal-background-color;
     border-radius: $--modal-border-radius;
     width: $--modal-width-base;
+    
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   @include m(side) {
