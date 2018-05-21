@@ -9,7 +9,7 @@
         <t-row :gutter="20">
           <t-col :span="8">
             <t-radio label="label在右边" val="1" v-model="val_1"/>
-            <t-radio label="label在左边" val="2" v-model="val_1"/>
+            <t-radio label="label在左边" val="2" v-model="val_1" :label-left="true"/>
           </t-col>
         </t-row>
       </div>
