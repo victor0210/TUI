@@ -23,11 +23,12 @@
 
   @include e(check) {
     transition: all .2s;
+    transform: scale(0.7);
   }
+
   @include when(focus) {
     background-color: #f5f7fa;
     color: $--color-primary;
-    box-shadow: $--box-shadow-base;
   }
 
   @include when(disabled) {
