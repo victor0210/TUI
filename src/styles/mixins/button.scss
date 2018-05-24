@@ -41,14 +41,14 @@
   }
 
   &::before {
-    border-bottom: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
-    border-left: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-bottom: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-left: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
     transform-origin: 0 100%;
   }
 
   &::after {
-    border-top: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
-    border-right: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-top: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-right: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
     transform-origin: 100% 0%;
   }
 
@@ -80,6 +80,11 @@
     color: mix($--color-white, $fill-color, 40%);
     background-color: mix($--color-white, $fill-color, 90%);
     border-color: mix($--color-white, $fill-color, 80%);
+
+    &:before,
+    &:after {
+      border-width: 0;
+    }
   }
 }
 @mixin button-plain($color) {
