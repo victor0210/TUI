@@ -41,14 +41,14 @@
   }
 
   &::before {
-    border-bottom: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
-    border-left: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-bottom: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-left: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
     transform-origin: 0 100%;
   }
 
   &::after {
-    border-top: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
-    border-right: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-top: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-right: 1px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
     transform-origin: 100% 0%;
   }
 
