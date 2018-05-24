@@ -68,6 +68,11 @@ export default {
     mouseOutHandler (e) {
       this.$emit('mouseout', e)
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.$el.style.width = `${this.$el.offsetWidth}px`
+    })
   }
 }
 </script>

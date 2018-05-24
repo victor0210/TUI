@@ -3,9 +3,17 @@
   font-size: $font-size;
   border-radius: $border-radius;
 
+  &::before, &::after {
+    border-radius: $border-radius - 2;
+  }
+
   &.is-round {
     border-radius: $border-round-radius;
     padding: $padding-vertical $padding-horizontal;
+
+    &::before, &::after {
+      border-radius: $border-round-radius;
+    }
   }
 }
 
@@ -16,9 +24,13 @@
 
   &:hover,
   &:focus {
-    background: mix($--color-white, $background-color, $--button-hover-tint-percent);
+    background: $color;
     border-color: mix($--color-white, $border-color, $--button-hover-tint-percent);
-    color: $color;
+    color: mix($--color-white, $background-color, $--button-hover-tint-percent);
+
+    &::after, &::before {
+      transform: scale(1);
+    }
   }
 
   &:active {
@@ -26,6 +38,18 @@
     border-color: mix($--color-black, $border-color, $--button-active-shade-percent);
     color: $color;
     outline: none;
+  }
+
+  &::before {
+    border-bottom: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-left: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    transform-origin: 0 100%;
+  }
+
+  &::after {
+    border-top: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    border-right: 2px solid mix($--color-white, $border-color, $--button-hover-tint-percent);
+    transform-origin: 100% 0%;
   }
 
   &.is-outline {

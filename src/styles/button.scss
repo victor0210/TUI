@@ -15,8 +15,10 @@
   box-sizing: border-box;
   outline: none;
   margin: 0;
-  transition: .2s;
+  transition: .5s;
   font-weight: $--button-font-weight;
+  position: relative;
+
   @include utils-user-select(none);
   & + .t-btn {
     margin-left: $--button-margin-horizontal;
@@ -42,6 +44,18 @@
     border: 0;
   }
 
+  &::before, &::after {
+    z-index: 3;
+    content:'';
+    transform: scale(0);
+    transition: 0.5s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   @include when(round) {
     border-radius: $--button-round-border-radius;
     padding: $--button-padding-vertical $--button-padding-horizontal;
@@ -63,6 +77,10 @@
     .t-btn__icon {
       margin-left: 0;
       margin-right: 0;
+    }
+
+    &::before, &::after {
+      border-radius: 50%;
     }
   }
 
@@ -137,4 +155,3 @@
     }
   }
 }
-
